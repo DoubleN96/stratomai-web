@@ -85,7 +85,7 @@
         "id": 7,
         "title": "Client Management CRUD",
         "description": "Implement complete client management functionality for internal team",
-        "status": "in-progress",
+        "status": "done",
         "priority": "high",
         "dependencies": [
           2,
@@ -99,7 +99,7 @@
         "id": 8,
         "title": "Project Management",
         "description": "Create project management system for tracking client projects",
-        "status": "pending",
+        "status": "in-progress",
         "priority": "high",
         "dependencies": [
           7
@@ -317,7 +317,7 @@
     ],
     "metadata": {
       "created": "2025-10-18T11:51:09.759Z",
-      "updated": "2025-10-18T15:59:08.674Z",
+      "updated": "2025-10-18T16:07:24.436Z",
       "description": "Tasks for Stratomai Web Platform - AI-First Agency Platform"
     }
   }
