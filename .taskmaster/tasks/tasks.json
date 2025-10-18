@@ -290,7 +290,7 @@
         "id": 22,
         "title": "Deployment Configuration",
         "description": "Set up CI/CD pipeline and Coolify deployment",
-        "status": "in-progress",
+        "status": "done",
         "priority": "high",
         "dependencies": [
           1,
@@ -317,7 +317,7 @@
     ],
     "metadata": {
       "created": "2025-10-18T11:51:09.759Z",
-      "updated": "2025-10-18T16:14:31.135Z",
+      "updated": "2025-10-18T17:55:08.092Z",
       "description": "Tasks for Stratomai Web Platform - AI-First Agency Platform"
     }
   }
