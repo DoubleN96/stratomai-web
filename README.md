@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Stratomai - Plataforma de Agencia AI-First
 
-## Getting Started
+> Plataforma web integral para agencia de automatización de procesos y generación de leads con IA
 
-First, run the development server:
+## 🚀 Descripción
+
+Stratomai es una plataforma completa para agencias que combinan IA y automatización para ofrecer servicios de:
+
+- 🎯 Generación de leads automatizada (LinkedIn, Email, WhatsApp)
+- 📈 SEO automatizado con contenido generado por IA
+- 🤖 Automatización de procesos empresariales con n8n
+- 📊 Dashboards y reportes en tiempo real
+- 💬 Soporte integrado con Chatwoot
+
+## 📋 Stack Tecnológico
+
+### Frontend
+- **Next.js 15** - React framework con App Router
+- **React 19** - UI library con Server Components
+- **TypeScript** - Type safety
+- **Tailwind CSS 4** - Utility-first CSS
+- **Shadcn/ui** - Componentes UI (Radix UI)
+- **Framer Motion** - Animaciones
+- **Recharts** - Gráficos y visualizaciones
+
+### Backend & Services
+- **Supabase** - Backend-as-a-Service (PostgreSQL, Auth, Realtime, Storage)
+- **n8n** - Workflow automation engine
+- **Evolution API** - WhatsApp automation
+- **Chatwoot** - Customer support platform
+
+### DevOps & Deployment
+- **Coolify** - Self-hosted deployment platform
+- **Docker** - Containerization
+- **GitHub** - Version control y CI/CD
+- **Hetzner** - Cloud hosting
+
+## 🛠️ Instalación Rápida
 
 ```bash
+# Clonar repositorio
+git clone https://github.com/tu-usuario/stratomai-web.git
+cd stratomai-web
+
+# Instalar dependencias
+npm install
+
+# Configurar variables de entorno
+cp .env.example .env.local
+# Edita .env.local con tus valores
+
+# Iniciar desarrollo
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📁 Estructura del Proyecto
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+stratomai-web/
+├── app/                 # Next.js App Router
+│   ├── (auth)/         # Autenticación
+│   ├── (dashboard)/    # Panel interno
+│   ├── (cliente)/      # Portal cliente
+│   └── api/            # API Routes
+├── components/          # Componentes React
+│   ├── ui/             # Shadcn/ui
+│   └── features/       # Features
+├── lib/                 # Utilidades
+│   ├── supabase/       # Cliente Supabase
+│   └── utils/          # Helpers
+└── types/              # Tipos TypeScript
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Comandos
 
-## Learn More
+```bash
+npm run dev          # Desarrollo
+npm run build        # Build producción
+npm run start        # Start producción
+npm run lint         # ESLint
+npm run typecheck    # TypeScript
+npm run test         # Tests
+npm run validate     # Validación completa
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🌍 Localización
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Este proyecto está completamente en **español (es-ES)** para el mercado de Madrid, España.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📄 Documentación Completa
 
-## Deploy on Vercel
+Ver [documentación extendida](./docs/) para más detalles sobre:
+- Configuración de Supabase
+- Integración con n8n
+- Deployment en Coolify
+- Schema de base de datos
+- Guías de desarrollo
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Hecho con ❤️ en Madrid** 🇪🇸

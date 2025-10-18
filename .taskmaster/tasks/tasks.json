@@ -1,0 +1,324 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Project Infrastructure Setup",
+        "description": "Initialize Next.js 15 project with TypeScript, Tailwind CSS, Shadcn/ui, and development tools",
+        "status": "done",
+        "priority": "critical",
+        "dependencies": [],
+        "details": "Set up the foundation: Next.js setup with TypeScript, Tailwind + Shadcn/ui configuration, ESLint/Prettier/Husky hooks, Vitest for testing, GitHub repository with branch protection. This is the foundational layer that everything else depends on.",
+        "testStrategy": "Verify build runs successfully, linting passes, type checking works, Husky pre-commit hooks execute",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Supabase Configuration",
+        "description": "Set up Supabase project with database schema, authentication, and Row Level Security",
+        "status": "done",
+        "priority": "critical",
+        "dependencies": [
+          1
+        ],
+        "details": "Create Supabase project, define database schema for users/clients/projects/campaigns/leads/reports tables, configure RLS policies, set up Supabase Auth (email, magic link, OAuth), create and test database migrations",
+        "testStrategy": "Verify all tables created, RLS policies working correctly, auth flows functional, migrations can be rolled back and forward",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Authentication System",
+        "description": "Implement complete authentication flow with Supabase Auth",
+        "status": "done",
+        "priority": "high",
+        "dependencies": [
+          1,
+          2
+        ],
+        "details": "Build login page with magic link, add OAuth providers (Google, GitHub), create protected route middleware, implement user session management, build role-based access control (admin, operator, analyst, client)",
+        "testStrategy": "Test magic link flow, OAuth login, protected routes redirect properly, session persistence, role permissions enforced",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Core Layout and Navigation",
+        "description": "Create responsive layouts for public site, internal panel, and client dashboard",
+        "status": "done",
+        "priority": "high",
+        "dependencies": [
+          1,
+          3
+        ],
+        "details": "Build public site layout (header, footer), internal panel layout (sidebar, header), client dashboard layout, responsive navigation patterns, breadcrumb navigation, mobile-optimized UI using Shadcn/ui components",
+        "testStrategy": "Test responsive behavior on mobile/tablet/desktop, navigation works on all screen sizes, accessibility with keyboard navigation",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Public Landing Pages",
+        "description": "Design and implement public-facing marketing pages",
+        "status": "done",
+        "priority": "high",
+        "dependencies": [
+          1,
+          4
+        ],
+        "details": "Create Home page with value proposition, Services page detailing offerings, About page with AI-first methodology, Contact form with basic email notification, SEO meta tags and sitemap, responsive design with dark mode support",
+        "testStrategy": "Verify SEO tags present, contact form submits successfully, pages render correctly on all devices, Lighthouse score >90",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Internal Dashboard Layout",
+        "description": "Build operator dashboard with navigation and basic structure",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": [
+          3,
+          4
+        ],
+        "details": "Implement sidebar navigation for internal panel, create header with user menu, build responsive layout, add breadcrumb navigation, create loading states and error boundaries, skeleton screens for data loading",
+        "testStrategy": "Navigation works smoothly, error boundaries catch errors gracefully, loading states display properly, responsive on all devices",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Client Management CRUD",
+        "description": "Implement complete client management functionality for internal team",
+        "status": "pending",
+        "priority": "high",
+        "dependencies": [
+          2,
+          6
+        ],
+        "details": "Build client list view with search and filters, create client detail page, implement create client form with Zod validation, add edit client functionality, build client archive/delete features, integrate with Supabase",
+        "testStrategy": "CRUD operations work correctly, validation prevents invalid data, search and filters function properly, data persists to database",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Project Management",
+        "description": "Create project management system for tracking client projects",
+        "status": "pending",
+        "priority": "high",
+        "dependencies": [
+          7
+        ],
+        "details": "Build project list view per client, implement create project form, create project configuration interface, add project timeline view, implement project status management (setup, active, completed, paused)",
+        "testStrategy": "Projects associate correctly with clients, configuration saves properly, timeline displays accurately, status updates reflect in database",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "n8n Webhook Integration",
+        "description": "Build webhook system for n8n workflow integration",
+        "status": "pending",
+        "priority": "high",
+        "dependencies": [
+          2,
+          8
+        ],
+        "details": "Create /api/webhooks/n8n endpoint, implement signature validation for security, build workflow trigger interface in admin panel, add execution status monitoring, create error alert system, log workflow results to database",
+        "testStrategy": "Webhook receives and validates n8n payloads, workflow triggers successfully, execution logs stored correctly, errors trigger alerts",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Results Visualization Dashboard",
+        "description": "Build metrics and results visualization for internal operators",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": [
+          8,
+          9
+        ],
+        "details": "Create metrics dashboard for operators, build data tables for leads and campaign results, implement filtering and sorting, add CSV/Excel export functionality, create visual charts using Recharts or similar",
+        "testStrategy": "Charts render correctly with real data, filters and sorting work, exports generate valid files, real-time updates function properly",
+        "subtasks": []
+      },
+      {
+        "id": 11,
+        "title": "Client Portal Layout",
+        "description": "Design client-facing dashboard interface",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": [
+          3,
+          4
+        ],
+        "details": "Build client-focused navigation, create dashboard overview page, implement metrics cards and charts, add activity timeline component, create notification system for campaign updates",
+        "testStrategy": "Client sees only their data, navigation is intuitive, metrics update in real-time, notifications display properly",
+        "subtasks": []
+      },
+      {
+        "id": 12,
+        "title": "Campaign Performance View",
+        "description": "Build campaign analytics and performance tracking for clients",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": [
+          11,
+          9
+        ],
+        "details": "Create campaign list filtered by client, build detailed campaign view with metrics, implement real-time metrics updates via Supabase subscriptions, add comparison views (month-over-month), create goal tracking visualizations",
+        "testStrategy": "Client sees accurate campaign data, real-time updates work, comparisons calculate correctly, goals track properly",
+        "subtasks": []
+      },
+      {
+        "id": 13,
+        "title": "Automated Reports System",
+        "description": "Implement PDF report generation and delivery system",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": [
+          12
+        ],
+        "details": "Build automated report generation using React PDF or Puppeteer, create PDF export functionality with branded templates, implement report scheduling system, add email delivery via Resend/SendGrid, create report history view",
+        "testStrategy": "PDFs generate correctly with all data, scheduling triggers at right times, emails deliver successfully, history shows all past reports",
+        "subtasks": []
+      },
+      {
+        "id": 14,
+        "title": "Chatwoot Integration",
+        "description": "Embed Chatwoot widget for client support",
+        "status": "pending",
+        "priority": "low",
+        "dependencies": [
+          11
+        ],
+        "details": "Embed Chatwoot widget in client dashboard, configure conversation routing to internal team, implement notification badges for unread messages, add chat history view, create quick actions for common client requests",
+        "testStrategy": "Widget loads correctly, conversations route to right team members, notifications appear for new messages, history displays properly",
+        "subtasks": []
+      },
+      {
+        "id": 15,
+        "title": "Lead Generation Workflow Automation",
+        "description": "Create automated lead generation workflows via n8n",
+        "status": "pending",
+        "priority": "high",
+        "dependencies": [
+          9
+        ],
+        "details": "Build n8n workflows for LinkedIn outreach, create email sequence automation, implement WhatsApp messaging via Evolution API, develop lead scoring algorithm, create lead qualification automation, store results in Supabase",
+        "testStrategy": "LinkedIn outreach sends correctly, email sequences trigger properly, WhatsApp messages deliver, scoring algorithm produces reasonable scores, qualified leads stored correctly",
+        "subtasks": []
+      },
+      {
+        "id": 16,
+        "title": "Evolution API Integration",
+        "description": "Integrate Evolution API for WhatsApp automation",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": [
+          9,
+          15
+        ],
+        "details": "Create /api/webhooks/evolution endpoint, build WhatsApp message sending functionality, implement message event receiving, add conversation logging to database, create automated response system based on context",
+        "testStrategy": "Messages send successfully via Evolution API, incoming messages logged correctly, webhooks receive events properly, automated responses trigger appropriately",
+        "subtasks": []
+      },
+      {
+        "id": 17,
+        "title": "SEO Automation Workflow",
+        "description": "Build AI-powered SEO automation system",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": [
+          9
+        ],
+        "details": "Create keyword research automation workflow, implement AI content generation with Claude/OpenAI, build automated publishing workflow, add ranking tracking system, create SEO performance reporting",
+        "testStrategy": "Keywords generated are relevant, AI content passes quality checks, publishing works correctly, rankings tracked accurately, reports show meaningful data",
+        "subtasks": []
+      },
+      {
+        "id": 18,
+        "title": "AI Content Generation Integration",
+        "description": "Integrate AI APIs for content generation at scale",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": [
+          17
+        ],
+        "details": "Integrate Claude or OpenAI API, create prompt templates for different content types (SEO articles, social copy, email sequences, reports), implement content validation rules, build human review queue (MVP), create content versioning system",
+        "testStrategy": "API integration works, prompts generate quality content, validation catches issues, review queue functions properly, versions track correctly",
+        "subtasks": []
+      },
+      {
+        "id": 19,
+        "title": "Performance Optimization",
+        "description": "Optimize application performance and loading times",
+        "status": "pending",
+        "priority": "low",
+        "dependencies": [
+          5,
+          12,
+          10
+        ],
+        "details": "Implement caching strategies (consider Redis if needed), optimize database queries with proper indexes, add image optimization with next/image, implement lazy loading for heavy components, configure CDN for static assets",
+        "testStrategy": "Page load times <2s, LCP <2.5s, CLS <0.1, database queries optimized, images load progressively",
+        "subtasks": []
+      },
+      {
+        "id": 20,
+        "title": "Testing and Quality Assurance",
+        "description": "Implement comprehensive testing suite",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": [
+          7,
+          9,
+          12
+        ],
+        "details": "Write unit tests for critical business logic functions, add integration tests for API workflows, implement E2E tests for key user flows (client onboarding, campaign creation, reporting), set up automated testing in CI/CD pipeline, perform security audit",
+        "testStrategy": "Unit test coverage >80%, integration tests cover all API endpoints, E2E tests pass consistently, CI/CD runs tests automatically, no critical security vulnerabilities",
+        "subtasks": []
+      },
+      {
+        "id": 21,
+        "title": "Monitoring and Logging Setup",
+        "description": "Configure production monitoring and error tracking",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": [
+          1
+        ],
+        "details": "Integrate Sentry for error tracking, set up structured JSON logging, create performance dashboards, implement uptime monitoring with UptimeRobot or similar, configure alerting for critical failures, add database query monitoring via Supabase dashboard",
+        "testStrategy": "Errors appear in Sentry, logs structured properly, dashboards show accurate metrics, uptime checks run correctly, alerts trigger for failures",
+        "subtasks": []
+      },
+      {
+        "id": 22,
+        "title": "Deployment Configuration",
+        "description": "Set up CI/CD pipeline and Coolify deployment",
+        "status": "pending",
+        "priority": "high",
+        "dependencies": [
+          1,
+          20,
+          21
+        ],
+        "details": "Configure GitHub Actions for lint/typecheck/test/build on PRs, set up Coolify application on Hetzner, configure environment variables in Coolify, enable automatic deployment from main branch, set up preview deployments for PRs, configure SSL with Let's Encrypt",
+        "testStrategy": "CI runs on every PR, Coolify deploys automatically on merge, preview environments work, SSL certificate valid, zero-downtime deployments",
+        "subtasks": []
+      },
+      {
+        "id": 23,
+        "title": "Documentation and Playbooks",
+        "description": "Create comprehensive project documentation",
+        "status": "pending",
+        "priority": "low",
+        "dependencies": [
+          22
+        ],
+        "details": "Write API documentation with examples, create internal playbooks for common operations, document deployment procedures step-by-step, add troubleshooting guides for common issues, create user guides for client dashboard",
+        "testStrategy": "Documentation is clear and accurate, playbooks can be followed by team, deployment procedures work as documented, troubleshooting guides resolve issues",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-10-18T11:51:09.759Z",
+      "updated": "2025-10-18T15:49:38.427Z",
+      "description": "Tasks for Stratomai Web Platform - AI-First Agency Platform"
+    }
+  }
+}

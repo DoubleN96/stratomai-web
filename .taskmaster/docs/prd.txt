@@ -1,0 +1,989 @@
+<context>
+# Overview
+
+Stratomai is an AI-First agency platform focused on delivering automated lead generation, SEO services, and process automation through artificial intelligence. The platform is designed to operate with minimal manual intervention, leveraging AI and automation tools to deliver measurable results to clients quickly and cost-effectively.
+
+## Target Users
+
+1. **External Clients**: Businesses contracting services for lead generation, SEO optimization, and AI-powered automation
+2. **Internal Team**: Automation operators and analysts managing workflows and client deliverables
+3. **Client Stakeholders**: Business owners and decision-makers monitoring campaign performance and metrics
+
+## Value Proposition
+
+- Deliver measurable business results with low operational costs
+- Maximize execution velocity through automation
+- Provide transparent, real-time insights into campaign performance
+- Eliminate manual repetitive tasks through AI-powered workflows
+
+# Core Features
+
+## 1. Public Corporate Landing Site
+
+**Purpose**: Brand presence, service presentation, and lead capture
+
+**Key Components**:
+- Home page with value proposition and key differentiators
+- Services page detailing AI-powered offerings (lead gen, SEO, automation)
+- Case studies and success stories with quantifiable results
+- About page showcasing AI-first methodology
+- Contact form integrated with n8n workflows for automatic lead processing
+- Responsive design optimized for mobile and desktop
+- SEO-optimized content structure
+
+**Why It's Important**: First touchpoint for potential clients, must convey expertise and technological capability
+
+## 2. Internal Management Panel
+
+**Purpose**: Operations hub for team to manage clients, workflows, and deliverables
+
+**Key Components**:
+- Client management: create, edit, view client profiles and projects
+- Manual workflow activation: trigger n8n workflows for specific clients
+- Results visualization: view outputs from automated processes
+- Logs and monitoring: track workflow execution and errors
+- Project timeline and milestones tracking
+- Resource allocation dashboard
+
+**Why It's Important**: Central command center for managing all client operations efficiently
+
+**How It Works**:
+- Role-based access control (admin, operator, analyst)
+- Server-side rendering for performance
+- Real-time updates via Supabase subscriptions
+- Integration with n8n via webhooks and API
+
+## 3. Client Dashboard
+
+**Purpose**: Self-service portal for clients to monitor campaign performance
+
+**Key Components**:
+- Authentication: Supabase Auth with magic link and OAuth
+- Campaign overview: visual summary of active campaigns
+- Metrics dashboard: leads generated, SEO rankings, engagement rates
+- Automated reports: downloadable PDF/CSV reports
+- Embedded Chatwoot: direct communication with support team
+- Activity timeline: chronological view of campaign milestones
+- ROI calculator: compare investment vs. results
+
+**Why It's Important**: Builds trust through transparency and reduces support burden
+
+**How It Works**:
+- Server-rendered pages with client-side interactivity
+- Real-time metric updates from Supabase
+- Cached data with automatic refresh intervals
+- Mobile-responsive design
+
+## 4. Automated Workflow Integrations
+
+**Purpose**: Execute services without manual intervention
+
+**Key Integrations**:
+
+### n8n Workflows
+- Lead generation sequences (LinkedIn, email, WhatsApp outreach)
+- SEO automation (keyword research, content generation, reporting)
+- Data enrichment and validation pipelines
+- Client onboarding automation
+- Report generation and distribution
+
+### Evolution API
+- WhatsApp messaging automation
+- Automated responses based on conversation context
+- Lead qualification through conversational AI
+- Campaign broadcasts with personalization
+
+### Chatwoot
+- Multi-channel support (web, email, WhatsApp)
+- Internal team collaboration
+- Client communication history
+- Automated ticket routing
+
+**Why It's Important**: Core value proposition - automation reduces costs and increases speed
+
+**How It Works**:
+- Webhook endpoints in Next.js API routes
+- Event-driven architecture with queues
+- Error handling and retry mechanisms
+- Logging and monitoring integration
+
+## 5. AI-Powered Content Generation
+
+**Purpose**: Generate high-quality content at scale
+
+**Key Capabilities**:
+- SEO article generation with keyword optimization
+- Social media copy for lead campaigns
+- Email sequences with personalization
+- Client report summaries and insights
+- Automated responses for common queries
+
+**Why It's Important**: Differentiator that enables scale without proportional cost increase
+
+**How It Works**:
+- Integration with Claude API or OpenAI
+- Custom prompts optimized for each use case
+- Content validation and quality checks
+- Human-in-the-loop for final approval (MVP)
+
+# User Experience
+
+## User Personas
+
+### Persona 1: Business Owner (External Client)
+**Goals**: Increase leads, improve SEO rankings, automate manual processes
+**Pain Points**: High cost of traditional agencies, lack of transparency, slow delivery
+**Key Needs**: Clear metrics, easy communication, predictable results
+
+### Persona 2: Marketing Manager (External Client)
+**Goals**: Execute campaigns efficiently, prove ROI to leadership
+**Pain Points**: Managing multiple tools, manual reporting, delayed insights
+**Key Needs**: Consolidated dashboard, automated reports, real-time data
+
+### Persona 3: Operations Manager (Internal Team)
+**Goals**: Manage multiple clients efficiently, minimize errors
+**Pain Points**: Repetitive manual tasks, switching between tools
+**Key Needs**: Centralized panel, workflow automation, error alerts
+
+## Key User Flows
+
+### Flow 1: Client Onboarding
+1. Potential client visits landing page
+2. Fills contact form (captured by n8n)
+3. Automated qualification sequence via WhatsApp/email
+4. Sales call scheduled automatically
+5. Client account created in internal panel
+6. Automated onboarding email with dashboard access
+7. Client logs into dashboard and views initial setup
+
+### Flow 2: Campaign Activation (Internal)
+1. Operator logs into internal panel
+2. Selects client and campaign type
+3. Configures parameters (keywords, target audience, etc.)
+4. Activates n8n workflow manually
+5. Workflow executes and logs results in real-time
+6. Operator reviews results and approves delivery
+7. Client automatically notified via Chatwoot
+
+### Flow 3: Client Monitoring Results
+1. Client receives email notification of new results
+2. Logs into dashboard via magic link
+3. Views updated metrics and charts
+4. Downloads automated report (PDF)
+5. Initiates support chat via embedded Chatwoot if needed
+6. Receives response from internal team or AI assistant
+
+### Flow 4: Lead Generation Workflow (Automated)
+1. n8n workflow triggered (scheduled or manual)
+2. AI generates personalized outreach messages
+3. Evolution API sends WhatsApp messages
+4. Responses captured and qualified by AI
+5. Qualified leads logged to Supabase
+6. Client dashboard updated in real-time
+7. Automated summary report sent weekly
+
+## UI/UX Considerations
+
+### Design Principles
+- **Clarity over creativity**: Prioritize readability and function
+- **Data visibility**: Make metrics and insights immediately apparent
+- **Progressive disclosure**: Show simple overview, allow drill-down for details
+- **Consistent patterns**: Use Shadcn/ui components for familiar interactions
+- **Responsive by default**: Mobile-first approach with tablet and desktop optimization
+
+### Color Palette
+- Neutral base (grays, whites) for professionalism
+- Accent colors for CTAs and important metrics
+- Success/warning/error states clearly differentiated
+- Optional dark mode for reduced eye strain
+
+### Typography
+- Clear hierarchy with distinct heading levels
+- Readable body text (16px minimum)
+- Monospace for technical data (IDs, logs, code)
+- System fonts for performance
+
+### Navigation
+- Sidebar for internal panel (collapsible on mobile)
+- Top header for public site (hamburger on mobile)
+- Breadcrumbs for deep navigation
+- Persistent action buttons (CTAs, save, cancel)
+
+</context>
+
+<PRD>
+
+# Technical Architecture
+
+## System Components
+
+### Frontend Architecture
+- **Framework**: Next.js 15 with App Router
+- **Rendering Strategy**:
+  - Public pages: Static Site Generation (SSG) with ISR
+  - Internal panel: Server-Side Rendering (SSR) with streaming
+  - Client dashboard: SSR with client-side data fetching
+- **Component Library**: Shadcn/ui (Radix UI primitives + Tailwind)
+- **State Management**: Zustand (minimal, prefer server state)
+- **Form Handling**: React Hook Form + Zod validation
+
+### Backend Architecture
+- **API Layer**:
+  - Server Actions for mutations (create client, trigger workflow)
+  - API Routes (REST) for external integrations (n8n webhooks, Evolution callbacks)
+  - Middleware for authentication and rate limiting
+- **Database**: Supabase (PostgreSQL + Realtime subscriptions)
+- **Authentication**: Supabase Auth (magic link, OAuth Google/GitHub)
+- **File Storage**: Supabase Storage (reports, assets)
+
+### External Services
+- **n8n**: Workflow automation engine (self-hosted on Hetzner)
+- **Evolution API**: WhatsApp messaging (self-hosted)
+- **Chatwoot**: Customer support platform (self-hosted)
+- **AI Services**: OpenAI API or Anthropic Claude API
+- **Error Tracking**: Sentry or Logtail
+
+## Data Models
+
+### User Model
+```
+users
+  - id (uuid, primary key)
+  - email (text, unique)
+  - role (enum: admin, operator, analyst, client)
+  - full_name (text)
+  - created_at (timestamp)
+  - last_login (timestamp)
+  - metadata (jsonb)
+```
+
+### Client Model
+```
+clients
+  - id (uuid, primary key)
+  - company_name (text)
+  - contact_email (text)
+  - contact_phone (text)
+  - industry (text)
+  - status (enum: active, paused, churned)
+  - plan_type (enum: leads, seo, automation, full)
+  - assigned_operator_id (uuid, foreign key)
+  - created_at (timestamp)
+  - metadata (jsonb)
+```
+
+### Project Model
+```
+projects
+  - id (uuid, primary key)
+  - client_id (uuid, foreign key)
+  - name (text)
+  - type (enum: lead_gen, seo, automation)
+  - status (enum: setup, active, completed, paused)
+  - parameters (jsonb)
+  - start_date (date)
+  - end_date (date)
+  - created_at (timestamp)
+```
+
+### Campaign Model
+```
+campaigns
+  - id (uuid, primary key)
+  - project_id (uuid, foreign key)
+  - name (text)
+  - workflow_id (text, n8n workflow ID)
+  - status (enum: draft, running, completed, failed)
+  - metrics (jsonb)
+  - execution_logs (jsonb)
+  - last_run (timestamp)
+  - created_at (timestamp)
+```
+
+### Lead Model
+```
+leads
+  - id (uuid, primary key)
+  - campaign_id (uuid, foreign key)
+  - source (enum: linkedin, email, whatsapp, web)
+  - contact_data (jsonb)
+  - status (enum: new, contacted, qualified, converted, rejected)
+  - score (integer)
+  - notes (text)
+  - created_at (timestamp)
+```
+
+### Report Model
+```
+reports
+  - id (uuid, primary key)
+  - client_id (uuid, foreign key)
+  - project_id (uuid, foreign key)
+  - type (enum: weekly, monthly, campaign)
+  - data (jsonb)
+  - file_url (text)
+  - generated_at (timestamp)
+```
+
+## APIs and Integrations
+
+### Inbound Webhooks (Next.js API Routes)
+
+#### `/api/webhooks/n8n`
+- Receives workflow execution results
+- Validates signature for security
+- Updates campaign metrics in database
+- Triggers notifications to clients
+
+#### `/api/webhooks/evolution`
+- Receives WhatsApp message events
+- Processes responses with AI
+- Updates lead status
+- Triggers follow-up workflows
+
+#### `/api/webhooks/chatwoot`
+- Syncs conversation data
+- Creates support tickets in database
+- Logs client interactions
+
+### Outbound API Calls
+
+#### n8n API
+- `POST /webhook/{workflow-id}` - Trigger workflow execution
+- `GET /executions/{execution-id}` - Check workflow status
+
+#### Evolution API
+- `POST /sendMessage` - Send WhatsApp message
+- `POST /sendMediaMessage` - Send media (images, PDFs)
+- `GET /getMessages` - Fetch conversation history
+
+#### Chatwoot API
+- `POST /api/v1/accounts/{account_id}/conversations` - Create conversation
+- `POST /api/v1/accounts/{account_id}/conversations/{id}/messages` - Send message
+
+### AI Integration Layer
+- Abstraction layer for AI providers (OpenAI, Anthropic)
+- Prompt templates for common use cases
+- Response parsing and validation
+- Cost tracking and rate limiting
+
+## Infrastructure Requirements
+
+### Hosting
+- **Provider**: Hetzner Cloud
+- **Environment**:
+  - Production: Coolify deployment from main branch
+  - Staging: Coolify deployment from develop branch
+  - Preview: Automatic deployments for pull requests
+- **Server Specs** (initial):
+  - 4 vCPU, 8GB RAM for Next.js app
+  - PostgreSQL managed by Supabase (external)
+
+### CI/CD Pipeline
+- **GitHub Actions**:
+  - Lint, type-check, test on every PR
+  - Build verification
+  - Automated deployment to Coolify on merge
+- **Coolify**:
+  - Automatic Docker builds
+  - Zero-downtime deployments
+  - Environment variable management
+  - SSL certificates (Let's Encrypt)
+
+### Monitoring and Logging
+- **Application Logs**: Structured JSON logs
+- **Error Tracking**: Sentry for runtime errors
+- **Performance Monitoring**: Vercel Analytics or self-hosted
+- **Uptime Monitoring**: UptimeRobot or similar
+- **Database Monitoring**: Supabase dashboard
+
+### Security Measures
+- **Authentication**: Row Level Security (RLS) in Supabase
+- **API Security**: Rate limiting, CORS configuration
+- **Secrets Management**: Environment variables via Coolify
+- **HTTPS**: Enforced on all routes
+- **Content Security Policy**: Configured in Next.js headers
+- **Input Validation**: Zod schemas on all forms and API endpoints
+
+# Development Roadmap
+
+## Phase 1: Foundation (MVP)
+**Goal**: Establish core infrastructure and basic functionality
+
+### 1.1 Project Setup
+- Initialize Next.js 15 project with TypeScript
+- Configure Tailwind CSS + Shadcn/ui
+- Set up ESLint, Prettier, Husky hooks
+- Configure Vitest for testing
+- Set up GitHub repository and branch protection
+
+### 1.2 Supabase Configuration
+- Create Supabase project
+- Define database schema (users, clients, projects, campaigns, leads, reports)
+- Configure Row Level Security policies
+- Set up Supabase Auth (email, magic link, OAuth)
+- Create database migrations
+
+### 1.3 Authentication System
+- Implement login page with magic link
+- Add OAuth providers (Google, GitHub)
+- Create protected route middleware
+- Build user session management
+- Implement role-based access control
+
+### 1.4 Public Landing Site
+- Design and implement Home page
+- Create Services page with offerings
+- Build About page with methodology
+- Add Contact form with n8n webhook integration
+- Implement responsive navigation
+- Add SEO meta tags and sitemap
+
+## Phase 2: Internal Management Panel
+**Goal**: Enable team to manage clients and operations
+
+### 2.1 Internal Dashboard Layout
+- Create sidebar navigation
+- Implement header with user menu
+- Build responsive layout for mobile/tablet/desktop
+- Add breadcrumb navigation
+- Create loading states and error boundaries
+
+### 2.2 Client Management
+- Build client list view with search and filters
+- Create client detail page
+- Implement create client form with validation
+- Add edit client functionality
+- Build client archive/delete features
+
+### 2.3 Project Management
+- Create project list view per client
+- Implement create project form
+- Build project configuration interface
+- Add project timeline view
+- Create project status management
+
+### 2.4 Workflow Integration
+- Build n8n webhook receiver endpoint
+- Create workflow trigger interface
+- Implement workflow status monitoring
+- Add execution log viewer
+- Create error alert system
+
+### 2.5 Results Visualization
+- Build metrics dashboard for operators
+- Create data tables for leads and results
+- Implement filtering and sorting
+- Add export functionality (CSV, Excel)
+- Create visual charts for metrics
+
+## Phase 3: Client Dashboard
+**Goal**: Provide clients with transparent view of their campaigns
+
+### 3.1 Client Portal Layout
+- Create client-focused navigation
+- Build dashboard overview page
+- Implement metrics cards and charts
+- Add activity timeline component
+- Create notification system
+
+### 3.2 Campaign Performance View
+- Build campaign list for client
+- Create detailed campaign view
+- Implement real-time metrics updates
+- Add comparison views (month-over-month, etc.)
+- Create goal tracking visualizations
+
+### 3.3 Reports System
+- Build automated report generation
+- Create PDF export functionality
+- Implement report scheduling
+- Add email delivery of reports
+- Create report history view
+
+### 3.4 Chatwoot Integration
+- Embed Chatwoot widget in client dashboard
+- Configure conversation routing
+- Implement notification badges
+- Add chat history view
+- Create quick actions for common requests
+
+## Phase 4: Automation Workflows
+**Goal**: Implement core automated processes
+
+### 4.1 Lead Generation Workflow
+- Create LinkedIn outreach automation (n8n)
+- Build email sequence automation
+- Implement WhatsApp messaging via Evolution API
+- Add lead scoring algorithm
+- Create lead qualification automation
+
+### 4.2 SEO Automation
+- Build keyword research automation
+- Implement AI content generation
+- Create automated publishing workflow
+- Add ranking tracking
+- Build performance reporting
+
+### 4.3 AI Content Generation
+- Integrate OpenAI or Claude API
+- Create prompt templates for different content types
+- Implement content validation rules
+- Add human review queue
+- Build content versioning system
+
+### 4.4 Communication Automation
+- Set up Evolution API for WhatsApp
+- Create automated response templates
+- Implement conversation context tracking
+- Add escalation to human agent
+- Build broadcast messaging system
+
+## Phase 5: Polish and Optimization
+**Goal**: Improve performance, UX, and reliability
+
+### 5.1 Performance Optimization
+- Implement caching strategies (Redis if needed)
+- Optimize database queries with indexes
+- Add image optimization
+- Implement lazy loading for heavy components
+- Configure CDN for static assets
+
+### 5.2 UX Improvements
+- Add loading skeletons
+- Implement optimistic UI updates
+- Create better error messages
+- Add helpful tooltips and guides
+- Implement dark mode
+
+### 5.3 Testing and Quality
+- Write unit tests for critical functions
+- Add integration tests for workflows
+- Implement E2E tests for key user flows
+- Set up automated testing in CI/CD
+- Perform security audit
+
+### 5.4 Monitoring and Logging
+- Integrate Sentry for error tracking
+- Set up structured logging
+- Create performance dashboards
+- Implement uptime monitoring
+- Add alerting for critical failures
+
+### 5.5 Documentation
+- Write API documentation
+- Create internal playbooks
+- Document deployment procedures
+- Add troubleshooting guides
+- Create user guides for clients
+
+## Future Enhancements (Post-MVP)
+**Not part of initial scope, but planned for later**
+
+- Self-service client onboarding
+- Stripe integration for automated billing
+- Advanced analytics with predictive insights
+- Mobile app for clients
+- White-label capabilities
+- API for third-party integrations
+- Marketplace for custom workflows
+- Multi-language support
+- Advanced AI features (sentiment analysis, trend prediction)
+
+# Logical Dependency Chain
+
+## Foundation Layer (Must Build First)
+**Priority: Critical - Nothing works without this**
+
+1. **Project Infrastructure**
+   - Next.js setup with TypeScript
+   - Tailwind + Shadcn/ui configuration
+   - Code quality tools (ESLint, Prettier, Husky)
+   - Git repository and CI/CD pipeline
+
+2. **Database and Authentication**
+   - Supabase project creation
+   - Database schema and migrations
+   - Supabase Auth configuration
+   - Row Level Security policies
+
+3. **Core Layout and Navigation**
+   - Public site layout (header, footer)
+   - Internal panel layout (sidebar, header)
+   - Client dashboard layout
+   - Responsive navigation patterns
+
+**Why First**: Everything depends on having a working development environment, data storage, and basic UI structure.
+
+## Visibility Layer (Get Something Usable Fast)
+**Priority: High - Show value quickly**
+
+4. **Public Landing Pages**
+   - Home page with value proposition
+   - Services page
+   - Contact form (with simple email notification initially)
+
+5. **Authentication Flow**
+   - Login page
+   - Magic link authentication
+   - Protected route middleware
+   - Basic user session management
+
+6. **Simple Internal Dashboard**
+   - Client list view (read-only initially)
+   - Basic navigation and layout
+   - Hardcoded sample data for demo
+
+**Why Second**: Demonstrates the platform exists and creates a foundation for iterative improvements. Can be shown to stakeholders and early clients.
+
+## Management Layer (Enable Operations)
+**Priority: High - Team needs to work**
+
+7. **Client Management CRUD**
+   - Create client form
+   - Edit client functionality
+   - Client detail view
+   - Delete/archive clients
+
+8. **Project Management**
+   - Create project per client
+   - Project configuration interface
+   - Project status tracking
+
+9. **Basic Metrics Display**
+   - Simple data tables
+   - Manual data entry initially
+   - Export to CSV functionality
+
+**Why Third**: Enables the internal team to start managing real clients and projects, even if automation isn't fully built yet.
+
+## Integration Layer (Connect External Systems)
+**Priority: Medium - Automation begins**
+
+10. **n8n Webhook Integration**
+    - Webhook endpoint in Next.js
+    - Workflow trigger interface
+    - Execution status tracking
+    - Error logging
+
+11. **Evolution API Integration**
+    - WhatsApp message sending
+    - Message event receiving
+    - Basic conversation logging
+
+12. **Chatwoot Embedding**
+    - Widget integration
+    - Basic configuration
+    - Conversation syncing
+
+**Why Fourth**: Integrations enable automation but require working client/project management first. Can be tested with real workflows.
+
+## Automation Layer (Core Value Delivery)
+**Priority: Medium - Deliver actual service**
+
+13. **Lead Generation Workflow**
+    - n8n workflow for LinkedIn/email
+    - WhatsApp automation via Evolution
+    - Lead capture and storage
+    - Basic scoring and qualification
+
+14. **SEO Automation**
+    - AI content generation integration
+    - Keyword research automation
+    - Basic ranking tracking
+    - Report generation
+
+15. **Client Dashboard with Real Data**
+    - Campaign performance view
+    - Real-time metrics from database
+    - Activity timeline
+    - Automated reports
+
+**Why Fifth**: This is where the platform delivers its core value, but it needs all previous layers to be functional.
+
+## Polish Layer (Production Ready)
+**Priority: Low - Can iterate after launch**
+
+16. **Advanced Features**
+    - Advanced filtering and search
+    - Data visualizations and charts
+    - Notification system
+    - Bulk operations
+
+17. **Performance Optimization**
+    - Caching strategies
+    - Database query optimization
+    - Image optimization
+    - Code splitting
+
+18. **Testing and Monitoring**
+    - Comprehensive test suite
+    - Error tracking integration
+    - Performance monitoring
+    - Uptime alerts
+
+**Why Last**: These improvements enhance the experience but aren't required for core functionality. Can be added iteratively based on user feedback.
+
+## Parallel Development Opportunities
+**Can be worked on simultaneously by different team members**
+
+- Frontend UI components (while backend API is being built)
+- n8n workflow development (while integration endpoints are being created)
+- Content and copy for landing pages (while layouts are being coded)
+- Database schema refinement (alongside frontend development)
+
+## Atomic Feature Scope
+**Each feature should be independently deployable**
+
+Each of the above items should be:
+- **Testable**: Can verify it works in isolation
+- **Deployable**: Can ship to production without breaking existing features
+- **Demonstrable**: Can show to stakeholders for feedback
+- **Improvable**: Can enhance later without full rewrite
+
+# Risks and Mitigations
+
+## Technical Risks
+
+### Risk 1: n8n Workflow Reliability
+**Description**: n8n workflows may fail due to external API rate limits, network issues, or bugs
+**Impact**: High - Core service delivery depends on workflows
+**Mitigation**:
+- Implement robust error handling and retry logic
+- Add workflow execution monitoring and alerts
+- Build manual fallback options for critical workflows
+- Queue failed executions for retry
+- Maintain execution logs for debugging
+
+### Risk 2: API Rate Limiting (Evolution, AI Services)
+**Description**: Heavy usage may hit API rate limits, causing service disruptions
+**Impact**: Medium - Affects scalability and client experience
+**Mitigation**:
+- Implement request queuing and throttling
+- Use multiple API keys if allowed
+- Cache responses where applicable
+- Monitor usage proactively with alerts
+- Build graceful degradation (e.g., reduced AI features)
+
+### Risk 3: Database Performance at Scale
+**Description**: Complex queries and real-time subscriptions may slow down as data grows
+**Impact**: Medium - User experience degradation
+**Mitigation**:
+- Design proper indexes from the start
+- Use database query optimization tools
+- Implement pagination and lazy loading
+- Consider read replicas for reporting
+- Monitor query performance continuously
+
+### Risk 4: Real-time Data Sync Issues
+**Description**: Supabase Realtime subscriptions may have delays or fail
+**Impact**: Low - Nice-to-have feature, not critical
+**Mitigation**:
+- Implement polling fallback
+- Show stale data with refresh indicator
+- Add manual refresh option
+- Set reasonable refresh intervals
+- Cache data client-side
+
+## Product Risks
+
+### Risk 5: Scope Creep
+**Description**: Temptation to add features beyond MVP scope
+**Impact**: High - Delays launch, increases complexity
+**Mitigation**:
+- Strictly adhere to MVP definition
+- Maintain a "Future Enhancements" backlog
+- Require explicit approval for new features
+- Use Task Master AI to track scope boundaries
+- Regular reviews to assess necessity
+
+### Risk 6: Poor User Adoption (Clients)
+**Description**: Clients may not use the dashboard, preferring direct communication
+**Impact**: Medium - Reduces transparency value proposition
+**Mitigation**:
+- Conduct user testing with early clients
+- Provide onboarding guide and training
+- Send automated email nudges with dashboard highlights
+- Make dashboard genuinely useful (not just nice-to-have)
+- Collect feedback and iterate quickly
+
+### Risk 7: Integration Complexity
+**Description**: Coordinating between Next.js, n8n, Evolution, Chatwoot may be complex
+**Impact**: Medium - Development delays, bugs
+**Mitigation**:
+- Build integration layer with clear contracts
+- Extensive testing of integration points
+- Comprehensive documentation
+- Use staging environment for integration testing
+- Start with simple integrations, add complexity gradually
+
+## Operational Risks
+
+### Risk 8: Insufficient Testing Before Production
+**Description**: Rushing to production with inadequate testing
+**Impact**: High - Bugs in production, poor client experience
+**Mitigation**:
+- Mandatory CI/CD checks (lint, type, test, build)
+- Staging environment that mirrors production
+- QA checklist before each deployment
+- Automated E2E tests for critical flows
+- Gradual rollout to clients (beta group first)
+
+### Risk 9: Security Vulnerabilities
+**Description**: Exposed API keys, SQL injection, unauthorized access
+**Impact**: Critical - Data breach, loss of trust
+**Mitigation**:
+- Environment variables for all secrets
+- Input validation on all forms and APIs
+- Row Level Security in Supabase
+- Regular security audits
+- Rate limiting on public endpoints
+- HTTPS enforcement
+- Content Security Policy headers
+
+### Risk 10: Single Point of Failure (Coolify/Hetzner)
+**Description**: If hosting goes down, entire platform is unavailable
+**Impact**: High - Service disruption, lost revenue
+**Mitigation**:
+- Monitor uptime with external service
+- Automated alerts for downtime
+- Database backups (Supabase handles this)
+- Document recovery procedures
+- Consider multi-region deployment later
+- Maintain local development environment for quick fixes
+
+## MVP Prioritization Risk
+
+### Risk 11: Building Too Much Too Fast
+**Description**: Trying to implement advanced features before basic ones work well
+**Impact**: Medium - Unstable foundation, technical debt
+**Mitigation**:
+- Follow the Logical Dependency Chain strictly
+- Each phase must be fully functional before moving to next
+- Regular code reviews and refactoring
+- Technical debt tracking
+- "Done" means tested, documented, and deployed
+
+### Risk 12: Building Too Little (Unusable MVP)
+**Description**: MVP is too minimal to demonstrate value
+**Impact**: Medium - Can't acquire early clients, delayed revenue
+**Mitigation**:
+- Define clear "Definition of Done" for MVP
+- Include at least one fully automated workflow
+- Ensure client dashboard shows real, valuable data
+- User testing with pilot clients
+- Iterate based on feedback before full launch
+
+# Appendix
+
+## Tech Stack Summary
+
+| Layer | Technology | Justification |
+|-------|-----------|---------------|
+| Frontend Framework | Next.js 15 | Best-in-class React framework, App Router, Server Components |
+| Language | TypeScript | Type safety, better DX, catch errors early |
+| Styling | Tailwind CSS | Rapid development, consistent design, small bundle |
+| UI Components | Shadcn/ui | Accessible, customizable, modern, copy-paste friendly |
+| Database | Supabase (PostgreSQL) | Managed PostgreSQL, realtime, auth, storage in one |
+| Authentication | Supabase Auth | Integrated with database, supports magic link and OAuth |
+| State Management | Zustand | Minimal, simple API, prefer server state when possible |
+| Forms | React Hook Form + Zod | Performant, great DX, schema validation |
+| API Layer | Server Actions + API Routes | Server Actions for mutations, REST API for webhooks |
+| Automation | n8n | Self-hosted, visual workflows, extensive integrations |
+| Messaging | Evolution API | WhatsApp automation, self-hosted, reliable |
+| Support | Chatwoot | Self-hosted, multi-channel, embeddable |
+| AI | OpenAI / Claude | Best-in-class language models for content generation |
+| Hosting | Coolify + Hetzner | Cost-effective, self-hosted CI/CD, full control |
+| Error Tracking | Sentry / Logtail | Production error monitoring, debugging support |
+
+## Development Standards (from CLAUDE.md)
+
+### Code Quality
+- TypeScript strict mode enabled
+- ESLint + Prettier for formatting
+- Pre-commit hooks with Husky
+- Conventional Commits for git messages
+- 80%+ test coverage on critical paths
+
+### Architecture Patterns
+- Server Components by default (client components only when needed)
+- Server Actions for data mutations
+- Progressive enhancement
+- Separation of concerns (UI, logic, data)
+- Composition over complexity
+
+### Performance Targets
+- First Contentful Paint: < 1.5s
+- Largest Contentful Paint: < 2.5s
+- Cumulative Layout Shift: < 0.1
+- Time to Interactive: < 3.5s
+- Lighthouse Score: > 90
+
+### Security Requirements
+- No secrets in code (environment variables only)
+- Input validation on all user inputs
+- Rate limiting on public APIs
+- HTTPS enforced
+- Content Security Policy configured
+- Row Level Security in database
+
+## Success Metrics
+
+### MVP Success Criteria
+- [ ] 5 pilot clients onboarded
+- [ ] At least 1 automated workflow running end-to-end
+- [ ] Client dashboard showing real metrics
+- [ ] Zero critical bugs in production
+- [ ] < 2% error rate on workflows
+- [ ] 95% uptime
+
+### Post-MVP Goals (3 months)
+- 20+ active clients
+- 3+ fully automated workflows per client type
+- < 5 minutes manual work per client per week
+- 50+ leads generated per client per month (lead gen clients)
+- Positive ROI demonstrated for all clients
+- Net Promoter Score > 50
+
+## Key Assumptions
+
+1. **n8n workflows can be developed in parallel** with frontend development
+2. **Supabase free tier** is sufficient for MVP (upgrade when needed)
+3. **OpenAI/Claude API costs** will be manageable (< $500/month initially)
+4. **Clients will provide necessary access** to LinkedIn, email, etc. for automation
+5. **WhatsApp Business API** compliance is handled separately
+6. **Initial clients** are acquired through direct sales (not self-service)
+7. **Manual approval** of AI-generated content is acceptable for MVP
+8. **Single region deployment** is acceptable (latency not critical initially)
+
+## Open Questions (To Be Resolved During Development)
+
+1. Which AI provider: OpenAI GPT-4 vs Anthropic Claude? (likely Claude for longer context)
+2. Caching strategy: Redis vs Edge caching vs database? (start simple, add Redis if needed)
+3. Payment processing: Stripe integration timeline? (out of MVP scope)
+4. Multi-tenancy approach: Database per client vs shared with RLS? (shared with RLS)
+5. Mobile app: Native vs PWA vs none? (none for MVP, responsive web only)
+6. Localization: Spanish support? (English only for MVP)
+
+## Research and References
+
+### Technical Documentation
+- [Next.js 15 Docs](https://nextjs.org/docs)
+- [Supabase Docs](https://supabase.com/docs)
+- [n8n Documentation](https://docs.n8n.io/)
+- [Evolution API Docs](https://doc.evolution-api.com/)
+- [Shadcn/ui Components](https://ui.shadcn.com/)
+
+### Design Inspiration
+- Linear (clean, fast, functional SaaS UI)
+- Vercel Dashboard (modern, responsive, dark mode)
+- Notion (intuitive navigation, progressive disclosure)
+- HubSpot (dashboard design, metrics visualization)
+
+### Competitive Analysis
+- Traditional agencies: High cost, slow, lack of transparency
+- DIY tools: Require expertise, time-consuming
+- Other AI agencies: Mostly consultative, not fully automated
+- **Our differentiation**: Fully automated execution with transparent results
+
+</PRD>
