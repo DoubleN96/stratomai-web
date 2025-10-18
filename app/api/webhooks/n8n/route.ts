@@ -10,16 +10,21 @@ function verifyWebhookSignature(
   secret: string
 ): boolean {
   if (!signature || !secret) return false;
-  
+
   const expectedSignature = crypto
     .createHmac("sha256", secret)
     .update(payload)
     .digest("hex");
-    
-  return crypto.timingSafeEqual(
-    Buffer.from(signature),
-    Buffer.from(expectedSignature)
-  );
+
+  // Check buffer lengths match before using timingSafeEqual to avoid RangeError
+  const signatureBuffer = Buffer.from(signature);
+  const expectedBuffer = Buffer.from(expectedSignature);
+
+  if (signatureBuffer.length !== expectedBuffer.length) {
+    return false;
+  }
+
+  return crypto.timingSafeEqual(signatureBuffer, expectedBuffer);
 }
 
 export async function POST(request: NextRequest) {
