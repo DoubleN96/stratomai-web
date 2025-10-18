@@ -99,7 +99,7 @@
         "id": 8,
         "title": "Project Management",
         "description": "Create project management system for tracking client projects",
-        "status": "in-progress",
+        "status": "done",
         "priority": "high",
         "dependencies": [
           7
@@ -112,7 +112,7 @@
         "id": 9,
         "title": "n8n Webhook Integration",
         "description": "Build webhook system for n8n workflow integration",
-        "status": "pending",
+        "status": "in-progress",
         "priority": "high",
         "dependencies": [
           2,
@@ -317,7 +317,7 @@
     ],
     "metadata": {
       "created": "2025-10-18T11:51:09.759Z",
-      "updated": "2025-10-18T16:07:24.436Z",
+      "updated": "2025-10-18T16:10:30.748Z",
       "description": "Tasks for Stratomai Web Platform - AI-First Agency Platform"
     }
   }
