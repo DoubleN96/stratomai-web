@@ -149,16 +149,16 @@ describe("clientSchema", () => {
       expect(result.success).toBe(true);
     });
 
-    it("should not trim whitespace from strings (no .trim() in schema)", () => {
+    it("should trim whitespace from strings", () => {
       const data = {
         name: "  Test User  ",
-        email: "test@example.com",
+        email: "  test@example.com  ",
       };
 
       const result = clientSchema.safeParse(data);
       expect(result.success).toBe(true);
       if (result.success) {
-        expect(result.data.name).toBe("  Test User  ");
+        expect(result.data.name).toBe("Test User");
         expect(result.data.email).toBe("test@example.com");
       }
     });

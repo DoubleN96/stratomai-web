@@ -306,7 +306,7 @@ describe("projectSchema", () => {
       }
     });
 
-    it("should not trim whitespace from name (no .trim() in schema)", () => {
+    it("should trim whitespace from name", () => {
       const data = {
         name: "  Test Project  ",
         clientId: "clabcdef1234567890123456",
@@ -316,7 +316,7 @@ describe("projectSchema", () => {
       const result = projectSchema.safeParse(data);
       expect(result.success).toBe(true);
       if (result.success) {
-        expect(result.data.name).toBe("  Test Project  ");
+        expect(result.data.name).toBe("Test Project");
       }
     });
 
