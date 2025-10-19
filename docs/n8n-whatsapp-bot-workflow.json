@@ -1,0 +1,310 @@
+{
+  "name": "Bot de WhatsApp con Gemini AI + Supabase + Redis",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "whatsapp-evolution",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "whatsapp-webhook",
+      "name": "Webhook Evolution API",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [80, 160],
+      "webhookId": "whatsapp-evolution-webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extraer datos del mensaje de WhatsApp desde Evolution API\nconst data = $input.item.json.data;\n\n// Manejar diferentes tipos de eventos\nif (!data || !data.key) {\n  return { skip: true };\n}\n\nconst phoneNumber = data.key.remoteJid?.replace('@s.whatsapp.net', '') || '';\nconst messageContent = data.message?.conversation || \n                       data.message?.extendedTextMessage?.text || \n                       data.message?.imageMessage?.caption || '';\nconst messageId = data.key.id;\nconst timestamp = data.messageTimestamp;\nconst isFromMe = data.key.fromMe;\n\n// Solo procesar mensajes entrantes (no los que enviamos nosotros)\nif (isFromMe) {\n  return { skip: true };\n}\n\nreturn {\n  phoneNumber,\n  messageContent,\n  messageId,\n  timestamp: new Date(timestamp * 1000).toISOString(),\n  chatId: phoneNumber,\n  rawData: data\n};"
+      },
+      "id": "extract-message-data",
+      "name": "Extraer Datos del Mensaje",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [280, 160]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.skip }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "notEquals"
+              }
+            },
+            {
+              "leftValue": "={{ $json.messageContent }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            }
+          ],
+          "combineOperation": "all"
+        },
+        "options": {}
+      },
+      "id": "filter-valid-messages",
+      "name": "Filtrar Mensajes Válidos",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [480, 160]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- Crear o actualizar usuario\nINSERT INTO whatsapp_users (phone_number, created_at, updated_at)\nVALUES ('{{ $json.phoneNumber }}', NOW(), NOW())\nON CONFLICT (phone_number) DO UPDATE SET updated_at = NOW()\nRETURNING id, phone_number;",
+        "options": {}
+      },
+      "id": "upsert-user-supabase",
+      "name": "Guardar Usuario (Supabase)",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [680, 80],
+      "credentials": {
+        "postgres": {
+          "id": "POSTGRES_CREDENTIAL_ID",
+          "name": "Supabase PostgreSQL"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- Crear o actualizar conversación activa\nINSERT INTO whatsapp_conversations (user_id, status, started_at)\nSELECT id, 'ACTIVE', NOW()\nFROM whatsapp_users\nWHERE phone_number = '{{ $('Extraer Datos del Mensaje').item.json.phoneNumber }}'\nON CONFLICT (user_id) WHERE status = 'ACTIVE' DO UPDATE SET updated_at = NOW()\nRETURNING id as conversation_id;",
+        "options": {}
+      },
+      "id": "upsert-conversation",
+      "name": "Guardar Conversación (Supabase)",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [880, 80],
+      "credentials": {
+        "postgres": {
+          "id": "POSTGRES_CREDENTIAL_ID",
+          "name": "Supabase PostgreSQL"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- Guardar mensaje entrante\nINSERT INTO whatsapp_messages (\n  conversation_id,\n  user_id,\n  message_id,\n  direction,\n  type,\n  content,\n  status,\n  is_from_bot,\n  created_at\n)\nSELECT \n  c.id,\n  u.id,\n  '{{ $('Extraer Datos del Mensaje').item.json.messageId }}',\n  'INCOMING',\n  'TEXT',\n  '{{ $('Extraer Datos del Mensaje').item.json.messageContent }}',\n  'DELIVERED',\n  false,\n  NOW()\nFROM whatsapp_users u\nJOIN whatsapp_conversations c ON c.user_id = u.id\nWHERE u.phone_number = '{{ $('Extraer Datos del Mensaje').item.json.phoneNumber }}'\n  AND c.status = 'ACTIVE'\nRETURNING id;",
+        "options": {}
+      },
+      "id": "save-incoming-message",
+      "name": "Guardar Mensaje Entrante (Supabase)",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [1080, 80],
+      "credentials": {
+        "postgres": {
+          "id": "POSTGRES_CREDENTIAL_ID",
+          "name": "Supabase PostgreSQL"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "command": "GET",
+        "key": "={{ \"whatsapp:context:\" + $('Extraer Datos del Mensaje').item.json.phoneNumber }}",
+        "options": {}
+      },
+      "id": "get-redis-context",
+      "name": "Obtener Contexto (Redis)",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [680, 240],
+      "credentials": {
+        "redis": {
+          "id": "REDIS_CREDENTIAL_ID",
+          "name": "Redis Coolify"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-1.5-flash-latest",
+        "options": {
+          "temperature": 0.7,
+          "maxOutputTokens": 500
+        }
+      },
+      "id": "gemini-model",
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [880, 400],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ybsZUmnf3BPm20YH",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Extraer Datos del Mensaje').item.json.messageContent }}",
+        "options": {
+          "systemMessage": "Eres un asistente virtual de Stratomai, una agencia de marketing digital especializada en automatización con Inteligencia Artificial.\n\nTu misión es ayudar a los usuarios a:\n- Entender los servicios de Stratomai (generación de leads, automatización de marketing, SEO, campañas multicanal)\n- Responder preguntas sobre precios y planes\n- Agendar demos y consultas\n- Proporcionar soporte técnico básico\n\nResponde de manera:\n- Profesional pero amigable\n- Clara y concisa (máximo 3 párrafos)\n- En español\n- Si no sabes algo, ofrece conectar con un asesor humano\n\nContexto de conversación anterior: {{ $('Obtener Contexto (Redis)').item.json || 'Primera interacción' }}"
+        }
+      },
+      "id": "ai-agent",
+      "name": "AI Agent Gemini",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [880, 240]
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Extraer Datos del Mensaje').item.json.phoneNumber }}",
+        "contextWindowLength": 10
+      },
+      "id": "memory-buffer",
+      "name": "Memory Buffer",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [1080, 400]
+    },
+    {
+      "parameters": {
+        "command": "SET",
+        "key": "={{ \"whatsapp:context:\" + $('Extraer Datos del Mensaje').item.json.phoneNumber }}",
+        "value": "={{ JSON.stringify({\n  lastMessage: $('Extraer Datos del Mensaje').item.json.messageContent,\n  lastResponse: $json.output,\n  timestamp: new Date().toISOString()\n}) }}",
+        "options": {
+          "expire": true,
+          "expireTime": 3600
+        }
+      },
+      "id": "save-redis-context",
+      "name": "Guardar Contexto (Redis)",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [1280, 240],
+      "credentials": {
+        "redis": {
+          "id": "REDIS_CREDENTIAL_ID",
+          "name": "Redis Coolify"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- Guardar mensaje de respuesta del bot\nINSERT INTO whatsapp_messages (\n  conversation_id,\n  user_id,\n  direction,\n  type,\n  content,\n  status,\n  is_from_bot,\n  metadata,\n  created_at\n)\nSELECT \n  c.id,\n  u.id,\n  'OUTGOING',\n  'TEXT',\n  '{{ $('AI Agent Gemini').item.json.output }}',\n  'SENT',\n  true,\n  jsonb_build_object('source', 'gemini_ai', 'model', 'gemini-1.5-flash'),\n  NOW()\nFROM whatsapp_users u\nJOIN whatsapp_conversations c ON c.user_id = u.id\nWHERE u.phone_number = '{{ $('Extraer Datos del Mensaje').item.json.phoneNumber }}'\n  AND c.status = 'ACTIVE'\nRETURNING id;",
+        "options": {}
+      },
+      "id": "save-bot-response",
+      "name": "Guardar Respuesta Bot (Supabase)",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [1480, 80],
+      "credentials": {
+        "postgres": {
+          "id": "POSTGRES_CREDENTIAL_ID",
+          "name": "Supabase PostgreSQL"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "Stratoma AI Whatsapp",
+        "remoteJid": "={{ $('Extraer Datos del Mensaje').item.json.phoneNumber + '@s.whatsapp.net' }}",
+        "messageText": "={{ $('AI Agent Gemini').item.json.output }}",
+        "options_message": {}
+      },
+      "id": "send-whatsapp-message",
+      "name": "Enviar Mensaje WhatsApp",
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [1480, 240],
+      "credentials": {
+        "evolutionApi": {
+          "id": "wOARUiQuFUy7ynHH",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- Actualizar analytics diarios\nINSERT INTO whatsapp_analytics (\n  date,\n  total_messages,\n  incoming_messages,\n  outgoing_messages,\n  bot_responses,\n  active_users\n)\nVALUES (\n  CURRENT_DATE,\n  2,\n  1,\n  1,\n  1,\n  (SELECT COUNT(DISTINCT user_id) FROM whatsapp_messages WHERE DATE(created_at) = CURRENT_DATE)\n)\nON CONFLICT (date) DO UPDATE SET\n  total_messages = whatsapp_analytics.total_messages + 2,\n  incoming_messages = whatsapp_analytics.incoming_messages + 1,\n  outgoing_messages = whatsapp_analytics.outgoing_messages + 1,\n  bot_responses = whatsapp_analytics.bot_responses + 1,\n  active_users = (\n    SELECT COUNT(DISTINCT user_id) \n    FROM whatsapp_messages \n    WHERE DATE(created_at) = CURRENT_DATE\n  );",
+        "options": {}
+      },
+      "id": "update-analytics",
+      "name": "Actualizar Analytics (Supabase)",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [1680, 160],
+      "credentials": {
+        "postgres": {
+          "id": "POSTGRES_CREDENTIAL_ID",
+          "name": "Supabase PostgreSQL"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook Evolution API": {
+      "main": [[{"node": "Extraer Datos del Mensaje", "type": "main", "index": 0}]]
+    },
+    "Extraer Datos del Mensaje": {
+      "main": [[{"node": "Filtrar Mensajes Válidos", "type": "main", "index": 0}]]
+    },
+    "Filtrar Mensajes Válidos": {
+      "main": [
+        [
+          {"node": "Guardar Usuario (Supabase)", "type": "main", "index": 0},
+          {"node": "Obtener Contexto (Redis)", "type": "main", "index": 0}
+        ]
+      ]
+    },
+    "Guardar Usuario (Supabase)": {
+      "main": [[{"node": "Guardar Conversación (Supabase)", "type": "main", "index": 0}]]
+    },
+    "Guardar Conversación (Supabase)": {
+      "main": [[{"node": "Guardar Mensaje Entrante (Supabase)", "type": "main", "index": 0}]]
+    },
+    "Obtener Contexto (Redis)": {
+      "main": [[{"node": "AI Agent Gemini", "type": "main", "index": 0}]]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [[{"node": "AI Agent Gemini", "type": "ai_languageModel", "index": 0}]]
+    },
+    "AI Agent Gemini": {
+      "main": [
+        [
+          {"node": "Guardar Contexto (Redis)", "type": "main", "index": 0},
+          {"node": "Guardar Respuesta Bot (Supabase)", "type": "main", "index": 0},
+          {"node": "Enviar Mensaje WhatsApp", "type": "main", "index": 0}
+        ]
+      ]
+    },
+    "Memory Buffer": {
+      "ai_memory": [[{"node": "AI Agent Gemini", "type": "ai_memory", "index": 0}]]
+    },
+    "Enviar Mensaje WhatsApp": {
+      "main": [[{"node": "Actualizar Analytics (Supabase)", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {},
+  "pinData": {},
+  "tags": [],
+  "active": false
+}
