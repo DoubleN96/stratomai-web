@@ -1,0 +1,21 @@
+{
+  "name": "Stratomai - Agencia AI-First",
+  "short_name": "Stratomai",
+  "description": "Automatización inteligente para tu negocio con IA",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"],
+  "lang": "es-ES",
+  "dir": "ltr",
+  "orientation": "portrait-primary"
+}
