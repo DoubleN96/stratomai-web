@@ -1,0 +1,457 @@
+{
+  "workflows": [
+    {
+      "name": "WhatsApp - Message Receiver",
+      "description": "Recibe mensajes de WhatsApp desde Evolution API y los procesa",
+      "nodes": [
+        {
+          "parameters": {
+            "httpMethod": "POST",
+            "path": "whatsapp-incoming",
+            "responseMode": "onReceived",
+            "options": {}
+          },
+          "name": "Webhook",
+          "type": "n8n-nodes-base.webhook",
+          "typeVersion": 2.1,
+          "position": [250, 300],
+          "webhookId": "whatsapp-incoming"
+        },
+        {
+          "parameters": {
+            "jsCode": "// Extraer datos del mensaje de WhatsApp\nconst body = $input.item.json.body;\n\nconst phoneNumber = body.from || body.key?.remoteJid?.replace('@s.whatsapp.net', '');\nconst messageContent = body.message?.conversation || \n                       body.message?.extendedTextMessage?.text || \n                       body.message?.imageMessage?.caption || '';\nconst messageId = body.key?.id;\nconst timestamp = body.messageTimestamp;\nconst messageType = Object.keys(body.message || {})[0];\n\nreturn {\n  phoneNumber,\n  messageContent,\n  messageId,\n  timestamp,\n  messageType: messageType === 'conversation' ? 'text' : messageType,\n  direction: 'incoming',\n  rawData: body\n};"
+          },
+          "name": "Extract Message Data",
+          "type": "n8n-nodes-base.code",
+          "typeVersion": 2,
+          "position": [450, 300]
+        },
+        {
+          "parameters": {
+            "operation": "executeQuery",
+            "query": "INSERT INTO whatsapp_users (phone_number, name, metadata, created_at, updated_at)\nVALUES ($1, $2, $3, NOW(), NOW())\nON CONFLICT (phone_number) \nDO UPDATE SET updated_at = NOW()\nRETURNING *",
+            "additionalFields": {
+              "queryParams": "={{ [$json.phoneNumber, $json.phoneNumber, JSON.stringify({})] }}"
+            }
+          },
+          "name": "Upsert User",
+          "type": "n8n-nodes-base.supabase",
+          "typeVersion": 1,
+          "position": [650, 300],
+          "credentials": {
+            "supabaseApi": {
+              "id": "SUPABASE_CREDENTIAL_ID",
+              "name": "Supabase account"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "operation": "executeQuery",
+            "query": "INSERT INTO whatsapp_conversations (user_id, status, started_at, metadata)\nSELECT id, 'ACTIVE', NOW(), '{}'\nFROM whatsapp_users\nWHERE phone_number = $1\nON CONFLICT DO NOTHING\nRETURNING *",
+            "additionalFields": {
+              "queryParams": "={{ [$json.phoneNumber] }}"
+            }
+          },
+          "name": "Create or Get Conversation",
+          "type": "n8n-nodes-base.supabase",
+          "typeVersion": 1,
+          "position": [850, 300],
+          "credentials": {
+            "supabaseApi": {
+              "id": "SUPABASE_CREDENTIAL_ID",
+              "name": "Supabase account"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "operation": "executeQuery",
+            "query": "INSERT INTO whatsapp_messages (conversation_id, user_id, message_id, direction, type, content, status, is_from_bot, metadata, created_at)\nSELECT \n  c.id,\n  u.id,\n  $1,\n  'INCOMING',\n  $2,\n  $3,\n  'DELIVERED',\n  false,\n  $4,\n  NOW()\nFROM whatsapp_users u\nJOIN whatsapp_conversations c ON c.user_id = u.id\nWHERE u.phone_number = $5 AND c.status = 'ACTIVE'\nRETURNING *",
+            "additionalFields": {
+              "queryParams": "={{ [$json.messageId, $json.messageType, $json.messageContent, JSON.stringify($json.rawData), $json.phoneNumber] }}"
+            }
+          },
+          "name": "Save Message",
+          "type": "n8n-nodes-base.supabase",
+          "typeVersion": 1,
+          "position": [1050, 300],
+          "credentials": {
+            "supabaseApi": {
+              "id": "SUPABASE_CREDENTIAL_ID",
+              "name": "Supabase account"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "url": "https://stratomai.com/api/webhooks/whatsapp/process",
+            "authentication": "predefinedCredentialType",
+            "nodeCredentialType": "httpHeaderAuth",
+            "sendHeaders": true,
+            "headerParameters": {
+              "parameters": [
+                {
+                  "name": "Content-Type",
+                  "value": "application/json"
+                }
+              ]
+            },
+            "options": {}
+          },
+          "name": "Trigger AI Processing",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4.2,
+          "position": [1250, 300],
+          "credentials": {
+            "httpHeaderAuth": {
+              "id": "API_HEADER_AUTH_ID",
+              "name": "Header Auth account"
+            }
+          }
+        }
+      ],
+      "connections": {
+        "Webhook": {
+          "main": [[{"node": "Extract Message Data", "type": "main", "index": 0}]]
+        },
+        "Extract Message Data": {
+          "main": [[{"node": "Upsert User", "type": "main", "index": 0}]]
+        },
+        "Upsert User": {
+          "main": [[{"node": "Create or Get Conversation", "type": "main", "index": 0}]]
+        },
+        "Create or Get Conversation": {
+          "main": [[{"node": "Save Message", "type": "main", "index": 0}]]
+        },
+        "Save Message": {
+          "main": [[{"node": "Trigger AI Processing", "type": "main", "index": 0}]]
+        }
+      },
+      "settings": {
+        "executionOrder": "v1"
+      },
+      "staticData": null,
+      "tags": [
+        {
+          "name": "whatsapp",
+          "id": "whatsapp-tag"
+        }
+      ],
+      "pinData": {}
+    },
+    {
+      "name": "WhatsApp - AI Response Generator",
+      "description": "Genera respuestas inteligentes usando IA y base de conocimiento",
+      "nodes": [
+        {
+          "parameters": {
+            "httpMethod": "POST",
+            "path": "whatsapp-ai-response",
+            "responseMode": "lastNode",
+            "options": {}
+          },
+          "name": "Webhook Trigger",
+          "type": "n8n-nodes-base.webhook",
+          "typeVersion": 2.1,
+          "position": [250, 300],
+          "webhookId": "whatsapp-ai-response"
+        },
+        {
+          "parameters": {
+            "operation": "executeQuery",
+            "query": "SELECT * FROM whatsapp_knowledge_base\nWHERE is_active = true\nAND (\n  LOWER(question) LIKE LOWER($1)\n  OR $2 = ANY(keywords)\n)\nORDER BY priority DESC, usage_count DESC\nLIMIT 1",
+            "additionalFields": {
+              "queryParams": "={{ ['%' + $json.body.message + '%', $json.body.message.toLowerCase()] }}"
+            }
+          },
+          "name": "Search Knowledge Base",
+          "type": "n8n-nodes-base.supabase",
+          "typeVersion": 1,
+          "position": [450, 300],
+          "credentials": {
+            "supabaseApi": {
+              "id": "SUPABASE_CREDENTIAL_ID",
+              "name": "Supabase account"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "conditions": {
+              "options": {
+                "caseSensitive": false,
+                "leftValue": "",
+                "typeValidation": "strict"
+              },
+              "conditions": [
+                {
+                  "leftValue": "={{ $json.length }}",
+                  "rightValue": 0,
+                  "operator": {
+                    "type": "number",
+                    "operation": "gt"
+                  }
+                }
+              ],
+              "combineOperation": "all"
+            },
+            "options": {}
+          },
+          "name": "KB Found?",
+          "type": "n8n-nodes-base.if",
+          "typeVersion": 2,
+          "position": [650, 300]
+        },
+        {
+          "parameters": {
+            "assignments": {
+              "assignments": [
+                {
+                  "id": "kb-answer",
+                  "name": "response",
+                  "value": "={{ $json[0].answer }}",
+                  "type": "string"
+                },
+                {
+                  "id": "source",
+                  "name": "source",
+                  "value": "knowledge_base",
+                  "type": "string"
+                }
+              ]
+            },
+            "options": {}
+          },
+          "name": "Use KB Answer",
+          "type": "n8n-nodes-base.set",
+          "typeVersion": 3.4,
+          "position": [850, 200]
+        },
+        {
+          "parameters": {
+            "operation": "executeQuery",
+            "query": "UPDATE whatsapp_knowledge_base\nSET usage_count = usage_count + 1\nWHERE id = $1",
+            "additionalFields": {
+              "queryParams": "={{ [$json[0].id] }}"
+            }
+          },
+          "name": "Update KB Usage",
+          "type": "n8n-nodes-base.supabase",
+          "typeVersion": 1,
+          "position": [1050, 200],
+          "credentials": {
+            "supabaseApi": {
+              "id": "SUPABASE_CREDENTIAL_ID",
+              "name": "Supabase account"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "operation": "executeQuery",
+            "query": "SELECT content, direction, created_at\nFROM whatsapp_messages m\nJOIN whatsapp_conversations c ON m.conversation_id = c.id\nJOIN whatsapp_users u ON c.user_id = u.id\nWHERE u.phone_number = $1\nORDER BY m.created_at DESC\nLIMIT 10",
+            "additionalFields": {
+              "queryParams": "={{ [$('Webhook Trigger').item.json.body.phoneNumber] }}"
+            }
+          },
+          "name": "Get Conversation History",
+          "type": "n8n-nodes-base.supabase",
+          "typeVersion": 1,
+          "position": [850, 400],
+          "credentials": {
+            "supabaseApi": {
+              "id": "SUPABASE_CREDENTIAL_ID",
+              "name": "Supabase account"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "model": "claude-3-5-sonnet-20241022",
+            "options": {
+              "temperature": 0.7,
+              "maxTokens": 500
+            },
+            "text": "={{ \"Eres un asistente virtual de Stratomai, una agencia de marketing digital especializada en IA.\\n\\nContexto de la conversación:\\n\" + $json.map(m => m.direction + ': ' + m.content).join('\\n') + \"\\n\\nÚltimo mensaje del usuario: \" + $('Webhook Trigger').item.json.body.message + \"\\n\\nResponde de manera profesional, amigable y concisa. Si no sabes algo, recomienda contactar con un asesor humano.\" }}"
+          },
+          "name": "Generate AI Response",
+          "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+          "typeVersion": 1.7,
+          "position": [1050, 400],
+          "credentials": {
+            "anthropicApi": {
+              "id": "ANTHROPIC_API_ID",
+              "name": "Anthropic account"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "assignments": {
+              "assignments": [
+                {
+                  "id": "ai-response",
+                  "name": "response",
+                  "value": "={{ $json.response }}",
+                  "type": "string"
+                },
+                {
+                  "id": "source-ai",
+                  "name": "source",
+                  "value": "ai_generated",
+                  "type": "string"
+                }
+              ]
+            },
+            "options": {}
+          },
+          "name": "Format AI Response",
+          "type": "n8n-nodes-base.set",
+          "typeVersion": 3.4,
+          "position": [1250, 400]
+        },
+        {
+          "parameters": {
+            "operation": "executeQuery",
+            "query": "INSERT INTO whatsapp_messages (conversation_id, user_id, direction, type, content, status, is_from_bot, metadata, created_at)\nSELECT \n  c.id,\n  u.id,\n  'OUTGOING',\n  'TEXT',\n  $1,\n  'SENT',\n  true,\n  jsonb_build_object('source', $2),\n  NOW()\nFROM whatsapp_users u\nJOIN whatsapp_conversations c ON c.user_id = u.id\nWHERE u.phone_number = $3 AND c.status = 'ACTIVE'\nRETURNING *",
+            "additionalFields": {
+              "queryParams": "={{ [$json.response, $json.source, $('Webhook Trigger').item.json.body.phoneNumber] }}"
+            }
+          },
+          "name": "Save Bot Response",
+          "type": "n8n-nodes-base.supabase",
+          "typeVersion": 1,
+          "position": [1450, 300],
+          "credentials": {
+            "supabaseApi": {
+              "id": "SUPABASE_CREDENTIAL_ID",
+              "name": "Supabase account"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "url": "={{ $env.EVOLUTION_API_URL }}/message/sendText/{{ $env.EVOLUTION_INSTANCE_NAME }}",
+            "authentication": "predefinedCredentialType",
+            "nodeCredentialType": "httpHeaderAuth",
+            "sendBody": true,
+            "specifyBody": "json",
+            "jsonBody": "={{ {\n  \"number\": $('Webhook Trigger').item.json.body.phoneNumber,\n  \"text\": $json.response\n} }}",
+            "options": {}
+          },
+          "name": "Send WhatsApp Message",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4.2,
+          "position": [1650, 300],
+          "credentials": {
+            "httpHeaderAuth": {
+              "id": "EVOLUTION_API_HEADER_ID",
+              "name": "Evolution API Auth"
+            }
+          }
+        }
+      ],
+      "connections": {
+        "Webhook Trigger": {
+          "main": [[{"node": "Search Knowledge Base", "type": "main", "index": 0}]]
+        },
+        "Search Knowledge Base": {
+          "main": [[{"node": "KB Found?", "type": "main", "index": 0}]]
+        },
+        "KB Found?": {
+          "main": [
+            [{"node": "Use KB Answer", "type": "main", "index": 0}],
+            [{"node": "Get Conversation History", "type": "main", "index": 0}]
+          ]
+        },
+        "Use KB Answer": {
+          "main": [[{"node": "Update KB Usage", "type": "main", "index": 0}]]
+        },
+        "Update KB Usage": {
+          "main": [[{"node": "Save Bot Response", "type": "main", "index": 0}]]
+        },
+        "Get Conversation History": {
+          "main": [[{"node": "Generate AI Response", "type": "main", "index": 0}]]
+        },
+        "Generate AI Response": {
+          "main": [[{"node": "Format AI Response", "type": "main", "index": 0}]]
+        },
+        "Format AI Response": {
+          "main": [[{"node": "Save Bot Response", "type": "main", "index": 0}]]
+        },
+        "Save Bot Response": {
+          "main": [[{"node": "Send WhatsApp Message", "type": "main", "index": 0}]]
+        }
+      },
+      "settings": {
+        "executionOrder": "v1"
+      },
+      "staticData": null,
+      "tags": [
+        {
+          "name": "whatsapp",
+          "id": "whatsapp-tag"
+        },
+        {
+          "name": "ai",
+          "id": "ai-tag"
+        }
+      ],
+      "pinData": {}
+    }
+  ],
+  "credentials": {
+    "supabase": {
+      "name": "Supabase account",
+      "type": "supabaseApi",
+      "data": {
+        "host": "http://supabasekong-dk0ss04ow40w4g80gkc40sk8.46.224.16.135.sslip.io",
+        "serviceRole": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2MDgwODU0MCwiZXhwIjo0OTE2NDgyMTQwLCJyb2xlIjoic2VydmljZV9yb2xlIn0.WHRWEVCXZMZwhb3KLQktSUyLp5JSqZ2Z2qm5mPyqsmk"
+      }
+    },
+    "evolution_api": {
+      "name": "Evolution API Auth",
+      "type": "httpHeaderAuth",
+      "data": {
+        "name": "apikey",
+        "value": "YOUR_EVOLUTION_API_KEY"
+      }
+    },
+    "anthropic": {
+      "name": "Anthropic account",
+      "type": "anthropicApi",
+      "data": {
+        "apiKey": "YOUR_ANTHROPIC_API_KEY"
+      }
+    },
+    "stratomai_api": {
+      "name": "Stratomai API Auth",
+      "type": "httpHeaderAuth",
+      "data": {
+        "name": "x-api-key",
+        "value": "YOUR_STRATOMAI_API_KEY"
+      }
+    }
+  },
+  "variables": {
+    "EVOLUTION_API_URL": "https://evolution-api.stratomai.com",
+    "EVOLUTION_INSTANCE_NAME": "stratomai-whatsapp",
+    "SUPABASE_URL": "http://supabasekong-dk0ss04ow40w4g80gkc40sk8.46.224.16.135.sslip.io",
+    "REDIS_URL": "redis://redis-coolify:6379"
+  },
+  "notes": {
+    "setup": [
+      "1. Importar los workflows en n8n (https://n8n.stratomai.com)",
+      "2. Configurar las credenciales de Supabase, Evolution API y Anthropic",
+      "3. Configurar las variables de entorno en n8n",
+      "4. Activar ambos workflows",
+      "5. Obtener la URL del webhook 'whatsapp-incoming' y configurarla en Evolution API",
+      "6. Configurar Evolution API para enviar eventos a: https://n8n.stratomai.com/webhook/whatsapp-incoming"
+    ],
+    "webhook_urls": {
+      "incoming_messages": "https://n8n.stratomai.com/webhook/whatsapp-incoming",
+      "ai_processing": "https://n8n.stratomai.com/webhook/whatsapp-ai-response"
+    }
+  }
+}

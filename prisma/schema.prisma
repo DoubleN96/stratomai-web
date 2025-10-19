@@ -50,11 +50,12 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
-  accounts   Account[]
-  sessions   Session[]
-  clients    Client[]
-  projects   Project[]
-  createdLeads Lead[] @relation("LeadCreator")
+  accounts              Account[]
+  sessions              Session[]
+  clients               Client[]
+  projects              Project[]
+  createdLeads          Lead[]                 @relation("LeadCreator")
+  assignedConversations WhatsAppConversation[]
 
   @@map("users")
 }
@@ -70,20 +71,20 @@ model VerificationToken {
 
 // Business Models
 model Client {
-  id        String   @id @default(cuid())
-  name      String
-  email     String   @unique
-  phone     String?
-  company   String?
-  industry  String?
-  website   String?
-  address   String?
-  notes     String?  @db.Text
-  status    ClientStatus @default(ACTIVE)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String       @id @default(cuid())
+  name        String
+  email       String       @unique
+  phone       String?
+  company     String?
+  industry    String?
+  website     String?
+  address     String?
+  notes       String?      @db.Text
+  status      ClientStatus @default(ACTIVE)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   createdById String
-  createdBy User     @relation(fields: [createdById], references: [id])
+  createdBy   User         @relation(fields: [createdById], references: [id])
 
   projects  Project[]
   campaigns Campaign[]
@@ -92,43 +93,43 @@ model Client {
 }
 
 model Project {
-  id          String   @id @default(cuid())
+  id          String        @id @default(cuid())
   name        String
-  description String?  @db.Text
+  description String?       @db.Text
   status      ProjectStatus @default(PLANNING)
-  budget      Decimal? @db.Decimal(10, 2)
+  budget      Decimal?      @db.Decimal(10, 2)
   startDate   DateTime?
   endDate     DateTime?
   clientId    String
-  client      Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  client      Client        @relation(fields: [clientId], references: [id], onDelete: Cascade)
   managerId   String
-  manager     User     @relation(fields: [managerId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  manager     User          @relation(fields: [managerId], references: [id])
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 
-  campaigns Campaign[]
+  campaigns    Campaign[]
   n8nWorkflows N8nWorkflow[]
 
   @@map("projects")
 }
 
 model Campaign {
-  id          String   @id @default(cuid())
+  id          String         @id @default(cuid())
   name        String
-  description String?  @db.Text
+  description String?        @db.Text
   type        CampaignType
   status      CampaignStatus @default(DRAFT)
-  budget      Decimal? @db.Decimal(10, 2)
+  budget      Decimal?       @db.Decimal(10, 2)
   startDate   DateTime?
   endDate     DateTime?
   clientId    String
-  client      Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  client      Client         @relation(fields: [clientId], references: [id], onDelete: Cascade)
   projectId   String?
-  project     Project? @relation(fields: [projectId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  project     Project?       @relation(fields: [projectId], references: [id])
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
 
-  leads Lead[]
+  leads   Lead[]
   metrics CampaignMetric[]
   reports Report[]
 
@@ -136,7 +137,7 @@ model Campaign {
 }
 
 model Lead {
-  id          String   @id @default(cuid())
+  id          String     @id @default(cuid())
   firstName   String
   lastName    String
   email       String
@@ -146,14 +147,14 @@ model Lead {
   linkedinUrl String?
   source      LeadSource
   status      LeadStatus @default(NEW)
-  score       Int?     @default(0)
-  notes       String?  @db.Text
+  score       Int?       @default(0)
+  notes       String?    @db.Text
   campaignId  String?
-  campaign    Campaign? @relation(fields: [campaignId], references: [id])
+  campaign    Campaign?  @relation(fields: [campaignId], references: [id])
   createdById String
-  createdBy   User     @relation("LeadCreator", fields: [createdById], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdBy   User       @relation("LeadCreator", fields: [createdById], references: [id])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 
   activities LeadActivity[]
 
@@ -164,64 +165,64 @@ model Lead {
 }
 
 model LeadActivity {
-  id        String   @id @default(cuid())
-  type      ActivityType
-  title     String
-  description String? @db.Text
-  metadata  Json?
-  leadId    String
-  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
+  id          String       @id @default(cuid())
+  type        ActivityType
+  title       String
+  description String?      @db.Text
+  metadata    Json?
+  leadId      String
+  lead        Lead         @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  createdAt   DateTime     @default(now())
 
   @@map("lead_activities")
 }
 
 model CampaignMetric {
-  id          String   @id @default(cuid())
-  campaignId  String
-  campaign    Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
-  date        DateTime @default(now())
-  leadsGenerated Int   @default(0)
-  emailsSent  Int      @default(0)
-  emailsOpened Int     @default(0)
-  emailsClicked Int    @default(0)
-  linkedinConnections Int @default(0)
-  whatsappMessages Int @default(0)
-  conversions Int      @default(0)
-  revenue     Decimal? @db.Decimal(10, 2)
-  createdAt   DateTime @default(now())
+  id                  String   @id @default(cuid())
+  campaignId          String
+  campaign            Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  date                DateTime @default(now())
+  leadsGenerated      Int      @default(0)
+  emailsSent          Int      @default(0)
+  emailsOpened        Int      @default(0)
+  emailsClicked       Int      @default(0)
+  linkedinConnections Int      @default(0)
+  whatsappMessages    Int      @default(0)
+  conversions         Int      @default(0)
+  revenue             Decimal? @db.Decimal(10, 2)
+  createdAt           DateTime @default(now())
 
   @@index([campaignId, date])
   @@map("campaign_metrics")
 }
 
 model Report {
-  id          String   @id @default(cuid())
+  id          String       @id @default(cuid())
   title       String
   type        ReportType
   format      ReportFormat @default(PDF)
   campaignId  String?
-  campaign    Campaign? @relation(fields: [campaignId], references: [id])
+  campaign    Campaign?    @relation(fields: [campaignId], references: [id])
   data        Json
   fileUrl     String?
-  generatedAt DateTime @default(now())
-  createdAt   DateTime @default(now())
+  generatedAt DateTime     @default(now())
+  createdAt   DateTime     @default(now())
 
   @@map("reports")
 }
 
 model N8nWorkflow {
-  id          String   @id @default(cuid())
-  workflowId  String   @unique
+  id          String    @id @default(cuid())
+  workflowId  String    @unique
   name        String
-  description String?  @db.Text
-  isActive    Boolean  @default(false)
+  description String?   @db.Text
+  isActive    Boolean   @default(false)
   webhookUrl  String?
   projectId   String?
-  project     Project? @relation(fields: [projectId], references: [id])
+  project     Project?  @relation(fields: [projectId], references: [id])
   lastRunAt   DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   executions N8nExecution[]
 
@@ -229,16 +230,16 @@ model N8nWorkflow {
 }
 
 model N8nExecution {
-  id          String   @id @default(cuid())
-  executionId String   @unique
+  id          String          @id @default(cuid())
+  executionId String          @unique
   workflowId  String
-  workflow    N8nWorkflow @relation(fields: [workflowId], references: [workflowId], onDelete: Cascade)
+  workflow    N8nWorkflow     @relation(fields: [workflowId], references: [workflowId], onDelete: Cascade)
   status      ExecutionStatus
   startedAt   DateTime
   finishedAt  DateTime?
   data        Json?
-  error       String?  @db.Text
-  createdAt   DateTime @default(now())
+  error       String?         @db.Text
+  createdAt   DateTime        @default(now())
 
   @@index([workflowId, startedAt])
   @@map("n8n_executions")
@@ -337,4 +338,123 @@ enum ExecutionStatus {
   ERROR
   WAITING
   CANCELLED
+}
+
+// WhatsApp Chatbot Models
+model WhatsAppUser {
+  id            String   @id @default(cuid())
+  phoneNumber   String   @unique
+  name          String?
+  profilePicUrl String?
+  isBlocked     Boolean  @default(false)
+  tags          Json     @default("[]")
+  metadata      Json     @default("{}")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  conversations WhatsAppConversation[]
+  messages      WhatsAppMessage[]
+
+  @@map("whatsapp_users")
+}
+
+model WhatsAppConversation {
+  id             String             @id @default(cuid())
+  userId         String
+  user           WhatsAppUser       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status         ConversationStatus @default(ACTIVE)
+  assignedTo     String?
+  assignedToUser User?              @relation(fields: [assignedTo], references: [id])
+  startedAt      DateTime           @default(now())
+  closedAt       DateTime?
+  metadata       Json               @default("{}")
+
+  messages WhatsAppMessage[]
+
+  @@index([userId])
+  @@index([status])
+  @@map("whatsapp_conversations")
+}
+
+model WhatsAppMessage {
+  id             String               @id @default(cuid())
+  conversationId String
+  conversation   WhatsAppConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  userId         String
+  user           WhatsAppUser         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messageId      String?              @unique
+  direction      MessageDirection
+  type           MessageType          @default(TEXT)
+  content        String?              @db.Text
+  mediaUrl       String?
+  status         MessageStatus        @default(SENT)
+  isFromBot      Boolean              @default(false)
+  metadata       Json                 @default("{}")
+  createdAt      DateTime             @default(now())
+
+  @@index([conversationId])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("whatsapp_messages")
+}
+
+model WhatsAppKnowledgeBase {
+  id         String   @id @default(cuid())
+  category   String?
+  question   String
+  answer     String   @db.Text
+  keywords   String[]
+  priority   Int      @default(0)
+  usageCount Int      @default(0)
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([keywords])
+  @@map("whatsapp_knowledge_base")
+}
+
+model WhatsAppAnalytics {
+  id                  String   @id @default(cuid())
+  date                DateTime @unique @db.Date
+  totalMessages       Int      @default(0)
+  incomingMessages    Int      @default(0)
+  outgoingMessages    Int      @default(0)
+  botResponses        Int      @default(0)
+  humanResponses      Int      @default(0)
+  averageResponseTime Int?
+  activeUsers         Int      @default(0)
+  newUsers            Int      @default(0)
+  metadata            Json     @default("{}")
+  createdAt           DateTime @default(now())
+
+  @@index([date])
+  @@map("whatsapp_analytics")
+}
+
+// WhatsApp Enums
+enum ConversationStatus {
+  ACTIVE
+  CLOSED
+  TRANSFERRED
+}
+
+enum MessageDirection {
+  INCOMING
+  OUTGOING
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+  DOCUMENT
+  AUDIO
+  VIDEO
+}
+
+enum MessageStatus {
+  SENT
+  DELIVERED
+  READ
+  FAILED
 }
