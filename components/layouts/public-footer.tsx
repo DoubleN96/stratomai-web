@@ -39,8 +39,8 @@ export function PublicFooter() {
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
                 <Phone className="h-4 w-4" />
-                <a href="tel:+34656933391" className="hover:text-blue-600">
-                  +34 656 93 33 91
+                <a href="tel:+34611031947" className="hover:text-blue-600">
+                  +34 611 03 19 47
                 </a>
               </div>
               <div className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">

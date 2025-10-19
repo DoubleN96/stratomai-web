@@ -19,8 +19,8 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Teléfono",
-    value: "+34 656 93 33 91",
-    href: "tel:+34656933391",
+    value: "+34 611 03 19 47",
+    href: "tel:+34611031947",
   },
   {
     icon: MapPin,
