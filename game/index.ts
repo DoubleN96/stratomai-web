@@ -4,6 +4,7 @@ import Boot from './scenes/Boot';
 import Preloader from './scenes/Preloader';
 import Title from './scenes/Title';
 import Overworld from './scenes/Overworld';
+import Battle from './scenes/Battle';
 
 export const createGameConfig = async (): Promise<Phaser.Types.Core.GameConfig> => {
   const Phaser = (await import('phaser')).default;
@@ -30,9 +31,10 @@ export const createGameConfig = async (): Promise<Phaser.Types.Core.GameConfig> 
       Preloader,
       Title,
       Overworld,
+      Battle,
     ],
   };
 };
 
 export { GAME_CONFIG, SCENES, MADRID_PALETTE, TILE_SIZE } from './config/gameConfig';
-export { Boot, Preloader, Title, Overworld };
+export { Boot, Preloader, Title, Overworld, Battle };

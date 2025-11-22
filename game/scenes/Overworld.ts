@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
 import { SCENES, TILE_SIZE, PLAYER_SPEED } from '../config/gameConfig';
 import { VirtualControls } from '../components/VirtualControls';
+import { GameState } from '../managers/GameState';
+import { createWildPokemon } from '../types/Pokemon';
 
 /**
  * Overworld Scene - Escena principal del juego
@@ -20,12 +22,23 @@ export default class Overworld extends Phaser.Scene {
   private map?: Phaser.Tilemaps.Tilemap;
   private currentDirection: 'down' | 'up' | 'left' | 'right' = 'down';
 
+  // Sistema de encuentros aleatorios
+  private stepsSinceLastEncounter: number = 0;
+  private stepsToNextEncounter: number = 0;
+  private lastPlayerPosition: { x: number; y: number } = { x: 0, y: 0 };
+
   constructor() {
     super({ key: SCENES.OVERWORLD });
   }
 
   create(): void {
     console.log('[Overworld] Mundo creado');
+
+    // Inicializar GameState si es nuevo juego
+    if (GameState.party.length === 0) {
+      console.log('[Overworld] Inicializando nuevo juego...');
+      GameState.initializeGame(1); // Gatolegre como inicial
+    }
 
     // Por ahora, mapa temporal con imagen de fondo
     this.createTemporaryMap();
@@ -38,12 +51,16 @@ export default class Overworld extends Phaser.Scene {
 
     // Configurar cámara
     this.setupCamera();
+
+    // Inicializar sistema de encuentros
+    this.resetEncounterSteps();
   }
 
   update(): void {
     if (!this.player || !this.cursors) return;
 
     this.handlePlayerMovement();
+    this.checkRandomEncounter();
   }
 
   /**
@@ -230,5 +247,76 @@ export default class Overworld extends Phaser.Scene {
       };
       this.player.setFrame(idleFrames[this.currentDirection]);
     }
+  }
+
+  /**
+   * Resetea el contador de pasos para encuentros
+   */
+  private resetEncounterSteps(): void {
+    // Entre 5 y 15 pasos para el próximo encuentro
+    this.stepsToNextEncounter = Phaser.Math.Between(5, 15);
+    this.stepsSinceLastEncounter = 0;
+    this.lastPlayerPosition = { x: this.player.x, y: this.player.y };
+  }
+
+  /**
+   * Verifica si debe ocurrir un encuentro aleatorio
+   */
+  private checkRandomEncounter(): void {
+    // Solo en hierba (área verde)
+    const currentX = Math.floor(this.player.x);
+    const currentY = Math.floor(this.player.y);
+
+    // Detectar si el jugador se movió (cambió de tile)
+    const movedX = Math.abs(currentX - this.lastPlayerPosition.x) >= TILE_SIZE;
+    const movedY = Math.abs(currentY - this.lastPlayerPosition.y) >= TILE_SIZE;
+
+    if (movedX || movedY) {
+      this.lastPlayerPosition = { x: currentX, y: currentY };
+      this.stepsSinceLastEncounter++;
+
+      console.log(`[Overworld] Pasos: ${this.stepsSinceLastEncounter}/${this.stepsToNextEncounter}`);
+
+      if (this.stepsSinceLastEncounter >= this.stepsToNextEncounter) {
+        this.triggerWildEncounter();
+      }
+    }
+  }
+
+  /**
+   * Inicia un encuentro con un Pokémon salvaje
+   */
+  private triggerWildEncounter(): void {
+    console.log('[Overworld] ¡Encuentro Pokémon!');
+
+    // Resetear contador
+    this.resetEncounterSteps();
+
+    // Elegir Pokémon salvaje aleatorio (1-9)
+    const wildPokemonId = Phaser.Math.Between(1, 9);
+    const wildLevel = Phaser.Math.Between(2, 7);
+
+    // Crear Pokémon salvaje
+    const wildPokemon = createWildPokemon(wildPokemonId, wildLevel);
+
+    // Registrar en Pokédex como visto
+    GameState.seePokemon(wildPokemonId);
+
+    // Obtener Pokémon del jugador
+    const playerPokemon = GameState.getLeadPokemon();
+
+    if (!playerPokemon) {
+      console.error('[Overworld] No hay Pokémon disponible para batalla');
+      return;
+    }
+
+    // Transición a batalla con efecto fade
+    this.cameras.main.fadeOut(500, 0, 0, 0);
+    this.cameras.main.once('camerafadeoutcomplete', () => {
+      this.scene.start(SCENES.BATTLE, {
+        playerPokemon,
+        enemyPokemon: wildPokemon,
+      });
+    });
   }
 }
