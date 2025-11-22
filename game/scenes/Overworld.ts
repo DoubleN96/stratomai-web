@@ -162,27 +162,38 @@ export default class Overworld extends Phaser.Scene {
 
     let moving = false;
 
+    let velocityX = 0;
+    let velocityY = 0;
+
     // Movimiento vertical
     if (this.cursors.up.isDown) {
-      this.player.setVelocityY(-PLAYER_SPEED);
+      velocityY = -PLAYER_SPEED;
       this.currentDirection = 'up';
       moving = true;
     } else if (this.cursors.down.isDown) {
-      this.player.setVelocityY(PLAYER_SPEED);
+      velocityY = PLAYER_SPEED;
       this.currentDirection = 'down';
       moving = true;
     }
 
     // Movimiento horizontal
     if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-PLAYER_SPEED);
+      velocityX = -PLAYER_SPEED;
       this.currentDirection = 'left';
       moving = true;
     } else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(PLAYER_SPEED);
+      velocityX = PLAYER_SPEED;
       this.currentDirection = 'right';
       moving = true;
     }
+
+    // Normalizar velocidad diagonal
+    if (velocityX !== 0 && velocityY !== 0) {
+      velocityX *= Math.SQRT1_2; // Aproximadamente 0.707
+      velocityY *= Math.SQRT1_2;
+    }
+
+    this.player.setVelocity(velocityX, velocityY);
 
     // Actualizar animación
     if (moving) {
