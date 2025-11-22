@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function GameLayout({
   children,
 }: {
-  children: React.NodeNode;
+  children: React.ReactNode;
 }) {
   return children;
 }
