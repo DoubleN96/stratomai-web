@@ -1,0 +1,21 @@
+# Nixpacks configuration for Pokémon Madrid
+# This file is optional - Coolify can auto-detect Next.js projects
+# Use this if you need custom build configuration
+
+[phases.setup]
+nixPkgs = ['nodejs-20_x']
+
+[phases.install]
+cmds = ['npm ci']
+
+[phases.build]
+cmds = ['npm run build']
+
+[start]
+cmd = 'npm start'
+
+[variables]
+NODE_ENV = 'production'
+NEXT_TELEMETRY_DISABLED = '1'
+PORT = '3000'
+HOSTNAME = '0.0.0.0'
