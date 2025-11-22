@@ -1,19 +1,22 @@
 import Phaser from 'phaser';
 import { SCENES, TILE_SIZE, PLAYER_SPEED } from '../config/gameConfig';
+import { VirtualControls } from '../components/VirtualControls';
 
 /**
  * Overworld Scene - Escena principal del juego
- * 
+ *
  * Características:
  * - Mapa del mundo (tilemap)
  * - Jugador con animaciones de caminar (4 direcciones)
  * - Sistema de colisiones
  * - Cámara que sigue al jugador
  * - NPCs y objetos interactivos
+ * - Controles táctiles para móvil
  */
 export default class Overworld extends Phaser.Scene {
   private player!: Phaser.Physics.Arcade.Sprite;
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+  private virtualControls?: VirtualControls;
   private map?: Phaser.Tilemaps.Tilemap;
   private currentDirection: 'down' | 'up' | 'left' | 'right' = 'down';
 
@@ -138,10 +141,20 @@ export default class Overworld extends Phaser.Scene {
   }
 
   /**
-   * Configura los controles del teclado
+   * Configura los controles del teclado y táctiles
    */
   private setupControls(): void {
     this.cursors = this.input.keyboard!.createCursorKeys();
+
+    // Crear controles virtuales para dispositivos móviles
+    const { width, height } = this.cameras.main;
+    this.virtualControls = new VirtualControls({
+      scene: this,
+      x: 20,
+      y: height - 140,
+      size: 120,
+      alpha: 0.6,
+    });
   }
 
   /**
@@ -155,33 +168,38 @@ export default class Overworld extends Phaser.Scene {
   }
 
   /**
-   * Maneja el movimiento del jugador basado en input
+   * Maneja el movimiento del jugador basado en input (teclado o táctil)
    */
   private handlePlayerMovement(): void {
     this.player.setVelocity(0);
 
     let moving = false;
-
     let velocityX = 0;
     let velocityY = 0;
 
-    // Movimiento vertical
-    if (this.cursors.up.isDown) {
+    // Verificar input de controles virtuales (móvil)
+    const virtualUp = this.virtualControls?.isUp() || false;
+    const virtualDown = this.virtualControls?.isDown() || false;
+    const virtualLeft = this.virtualControls?.isLeft() || false;
+    const virtualRight = this.virtualControls?.isRight() || false;
+
+    // Movimiento vertical (teclado o táctil)
+    if (this.cursors.up.isDown || virtualUp) {
       velocityY = -PLAYER_SPEED;
       this.currentDirection = 'up';
       moving = true;
-    } else if (this.cursors.down.isDown) {
+    } else if (this.cursors.down.isDown || virtualDown) {
       velocityY = PLAYER_SPEED;
       this.currentDirection = 'down';
       moving = true;
     }
 
-    // Movimiento horizontal
-    if (this.cursors.left.isDown) {
+    // Movimiento horizontal (teclado o táctil)
+    if (this.cursors.left.isDown || virtualLeft) {
       velocityX = -PLAYER_SPEED;
       this.currentDirection = 'left';
       moving = true;
-    } else if (this.cursors.right.isDown) {
+    } else if (this.cursors.right.isDown || virtualRight) {
       velocityX = PLAYER_SPEED;
       this.currentDirection = 'right';
       moving = true;

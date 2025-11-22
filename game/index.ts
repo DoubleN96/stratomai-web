@@ -16,7 +16,7 @@ export const createGameConfig = async (): Promise<Phaser.Types.Core.GameConfig> 
       autoCenter: Phaser.Scale.CENTER_BOTH,
       width: GAME_CONFIG.width,
       height: GAME_CONFIG.height,
-      zoom: GAME_CONFIG.scale.zoom,
+      // No fixed zoom - scales automatically for mobile/desktop
     },
     physics: {
       default: 'arcade',

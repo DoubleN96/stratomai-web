@@ -1,0 +1,22 @@
+{
+  "name": "Pokémon Madrid: Edición Castiza",
+  "short_name": "Pokémon Madrid",
+  "description": "Juego de Pokémon estilo GBA ambientado en Madrid",
+  "start_url": "/play",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#000000",
+  "theme_color": "#E60026",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

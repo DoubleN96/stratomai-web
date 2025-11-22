@@ -7,9 +7,9 @@ export const GAME_CONFIG = {
   parent: 'game-container',
   backgroundColor: '#000000',
   scale: {
-    mode: 2,
-    autoCenter: 1,
-    zoom: 3,
+    mode: 2, // Phaser.Scale.FIT - scales to fit viewport while maintaining aspect ratio
+    autoCenter: 1, // Phaser.Scale.CENTER_BOTH - centers the game canvas
+    // No fixed zoom - let it scale automatically for mobile
   },
   physics: {
     default: 'arcade',
@@ -26,6 +26,9 @@ export const GAME_CONFIG = {
   fps: {
     target: 60,
     forceSetTimeOut: false,
+  },
+  input: {
+    touch: true, // Enable touch input for mobile
   },
 } as const;
 
