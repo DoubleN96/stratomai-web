@@ -55,45 +55,83 @@ export default class Preloader extends Phaser.Scene {
   private loadAssets(): void {
     console.log('[Preloader] Cargando assets de Pokémon Madrid...');
 
+    // === PLAYER SPRITES ===
     this.load.spritesheet('player', '/assets/sprites/player/character.png', {
       frameWidth: 16,
       frameHeight: 16,
     });
-
-    this.load.image('overworld-tileset', '/assets/tilesets/Overworld.png');
-    this.load.image('tileset', '/assets/tilesets/tileset.png');
-    this.load.image('indoor-tileset', '/assets/tilesets/Inner.png');
-
-    this.load.spritesheet('npc', '/assets/sprites/npc/npc.png', {
+    this.load.spritesheet('player-surf', '/assets/sprites/player/surf_sprites.png', {
       frameWidth: 16,
       frameHeight: 16,
     });
 
+    // === TILESETS ===
+    this.load.image('overworld-tileset', '/assets/tilesets/Overworld.png');
+    this.load.image('tileset', '/assets/tilesets/tileset.png');
+    this.load.image('indoor-tileset', '/assets/tilesets/Inner.png');
+    this.load.image('cave-tileset', '/assets/tilesets/cave.png');
+    this.load.image('water-tile', '/assets/tilesets/water_tile.png');
+    this.load.image('log', '/assets/tilesets/log.png');
+    this.load.image('cuttable-tree', '/assets/tilesets/cuttable_tree.png');
+    this.load.image('basic-colors', '/assets/tilesets/basic_colors.png');
+
+    // === NPC SPRITES ===
+    this.load.spritesheet('npc', '/assets/sprites/npc/npc.png', {
+      frameWidth: 16,
+      frameHeight: 16,
+    });
+    this.load.spritesheet('npc-test', '/assets/sprites/npc/NPC_test.png', {
+      frameWidth: 16,
+      frameHeight: 16,
+    });
+
+    // === OBJECTS ===
     this.load.spritesheet('objects', '/assets/sprites/objects/objects.png', {
       frameWidth: 16,
       frameHeight: 16,
     });
 
+    // === POKEMON SPRITES ===
     for (let i = 1; i <= 9; i++) {
       this.load.image(`pokemon-front-${i}`, `/assets/sprites/pokemon/front/${i}.png`);
-    }
-
-    for (let i = 1; i <= 9; i++) {
       this.load.image(`pokemon-back-${i}`, `/assets/sprites/pokemon/back/${i}.png`);
     }
 
+    // Aliases para Pokémon específicos de Madrid
     this.load.image('pokemon-gatolegre-front', '/assets/sprites/pokemon/front/1.png');
     this.load.image('pokemon-gatolegre-back', '/assets/sprites/pokemon/back/1.png');
-
     this.load.image('pokemon-ursabon-front', '/assets/sprites/pokemon/front/2.png');
     this.load.image('pokemon-ursabon-back', '/assets/sprites/pokemon/back/2.png');
-
     this.load.image('pokemon-azulejin-front', '/assets/sprites/pokemon/front/3.png');
     this.load.image('pokemon-azulejin-back', '/assets/sprites/pokemon/back/3.png');
 
-    this.load.image('arrow', '/assets/ui/arrow.png');
+    // === TRAINER SPRITES ===
+    this.load.image('trainer-brendan-back', '/assets/sprites/trainers/Brendan_Back.png');
+    this.load.image('trainer-cooltrainer-m', '/assets/sprites/trainers/CoolTrainer_M.png');
 
-    console.log('[Preloader] Assets encolados para carga');
+    // === ITEMS ===
+    this.load.spritesheet('pokeballs', '/assets/items/balls.png', {
+      frameWidth: 16,
+      frameHeight: 16,
+    });
+    this.load.spritesheet('potions', '/assets/items/potion_tileset.png', {
+      frameWidth: 16,
+      frameHeight: 16,
+    });
+
+    // === BATTLE ASSETS ===
+    this.load.image('battle-backgrounds', '/assets/battle/battle_backgrounds.png');
+    this.load.image('battle-dialog', '/assets/battle/dialog-plain.png');
+    this.load.image('battle-hud', '/assets/battle/hud-box.png');
+
+    // === UI ELEMENTS ===
+    this.load.image('arrow', '/assets/sprites/ui/arrow.png');
+    this.load.spritesheet('font', '/assets/sprites/ui/font.png', {
+      frameWidth: 8,
+      frameHeight: 8,
+    });
+
+    console.log('[Preloader] Assets encolados para carga (41 archivos totales)');
   }
 
   private setupLoadingEvents(): void {
