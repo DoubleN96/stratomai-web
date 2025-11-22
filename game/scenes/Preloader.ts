@@ -67,6 +67,7 @@ export default class Preloader extends Phaser.Scene {
 
     // === TILESETS ===
     this.load.image('overworld-tileset', '/assets/tilesets/Overworld.png');
+    this.load.tilemapTiledJSON('madrid_start', '/assets/maps/madrid_start.json');
     this.load.image('tileset', '/assets/tilesets/tileset.png');
     this.load.image('indoor-tileset', '/assets/tilesets/Inner.png');
     this.load.image('cave-tileset', '/assets/tilesets/cave.png');

@@ -40,8 +40,8 @@ export default class Overworld extends Phaser.Scene {
       GameState.initializeGame(1); // Gatolegre como inicial
     }
 
-    // Por ahora, mapa temporal con imagen de fondo
-    this.createTemporaryMap();
+    // Cargar mapa desde Tiled
+    this.createMap();
 
     // Crear jugador
     this.createPlayer();
@@ -63,36 +63,48 @@ export default class Overworld extends Phaser.Scene {
     this.checkRandomEncounter();
   }
 
-  /**
-   * Crea un mapa temporal (hasta que tengamos el tilemap JSON)
-   */
-  private createTemporaryMap(): void {
-    const { width, height } = this.cameras.main;
+  private createMap(): void {
+    // Crear mapa desde JSON
+    this.map = this.make.tilemap({ key: 'madrid_start' });
 
-    // Fondo verde (placeholder para el mapa)
-    const bg = this.add.graphics();
-    bg.fillStyle(0x90C850, 1); // Verde césped GBA
-    bg.fillRect(0, 0, width * 3, height * 3); // Mapa 3x más grande que la pantalla
+    // Añadir tileset (nombre en Tiled, clave en Phaser)
+    const tileset = this.map.addTilesetImage('overworld_tileset', 'overworld-tileset');
 
-    // Grid de tiles (visual)
-    bg.lineStyle(1, 0x7AA840, 0.3);
-    for (let x = 0; x < width * 3; x += TILE_SIZE) {
-      bg.lineBetween(x, 0, x, height * 3);
-    }
-    for (let y = 0; y < height * 3; y += TILE_SIZE) {
-      bg.lineBetween(0, y, width * 3, y);
+    if (!tileset) {
+      console.error('[Overworld] No se pudo cargar el tileset');
+      return;
     }
 
-    // Texto indicativo
-    const text = this.add.text(width / 2, 20, 'Mapa Temporal - Use Flechas para Moverse', {
-      fontFamily: 'Arial',
-      fontSize: '10px',
-      color: '#FFFFFF',
-      stroke: '#000000',
-      strokeThickness: 3,
-    });
-    text.setOrigin(0.5);
-    text.setScrollFactor(0); // Fijo en pantalla
+    // Crear capas
+    const groundLayer = this.map.createLayer('Ground', tileset, 0, 0);
+    const objectsLayer = this.map.createLayer('Objects', tileset, 0, 0);
+
+    // Configurar colisiones
+    if (objectsLayer) {
+      objectsLayer.setCollisionByProperty({ collides: true });
+      // También podemos configurar colisiones por ID de tile si es necesario
+    }
+
+    // Si hay capa de colisiones dedicada (Object Layer en Tiled)
+    const collisionLayer = this.map.getObjectLayer('Collisions');
+    if (collisionLayer) {
+      const obstacles = this.physics.add.staticGroup();
+      collisionLayer.objects.forEach(obj => {
+        const rect = this.add.rectangle(
+          (obj.x || 0) + (obj.width || 0) / 2,
+          (obj.y || 0) + (obj.height || 0) / 2,
+          obj.width,
+          obj.height
+        );
+        this.physics.add.existing(rect, true);
+        obstacles.add(rect);
+      });
+      this.physics.add.collider(this.player, obstacles);
+    }
+
+    // Límites del mundo
+    this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+    this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
   }
 
   /**
@@ -101,16 +113,19 @@ export default class Overworld extends Phaser.Scene {
   private createPlayer(): void {
     const { width, height } = this.cameras.main;
 
-    // Crear sprite del jugador en el centro
-    this.player = this.physics.add.sprite(
-      width / 2,
-      height / 2,
-      'player'
-    );
+    // Posición inicial (idealmente vendría del mapa o GameState)
+    const startX = this.map ? this.map.widthInPixels / 2 : width / 2;
+    const startY = this.map ? this.map.heightInPixels / 2 : height / 2;
+
+    // Crear sprite del jugador
+    this.player = this.physics.add.sprite(startX, startY, 'player');
 
     // Configurar física
     this.player.setCollideWorldBounds(true);
-    this.physics.world.setBounds(0, 0, width * 3, height * 3);
+    // Hitbox más pequeña para los pies
+    const body = this.player.body as Phaser.Physics.Arcade.Body;
+    body.setSize(12, 8);
+    body.setOffset(2, 8);
 
     // Crear animaciones
     this.createPlayerAnimations();
@@ -118,6 +133,7 @@ export default class Overworld extends Phaser.Scene {
     // Animación inicial (mirando hacia abajo, idle)
     this.player.anims.play('walk-down', true);
     this.player.anims.stop();
+    this.player.setFrame(1);
   }
 
   /**
@@ -163,28 +179,25 @@ export default class Overworld extends Phaser.Scene {
   private setupControls(): void {
     this.cursors = this.input.keyboard!.createCursorKeys();
 
-    // Crear controles virtuales para dispositivos móviles (GBA SP style)
-    // Positioned in the lower control area of the screen
-    const gameWidth = this.scale.gameSize.width;
-    const gameHeight = this.scale.gameSize.height;
-
-    this.virtualControls = new VirtualControls({
-      scene: this,
-      x: gameWidth / 4 - 60, // D-pad on the left
-      y: gameHeight + 60, // Below the game canvas in the controls area
-      size: 100,
-      alpha: 0.7,
-    });
+    // Si estamos en móvil, mostramos controles virtuales
+    // Detectamos móvil si hay soporte táctil
+    if (this.sys.game.device.input.touch) {
+      this.virtualControls = new VirtualControls({
+        scene: this,
+        x: 20, // Izquierda
+        y: this.scale.height - 70, // Abajo
+        size: 60, // Tamaño del D-Pad
+        alpha: 0.5,
+      });
+    }
   }
 
   /**
    * Configura la cámara para seguir al jugador
    */
   private setupCamera(): void {
-    const { width, height } = this.cameras.main;
-
     this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
-    this.cameras.main.setBounds(0, 0, width * 3, height * 3);
+    this.cameras.main.setZoom(1); // Zoom normal GBA
   }
 
   /**
@@ -275,7 +288,7 @@ export default class Overworld extends Phaser.Scene {
       this.lastPlayerPosition = { x: currentX, y: currentY };
       this.stepsSinceLastEncounter++;
 
-      console.log(`[Overworld] Pasos: ${this.stepsSinceLastEncounter}/${this.stepsToNextEncounter}`);
+      // console.log(`[Overworld] Pasos: ${this.stepsSinceLastEncounter}/${this.stepsToNextEncounter}`);
 
       if (this.stepsSinceLastEncounter >= this.stepsToNextEncounter) {
         this.triggerWildEncounter();
