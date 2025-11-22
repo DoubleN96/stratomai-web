@@ -38,11 +38,8 @@ export default class Title extends Phaser.Scene {
 
     // Gradiente de cielo (arriba: naranja claro, abajo: morado oscuro)
     const sky = this.add.graphics();
-    const gradient = sky.createLinearGradient(0, 0, 0, height);
-    gradient.addColorStop(0, '#FF7F50'); // Coral (atardecer)
-    gradient.addColorStop(0.5, '#FF6B9D'); // Rosa-naranja
-    gradient.addColorStop(1, '#4A235A'); // Morado oscuro
 
+    // Usar fillGradientStyle de Phaser (top-left, top-right, bottom-left, bottom-right)
     sky.fillGradientStyle(
       Phaser.Display.Color.HexStringToColor('#FF7F50').color,
       Phaser.Display.Color.HexStringToColor('#FF7F50').color,
