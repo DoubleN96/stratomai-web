@@ -12,6 +12,8 @@ export default class Preloader extends Phaser.Scene {
   }
 
   preload(): void {
+    console.log('[Preloader] Iniciando preload...');
+    console.log(`[Preloader] Dimensiones del canvas: ${this.cameras.main.width}x${this.cameras.main.height}`);
     this.createLoadingScreen();
     this.loadAssets();
     this.setupLoadingEvents();
@@ -99,6 +101,7 @@ export default class Preloader extends Phaser.Scene {
     const height = this.cameras.main.height;
 
     this.load.on('progress', (value: number) => {
+      console.log(`[Preloader] Progreso de carga: ${Math.floor(value * 100)}%`);
       this.progressBar.clear();
       this.progressBar.fillStyle(0x00ff00, 1);
       this.progressBar.fillRect(
@@ -110,7 +113,16 @@ export default class Preloader extends Phaser.Scene {
       this.percentText.setText(`${Math.floor(value * 100)}%`);
     });
 
+    this.load.on('fileprogress', (file: Phaser.Loader.File) => {
+      console.log(`[Preloader] Cargando: ${file.key} - ${file.src}`);
+    });
+
+    this.load.on('loaderror', (file: Phaser.Loader.File) => {
+      console.error(`[Preloader] ERROR cargando: ${file.key} - ${file.src}`);
+    });
+
     this.load.on('complete', () => {
+      console.log('[Preloader] ¡Carga completa!');
       this.progressBar.destroy();
       this.progressBox.destroy();
       this.loadingText.destroy();
