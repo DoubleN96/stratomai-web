@@ -191,7 +191,7 @@ export default class Title extends Phaser.Scene {
     this.cameras.main.once(
       Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE,
       () => {
-        this.scene.start(SCENES.OVERWORLD);
+        this.scene.start(SCENES.INTRO);
       }
     );
   }

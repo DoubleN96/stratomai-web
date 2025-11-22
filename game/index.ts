@@ -3,6 +3,7 @@ import { GAME_CONFIG } from './config/gameConfig';
 import Boot from './scenes/Boot';
 import Preloader from './scenes/Preloader';
 import Title from './scenes/Title';
+import Intro from './scenes/Intro';
 import Overworld from './scenes/Overworld';
 import Battle from './scenes/Battle';
 
@@ -30,6 +31,7 @@ export const createGameConfig = async (): Promise<Phaser.Types.Core.GameConfig> 
       Boot,
       Preloader,
       Title,
+      Intro,
       Overworld,
       Battle,
     ],
@@ -37,4 +39,4 @@ export const createGameConfig = async (): Promise<Phaser.Types.Core.GameConfig> 
 };
 
 export { GAME_CONFIG, SCENES, MADRID_PALETTE, TILE_SIZE } from './config/gameConfig';
-export { Boot, Preloader, Title, Overworld, Battle };
+export { Boot, Preloader, Title, Intro, Overworld, Battle };

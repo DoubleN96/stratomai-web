@@ -18,11 +18,11 @@ class GameStateManager {
     superPotions: number;
     ultraBalls: number;
   } = {
-    pokeballs: 5,
-    potions: 3,
-    superPotions: 0,
-    ultraBalls: 0,
-  };
+      pokeballs: 5,
+      potions: 3,
+      superPotions: 0,
+      ultraBalls: 0,
+    };
 
   // Dinero del jugador
   public money: number = 3000;
@@ -32,9 +32,9 @@ class GameStateManager {
     seen: Set<number>;
     caught: Set<number>;
   } = {
-    seen: new Set(),
-    caught: new Set(),
-  };
+      seen: new Set(),
+      caught: new Set(),
+    };
 
   // Posición del jugador en el mapa
   public playerPosition: {
@@ -42,16 +42,20 @@ class GameStateManager {
     y: number;
     map: string;
   } = {
-    x: 0,
-    y: 0,
-    map: 'madrid_start',
-  };
+      x: 0,
+      y: 0,
+      map: 'madrid_start',
+    };
 
   // Badges conseguidas
   public badges: string[] = [];
 
   // Historia completada
   public storyFlags: Set<string> = new Set();
+
+  // Datos del jugador
+  public playerName: string = 'Red';
+  public playerGender: 'boy' | 'girl' = 'boy';
 
   private constructor() {
     // Singleton - no se puede instanciar directamente
@@ -235,6 +239,14 @@ class GameStateManager {
 
     localStorage.removeItem('pokemon_madrid_save');
     console.log('[GameState] Juego reseteado');
+  }
+
+  public setPlayerName(name: string): void {
+    this.playerName = name;
+  }
+
+  public setPlayerGender(gender: 'boy' | 'girl'): void {
+    this.playerGender = gender;
   }
 
   /**
