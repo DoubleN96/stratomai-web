@@ -63,4 +63,32 @@ dev-debug.log
 
 # Task files
 # tasks.json
-# tasks/
+# tasks/.env.local
+
+/lib/generated/prisma
+
+# Documentation and deployment scripts (temporary)
+*.md
+!README.md
+*.sql
+*.sh
+*.cjs
+*.py
+docker-compose*.yml
+chatwoot-*.yml
+evolution-api-*.yml
+.credentials_info
+.env.*
+!.env.example
+!.env.local.example
+prisma.config.ts
+
+# Temporary scripts and configs
+demo-*.js
+setup-*.js
+apply-*.js
+execute-*.js
+explore-*.js
+fetch-*.js
+proceso-*.md
+PROMPT*.txt
