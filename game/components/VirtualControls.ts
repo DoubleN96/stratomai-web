@@ -72,21 +72,35 @@ export class VirtualControls {
   }
 
   private createActionButton(): void {
-    // Action button on the right side
-    const x = this.size * 2.5;
-    const y = this.buttonSize;
-    const button = this.createButton(x, y, 'action', 0xFF6B6B);
-    this.buttons.set('action', button);
-    this.container.add(button);
+    // Action buttons (A and B) on the right side - GBA style
+    const baseX = this.size * 2.2;
+    const baseY = this.buttonSize;
 
-    // Add "A" label
-    const label = this.scene.add.text(x + this.buttonSize / 2, y + this.buttonSize / 2, 'A', {
-      fontFamily: 'Arial',
+    // B button (left, lower)
+    const bButton = this.createButton(baseX - 15, baseY + 15, 'action', 0x8B5CF6); // Purple
+    this.buttons.set('action', bButton);
+    this.container.add(bButton);
+
+    const bLabel = this.scene.add.text(baseX - 15 + this.buttonSize / 2, baseY + 15 + this.buttonSize / 2, 'B', {
+      fontFamily: 'Arial Black',
+      fontSize: '18px',
+      color: '#FFFFFF',
+    });
+    bLabel.setOrigin(0.5);
+    this.container.add(bLabel);
+
+    // A button (right, higher) - larger and red like GBA
+    const aButton = this.createButton(baseX + 25, baseY - 10, 'action', 0xEF4444); // Red
+    this.buttons.set('action-a', aButton);
+    this.container.add(aButton);
+
+    const aLabel = this.scene.add.text(baseX + 25 + this.buttonSize / 2, baseY - 10 + this.buttonSize / 2, 'A', {
+      fontFamily: 'Arial Black',
       fontSize: '20px',
       color: '#FFFFFF',
     });
-    label.setOrigin(0.5);
-    this.container.add(label);
+    aLabel.setOrigin(0.5);
+    this.container.add(aLabel);
   }
 
   private createButton(x: number, y: number, key: string, color: number = 0x333333): Phaser.GameObjects.Graphics {

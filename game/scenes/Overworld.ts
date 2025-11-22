@@ -146,14 +146,17 @@ export default class Overworld extends Phaser.Scene {
   private setupControls(): void {
     this.cursors = this.input.keyboard!.createCursorKeys();
 
-    // Crear controles virtuales para dispositivos móviles
-    const { width, height } = this.cameras.main;
+    // Crear controles virtuales para dispositivos móviles (GBA SP style)
+    // Positioned in the lower control area of the screen
+    const gameWidth = this.scale.gameSize.width;
+    const gameHeight = this.scale.gameSize.height;
+
     this.virtualControls = new VirtualControls({
       scene: this,
-      x: 20,
-      y: height - 140,
-      size: 120,
-      alpha: 0.6,
+      x: gameWidth / 4 - 60, // D-pad on the left
+      y: gameHeight + 60, // Below the game canvas in the controls area
+      size: 100,
+      alpha: 0.7,
     });
   }
 
