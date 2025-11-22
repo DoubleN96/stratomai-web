@@ -2,12 +2,12 @@
   "master": {
     "tasks": [
       {
-        "id": 1,
+        "id": "1",
         "title": "Core Game Engine Implementation",
         "description": "Implement the core GBA-style game engine using HTML5 Canvas. Includes GameLoop, Display, Input, and SceneManager.",
         "details": "Refer to PRD Part 1 for technical specs (240x160 resolution, 60FPS). Implement a robust game loop and rendering system that mimics the GBA hardware limitations and capabilities.",
         "testStrategy": "",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "high",
         "subtasks": [
@@ -18,7 +18,8 @@
             "details": "Create index.html and src/main.js. Initialize the canvas with 240x160 resolution and scale it up with CSS.",
             "status": "pending",
             "dependencies": [],
-            "parentTaskId": 1
+            "parentTaskId": 1,
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -27,7 +28,8 @@
             "details": "Create a robust game loop using requestAnimationFrame that maintains a steady 60 FPS update cycle.",
             "status": "pending",
             "dependencies": [],
-            "parentTaskId": 1
+            "parentTaskId": 1,
+            "parentId": "undefined"
           },
           {
             "id": 3,
@@ -36,7 +38,8 @@
             "details": "Handle canvas rendering context, clearing, and scaling.",
             "status": "pending",
             "dependencies": [],
-            "parentTaskId": 1
+            "parentTaskId": 1,
+            "parentId": "undefined"
           },
           {
             "id": 4,
@@ -45,7 +48,8 @@
             "details": "Map keyboard keys to GBA buttons (A, B, Start, Select, D-Pad).",
             "status": "pending",
             "dependencies": [],
-            "parentTaskId": 1
+            "parentTaskId": 1,
+            "parentId": "undefined"
           },
           {
             "id": 5,
@@ -54,17 +58,19 @@
             "details": "Create a state machine to handle transitions between Intro, Overworld, Battle, etc.",
             "status": "pending",
             "dependencies": [],
-            "parentTaskId": 1
+            "parentTaskId": 1,
+            "parentId": "undefined"
           }
-        ]
+        ],
+        "updatedAt": "2025-11-22T08:53:50.991Z"
       },
       {
-        "id": 2,
+        "id": "2",
         "title": "Asset Integration & Loading",
         "description": "Integrate initial art assets and implement the asset loading system.",
         "details": "Load sprites and tilesets as described in Part 1 and Part 4 (Starters). Create an AssetLoader to handle asynchronous loading of images and audio.",
         "testStrategy": "",
-        "status": "pending",
+        "status": "in-progress",
         "dependencies": [],
         "priority": "high",
         "subtasks": [
@@ -75,7 +81,8 @@
             "details": "Implement a system to asynchronously load images and audio files before the game starts.",
             "status": "pending",
             "dependencies": [],
-            "parentTaskId": 2
+            "parentTaskId": 2,
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -84,7 +91,8 @@
             "details": "Load sprites for the Protagonist, Professor Galdós, and the Starters.",
             "status": "pending",
             "dependencies": [],
-            "parentTaskId": 2
+            "parentTaskId": 2,
+            "parentId": "undefined"
           },
           {
             "id": 3,
@@ -93,17 +101,19 @@
             "details": "Load tilesets for the Player's Room and Tetuán District.",
             "status": "pending",
             "dependencies": [],
-            "parentTaskId": 2
+            "parentTaskId": 2,
+            "parentId": "undefined"
           }
-        ]
+        ],
+        "updatedAt": "2025-11-22T08:54:29.634Z"
       },
       {
-        "id": 3,
+        "id": "3",
         "title": "Intro Sequence Implementation",
         "description": "Implement the Intro Sequence and Character Selection.",
         "details": "Implement the intro sequence described in Part 3, including Professor Galdós, gender selection, name input, and the rival introduction.",
         "testStrategy": "",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "medium",
         "subtasks": [
@@ -114,7 +124,8 @@
             "details": "Script the sequence with Professor Galdós as described in the PRD.",
             "status": "pending",
             "dependencies": [],
-            "parentTaskId": 3
+            "parentTaskId": 3,
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -123,7 +134,8 @@
             "details": "Create a text rendering system with typewriter effect and GBA-style text boxes.",
             "status": "pending",
             "dependencies": [],
-            "parentTaskId": 3
+            "parentTaskId": 3,
+            "parentId": "undefined"
           },
           {
             "id": 3,
@@ -132,12 +144,14 @@
             "details": "Create the UI for choosing gender and naming the character.",
             "status": "pending",
             "dependencies": [],
-            "parentTaskId": 3
+            "parentTaskId": 3,
+            "parentId": "undefined"
           }
-        ]
+        ],
+        "updatedAt": "2025-11-22T08:54:11.321Z"
       },
       {
-        "id": 4,
+        "id": "4",
         "title": "Map Implementation: Tetuán",
         "description": "Implement the initial map: Tetuán District and Player's House.",
         "details": "Create the tilemaps for the Player's House (Part 3) and the Tetuán District (Part 5). Implement collision detection and basic NPC interaction.",
@@ -148,7 +162,7 @@
         "subtasks": []
       },
       {
-        "id": 5,
+        "id": "5",
         "title": "Battle System Implementation",
         "description": "Implement the core Battle System (Gen 3 style).",
         "details": "Turn-based logic, damage calculation, Type effectiveness chart, Status effects, EXP gain, and Leveling. Include support for Double Battles as specified.",
@@ -159,7 +173,7 @@
         "subtasks": []
       },
       {
-        "id": 6,
+        "id": "6",
         "title": "Pokémon Data & Roster",
         "description": "Define and implement data for all 151 Pokémon.",
         "details": "Create data structures for stats, movesets, evolutions, sprites, and metadata (Natures, Abilities). Implement the custom abilities (e.g., Espíritu Castizo).",
@@ -170,7 +184,7 @@
         "subtasks": []
       },
       {
-        "id": 7,
+        "id": "7",
         "title": "Core Mechanics Implementation",
         "description": "Implement Game Mechanics: Natures, Abilities, Day/Night Cycle.",
         "details": "Implement the 25 Natures, Ability system (including hidden abilities), and the Day/Night cycle affecting spawns and visuals.",
@@ -181,7 +195,7 @@
         "subtasks": []
       },
       {
-        "id": 8,
+        "id": "8",
         "title": "Inventory & Economy System",
         "description": "Implement Inventory, Items, and Economy.",
         "details": "Bag system, Item usage (in/out of battle), Shops (Ultramarinos, etc.), TMs/HMs, and currency (Pesetas/Pokedollars).",
@@ -192,7 +206,7 @@
         "subtasks": []
       },
       {
-        "id": 9,
+        "id": "9",
         "title": "World: Early Game (Districts 1-3)",
         "description": "Implement World Phase 1: Early Game Areas.",
         "details": "Maps, NPCs, and Events for: Route 1, District 2 (Chamberí), District 3 (Barrio de las Letras). Includes 'Pisos Secretos' introduction.",
@@ -203,7 +217,7 @@
         "subtasks": []
       },
       {
-        "id": 10,
+        "id": "10",
         "title": "World: Gyms 1-4",
         "description": "Implement World Phase 2: Gyms 1-4.",
         "details": "Maps, Trainers, and Gym Leaders for: Plaza Mayor (Normal), Gran Vía (Electric), Palacio Real (Fighting), Retiro (Grass).",
@@ -214,7 +228,7 @@
         "subtasks": []
       },
       {
-        "id": 11,
+        "id": "11",
         "title": "World: Gyms 5-8",
         "description": "Implement World Phase 3: Gyms 5-8.",
         "details": "Maps, Trainers, and Gym Leaders for: Las Ventas (Fire), Malasaña (Poison), Cuatro Torres (Psychic), Cibeles (Water).",
@@ -225,7 +239,7 @@
         "subtasks": []
       },
       {
-        "id": 12,
+        "id": "12",
         "title": "Pokémon League & Finale",
         "description": "Implement Pokémon League and Finale.",
         "details": "Victory Road (Casa de Campo), Elite Four battles (Carmencita, Arturo, Dolores, Santiago), and Champion Pablo battle.",
@@ -236,7 +250,7 @@
         "subtasks": []
       },
       {
-        "id": 13,
+        "id": "13",
         "title": "UI/UX Implementation",
         "description": "Implement UI/UX Systems.",
         "details": "Main Menu, Party Screen, Bag UI, Pokédex UI, and the custom 'MadriNav' features (Map, Radio, Calls).",
@@ -247,7 +261,7 @@
         "subtasks": []
       },
       {
-        "id": 14,
+        "id": "14",
         "title": "Post-Game & Side Content",
         "description": "Implement Post-Game Content and Side Activities.",
         "details": "Legendary encounters (Metroño, etc.), Battle Tower (Azca), Safari Zone (Faunia), and Certámenes de San Isidro.",
@@ -258,7 +272,7 @@
         "subtasks": []
       },
       {
-        "id": 15,
+        "id": "15",
         "title": "Audio System Implementation",
         "description": "Implement Audio System.",
         "details": "Music manager for background tracks (Pasodoble, Chiptune), SFX playback, and dynamic audio switching.",
@@ -270,9 +284,13 @@
       }
     ],
     "metadata": {
-      "created": "2025-11-22T02:15:35.069Z",
-      "description": "Default tasks context",
-      "updated": "2025-11-22T02:17:04.076Z"
+      "version": "1.0.0",
+      "lastModified": "2025-11-22T08:54:29.637Z",
+      "taskCount": 15,
+      "completedCount": 2,
+      "tags": [
+        "master"
+      ]
     }
   }
 }

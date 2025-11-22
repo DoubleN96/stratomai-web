@@ -27,12 +27,24 @@ export default class Overworld extends Phaser.Scene {
   private stepsToNextEncounter: number = 0;
   private lastPlayerPosition: { x: number; y: number } = { x: 0, y: 0 };
 
+  private mapKey: string = 'madrid_start';
+  private startPosition: { x: number; y: number } | null = null;
+
   constructor() {
     super({ key: SCENES.OVERWORLD });
   }
 
+  init(data: { map?: string; x?: number; y?: number }) {
+    this.mapKey = data.map || 'madrid_start';
+    if (data.x !== undefined && data.y !== undefined) {
+      this.startPosition = { x: data.x, y: data.y };
+    } else {
+      this.startPosition = null;
+    }
+  }
+
   create(): void {
-    console.log('[Overworld] Mundo creado');
+    console.log(`[Overworld] Mundo creado: ${this.mapKey}`);
 
     // Inicializar GameState si es nuevo juego
     if (GameState.party.length === 0) {
@@ -65,13 +77,22 @@ export default class Overworld extends Phaser.Scene {
 
   private createMap(): void {
     // Crear mapa desde JSON
-    this.map = this.make.tilemap({ key: 'madrid_start' });
+    this.map = this.make.tilemap({ key: this.mapKey });
 
     // Añadir tileset (nombre en Tiled, clave en Phaser)
-    const tileset = this.map.addTilesetImage('overworld_tileset', 'overworld-tileset');
+    // Determinar qué tileset usar según el mapa
+    let tilesetName = 'overworld_tileset'; // Default
+    let tilesetKey = 'overworld-tileset'; // Default
+
+    if (this.mapKey === 'room_start') {
+      tilesetName = 'indoor_tileset';
+      tilesetKey = 'indoor-tileset'; // Necesitamos cargar esto en Preloader si no está
+    }
+
+    const tileset = this.map.addTilesetImage(tilesetName, tilesetKey);
 
     if (!tileset) {
-      console.error('[Overworld] No se pudo cargar el tileset');
+      console.error(`[Overworld] No se pudo cargar el tileset: ${tilesetName} -> ${tilesetKey}`);
       return;
     }
 
@@ -82,7 +103,6 @@ export default class Overworld extends Phaser.Scene {
     // Configurar colisiones
     if (objectsLayer) {
       objectsLayer.setCollisionByProperty({ collides: true });
-      // También podemos configurar colisiones por ID de tile si es necesario
     }
 
     // Si hay capa de colisiones dedicada (Object Layer en Tiled)
@@ -113,9 +133,25 @@ export default class Overworld extends Phaser.Scene {
   private createPlayer(): void {
     const { width, height } = this.cameras.main;
 
-    // Posición inicial (idealmente vendría del mapa o GameState)
-    const startX = this.map ? this.map.widthInPixels / 2 : width / 2;
-    const startY = this.map ? this.map.heightInPixels / 2 : height / 2;
+    // Posición inicial
+    let startX = width / 2;
+    let startY = height / 2;
+
+    if (this.startPosition) {
+      startX = this.startPosition.x;
+      startY = this.startPosition.y;
+    } else if (this.map) {
+      // Centro del mapa por defecto
+      startX = this.map.widthInPixels / 2;
+      startY = this.map.heightInPixels / 2;
+
+      // Intentar buscar Spawn Point en el mapa
+      const spawnPoint = this.map.findObject('Objects', obj => obj.name === 'SpawnPoint');
+      if (spawnPoint) {
+        startX = spawnPoint.x || startX;
+        startY = spawnPoint.y || startY;
+      }
+    }
 
     // Crear sprite del jugador
     this.player = this.physics.add.sprite(startX, startY, 'player');

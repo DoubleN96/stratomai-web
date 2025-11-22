@@ -60,20 +60,6 @@ export default class Preloader extends Phaser.Scene {
       frameWidth: 16,
       frameHeight: 16,
     });
-    this.load.spritesheet('player-surf', '/assets/sprites/player/surf_sprites.png', {
-      frameWidth: 16,
-      frameHeight: 16,
-    });
-
-    // === TILESETS ===
-    this.load.image('overworld-tileset', '/assets/tilesets/Overworld.png');
-    this.load.tilemapTiledJSON('madrid_start', '/assets/maps/madrid_start.json');
-    this.load.image('tileset', '/assets/tilesets/tileset.png');
-    this.load.image('indoor-tileset', '/assets/tilesets/Inner.png');
-    this.load.image('cave-tileset', '/assets/tilesets/cave.png');
-    this.load.image('water-tile', '/assets/tilesets/water_tile.png');
-    this.load.image('log', '/assets/tilesets/log.png');
-    this.load.image('cuttable-tree', '/assets/tilesets/cuttable_tree.png');
     this.load.image('basic-colors', '/assets/tilesets/basic_colors.png');
 
     // === NPC SPRITES ===
