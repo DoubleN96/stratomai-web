@@ -169,6 +169,10 @@ export interface PokemonSpecies {
   };
   catchRate: number;
   description: string;
+  evolutions?: {
+    targetId: number;
+    level: number;
+  }[];
 }
 
 /**
@@ -212,6 +216,9 @@ export const MADRID_POKEDEX: PokemonSpecies[] = [
     spriteKey: { front: 'pokemon-front-1', back: 'pokemon-back-1' },
     catchRate: 45,
     description: 'Un gato callejero madrileño que defiende su territorio con fiereza.',
+    evolutions: [
+      { targetId: 10, level: 16 } // Evoluciona a Gatulapo (ID 10, placeholder)
+    ]
   },
   {
     id: 2,
@@ -242,6 +249,9 @@ export const MADRID_POKEDEX: PokemonSpecies[] = [
     spriteKey: { front: 'pokemon-front-2', back: 'pokemon-back-2' },
     catchRate: 40,
     description: 'Oso de la Casa de Campo que protege el parque.',
+    evolutions: [
+      { targetId: 11, level: 18 }
+    ]
   },
   {
     id: 3,
@@ -272,6 +282,9 @@ export const MADRID_POKEDEX: PokemonSpecies[] = [
     spriteKey: { front: 'pokemon-front-3', back: 'pokemon-back-3' },
     catchRate: 50,
     description: 'Habita en la Fuente de Cibeles, guardián de los azulejos madrileños.',
+    evolutions: [
+      { targetId: 12, level: 18 }
+    ]
   },
   {
     id: 4,
@@ -293,6 +306,9 @@ export const MADRID_POKEDEX: PokemonSpecies[] = [
     spriteKey: { front: 'pokemon-front-4', back: 'pokemon-back-4' },
     catchRate: 45,
     description: 'Pokémon con forma de churro que deja un rastro de azúcar.',
+    evolutions: [
+      { targetId: 13, level: 16 }
+    ]
   },
   {
     id: 5,
@@ -314,6 +330,9 @@ export const MADRID_POKEDEX: PokemonSpecies[] = [
     spriteKey: { front: 'pokemon-front-5', back: 'pokemon-back-5' },
     catchRate: 50,
     description: 'Chulapo del Retiro que baila chotis entre los árboles.',
+    evolutions: [
+      { targetId: 14, level: 16 }
+    ]
   },
   {
     id: 6,
@@ -398,6 +417,111 @@ export const MADRID_POKEDEX: PokemonSpecies[] = [
     spriteKey: { front: 'pokemon-front-9', back: 'pokemon-back-9' },
     catchRate: 25,
     description: 'Toro mecánico del Palacio Real, símbolo de Madrid.',
+  },
+  {
+    id: 10,
+    name: 'Gatulapo',
+    nickname: 'Gatulapo',
+    types: ['normal', 'lucha'],
+    baseStats: { hp: 70, attack: 85, defense: 70, speed: 90 },
+    moves: [
+      {
+        name: 'Golpe Karate',
+        type: 'lucha',
+        power: 50,
+        accuracy: 100,
+        pp: 25,
+        maxPP: 25,
+        description: 'Golpe cortante con la mano.',
+      },
+    ],
+    spriteKey: { front: 'pokemon-front-10', back: 'pokemon-back-10' },
+    catchRate: 45,
+    description: 'Evolución de Gatolegre. Baila chotis mientras pelea.',
+  },
+  {
+    id: 11,
+    name: 'Ursamajor',
+    nickname: 'Ursamajor',
+    types: ['normal', 'tierra'],
+    baseStats: { hp: 90, attack: 110, defense: 80, speed: 50 },
+    moves: [
+      {
+        name: 'Terremoto',
+        type: 'tierra',
+        power: 100,
+        accuracy: 100,
+        pp: 10,
+        maxPP: 10,
+        description: 'Sacude la tierra para atacar a todos.',
+      },
+    ],
+    spriteKey: { front: 'pokemon-front-11', back: 'pokemon-back-11' },
+    catchRate: 45,
+    description: 'El oso definitivo de Madrid. Su fuerza mueve madroños.',
+  },
+  {
+    id: 12,
+    name: 'Azulejazo',
+    nickname: 'Azulejazo',
+    types: ['agua', 'roca'],
+    baseStats: { hp: 70, attack: 75, defense: 110, speed: 60 },
+    moves: [
+      {
+        name: 'Surf',
+        type: 'agua',
+        power: 90,
+        accuracy: 100,
+        pp: 15,
+        maxPP: 15,
+        description: 'Crea una ola gigante.',
+      },
+    ],
+    spriteKey: { front: 'pokemon-front-12', back: 'pokemon-back-12' },
+    catchRate: 45,
+    description: 'Muralla de azulejos viviente. Nada puede romperlo.',
+  },
+  {
+    id: 13,
+    name: 'Churrasco',
+    nickname: 'Churrasco',
+    types: ['fuego', 'hada'],
+    baseStats: { hp: 60, attack: 90, defense: 60, speed: 100 },
+    moves: [
+      {
+        name: 'Lanzallamas',
+        type: 'fuego',
+        power: 90,
+        accuracy: 100,
+        pp: 15,
+        maxPP: 15,
+        description: 'Ataque de fuego intenso.',
+      },
+    ],
+    spriteKey: { front: 'pokemon-front-13', back: 'pokemon-back-13' },
+    catchRate: 45,
+    description: 'Churro ardiente. Su aroma atrae a todos.',
+  },
+  {
+    id: 14,
+    name: 'Chulapower',
+    nickname: 'Chulapower',
+    types: ['planta', 'lucha'],
+    baseStats: { hp: 80, attack: 100, defense: 80, speed: 70 },
+    moves: [
+      {
+        name: 'Rayo Solar',
+        type: 'planta',
+        power: 120,
+        accuracy: 100,
+        pp: 10,
+        maxPP: 10,
+        description: 'Absorbe luz y ataca.',
+      },
+    ],
+    spriteKey: { front: 'pokemon-front-14', back: 'pokemon-back-14' },
+    catchRate: 45,
+    description: 'El rey de la verbena. Sus movimientos son letales.',
   },
 ];
 

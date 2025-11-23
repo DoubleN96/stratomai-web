@@ -3,8 +3,8 @@ import { SCENES, MADRID_PALETTE } from '../config/gameConfig';
 import { GameState } from '../managers/GameState';
 
 export default class Intro extends Phaser.Scene {
-    private dialogBox!: Phaser.GameObjects.Graphics;
-    private dialogText!: Phaser.GameObjects.Text;
+    private dialogBox!: Phaser.GameObjects.Sprite;
+    private dialogText!: Phaser.GameObjects.BitmapText;
     private professorSprite!: Phaser.GameObjects.Sprite;
     private playerSprite!: Phaser.GameObjects.Sprite;
     private rivalSprite!: Phaser.GameObjects.Sprite;
@@ -20,13 +20,13 @@ export default class Intro extends Phaser.Scene {
     private selectedGender: 'boy' | 'girl' = 'boy';
     private boySprite!: Phaser.GameObjects.Sprite;
     private girlSprite!: Phaser.GameObjects.Sprite;
-    private selectionCursor!: Phaser.GameObjects.Graphics;
+    private selectionCursor!: Phaser.GameObjects.Image;
 
     // Name Input
     private nameInputContainer!: Phaser.GameObjects.Container;
-    private nameText!: Phaser.GameObjects.Text;
+    private nameText!: Phaser.GameObjects.BitmapText;
     private currentName: string = '';
-    private keyboardKeys: Phaser.GameObjects.Text[][] = [];
+    private keyboardKeys: Phaser.GameObjects.BitmapText[][] = [];
     private selectedKeyRow: number = 0;
     private selectedKeyCol: number = 0;
     private readonly KEYBOARD_LAYOUT = [
@@ -57,36 +57,18 @@ export default class Intro extends Phaser.Scene {
         const bg = this.add.graphics();
         bg.fillGradientStyle(0xE6E6FA, 0xE6E6FA, 0xFFFFFF, 0xFFFFFF, 1);
         bg.fillRect(0, 0, width, height);
-
-        // Decorative particles (optional)
-        const particles = this.add.particles(0, 0, 'arrow', {
-            x: { min: 0, max: width },
-            y: { min: 0, max: height },
-            speed: 20,
-            scale: { start: 0.2, end: 0 },
-            alpha: { start: 0.5, end: 0 },
-            lifespan: 2000,
-            quantity: 1,
-            frequency: 500,
-            tint: 0x87CEEB
-        });
     }
 
     private createDialogBox(): void {
         const { width, height } = this.cameras.main;
 
-        this.dialogBox = this.add.graphics();
-        this.dialogBox.fillStyle(0xFFFFFF, 0.9);
-        this.dialogBox.fillRoundedRect(10, height - 50, width - 20, 45, 4);
-        this.dialogBox.lineStyle(2, 0x000000, 1);
-        this.dialogBox.strokeRoundedRect(10, height - 50, width - 20, 45, 4);
+        // Usar sprite de caja de diálogo (9-slice si fuera necesario, pero aquí escalamos simple)
+        this.dialogBox = this.add.sprite(width / 2, height - 25, 'battle-dialog');
+        this.dialogBox.setDisplaySize(width - 10, 45);
 
-        this.dialogText = this.add.text(20, height - 45, '', {
-            fontFamily: 'monospace',
-            fontSize: '10px',
-            color: '#000000',
-            wordWrap: { width: width - 40 }
-        });
+        // Texto bitmap
+        this.dialogText = this.add.bitmapText(20, height - 40, 'font', '', 8);
+        this.dialogText.setMaxWidth(width - 40);
     }
 
     private showDialog(lines: string[], callback?: () => void): void {
@@ -110,13 +92,18 @@ export default class Intro extends Phaser.Scene {
                     this.canAdvance = true;
 
                     // Wait for input to show next line or finish
-                    this.input.keyboard?.once('keydown-Z', () => {
+                    const advance = () => {
                         if (lines.length > 1) {
                             this.showDialog(lines.slice(1), callback);
                         } else {
                             if (callback) callback();
                         }
-                    });
+                    };
+
+                    this.input.keyboard?.once('keydown-Z', advance);
+                    this.input.keyboard?.once('keydown-ENTER', advance);
+                    this.input.keyboard?.once('keydown-SPACE', advance);
+                    this.input.once('pointerdown', advance);
                 }
             },
             repeat: lines[0].length - 1
@@ -128,8 +115,10 @@ export default class Intro extends Phaser.Scene {
     private startProfessorIntro(): void {
         const { width, height } = this.cameras.main;
 
-        // Professor Sprite (Placeholder)
-        this.professorSprite = this.add.sprite(width / 2, height / 2 - 20, 'npc');
+        // Professor Sprite
+        // Usar frame específico si es spritesheet, o imagen si es imagen única
+        // Asumiendo 'npc' es spritesheet, frame 0 podría ser el profesor o placeholder
+        this.professorSprite = this.add.sprite(width / 2, height / 2 - 20, 'npc', 0);
         this.professorSprite.setScale(2);
         this.professorSprite.setAlpha(0);
 
@@ -139,17 +128,17 @@ export default class Intro extends Phaser.Scene {
             duration: 1000,
             onComplete: () => {
                 this.showDialog([
-                    "¡Hola! ¡Bienvenido al mundo",
-                    "de los Pokémon de Madrid!"
+                    "HOLA! BIENVENIDO AL MUNDO",
+                    "DE LOS POKEMON DE MADRID!"
                 ], () => {
                     this.showDialog([
-                        "Mi nombre es Galdós.",
-                        "¡Pero la gente me llama",
-                        "el Profesor Pokémon!"
+                        "MI NOMBRE ES GALDOS.",
+                        "PERO LA GENTE ME LLAMA",
+                        "EL PROFESOR POKEMON!"
                     ], () => {
                         this.showDialog([
-                            "Este mundo está habitado",
-                            "por criaturas llamadas Pokémon."
+                            "ESTE MUNDO ESTA HABITADO",
+                            "POR CRIATURAS LLAMADAS POKEMON."
                         ], () => {
                             this.startGenderSelection();
                         });
@@ -160,7 +149,7 @@ export default class Intro extends Phaser.Scene {
     }
 
     private startGenderSelection(): void {
-        this.showDialog(["Pero antes de continuar...", "¡Cuéntame sobre ti!", "¿Eres chico o chica?"], () => {
+        this.showDialog(["PERO ANTES DE CONTINUAR...", "CUENTAME SOBRE TI!", "ERES CHICO O CHICA?"], () => {
             this.createGenderSelectionUI();
         });
     }
@@ -175,28 +164,23 @@ export default class Intro extends Phaser.Scene {
         this.genderSelectionContainer = this.add.container(0, 0);
 
         // Boy Option
-        this.boySprite = this.add.sprite(width * 0.3, height / 2, 'player');
-        this.boySprite.setScale(3);
-        this.boySprite.setFrame(0); // Down facing
+        this.boySprite = this.add.sprite(width * 0.3, height / 2, 'player', 1); // Frame 1 (down)
+        this.boySprite.setScale(2);
 
-        const boyText = this.add.text(width * 0.3, height / 2 + 40, 'CHICO', {
-            fontFamily: 'monospace', fontSize: '12px', color: '#000000'
-        }).setOrigin(0.5);
+        const boyText = this.add.bitmapText(width * 0.3, height / 2 + 30, 'font', 'CHICO', 8).setOrigin(0.5);
 
         // Girl Option
-        this.girlSprite = this.add.sprite(width * 0.7, height / 2, 'player'); // Using same sprite for now
-        this.girlSprite.setScale(3);
-        this.girlSprite.setFrame(0); // Placeholder
+        this.girlSprite = this.add.sprite(width * 0.7, height / 2, 'player', 1); // Same sprite for now
+        this.girlSprite.setScale(2);
         this.girlSprite.setTint(0xFFB6C1); // Tint to differentiate
 
-        const girlText = this.add.text(width * 0.7, height / 2 + 40, 'CHICA', {
-            fontFamily: 'monospace', fontSize: '12px', color: '#000000'
-        }).setOrigin(0.5);
+        const girlText = this.add.bitmapText(width * 0.7, height / 2 + 30, 'font', 'CHICA', 8).setOrigin(0.5);
 
         this.genderSelectionContainer.add([this.boySprite, boyText, this.girlSprite, girlText]);
 
         // Cursor
-        this.selectionCursor = this.add.graphics();
+        this.selectionCursor = this.add.image(0, 0, 'arrow');
+        this.selectionCursor.setRotation(Math.PI / 2); // Point down
         this.updateGenderCursor();
         this.genderSelectionContainer.add(this.selectionCursor);
 
@@ -211,19 +195,16 @@ export default class Intro extends Phaser.Scene {
             this.updateGenderCursor();
         });
 
-        this.input.keyboard?.once('keydown-Z', () => {
-            this.confirmGender();
-        });
+        const confirm = () => this.confirmGender();
+        this.input.keyboard?.once('keydown-Z', confirm);
+        this.input.keyboard?.once('keydown-ENTER', confirm);
+        this.input.keyboard?.once('keydown-SPACE', confirm);
     }
 
     private updateGenderCursor(): void {
-        this.selectionCursor.clear();
-        this.selectionCursor.lineStyle(2, 0xFF0000, 1);
-
         const { width, height } = this.cameras.main;
         const x = this.selectedGender === 'boy' ? width * 0.3 : width * 0.7;
-
-        this.selectionCursor.strokeRect(x - 30, height / 2 - 40, 60, 100);
+        this.selectionCursor.setPosition(x, height / 2 - 30);
     }
 
     private confirmGender(): void {
@@ -238,7 +219,7 @@ export default class Intro extends Phaser.Scene {
         this.dialogText.setVisible(true);
         this.professorSprite.setVisible(true);
 
-        this.showDialog(["¡Muy bien!", "¿Y cuál es tu nombre?"], () => {
+        this.showDialog(["MUY BIEN!", "Y CUAL ES TU NOMBRE?"], () => {
             this.startNameInput();
         });
     }
@@ -254,20 +235,17 @@ export default class Intro extends Phaser.Scene {
         this.nameInputContainer = this.add.container(0, 0);
 
         // Name Display
-        const nameLabel = this.add.text(width / 2, 20, 'TU NOMBRE:', {
-            fontFamily: 'monospace', fontSize: '12px', color: '#000000'
-        }).setOrigin(0.5);
+        const nameLabel = this.add.bitmapText(width / 2, 20, 'font', 'TU NOMBRE:', 8).setOrigin(0.5);
 
-        this.nameText = this.add.text(width / 2, 40, '_', {
-            fontFamily: 'monospace', fontSize: '16px', color: '#0000FF'
-        }).setOrigin(0.5);
+        this.nameText = this.add.bitmapText(width / 2, 40, 'font', '_', 8).setOrigin(0.5);
+        this.nameText.setTint(0x0000FF);
 
         this.nameInputContainer.add([nameLabel, this.nameText]);
 
         // Keyboard
         const startY = 70;
-        const startX = 20;
-        const keySize = 20;
+        const startX = 40;
+        const keySize = 15;
         const padding = 5;
 
         this.KEYBOARD_LAYOUT.forEach((row, rowIndex) => {
@@ -276,9 +254,7 @@ export default class Intro extends Phaser.Scene {
                 const x = startX + colIndex * (keySize + padding);
                 const y = startY + rowIndex * (keySize + padding);
 
-                const keyText = this.add.text(x, y, key, {
-                    fontFamily: 'monospace', fontSize: '12px', color: '#000000'
-                }).setOrigin(0.5);
+                const keyText = this.add.bitmapText(x, y, 'font', key, 8).setOrigin(0.5);
 
                 this.nameInputContainer.add(keyText);
                 this.keyboardKeys[rowIndex].push(keyText);
@@ -295,6 +271,7 @@ export default class Intro extends Phaser.Scene {
 
         this.input.keyboard?.on('keydown-Z', () => this.handleKeySelection());
         this.input.keyboard?.on('keydown-X', () => this.handleDelete());
+        this.input.keyboard?.on('keydown-ENTER', () => this.handleKeySelection());
     }
 
     private moveKeyboardCursor(dRow: number, dCol: number): void {
@@ -312,10 +289,10 @@ export default class Intro extends Phaser.Scene {
 
     private updateKeyboardCursor(): void {
         // Reset colors
-        this.keyboardKeys.forEach(row => row.forEach(text => text.setColor('#000000')));
+        this.keyboardKeys.forEach(row => row.forEach(text => text.setTint(0xFFFFFF)));
 
         // Highlight selected
-        this.keyboardKeys[this.selectedKeyRow][this.selectedKeyCol].setColor('#FF0000');
+        this.keyboardKeys[this.selectedKeyRow][this.selectedKeyCol].setTint(0xFF0000);
     }
 
     private handleKeySelection(): void {
@@ -352,6 +329,7 @@ export default class Intro extends Phaser.Scene {
         this.input.keyboard?.off('keydown-RIGHT');
         this.input.keyboard?.off('keydown-Z');
         this.input.keyboard?.off('keydown-X');
+        this.input.keyboard?.off('keydown-ENTER');
 
         this.nameInputContainer.destroy();
         this.professorSprite.setVisible(true);
@@ -359,29 +337,29 @@ export default class Intro extends Phaser.Scene {
         this.dialogText.setVisible(true);
 
         this.showDialog([
-            `¡Ah, ${this.currentName}!`,
-            "¡Qué nombre más castizo!"
+            `AH, ${this.currentName}!`,
+            "QUE NOMBRE MAS CASTIZO!"
         ], () => {
             this.introduceRival();
         });
     }
 
     private introduceRival(): void {
-        this.showDialog(["Ahora, este de aquí..."], () => {
+        this.showDialog(["AHORA, ESTE DE AQUI..."], () => {
             const { width, height } = this.cameras.main;
 
             this.professorSprite.setVisible(false);
 
             // Rival Sprite (Placeholder)
-            this.rivalSprite = this.add.sprite(width / 2, height / 2 - 20, 'npc'); // Using NPC sprite for now
+            this.rivalSprite = this.add.sprite(width / 2, height / 2 - 20, 'npc', 0); // Using NPC sprite for now
             this.rivalSprite.setScale(2);
             this.rivalSprite.setTint(0x555555); // Darker tint
 
             this.showDialog([
-                "Este es Pablo.",
-                "Es tu vecino de toda la vida.",
-                "Ha sido tu rival y amigo",
-                "desde que erais pequeños."
+                "ESTE ES PABLO.",
+                "ES TU VECINO DE TODA LA VIDA.",
+                "HA SIDO TU RIVAL Y AMIGO",
+                "DESDE QUE ERAIS PEQUENOS."
             ], () => {
                 this.finishIntro();
             });
@@ -394,9 +372,9 @@ export default class Intro extends Phaser.Scene {
 
         this.showDialog([
             `${this.currentName}...`,
-            "Tu aventura está a punto",
-            "de comenzar.",
-            "¡Adelante!"
+            "TU AVENTURA ESTA A PUNTO",
+            "DE COMENZAR.",
+            "ADELANTE!"
         ], () => {
             // Transition to Overworld
             this.cameras.main.fadeOut(1000, 0, 0, 0);
