@@ -188,19 +188,21 @@ export default class Overworld extends Phaser.Scene {
       if (x === 20 && y === 0) {
         this.warpTo('chamberi', 20 * TILE_SIZE, 28 * TILE_SIZE);
       }
+      // Warp a Salamanca (ejemplo: borde este)
+      if (x === 29 && y === 15) {
+        this.warpTo('salamanca', 1 * TILE_SIZE, 15 * TILE_SIZE);
+      }
     } else if (this.mapKey === 'chamberi') {
       // Warp de vuelta a Madrid Centro
       if (x === 20 && y === 29) {
         this.warpTo('madrid_start', 20 * TILE_SIZE, 1 * TILE_SIZE);
       }
+    } else if (this.mapKey === 'salamanca') {
+      // Warp de vuelta a Madrid Centro
+      if (x === 0 && y === 15) {
+        this.warpTo('madrid_start', 28 * TILE_SIZE, 15 * TILE_SIZE);
+      }
     }
-  }
-
-  private warpTo(mapKey: string, x: number, y: number): void {
-    this.cameras.main.fadeOut(500, 0, 0, 0);
-    this.cameras.main.once('camerafadeoutcomplete', () => {
-      this.scene.restart({ map: mapKey, x: x, y: y });
-    });
   }
 
   private createMap(): void {
@@ -624,6 +626,14 @@ export default class Overworld extends Phaser.Scene {
         this.dialogSystem.show(['Estás en el distrito de Chamberí.', '¡Cuna del casticismo!']);
         return;
       }
+    } else if (this.mapKey === 'salamanca') {
+      if (tileX === 15 && tileY === 15) {
+        this.dialogSystem.show(['TIENDA DE LUJO', 'Aquí todo es muy caro.']);
+        return;
+      } else {
+        this.dialogSystem.show(['Estás en el distrito de Salamanca.', 'La Milla de Oro.']);
+        return;
+      }
     }
 
     // Si no hay interacción específica, buscar en la capa de objetos del mapa
@@ -631,5 +641,12 @@ export default class Overworld extends Phaser.Scene {
     if (tile && tile.properties && (tile.properties as any).message) {
       this.dialogSystem.show([(tile.properties as any).message]);
     }
+  }
+
+  private warpTo(mapKey: string, x: number, y: number): void {
+    this.cameras.main.fadeOut(500, 0, 0, 0);
+    this.cameras.main.once('camerafadeoutcomplete', () => {
+      this.scene.restart({ map: mapKey, x: x, y: y });
+    });
   }
 }

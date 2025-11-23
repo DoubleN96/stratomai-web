@@ -4,7 +4,7 @@ import { GameState } from '../managers/GameState';
 
 export default class Intro extends Phaser.Scene {
     private dialogBox!: Phaser.GameObjects.Sprite;
-    private dialogText!: Phaser.GameObjects.BitmapText;
+    private dialogText!: Phaser.GameObjects.Text;
     private professorSprite!: Phaser.GameObjects.Sprite;
     private playerSprite!: Phaser.GameObjects.Sprite;
     private rivalSprite!: Phaser.GameObjects.Sprite;
@@ -24,9 +24,9 @@ export default class Intro extends Phaser.Scene {
 
     // Name Input
     private nameInputContainer!: Phaser.GameObjects.Container;
-    private nameText!: Phaser.GameObjects.BitmapText;
+    private nameText!: Phaser.GameObjects.Text;
     private currentName: string = '';
-    private keyboardKeys: Phaser.GameObjects.BitmapText[][] = [];
+    private keyboardKeys: Phaser.GameObjects.Text[][] = [];
     private selectedKeyRow: number = 0;
     private selectedKeyCol: number = 0;
     private readonly KEYBOARD_LAYOUT = [
@@ -66,9 +66,13 @@ export default class Intro extends Phaser.Scene {
         this.dialogBox = this.add.sprite(width / 2, height - 25, 'battle-dialog');
         this.dialogBox.setDisplaySize(width - 10, 45);
 
-        // Texto bitmap
-        this.dialogText = this.add.bitmapText(20, height - 40, 'font', '', 8);
-        this.dialogText.setMaxWidth(width - 40);
+        // Texto normal
+        this.dialogText = this.add.text(20, height - 40, '', {
+            fontFamily: 'monospace',
+            fontSize: '16px',
+            color: '#000000',
+            wordWrap: { width: width - 40 }
+        });
     }
 
     private showDialog(lines: string[], callback?: () => void): void {
@@ -167,14 +171,14 @@ export default class Intro extends Phaser.Scene {
         this.boySprite = this.add.sprite(width * 0.3, height / 2, 'player', 1); // Frame 1 (down)
         this.boySprite.setScale(2);
 
-        const boyText = this.add.bitmapText(width * 0.3, height / 2 + 30, 'font', 'CHICO', 8).setOrigin(0.5);
+        const boyText = this.add.text(width * 0.3, height / 2 + 30, 'CHICO', { fontFamily: 'monospace', fontSize: '16px' }).setOrigin(0.5);
 
         // Girl Option
         this.girlSprite = this.add.sprite(width * 0.7, height / 2, 'player', 1); // Same sprite for now
         this.girlSprite.setScale(2);
         this.girlSprite.setTint(0xFFB6C1); // Tint to differentiate
 
-        const girlText = this.add.bitmapText(width * 0.7, height / 2 + 30, 'font', 'CHICA', 8).setOrigin(0.5);
+        const girlText = this.add.text(width * 0.7, height / 2 + 30, 'CHICA', { fontFamily: 'monospace', fontSize: '16px' }).setOrigin(0.5);
 
         this.genderSelectionContainer.add([this.boySprite, boyText, this.girlSprite, girlText]);
 
@@ -235,9 +239,9 @@ export default class Intro extends Phaser.Scene {
         this.nameInputContainer = this.add.container(0, 0);
 
         // Name Display
-        const nameLabel = this.add.bitmapText(width / 2, 20, 'font', 'TU NOMBRE:', 8).setOrigin(0.5);
+        const nameLabel = this.add.text(width / 2, 20, 'TU NOMBRE:', { fontFamily: 'monospace', fontSize: '16px' }).setOrigin(0.5);
 
-        this.nameText = this.add.bitmapText(width / 2, 40, 'font', '_', 8).setOrigin(0.5);
+        this.nameText = this.add.text(width / 2, 40, '_', { fontFamily: 'monospace', fontSize: '16px' }).setOrigin(0.5);
         this.nameText.setTint(0x0000FF);
 
         this.nameInputContainer.add([nameLabel, this.nameText]);
@@ -254,7 +258,7 @@ export default class Intro extends Phaser.Scene {
                 const x = startX + colIndex * (keySize + padding);
                 const y = startY + rowIndex * (keySize + padding);
 
-                const keyText = this.add.bitmapText(x, y, 'font', key, 8).setOrigin(0.5);
+                const keyText = this.add.text(x, y, key, { fontFamily: 'monospace', fontSize: '16px' }).setOrigin(0.5);
 
                 this.nameInputContainer.add(keyText);
                 this.keyboardKeys[rowIndex].push(keyText);
