@@ -2,13 +2,13 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Pokémon Madrid: Edición Castiza',
-  description: 'Juego de Pokémon estilo GBA ambientado en Madrid - Next.js + Phaser',
-  manifest: '/manifest.json',
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'black-translucent',
-    title: 'Pokémon Madrid',
+  title: 'Stratoma Interchange - Global Commodities Trading',
+  description: 'Premier intermediary for international trade in Urea 46% and petrochemical derivatives. Reliable supply chain solutions for global markets.',
+  keywords: 'commodities trading, urea 46%, petrochemicals, international trade, supply chain',
+  openGraph: {
+    title: 'Stratoma Interchange - Global Commodities Trading',
+    description: 'Premier intermediary for international trade in Urea 46% and petrochemical derivatives.',
+    type: 'website',
   },
 };
 
@@ -16,8 +16,6 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  userScalable: false,
-  viewportFit: 'cover',
 };
 
 export default function RootLayout({
@@ -26,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
         {children}
       </body>
