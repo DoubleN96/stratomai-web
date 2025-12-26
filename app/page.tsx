@@ -3,12 +3,14 @@
 import { useState, useEffect } from 'react';
 import { translations } from '@/lib/translations';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Image from 'next/image';
 
 export default function HomePage() {
   const [lang, setLang] = useState<'en' | 'es'>('en');
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { scrollYProgress } = useScroll();
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 1.1]);
 
   const t = translations[lang];
 
@@ -28,16 +30,16 @@ export default function HomePage() {
     <div className="min-h-screen bg-[#0a0f0d] text-[#e8e6df] font-serif overflow-x-hidden">
       {/* Custom cursor follower */}
       <motion.div
-        className="fixed w-8 h-8 border border-[#8b7355]/30 rounded-full pointer-events-none z-50 mix-blend-difference"
+        className="fixed w-10 h-10 border-2 border-[#8b7355]/40 rounded-full pointer-events-none z-50 mix-blend-difference hidden lg:block"
         animate={{
-          x: mousePosition.x - 16,
-          y: mousePosition.y - 16,
+          x: mousePosition.x - 20,
+          y: mousePosition.y - 20,
         }}
         transition={{ type: "spring", damping: 30, stiffness: 200 }}
       />
 
       {/* Noise overlay */}
-      <div className="fixed inset-0 opacity-[0.015] pointer-events-none mix-blend-overlay z-10"
+      <div className="fixed inset-0 opacity-[0.02] pointer-events-none mix-blend-overlay z-10"
            style={{
              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E")`
            }}
@@ -47,40 +49,42 @@ export default function HomePage() {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className="fixed top-0 w-full bg-[#0a0f0d]/80 backdrop-blur-xl border-b border-[#8b7355]/10 z-40"
+        className="fixed top-0 w-full bg-[#0a0f0d]/90 backdrop-blur-xl border-b border-[#8b7355]/10 z-40"
       >
-        <div className="max-w-[1800px] mx-auto px-8 lg:px-16">
-          <div className="flex justify-between items-center h-20">
+        <div className="max-w-[1800px] mx-auto px-6 lg:px-20">
+          <div className="flex justify-between items-center h-24">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-2xl font-bold tracking-tighter"
+              className="text-2xl lg:text-3xl font-bold tracking-tighter"
             >
               <span className="text-[#8b7355]">STRAT</span>
               <span className="text-[#e8e6df]">OMA</span>
             </motion.div>
 
-            <div className="hidden lg:flex items-center gap-12 font-mono text-sm tracking-wide">
-              {['products', 'process', 'contact'].map((item, i) => (
-                <motion.a
-                  key={item}
-                  href={`#${item}`}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 + i * 0.1 }}
-                  className="text-[#e8e6df]/60 hover:text-[#8b7355] transition-colors duration-300 uppercase text-xs"
-                >
-                  {t.nav[item as keyof typeof t.nav]}
-                </motion.a>
-              ))}
+            <div className="flex items-center gap-8 lg:gap-12">
+              <div className="hidden lg:flex items-center gap-12 font-mono text-sm tracking-wide">
+                {['products', 'process', 'contact'].map((item, i) => (
+                  <motion.a
+                    key={item}
+                    href={`#${item}`}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 + i * 0.1 }}
+                    className="text-[#e8e6df]/60 hover:text-[#8b7355] transition-colors duration-300 uppercase text-xs"
+                  >
+                    {t.nav[item as keyof typeof t.nav]}
+                  </motion.a>
+                ))}
+              </div>
 
               <motion.button
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.6 }}
                 onClick={toggleLanguage}
-                className="px-4 py-2 border border-[#8b7355]/30 hover:border-[#8b7355] text-[#8b7355] font-mono text-xs tracking-widest transition-all duration-300 hover:bg-[#8b7355]/5"
+                className="px-5 py-2.5 border-2 border-[#8b7355]/40 hover:border-[#8b7355] text-[#8b7355] font-mono text-xs tracking-widest transition-all duration-300 hover:bg-[#8b7355]/10"
               >
                 {lang.toUpperCase()}
               </motion.button>
@@ -90,41 +94,56 @@ export default function HomePage() {
       </motion.nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-20">
-        {/* Background geometric pattern */}
-        <div className="absolute inset-0 overflow-hidden opacity-5">
+      <section className="relative min-h-screen flex items-center pt-24 overflow-hidden">
+        {/* Hero background image */}
+        <motion.div
+          className="absolute inset-0 z-0"
+          style={{ scale: heroScale }}
+        >
+          <Image
+            src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?auto=format&fit=crop&w=2400&q=80"
+            alt="Industrial facility"
+            fill
+            className="object-cover opacity-20"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0f0d]/80 via-[#0a0f0d]/60 to-[#0a0f0d]" />
+        </motion.div>
+
+        {/* Geometric accents */}
+        <div className="absolute inset-0 overflow-hidden opacity-5 z-0">
           <div className="absolute top-0 right-0 w-[800px] h-[800px] border border-[#8b7355] rotate-45 translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] border border-[#8b7355] -rotate-12 -translate-x-1/2 translate-y-1/2" />
         </div>
 
         <motion.div
-          style={{ opacity }}
-          className="relative max-w-[1800px] mx-auto px-8 lg:px-16 py-32 grid lg:grid-cols-12 gap-16"
+          style={{ opacity: heroOpacity }}
+          className="relative z-10 max-w-[1800px] mx-auto px-6 lg:px-20 py-32 lg:py-40 grid lg:grid-cols-12 gap-16"
         >
           <div className="lg:col-span-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="mb-6"
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="mb-8"
             >
-              <div className="inline-block px-4 py-2 border border-[#8b7355]/30 font-mono text-xs tracking-[0.3em] text-[#8b7355] mb-8">
-                COMMODITIES EXCELLENCE
+              <div className="inline-block px-5 py-3 border border-[#8b7355]/40 font-mono text-xs tracking-[0.35em] text-[#8b7355] mb-10">
+                GLOBAL COMMODITIES EXCELLENCE
               </div>
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.4 }}
-              className="text-6xl lg:text-8xl font-bold leading-[0.9] tracking-tighter mb-12"
+              transition={{ duration: 1, delay: 0.5 }}
+              className="text-6xl lg:text-8xl xl:text-9xl font-bold leading-[0.9] tracking-tighter mb-12"
             >
               {t.hero.title.split(' ').map((word, i) => (
                 <motion.span
                   key={i}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 + i * 0.1 }}
+                  transition={{ delay: 0.6 + i * 0.1 }}
                   className="block"
                 >
                   {word}
@@ -135,10 +154,10 @@ export default function HomePage() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1 }}
-              className="max-w-xl"
+              transition={{ delay: 1.2 }}
+              className="max-w-2xl"
             >
-              <p className="text-xl text-[#e8e6df]/70 leading-relaxed mb-12 font-sans">
+              <p className="text-xl lg:text-2xl text-[#e8e6df]/70 leading-relaxed mb-12 font-sans font-light">
                 {t.hero.subtitle}
               </p>
 
@@ -151,7 +170,7 @@ export default function HomePage() {
                 <motion.span
                   animate={{ x: [0, 5, 0] }}
                   transition={{ repeat: Infinity, duration: 1.5 }}
-                  className="text-[#8b7355]"
+                  className="text-[#8b7355] text-2xl"
                 >
                   →
                 </motion.span>
@@ -162,25 +181,25 @@ export default function HomePage() {
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.8 }}
-            className="lg:col-span-4 flex flex-col gap-8"
+            transition={{ duration: 1, delay: 0.9 }}
+            className="lg:col-span-4 flex flex-col gap-10"
           >
             {[
-              { value: '1000+', label: 'Transactions/Year' },
-              { value: '98%', label: 'Success Rate' },
-              { value: '24/7', label: 'Global Coverage' },
+              { value: '1200+', label: lang === 'en' ? 'Transactions/Year' : 'Transacciones/Año' },
+              { value: '98.5%', label: lang === 'en' ? 'Success Rate' : 'Tasa de Éxito' },
+              { value: '24/7', label: lang === 'en' ? 'Global Coverage' : 'Cobertura Global' },
             ].map((stat, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1 + i * 0.2 }}
-                className="border-l-2 border-[#8b7355] pl-6"
+                transition={{ delay: 1.1 + i * 0.2 }}
+                className="border-l-4 border-[#8b7355] pl-8"
               >
-                <div className="text-5xl font-bold text-[#8b7355] font-mono tabular-nums">
+                <div className="text-6xl lg:text-7xl font-bold text-[#8b7355] font-mono tabular-nums">
                   {stat.value}
                 </div>
-                <div className="text-sm text-[#e8e6df]/50 uppercase tracking-widest font-mono mt-2">
+                <div className="text-sm text-[#e8e6df]/50 uppercase tracking-widest font-mono mt-3">
                   {stat.label}
                 </div>
               </motion.div>
@@ -190,8 +209,8 @@ export default function HomePage() {
       </section>
 
       {/* Product Section */}
-      <section id="products" className="relative py-32 border-t border-[#8b7355]/10">
-        <div className="max-w-[1800px] mx-auto px-8 lg:px-16">
+      <section id="products" className="relative py-32 lg:py-40 border-t border-[#8b7355]/10 bg-gradient-to-b from-[#0a0f0d] to-[#0d1410]">
+        <div className="max-w-[1800px] mx-auto px-6 lg:px-20">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -199,66 +218,80 @@ export default function HomePage() {
             className="grid lg:grid-cols-2 gap-16 mb-24"
           >
             <div>
-              <h2 className="text-6xl font-bold mb-8 leading-tight">
+              <h2 className="text-5xl lg:text-7xl font-bold mb-8 leading-tight">
                 {t.products.title}
               </h2>
-              <p className="text-lg text-[#e8e6df]/60 font-sans">
+              <p className="text-lg lg:text-xl text-[#e8e6df]/60 font-sans font-light">
                 {t.products.subtitle}
               </p>
             </div>
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-2 gap-10">
+            {/* Urea 46% Card */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="group relative bg-gradient-to-br from-[#1a2520] to-[#0a0f0d] border border-[#8b7355]/20 p-12 hover:border-[#8b7355]/50 transition-all duration-500"
+              className="group relative bg-gradient-to-br from-[#1a2520] to-[#0a0f0d] border-2 border-[#8b7355]/20 overflow-hidden hover:border-[#8b7355]/60 transition-all duration-500"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#8b7355]/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 opacity-20">
+                <Image
+                  src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1200&q=80"
+                  alt="Urea granules"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f0d] via-[#0a0f0d]/80 to-transparent" />
+              </div>
 
-              <h3 className="text-4xl font-bold mb-8 text-[#8b7355]">
-                {t.products.urea.title}
-              </h3>
+              <div className="relative z-10 p-12 lg:p-16">
+                <div className="absolute top-0 right-0 w-40 h-40 bg-[#8b7355]/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              <div className="space-y-4 font-mono text-sm">
-                {[
-                  { label: t.products.urea.form, value: 'Granular / Prilled' },
-                  { label: t.products.urea.nitrogen, value: '46% min' },
-                  { label: t.products.urea.moisture, value: '0.5% max' },
-                  { label: t.products.urea.biuret, value: '1% max' },
-                ].map((spec, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
-                    className="flex justify-between items-center border-b border-[#8b7355]/10 pb-3"
-                  >
-                    <span className="text-[#e8e6df]/50 uppercase tracking-wider text-xs">
-                      {spec.label}
-                    </span>
-                    <span className="text-[#e8e6df] tabular-nums">
-                      {spec.value}
-                    </span>
-                  </motion.div>
-                ))}
+                <h3 className="text-4xl lg:text-5xl font-bold mb-10 text-[#8b7355]">
+                  {t.products.urea.title}
+                </h3>
+
+                <div className="space-y-5 font-mono text-sm">
+                  {[
+                    { label: t.products.urea.form, value: 'Granular / Prilled' },
+                    { label: t.products.urea.nitrogen, value: '46% min' },
+                    { label: t.products.urea.moisture, value: '0.5% max' },
+                    { label: t.products.urea.biuret, value: '1% max' },
+                  ].map((spec, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1 }}
+                      className="flex justify-between items-center border-b border-[#8b7355]/15 pb-4"
+                    >
+                      <span className="text-[#e8e6df]/50 uppercase tracking-wider text-xs">
+                        {spec.label}
+                      </span>
+                      <span className="text-[#e8e6df] tabular-nums font-medium">
+                        {spec.value}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             </motion.div>
 
+            {/* Quality Standards Card */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="bg-gradient-to-br from-[#1a2520] to-[#0a0f0d] border border-[#8b7355]/20 p-12"
+              className="bg-gradient-to-br from-[#1a2520] to-[#0a0f0d] border-2 border-[#8b7355]/20 p-12 lg:p-16"
             >
-              <h3 className="text-4xl font-bold mb-8 text-[#8b7355]">
+              <h3 className="text-4xl lg:text-5xl font-bold mb-10 text-[#8b7355]">
                 {t.products.standards.title}
               </h3>
 
-              <div className="space-y-6 font-sans">
+              <div className="space-y-8 font-sans">
                 {[
                   t.products.standards.quality,
                   t.products.standards.inspection,
@@ -270,12 +303,12 @@ export default function HomePage() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.2 + i * 0.1 }}
-                    className="flex gap-4"
+                    className="flex gap-6"
                   >
-                    <div className="text-[#8b7355] font-mono text-xs mt-1">
+                    <div className="text-[#8b7355] font-mono text-sm mt-1 font-bold">
                       {String(i + 1).padStart(2, '0')}
                     </div>
-                    <p className="text-[#e8e6df]/70 leading-relaxed">
+                    <p className="text-[#e8e6df]/70 leading-relaxed text-base lg:text-lg font-light">
                       {item}
                     </p>
                   </motion.div>
@@ -287,22 +320,32 @@ export default function HomePage() {
       </section>
 
       {/* Process Section */}
-      <section id="process" className="relative py-32 border-t border-[#8b7355]/10">
-        <div className="max-w-[1800px] mx-auto px-8 lg:px-16">
+      <section id="process" className="relative py-32 lg:py-40 border-t border-[#8b7355]/10">
+        <div className="absolute inset-0 opacity-10">
+          <Image
+            src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=2400&q=80"
+            alt="Business meeting"
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0f0d] via-[#0a0f0d]/95 to-[#0a0f0d]" />
+        </div>
+
+        <div className="relative z-10 max-w-[1800px] mx-auto px-6 lg:px-20">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="mb-24"
           >
-            <h2 className="text-6xl font-bold mb-8">
+            <h2 className="text-5xl lg:text-7xl font-bold mb-8">
               {t.process.title}
             </h2>
-            <p className="text-xl text-[#e8e6df]/60 max-w-3xl font-sans mb-8">
+            <p className="text-xl lg:text-2xl text-[#e8e6df]/60 max-w-3xl font-sans font-light mb-10">
               {t.process.subtitle}
             </p>
-            <div className="inline-block px-6 py-3 border-l-4 border-[#8b7355] bg-[#8b7355]/5">
-              <p className="text-[#8b7355] font-mono text-sm">
+            <div className="inline-block px-8 py-4 border-l-4 border-[#8b7355] bg-[#8b7355]/10">
+              <p className="text-[#8b7355] font-mono text-sm lg:text-base">
                 {t.process.note}
               </p>
             </div>
@@ -316,20 +359,20 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15 }}
-                className="group relative bg-gradient-to-br from-[#1a2520] to-[#0a0f0d] border border-[#8b7355]/20 p-10 hover:border-[#8b7355] transition-all duration-500"
+                className="group relative bg-gradient-to-br from-[#1a2520] to-[#0a0f0d] border-2 border-[#8b7355]/20 p-10 lg:p-12 hover:border-[#8b7355] transition-all duration-500"
               >
-                <div className="absolute top-8 right-8 text-8xl font-bold text-[#8b7355]/5 group-hover:text-[#8b7355]/10 transition-colors duration-500 font-mono">
+                <div className="absolute top-8 right-8 text-9xl font-bold text-[#8b7355]/5 group-hover:text-[#8b7355]/10 transition-colors duration-500 font-mono">
                   {String(i + 1).padStart(2, '0')}
                 </div>
 
                 <div className="relative z-10">
-                  <div className="text-2xl font-mono text-[#8b7355] mb-1 tabular-nums">
+                  <div className="text-3xl font-mono text-[#8b7355] mb-2 tabular-nums font-bold">
                     {String(i + 1).padStart(2, '0')}
                   </div>
-                  <h3 className="text-2xl font-bold mb-6 leading-tight">
+                  <h3 className="text-2xl lg:text-3xl font-bold mb-6 leading-tight">
                     {step.title}
                   </h3>
-                  <p className="text-[#e8e6df]/60 leading-relaxed font-sans text-sm">
+                  <p className="text-[#e8e6df]/60 leading-relaxed font-sans text-sm lg:text-base font-light">
                     {step.description}
                   </p>
                 </div>
@@ -342,138 +385,197 @@ export default function HomePage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="relative py-32 border-t border-[#8b7355]/10">
-        <div className="max-w-[1400px] mx-auto px-8 lg:px-16">
+      <section id="contact" className="relative py-32 lg:py-40 border-t border-[#8b7355]/10 bg-gradient-to-b from-[#0a0f0d] to-[#0d1410]">
+        <div className="max-w-[1600px] mx-auto px-6 lg:px-20">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="mb-16"
           >
-            <h2 className="text-6xl font-bold mb-6">
+            <h2 className="text-5xl lg:text-7xl font-bold mb-8">
               {t.contact.title}
             </h2>
-            <p className="text-xl text-[#e8e6df]/60 font-sans">
+            <p className="text-xl lg:text-2xl text-[#e8e6df]/60 font-sans font-light">
               {t.contact.subtitle}
             </p>
           </motion.div>
 
-          <motion.form
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="grid lg:grid-cols-2 gap-8"
-          >
-            <div className="space-y-8">
-              <div>
-                <label className="block text-xs uppercase tracking-widest text-[#e8e6df]/50 font-mono mb-3">
-                  {t.contact.form.company}
-                </label>
-                <input
-                  type="text"
-                  className="w-full bg-transparent border-b-2 border-[#8b7355]/30 focus:border-[#8b7355] outline-none py-3 text-lg transition-colors duration-300"
-                  required
-                />
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-20">
+            {/* Contact Info */}
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-10"
+            >
+              <div className="border-l-4 border-[#8b7355] pl-8">
+                <div className="text-xs uppercase tracking-widest text-[#e8e6df]/50 font-mono mb-4">
+                  Email
+                </div>
+                <a
+                  href="mailto:info@stratomai.com"
+                  className="text-2xl lg:text-3xl text-[#8b7355] hover:text-[#a08766] transition-colors duration-300 font-mono"
+                >
+                  info@stratomai.com
+                </a>
+              </div>
+
+              <div className="border-l-4 border-[#8b7355] pl-8">
+                <div className="text-xs uppercase tracking-widest text-[#e8e6df]/50 font-mono mb-4">
+                  WhatsApp
+                </div>
+                <a
+                  href="https://wa.me/34611031947"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-2xl lg:text-3xl text-[#8b7355] hover:text-[#a08766] transition-colors duration-300 font-mono"
+                >
+                  +34 611 03 19 47
+                </a>
+              </div>
+
+              <div className="mt-16 pt-16 border-t border-[#8b7355]/20">
+                <p className="text-[#e8e6df]/40 font-sans text-sm lg:text-base leading-relaxed font-light">
+                  {lang === 'en'
+                    ? 'Professional commodities trading requires precision and trust. Contact us to discuss your requirements with our expert team.'
+                    : 'El comercio profesional de commodities requiere precisión y confianza. Contáctenos para discutir sus requisitos con nuestro equipo experto.'
+                  }
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Contact Form */}
+            <motion.form
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-8"
+            >
+              <div className="grid grid-cols-2 gap-8">
+                <div>
+                  <label className="block text-xs uppercase tracking-widest text-[#e8e6df]/50 font-mono mb-4">
+                    {t.contact.form.company}
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full bg-transparent border-b-2 border-[#8b7355]/30 focus:border-[#8b7355] outline-none py-4 text-lg transition-colors duration-300"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs uppercase tracking-widest text-[#e8e6df]/50 font-mono mb-4">
+                    {t.contact.form.email}
+                  </label>
+                  <input
+                    type="email"
+                    className="w-full bg-transparent border-b-2 border-[#8b7355]/30 focus:border-[#8b7355] outline-none py-4 text-lg transition-colors duration-300"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-8">
+                <div>
+                  <label className="block text-xs uppercase tracking-widest text-[#e8e6df]/50 font-mono mb-4">
+                    {t.contact.form.role}
+                  </label>
+                  <select className="w-full bg-transparent border-b-2 border-[#8b7355]/30 focus:border-[#8b7355] outline-none py-4 text-lg transition-colors duration-300">
+                    <option value="" className="bg-[#0a0f0d]">{t.contact.form.selectRole}</option>
+                    <option value="buyer" className="bg-[#0a0f0d]">{t.contact.form.buyer}</option>
+                    <option value="seller" className="bg-[#0a0f0d]">{t.contact.form.seller}</option>
+                    <option value="mandate" className="bg-[#0a0f0d]">{t.contact.form.mandate}</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs uppercase tracking-widest text-[#e8e6df]/50 font-mono mb-4">
+                    {t.contact.form.product}
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Urea 46%, etc."
+                    className="w-full bg-transparent border-b-2 border-[#8b7355]/30 focus:border-[#8b7355] outline-none py-4 text-lg transition-colors duration-300 placeholder:text-[#e8e6df]/20"
+                    required
+                  />
+                </div>
               </div>
 
               <div>
-                <label className="block text-xs uppercase tracking-widest text-[#e8e6df]/50 font-mono mb-3">
-                  {t.contact.form.email}
-                </label>
-                <input
-                  type="email"
-                  className="w-full bg-transparent border-b-2 border-[#8b7355]/30 focus:border-[#8b7355] outline-none py-3 text-lg transition-colors duration-300"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs uppercase tracking-widest text-[#e8e6df]/50 font-mono mb-3">
-                  {t.contact.form.role}
-                </label>
-                <select className="w-full bg-transparent border-b-2 border-[#8b7355]/30 focus:border-[#8b7355] outline-none py-3 text-lg transition-colors duration-300">
-                  <option value="" className="bg-[#0a0f0d]">{t.contact.form.selectRole}</option>
-                  <option value="buyer" className="bg-[#0a0f0d]">{t.contact.form.buyer}</option>
-                  <option value="seller" className="bg-[#0a0f0d]">{t.contact.form.seller}</option>
-                  <option value="mandate" className="bg-[#0a0f0d]">{t.contact.form.mandate}</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="space-y-8">
-              <div>
-                <label className="block text-xs uppercase tracking-widest text-[#e8e6df]/50 font-mono mb-3">
-                  {t.contact.form.product}
-                </label>
-                <input
-                  type="text"
-                  placeholder="Urea 46%, etc."
-                  className="w-full bg-transparent border-b-2 border-[#8b7355]/30 focus:border-[#8b7355] outline-none py-3 text-lg transition-colors duration-300 placeholder:text-[#e8e6df]/20"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs uppercase tracking-widest text-[#e8e6df]/50 font-mono mb-3">
+                <label className="block text-xs uppercase tracking-widest text-[#e8e6df]/50 font-mono mb-4">
                   {t.contact.form.inquiry}
                 </label>
                 <textarea
                   rows={6}
-                  className="w-full bg-transparent border-b-2 border-[#8b7355]/30 focus:border-[#8b7355] outline-none py-3 text-lg transition-colors duration-300 resize-none"
+                  className="w-full bg-transparent border-b-2 border-[#8b7355]/30 focus:border-[#8b7355] outline-none py-4 text-lg transition-colors duration-300 resize-none"
                   required
                 />
               </div>
-            </div>
 
-            <div className="lg:col-span-2 mt-8">
-              <motion.button
-                whileHover={{ x: 10 }}
-                whileTap={{ scale: 0.98 }}
-                type="submit"
-                className="inline-flex items-center gap-6 px-12 py-6 bg-[#8b7355] text-[#0a0f0d] font-mono text-sm tracking-widest uppercase hover:bg-[#a08766] transition-colors duration-300"
-              >
-                <span>{t.contact.form.submit}</span>
-                <span>→</span>
-              </motion.button>
-            </div>
-          </motion.form>
+              <div className="pt-8">
+                <motion.button
+                  whileHover={{ x: 10 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  className="inline-flex items-center gap-6 px-12 py-6 bg-[#8b7355] text-[#0a0f0d] font-mono text-sm tracking-widest uppercase hover:bg-[#a08766] transition-colors duration-300 font-bold"
+                >
+                  <span>{t.contact.form.submit}</span>
+                  <span className="text-xl">→</span>
+                </motion.button>
+              </div>
+            </motion.form>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="relative border-t border-[#8b7355]/10 py-16">
-        <div className="max-w-[1800px] mx-auto px-8 lg:px-16">
-          <div className="grid lg:grid-cols-3 gap-16 mb-16">
+      <footer className="relative border-t border-[#8b7355]/10 py-20 bg-[#0a0f0d]">
+        <div className="max-w-[1800px] mx-auto px-6 lg:px-20">
+          <div className="grid lg:grid-cols-3 gap-16 mb-20">
             <div>
-              <div className="text-3xl font-bold mb-6">
+              <div className="text-4xl font-bold mb-8">
                 <span className="text-[#8b7355]">STRAT</span>
                 <span className="text-[#e8e6df]">OMA</span>
               </div>
-              <p className="text-[#e8e6df]/50 font-sans">
+              <p className="text-[#e8e6df]/50 font-sans text-lg font-light leading-relaxed">
                 {t.footer.tagline}
               </p>
             </div>
 
             <div>
-              <h4 className="text-xs uppercase tracking-widest text-[#e8e6df]/50 font-mono mb-4">
+              <h4 className="text-xs uppercase tracking-widest text-[#e8e6df]/50 font-mono mb-6">
                 {t.footer.contact.title}
               </h4>
-              <a href="mailto:contact@stratomai.com" className="text-[#8b7355] hover:text-[#a08766] transition-colors duration-300 font-mono">
-                contact@stratomai.com
-              </a>
+              <div className="space-y-4">
+                <a
+                  href="mailto:info@stratomai.com"
+                  className="block text-[#8b7355] hover:text-[#a08766] transition-colors duration-300 font-mono text-lg"
+                >
+                  info@stratomai.com
+                </a>
+                <a
+                  href="https://wa.me/34611031947"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-[#8b7355] hover:text-[#a08766] transition-colors duration-300 font-mono text-lg"
+                >
+                  +34 611 03 19 47
+                </a>
+              </div>
             </div>
 
             <div>
-              <h4 className="text-xs uppercase tracking-widest text-[#e8e6df]/50 font-mono mb-4">
+              <h4 className="text-xs uppercase tracking-widest text-[#e8e6df]/50 font-mono mb-6">
                 {t.footer.legal.title}
               </h4>
-              <p className="text-[#e8e6df]/40 text-sm font-sans leading-relaxed">
+              <p className="text-[#e8e6df]/40 text-sm font-sans leading-relaxed font-light">
                 {t.footer.legal.notice}
               </p>
             </div>
           </div>
 
-          <div className="border-t border-[#8b7355]/10 pt-8 flex justify-between items-center">
+          <div className="border-t border-[#8b7355]/10 pt-10 flex flex-col lg:flex-row justify-between items-center gap-6">
             <p className="text-[#e8e6df]/30 font-mono text-xs">
               © {new Date().getFullYear()} Stratoma Interchange
             </p>
