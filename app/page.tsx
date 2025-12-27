@@ -108,10 +108,19 @@ export default function HomePage() {
                   {t.nav.blog}
                 </motion.a>
                 <motion.a
-                  href="/faq"
+                  href="/glossary"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
+                  className="text-[#e8e6df]/60 hover:text-[#8b7355] transition-colors duration-300 uppercase text-xs"
+                >
+                  {t.nav.glossary}
+                </motion.a>
+                <motion.a
+                  href="/faq"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
                   className="text-[#e8e6df]/60 hover:text-[#8b7355] transition-colors duration-300 uppercase text-xs"
                 >
                   {t.nav.faq}
@@ -120,7 +129,7 @@ export default function HomePage() {
                   href="/about"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
+                  transition={{ delay: 0.7 }}
                   className="text-[#e8e6df]/60 hover:text-[#8b7355] transition-colors duration-300 uppercase text-xs"
                 >
                   {t.nav.about}
@@ -129,7 +138,7 @@ export default function HomePage() {
                   href="#contact"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.7 }}
+                  transition={{ delay: 0.8 }}
                   className="text-[#e8e6df]/60 hover:text-[#8b7355] transition-colors duration-300 uppercase text-xs"
                 >
                   {t.nav.contact}

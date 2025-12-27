@@ -3,6 +3,7 @@ export const translations = {
     nav: {
       products: 'Products',
       blog: 'Blog',
+      glossary: 'Glossary',
       faq: 'FAQ',
       about: 'About',
       process: 'Process',
@@ -89,6 +90,7 @@ export const translations = {
     nav: {
       products: 'Productos',
       blog: 'Blog',
+      glossary: 'Glosario',
       faq: 'FAQ',
       about: 'Acerca de',
       process: 'Proceso',
