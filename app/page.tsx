@@ -88,19 +88,52 @@ export default function HomePage() {
             </motion.div>
 
             <div className="flex items-center gap-8 lg:gap-12">
-              <div className="hidden lg:flex items-center gap-12 font-mono text-sm tracking-wide">
-                {['products', 'process', 'contact'].map((item, i) => (
-                  <motion.a
-                    key={item}
-                    href={`#${item}`}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 + i * 0.1 }}
-                    className="text-[#e8e6df]/60 hover:text-[#8b7355] transition-colors duration-300 uppercase text-xs"
-                  >
-                    {t.nav[item as keyof typeof t.nav]}
-                  </motion.a>
-                ))}
+              <div className="hidden lg:flex items-center gap-8 font-mono text-sm tracking-wide">
+                <motion.a
+                  href="/products"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="text-[#e8e6df]/60 hover:text-[#8b7355] transition-colors duration-300 uppercase text-xs"
+                >
+                  {t.nav.products}
+                </motion.a>
+                <motion.a
+                  href="/blog"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="text-[#e8e6df]/60 hover:text-[#8b7355] transition-colors duration-300 uppercase text-xs"
+                >
+                  {t.nav.blog}
+                </motion.a>
+                <motion.a
+                  href="/faq"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="text-[#e8e6df]/60 hover:text-[#8b7355] transition-colors duration-300 uppercase text-xs"
+                >
+                  {t.nav.faq}
+                </motion.a>
+                <motion.a
+                  href="/about"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="text-[#e8e6df]/60 hover:text-[#8b7355] transition-colors duration-300 uppercase text-xs"
+                >
+                  {t.nav.about}
+                </motion.a>
+                <motion.a
+                  href="#contact"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7 }}
+                  className="text-[#e8e6df]/60 hover:text-[#8b7355] transition-colors duration-300 uppercase text-xs"
+                >
+                  {t.nav.contact}
+                </motion.a>
               </div>
 
               <motion.button

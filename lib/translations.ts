@@ -2,6 +2,9 @@ export const translations = {
   en: {
     nav: {
       products: 'Products',
+      blog: 'Blog',
+      faq: 'FAQ',
+      about: 'About',
       process: 'Process',
       contact: 'Contact',
     },
@@ -85,6 +88,9 @@ export const translations = {
   es: {
     nav: {
       products: 'Productos',
+      blog: 'Blog',
+      faq: 'FAQ',
+      about: 'Acerca de',
       process: 'Proceso',
       contact: 'Contacto',
     },
