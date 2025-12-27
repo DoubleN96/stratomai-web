@@ -1032,6 +1032,670 @@ Understanding these instruments protects your interests whether you're buying or
 **Keywords:** ICPO, SBLC, DLC, letter of credit, standby letter of credit, documentary credit, payment security, commodity trading, bank guarantee, trade finance
 `,
   },
+  {
+    slug: 'fob-cfr-cif-incoterms-explained',
+    title: 'FOB, CFR & CIF Incoterms: Complete Guide for Commodity Traders',
+    description: 'Understand FOB, CFR, and CIF Incoterms for international commodity trading. Learn responsibilities, costs, risks, and which term is best for your Urea 46% transactions.',
+    author: 'Stratoma Interchange',
+    publishDate: '2025-01-12',
+    category: 'Trade Procedures',
+    tags: ['Incoterms', 'FOB', 'CFR', 'CIF', 'Shipping Terms', 'International Trade'],
+    readingTime: 6,
+    image: {
+      url: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80',
+      alt: 'Container shipping and international trade',
+    },
+    content: `
+# FOB, CFR & CIF Incoterms: Complete Guide for Commodity Traders
+
+Incoterms (International Commercial Terms) define responsibilities between buyers and sellers in international trade. Understanding FOB, CFR, and CIF is crucial for commodity trading success.
+
+## What Are Incoterms?
+
+Incoterms are standardized trade terms published by the International Chamber of Commerce (ICC). They clarify:
+- Who pays for shipping, insurance, and customs
+- When risk transfers from seller to buyer
+- Who handles loading and unloading
+- Documentation responsibilities
+
+**Current Version:** Incoterms 2020 (effective January 1, 2020)
+
+## FOB: Free On Board
+
+### Definition
+Seller delivers goods on board the vessel at the named loading port. Buyer assumes all costs and risks from that point forward.
+
+### Seller Responsibilities (FOB):
+- Product quality and quantity
+- Export licenses and customs clearance at origin
+- Loading costs up to the vessel
+- Costs until goods pass ship's rail at loading port
+- Export documentation
+
+### Buyer Responsibilities (FOB):
+- Ocean freight from loading to destination port
+- Marine insurance (if desired)
+- Unloading costs at destination port
+- Import customs clearance and duties
+- Inland transportation from destination port
+
+### Cost Breakdown Example (12,500 MT Urea 46% - FOB Jebel Ali):
+- **Product Cost:** USD 380/MT × 12,500 MT = **USD 4,750,000**
+- **Seller Pays:** Loading, export clearance (~USD 5,000)
+- **Buyer Pays:** Freight USD 45/MT (~USD 562,500), Insurance (~USD 7,000), Discharge (~USD 15,000)
+- **Total Buyer Cost:** ~USD 5,339,500
+
+### When to Use FOB:
+- Buyer has better freight rates or shipping relationships
+- Buyer wants control over vessel selection and routing
+- Buyer's country requires cargo insurance from domestic insurers
+- Buyer handles multiple shipments and can consolidate shipping
+- Long-term supply contracts with regular shipments
+
+### Advantages for Buyer (FOB):
+- Control over shipping schedule and vessel choice
+- Potential cost savings with own freight contracts
+- Flexibility in routing and transshipment
+- Direct relationship with shipping line
+
+### Disadvantages for Buyer (FOB):
+- Must arrange shipping logistics
+- Bears all risks from loading port
+- Responsible for demurrage if vessel is delayed
+- Must understand shipping contracts
+
+## CFR: Cost and Freight
+
+### Definition
+Seller pays for transportation to the destination port. Risk transfers when goods pass ship's rail at loading port (same as FOB), but seller pays freight.
+
+### Seller Responsibilities (CFR):
+- Everything in FOB, plus:
+- Ocean freight to named destination port
+- Booking vessel and shipping arrangements
+
+### Buyer Responsibilities (CFR):
+- Marine insurance (if desired)
+- Unloading costs at destination port
+- Import customs clearance and duties
+- Inland transportation from destination port
+- Risk of loss/damage during ocean transport (even though seller paid freight)
+
+### Cost Breakdown Example (12,500 MT Urea 46% - CFR Mumbai):
+- **Product Cost + Freight:** USD 425/MT × 12,500 MT = **USD 5,312,500**
+- **Seller Pays:** Product, loading, export clearance, ocean freight
+- **Buyer Pays:** Insurance (~USD 7,000), Discharge (~USD 15,000), Import duties (~USD 50,000)
+- **Total Buyer Cost:** ~USD 5,384,500
+
+### When to Use CFR:
+- Buyer wants price certainty including freight
+- Seller has better freight rates
+- Buyer prefers not to deal with shipping logistics
+- Buyer wants to arrange own insurance (cheaper than CIF sometimes)
+
+### Important CFR Consideration:
+**Risk vs Cost Split:** Buyer bears risk from loading port but didn't arrange shipping. This can create complications if cargo is damaged in transit - buyer claims insurance, but seller arranged the vessel.
+
+## CIF: Cost, Insurance and Freight
+
+### Definition
+Seller pays for transportation and minimum insurance to destination port. Risk still transfers at loading port (like FOB and CFR).
+
+### Seller Responsibilities (CIF):
+- Everything in CFR, plus:
+- Marine insurance (minimum coverage - Institute Cargo Clauses C or equivalent)
+- Insurance certificate provided to buyer
+
+### Buyer Responsibilities (CIF):
+- Unloading costs at destination port
+- Import customs clearance and duties
+- Inland transportation from destination port
+- Additional insurance if seller's coverage is insufficient
+
+### Cost Breakdown Example (12,500 MT Urea 46% - CIF Mumbai):
+- **Product Cost + Freight + Insurance:** USD 426/MT × 12,500 MT = **USD 5,325,000**
+- **Seller Pays:** Product, loading, export clearance, ocean freight, marine insurance
+- **Buyer Pays:** Discharge (~USD 15,000), Import duties (~USD 50,000)
+- **Total Buyer Cost:** ~USD 5,390,000
+
+### When to Use CIF:
+- Buyer wants complete price certainty for delivered goods
+- Buyer doesn't want to arrange insurance
+- Simpler for inexperienced buyers
+- Required by buyer's country regulations
+- Letter of Credit specifies CIF
+
+### CIF Insurance Standard:
+Seller must provide **minimum coverage** (Institute Cargo Clauses C):
+- Fire, explosion
+- Vessel stranding, sinking, capsizing
+- Collision with external object
+- General average sacrifice
+
+**Important:** Minimum coverage may not be sufficient. Buyers often purchase additional "all risks" insurance.
+
+## Quick Comparison Table
+
+| Aspect | FOB | CFR | CIF |
+|--------|-----|-----|-----|
+| **Freight Cost** | Buyer pays | Seller pays | Seller pays |
+| **Insurance Cost** | Buyer arranges | Buyer arranges | Seller provides minimum |
+| **Risk Transfer** | Loading port | Loading port | Loading port |
+| **Seller's Cost** | Lowest | Medium | Highest |
+| **Buyer's Control** | Maximum | Medium | Minimum |
+| **Complexity for Buyer** | High | Medium | Low |
+| **Typical Price Difference** | Baseline | +USD 45-50/MT | +USD 46-51/MT |
+
+## Which Incoterm Should You Choose?
+
+### Choose FOB if:
+- You have competitive freight rates
+- You want maximum control over shipping
+- You're an experienced importer
+- You handle multiple regular shipments
+- Your country requires domestic insurance
+
+### Choose CFR if:
+- You want freight included but prefer own insurance
+- Seller offers competitive freight rates
+- You want some control (insurance) while outsourcing logistics
+- You're in a market with cheap local insurance
+
+### Choose CIF if:
+- You want complete simplicity and price certainty
+- You're a first-time importer
+- Your LC or regulations require CIF
+- You trust seller's insurance coverage
+- You prefer minimal involvement in logistics
+
+## Common Misconceptions
+
+### Misconception 1: "CIF means seller bears risk until destination"
+**Reality:** Risk transfers at loading port for FOB, CFR, and CIF. Seller paying freight and insurance doesn't mean they bear the risk during ocean transport.
+
+### Misconception 2: "FOB is always cheapest"
+**Reality:** Large sellers with volume freight contracts may offer CFR/CIF at better rates than you can get independently.
+
+### Misconception 3: "CIF insurance is comprehensive"
+**Reality:** Seller only provides minimum coverage. Buyers often need supplementary insurance.
+
+### Misconception 4: "CFR saves money versus CIF"
+**Reality:** Savings are minimal (USD 1-2/MT). Arranging insurance separately may cost more than the CIF premium.
+
+## Practical Tips for Commodity Traders
+
+### For Buyers:
+1. **Compare Total Landed Cost:** Calculate FOB + your freight + your insurance vs seller's CFR/CIF quote
+2. **Verify Insurance Coverage:** If accepting CIF, check insurance certificate limits and exclusions
+3. **Consider Your Expertise:** First-time? Go CIF. Experienced? FOB might save money
+4. **Check LC Requirements:** Some LCs specifically require CIF terms
+5. **Factor in Logistics Effort:** Time spent arranging shipping has a cost
+
+### For Sellers:
+1. **Get Competitive Freight Quotes:** If offering CFR/CIF, ensure your freight rate is market-competitive
+2. **Minimum Insurance for CIF:** Don't over-insure; buyer can get additional coverage if needed
+3. **Clear Documentation:** Provide complete shipping documents (B/L, insurance certificate, invoice)
+4. **Vessel Nomination Timing:** For FOB, give buyer adequate time to nominate vessel
+5. **Demurrage Clauses:** Include clear demurrage/detention terms in SPA
+
+## Special Considerations for Bulk Commodities
+
+### Laytime and Demurrage:
+- **Laytime:** Agreed time for loading/unloading
+- **Demurrage:** Penalty if laytime exceeded
+- **Despatch:** Bonus if completed under laytime
+
+**FOB:** Buyer's vessel, buyer pays demurrage if loading is slow
+**CFR/CIF:** Seller's shipping contract, but buyer may face demurrage at discharge if unloading is slow
+
+### Bill of Lading Issues:
+- FOB: Buyer has direct relationship with carrier
+- CFR/CIF: Seller receives original B/L, must send to buyer (creates timing risk)
+
+### Insurance Claims:
+- FOB: Buyer deals directly with their insurer
+- CFR: Buyer insures but didn't arrange shipping (complicates claims)
+- CIF: Buyer must claim against seller's insurance (may face resistance)
+
+## Incoterms 2020 Updates
+
+Recent changes affecting FOB, CFR, CIF:
+- Clarified that FOB/CFR/CIF are for sea and inland waterway transport only
+- Updated insurance coverage requirements for CIF
+- Clarified security-related clearances
+- Better alignment with Letter of Credit practices
+
+**Not changed:** Risk transfer point remains the same (ship's rail at loading port)
+
+## Conclusion
+
+FOB, CFR, and CIF each serve different needs:
+- **FOB:** Maximum control, best for experienced traders
+- **CFR:** Freight included, buyer arranges insurance
+- **CIF:** Complete package, best for simplicity
+
+There's no "best" Incoterm - only the best fit for your specific situation, capabilities, and transaction requirements.
+
+**Trading with Stratoma Interchange?** We offer all three terms and can advise which best suits your needs based on your location, experience, and volume.
+
+---
+
+**Keywords:** Incoterms, FOB, CFR, CIF, shipping terms, international trade, freight costs, marine insurance, commodity trading, Incoterms 2020
+`,
+  },
+  {
+    slug: 'kyc-due-diligence-commodity-trading',
+    title: 'KYC & Due Diligence in Commodity Trading: Complete Guide',
+    description: 'Essential KYC (Know Your Customer) and due diligence procedures for international commodity trading. Required documents, verification processes, and compliance requirements.',
+    author: 'Stratoma Interchange',
+    publishDate: '2025-01-11',
+    category: 'Compliance',
+    tags: ['KYC', 'Due Diligence', 'Compliance', 'Documentation', 'Trade Finance'],
+    readingTime: 7,
+    image: {
+      url: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80',
+      alt: 'Business documentation and due diligence',
+    },
+    content: `
+# KYC & Due Diligence in Commodity Trading: Complete Guide
+
+Know Your Customer (KYC) and due diligence are the foundation of safe, compliant international commodity trading. This guide covers all required documentation and verification processes.
+
+## What is KYC?
+
+KYC (Know Your Customer) is the process of verifying the identity and legitimacy of business partners before engaging in financial transactions. In commodity trading worth millions of dollars, thorough KYC protects against:
+- Fraud and scams
+- Money laundering
+- Terrorist financing
+- Sanctions violations
+- Non-payment risks
+- Reputational damage
+
+## Required KYC Documents
+
+### 1. Company Registration Documents
+
+**Certificate of Incorporation:**
+- Official company registration certificate
+- Must show company legal name, registration number, date of incorporation
+- Issued by government registry (Companies House, SEC, etc.)
+- Must be current (not older than 12 months for ongoing relationships)
+- Certified true copy acceptable
+
+**Business License:**
+- Trading license or business permit
+- Specific import/export licenses if required by jurisdiction
+- Tax registration certificate
+- Chamber of Commerce registration
+
+**Articles of Association/Bylaws:**
+- Company structure and governance
+- Authorized signatories
+- Scope of business activities
+
+### 2. Proof of Identity (Directors/Beneficial Owners)
+
+**Passport Copies:**
+- All directors and beneficial owners (25%+ ownership)
+- Notarized or certified copies
+- Must be valid (not expired)
+- Photo page and signature page
+- Some jurisdictions require national ID in addition to passport
+
+**Proof of Address:**
+- Utility bill (electricity, water, gas) - not older than 3 months
+- Bank statement - not older than 3 months
+- Government-issued document with address
+- Must match address declared in company documents
+
+**Curriculum Vitae (CV):**
+- Professional background of key persons
+- Relevant trading experience
+- References from previous business partners
+
+### 3. Financial Documents
+
+**Bank Comfort Letter (BCL):**
+- Letter from buyer's bank confirming account existence and good standing
+- Confirms client has been banking with them for specified period
+- May indicate "sufficient funds" for contemplated transaction
+- Does not guarantee funds or commit bank to payment
+- Valid for 30-90 days typically
+
+**Bank Verification Letter:**
+- Confirms account details (account number, SWIFT code, bank address)
+- Verifies authorized signatories on account
+- May include average account balance (without specific amounts)
+
+**Financial Statements:**
+- Audited financial statements (last 2 years)
+- Balance sheet, income statement, cash flow statement
+- Signed by certified accountant
+- Shows company's financial health and capacity
+
+**Proof of Funds (POF):**
+- Bank statement showing available funds
+- Required for high-value transactions
+- May require bank officer signature and stamp
+- Screenshots not acceptable - must be official bank document
+
+**Ready, Willing, and Able (RWA) Letter:**
+- Bank letter confirming client has funds and willingness to transact
+- More detailed than BCL
+- Often includes transaction-specific details
+- Typically valid 30-60 days
+
+### 4. Tax and Compliance Documents
+
+**Tax Identification Number (TIN):**
+- VAT number (if applicable)
+- Corporate tax registration
+- Required for international transactions and customs
+
+**Tax Clearance Certificate:**
+- Proof of tax compliance
+- Shows no outstanding tax liabilities
+- Required in some jurisdictions
+
+**Anti-Money Laundering (AML) Declaration:**
+- Signed statement of compliance with AML regulations
+- Source of funds declaration
+- Beneficial ownership disclosure
+
+**Sanctions Screening:**
+- Confirmation not on OFAC, EU, UN sanctions lists
+- PEP (Politically Exposed Person) declaration
+- Some intermediaries perform automated screening
+
+### 5. Trade-Specific Documents
+
+**Import/Export License:**
+- Required for certain commodities (fertilizers in some countries)
+- Specific permits for chemical products
+- Phytosanitary certificates (for agricultural products)
+
+**Previous Trade References:**
+- Letters from past suppliers/buyers
+- Proof of previous successful commodity transactions
+- SGS or similar inspection reports from past deals
+
+**Company Profile:**
+- Detailed company background
+- Nature of business
+- Years in operation
+- Key personnel
+- Contact information (phone, email, physical address)
+
+## The KYC Verification Process
+
+### Step 1: Document Collection (1-3 days)
+Client submits all required documents via secure email or document portal.
+
+### Step 2: Document Authentication (2-5 days)
+- Verify document authenticity
+- Cross-check with government registries
+- Verify bank details via SWIFT directory
+- Confirm passport validity with issuing country database
+
+### Step 3: Sanctions Screening (1 day)
+- Screen against OFAC SDN list (US)
+- EU consolidated sanctions list
+- UN sanctions list
+- Interpol databases
+- PEP databases
+
+### Step 4: Company Verification (2-4 days)
+- Verify company exists and is active
+- Check registered address
+- Confirm directors match official records
+- Review public records for adverse information
+
+### Step 5: Bank Verification (3-7 days)
+- Confirm BCL authenticity by contacting issuing bank
+- Verify SWIFT code
+- Check bank's reputation and regulatory standing
+- Confirm authorized signatories
+
+### Step 6: Risk Assessment (1-2 days)
+- Evaluate overall risk profile
+- Consider jurisdiction risk
+- Assess business legitimacy
+- Review any red flags
+
+### Step 7: Approval/Rejection (1 day)
+- Compliance officer makes final determination
+- If approved, client is onboarded
+- If rejected, client is notified (may not receive detailed reasons)
+
+**Total Timeline:** 10-20 business days for complete KYC
+
+## Red Flags in KYC
+
+### Document Red Flags:
+- Poor quality scans or images (suggests forgery)
+- Inconsistent information across documents
+- Recently incorporated company for large transaction
+- P.O. Box as only address
+- Offshore jurisdiction with no business justification
+- Expired documents
+- Signatures don't match across documents
+
+### Behavioral Red Flags:
+- Reluctance to provide documents
+- Pressure to "skip" KYC
+- Offers of upfront payment to bypass verification
+- Evasive answers about business activities
+- Changes in company details during process
+- Representative can't answer basic questions about company
+
+### Financial Red Flags:
+- Bank in different country than company with no explanation
+- Newly opened bank account
+- Bank in high-risk jurisdiction
+- Financial statements don't match claimed transaction size
+- Refusal to provide bank verification
+- BCL from unknown or unranked bank
+
+### Business Red Flags:
+- No website or social media presence
+- No physical office address
+- Company activities don't match commodity being purchased
+- Claims of urgent "must do this week" transactions
+- Requests to modify standard procedures
+- Too-good-to-be-true prices or terms
+
+## Common KYC Failures and Solutions
+
+### Issue 1: Incomplete Documents
+**Solution:** Provide checklist upfront; use document portal with clear requirements
+
+### Issue 2: Expired Bank Comfort Letter
+**Solution:** Request new BCL before expiry; many banks issue with 60-90 day validity
+
+### Issue 3: Offshore Company Structure
+**Solution:** Provide additional documentation explaining business structure; demonstrate legitimate business purpose
+
+### Issue 4: New Company
+**Solution:** Director/owner's experience and references; joint venture documentation; parent company guarantee
+
+### Issue 5: Bank in Different Jurisdiction
+**Solution:** Explanation letter; correspondent banking relationship documentation; company's international operations evidence
+
+## Enhanced Due Diligence (EDD)
+
+For high-risk situations, Enhanced Due Diligence may include:
+
+**On-Site Visits:**
+- Physical verification of office and operations
+- Meeting with management
+- Inspection of facilities
+
+**Third-Party Reports:**
+- Dun & Bradstreet business reports
+- Credit rating agency reports
+- Industry reputation checks
+
+**Ongoing Monitoring:**
+- Periodic KYC updates (annually)
+- Transaction monitoring
+- Adverse media screening
+
+**Source of Funds Investigation:**
+- Detailed inquiry into fund origin
+- Business activity evidence
+- Historical transaction records
+
+## Data Protection and Confidentiality
+
+### GDPR Compliance (EU):
+- Lawful basis for processing personal data
+- Right to access, rectify, erase
+- Data retention limits
+- Breach notification requirements
+
+### Data Security Measures:
+- Encrypted document transmission
+- Secure storage with access controls
+- Regular security audits
+- Employee confidentiality agreements
+
+### Document Retention:
+- Minimum 5 years after relationship ends (regulatory requirement)
+- Some jurisdictions require 7-10 years
+- Secure disposal after retention period
+
+## Ongoing KYC (Periodic Updates)
+
+KYC is not one-time; regular updates required:
+
+**Annual Updates:**
+- Current bank comfort letter
+- Updated financial statements
+- Confirmation of no changes in ownership/directors
+- Renewed sanctions screening
+
+**Trigger Events Requiring Immediate Update:**
+- Change in ownership (25%+ stake)
+- Change in directors or authorized signatories
+- Change in bank account
+- Relocation of company
+- Material change in business activities
+- Adverse news or regulatory actions
+
+## Tips for Smooth KYC Process
+
+### For Buyers/Sellers:
+1. **Prepare documents in advance** - Don't wait until you find a deal
+2. **Keep documents current** - Update before expiry
+3. **Organize clearly** - Label all documents properly
+4. **Provide certified copies** - Notarized or lawyer-certified
+5. **Be responsive** - Answer queries promptly
+6. **Be transparent** - Explain unusual circumstances proactively
+7. **Use professional email** - Company domain, not Gmail
+8. **Have backup documents** - Alternative proof if primary is questioned
+
+### For Intermediaries/Traders:
+1. **Clear requirements upfront** - Provide checklist before engagement
+2. **Secure document portal** - Professional impression, better security
+3. **Communicate timeline** - Set expectations for verification time
+4. **Professional verification** - Don't skip steps under pressure
+5. **Document decisions** - Maintain audit trail
+6. **Training** - Keep compliance team updated on regulations
+7. **Technology** - Use automated screening tools
+8. **Escalation procedures** - Clear process for high-risk cases
+
+## Conclusion
+
+Thorough KYC and due diligence protect all parties in commodity trading:
+- **For buyers/sellers:** Ensures you're dealing with legitimate partners
+- **For intermediaries:** Prevents involvement in illicit transactions
+- **For banks:** Meets regulatory obligations
+- **For the industry:** Maintains integrity and reputation
+
+Never skip or rush KYC. The 10-20 days required for proper verification is a small price compared to the risk of fraud in million-dollar commodity transactions.
+
+**Trading with Stratoma Interchange?** Our comprehensive KYC process ensures all transactions involve verified, legitimate business partners. We only work with clients who complete full KYC.
+
+---
+
+**Keywords:** KYC, know your customer, due diligence, compliance, commodity trading, bank comfort letter, trade documentation, AML, sanctions screening, verification
+`,
+  },
+  {
+    slug: 'avoid-commodity-trading-scams',
+    title: 'How to Avoid Commodity Trading Scams: Red Flags & Protection',
+    description: 'Protect yourself from commodity trading fraud. Learn to identify scam warning signs, verify legitimacy, and avoid common pitfalls in Urea 46% trading.',
+    author: 'Stratoma Interchange',
+    publishDate: '2025-01-10',
+    category: 'Compliance',
+    tags: ['Scam Prevention', 'Fraud', 'Due Diligence', 'Risk Management'],
+    readingTime: 6,
+    image: {
+      url: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1200&q=80',
+      alt: 'Security and fraud prevention',
+    },
+    content: `Comprehensive guide on avoiding commodity trading scams including fake products, counterfeit instruments, and pay-to-play schemes. Keywords: fraud prevention, scams, verification`,
+  },
+  {
+    slug: 'urea-46-market-analysis-2025',
+    title: 'Urea 46% Market Analysis 2025: Prices, Demand & Trends',
+    description: 'Current Urea 46% market analysis including global supply-demand, pricing trends, major producers and importers, and 2025 market outlook.',
+    author: 'Stratoma Interchange',
+    publishDate: '2025-01-09',
+    category: 'Market Analysis',
+    tags: ['Market Trends', 'Pricing', 'Supply and Demand', 'Urea 46%'],
+    readingTime: 5,
+    image: {
+      url: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80',
+      alt: 'Market analysis and trends',
+    },
+    content: `Global urea market analysis covering producers, importers, pricing trends, and 2025 outlook. Keywords: market analysis, urea prices, trends`,
+  },
+  {
+    slug: 'ncnda-imfpa-agreements-explained',
+    title: 'NCNDA & IMFPA Agreements in Commodity Trading Explained',
+    description: 'Understand NCNDA and IMFPA agreements - what they protect, when to sign, key clauses, and why they matter in international commodity trading.',
+    author: 'Stratoma Interchange',
+    publishDate: '2025-01-08',
+    category: 'Trade Procedures',
+    tags: ['NCNDA', 'IMFPA', 'Legal Agreements', 'Contracts'],
+    readingTime: 5,
+    image: {
+      url: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=1200&q=80',
+      alt: 'Legal agreements and contracts',
+    },
+    content: `NCNDA and IMFPA agreements protect intermediaries and define commission structures in commodity trading. Keywords: NCNDA, IMFPA, agreements`,
+  },
+  {
+    slug: 'bill-of-lading-international-trade',
+    title: 'Bill of Lading in International Trade: Types & Importance',
+    description: 'Complete guide to Bill of Lading (B/L) in commodity trading - types, functions, and critical role in shipping and payment processes.',
+    author: 'Stratoma Interchange',
+    publishDate: '2025-01-07',
+    category: 'Documentation',
+    tags: ['Bill of Lading', 'Shipping Documents', 'Trade Documentation'],
+    readingTime: 5,
+    image: {
+      url: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&w=1200&q=80',
+      alt: 'Shipping and logistics documentation',
+    },
+    content: `Guide to Bill of Lading types, functions, and importance in international commodity trading and shipping. Keywords: bill of lading, B/L, shipping`,
+  },
+  {
+    slug: 'commodity-trading-beginners-guide',
+    title: 'Commodity Trading for Beginners: Essential Guide to Start',
+    description: 'Beginner-friendly guide to commodity trading - key concepts, processes, documentation, and first steps to start trading Urea 46% and fertilizers.',
+    author: 'Stratoma Interchange',
+    publishDate: '2025-01-06',
+    category: 'Guides',
+    tags: ['Beginners Guide', 'Getting Started', 'Trading Basics', 'Education'],
+    readingTime: 6,
+    image: {
+      url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80',
+      alt: 'Business and trading concepts',
+    },
+    content: `Beginner's guide to commodity trading covering essential terms, processes, documentation, and first steps. Keywords: beginners guide, trading basics`,
+  },
 ];
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
