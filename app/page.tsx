@@ -4,6 +4,12 @@ import { useState, useEffect } from 'react';
 import { translations } from '@/lib/translations';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
+import {
+  getOrganizationSchema,
+  getWebSiteSchema,
+  getBreadcrumbSchema,
+  getLocalBusinessSchema,
+} from './schema';
 
 export default function HomePage() {
   const [lang, setLang] = useState<'en' | 'es'>('en');
@@ -26,8 +32,24 @@ export default function HomePage() {
     setLang(prev => prev === 'en' ? 'es' : 'en');
   };
 
+  // Generate JSON-LD structured data
+  const organizationSchema = getOrganizationSchema();
+  const websiteSchema = getWebSiteSchema();
+  const breadcrumbSchema = getBreadcrumbSchema();
+  const localBusinessSchema = getLocalBusinessSchema();
+
   return (
-    <div className="min-h-screen bg-[#0a0f0d] text-[#e8e6df] font-serif overflow-x-hidden">
+    <div className="min-h-screen bg-[#0a0f0d] text-[#e8e6df] font-serif overflow-x-hidden" lang={lang}>
+      {/* JSON-LD Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@graph': [organizationSchema, websiteSchema, breadcrumbSchema, localBusinessSchema],
+          }),
+        }}
+      />
       {/* Custom cursor follower */}
       <motion.div
         className="fixed w-10 h-10 border-2 border-[#8b7355]/40 rounded-full pointer-events-none z-50 mix-blend-difference hidden lg:block"
@@ -50,6 +72,8 @@ export default function HomePage() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         className="fixed top-0 w-full bg-[#0a0f0d]/90 backdrop-blur-xl border-b border-[#8b7355]/10 z-40"
+        role="navigation"
+        aria-label="Main navigation"
       >
         <div className="max-w-[1800px] mx-auto px-6 lg:px-20">
           <div className="flex justify-between items-center h-24">
@@ -94,7 +118,7 @@ export default function HomePage() {
       </motion.nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-24 overflow-hidden">
+      <section className="relative min-h-screen flex items-center pt-24 overflow-hidden" aria-label="Hero banner">
         {/* Hero background image */}
         <motion.div
           className="absolute inset-0 z-0"
@@ -102,7 +126,7 @@ export default function HomePage() {
         >
           <Image
             src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?auto=format&fit=crop&w=2400&q=80"
-            alt="Industrial facility"
+            alt="Modern industrial petrochemical facility for urea production and commodities trading"
             fill
             className="object-cover opacity-20"
             priority
@@ -209,7 +233,7 @@ export default function HomePage() {
       </section>
 
       {/* Product Section */}
-      <section id="products" className="relative py-32 lg:py-40 border-t border-[#8b7355]/10 bg-gradient-to-b from-[#0a0f0d] to-[#0d1410]">
+      <section id="products" className="relative py-32 lg:py-40 border-t border-[#8b7355]/10 bg-gradient-to-b from-[#0a0f0d] to-[#0d1410]" aria-labelledby="products-heading">
         <div className="max-w-[1800px] mx-auto px-6 lg:px-20">
           <motion.div
             initial={{ opacity: 0 }}
@@ -218,7 +242,7 @@ export default function HomePage() {
             className="grid lg:grid-cols-2 gap-16 mb-24"
           >
             <div>
-              <h2 className="text-5xl lg:text-7xl font-bold mb-8 leading-tight">
+              <h2 id="products-heading" className="text-5xl lg:text-7xl font-bold mb-8 leading-tight">
                 {t.products.title}
               </h2>
               <p className="text-lg lg:text-xl text-[#e8e6df]/60 font-sans font-light">
@@ -238,7 +262,7 @@ export default function HomePage() {
               <div className="absolute inset-0 opacity-20">
                 <Image
                   src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1200&q=80"
-                  alt="Urea granules"
+                  alt="High quality Urea 46% granular and prilled fertilizer for international trade"
                   fill
                   className="object-cover"
                 />
@@ -320,11 +344,11 @@ export default function HomePage() {
       </section>
 
       {/* Process Section */}
-      <section id="process" className="relative py-32 lg:py-40 border-t border-[#8b7355]/10">
+      <section id="process" className="relative py-32 lg:py-40 border-t border-[#8b7355]/10" aria-labelledby="process-heading">
         <div className="absolute inset-0 opacity-10">
           <Image
             src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=2400&q=80"
-            alt="Business meeting"
+            alt="Professional commodities trading business meeting and negotiation process"
             fill
             className="object-cover"
           />
@@ -338,7 +362,7 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="mb-24"
           >
-            <h2 className="text-5xl lg:text-7xl font-bold mb-8">
+            <h2 id="process-heading" className="text-5xl lg:text-7xl font-bold mb-8">
               {t.process.title}
             </h2>
             <p className="text-xl lg:text-2xl text-[#e8e6df]/60 max-w-3xl font-sans font-light mb-10">
@@ -385,7 +409,7 @@ export default function HomePage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="relative py-32 lg:py-40 border-t border-[#8b7355]/10 bg-gradient-to-b from-[#0a0f0d] to-[#0d1410]">
+      <section id="contact" className="relative py-32 lg:py-40 border-t border-[#8b7355]/10 bg-gradient-to-b from-[#0a0f0d] to-[#0d1410]" aria-labelledby="contact-heading">
         <div className="max-w-[1600px] mx-auto px-6 lg:px-20">
           <motion.div
             initial={{ opacity: 0 }}
@@ -393,7 +417,7 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="mb-16"
           >
-            <h2 className="text-5xl lg:text-7xl font-bold mb-8">
+            <h2 id="contact-heading" className="text-5xl lg:text-7xl font-bold mb-8">
               {t.contact.title}
             </h2>
             <p className="text-xl lg:text-2xl text-[#e8e6df]/60 font-sans font-light">
@@ -530,7 +554,7 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="relative border-t border-[#8b7355]/10 py-20 bg-[#0a0f0d]">
+      <footer className="relative border-t border-[#8b7355]/10 py-20 bg-[#0a0f0d]" role="contentinfo">
         <div className="max-w-[1800px] mx-auto px-6 lg:px-20">
           <div className="grid lg:grid-cols-3 gap-16 mb-20">
             <div>
