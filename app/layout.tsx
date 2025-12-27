@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from 'next';
-import { Cormorant_Garamond, JetBrains_Mono, Work_Sans } from 'next/font/google';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 
-const cormorant = Cormorant_Garamond({
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['300', '400', '600', '700'],
-  variable: '--font-cormorant',
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-inter',
   display: 'swap',
 });
 
@@ -13,13 +13,6 @@ const jetbrains = JetBrains_Mono({
   subsets: ['latin'],
   weight: ['400', '500', '700'],
   variable: '--font-jetbrains',
-  display: 'swap',
-});
-
-const workSans = Work_Sans({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  variable: '--font-work-sans',
   display: 'swap',
 });
 
@@ -105,7 +98,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#8b7355',
+  themeColor: '#0066CC',
 };
 
 export default function RootLayout({
@@ -119,9 +112,9 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
-        <meta name="theme-color" content="#8b7355" />
+        <meta name="theme-color" content="#0066CC" />
       </head>
-      <body className={`${cormorant.variable} ${jetbrains.variable} ${workSans.variable} antialiased`}>
+      <body className={`${inter.variable} ${jetbrains.variable} antialiased`}>
         {children}
       </body>
     </html>
