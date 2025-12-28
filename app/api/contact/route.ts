@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 // Simple honeypot-based spam prevention
 // In production, add reCAPTCHA or more sophisticated validation
@@ -48,29 +48,12 @@ export async function POST(request: NextRequest) {
       userAgent: request.headers.get('user-agent'),
     });
 
-    // Configure Nodemailer transporter
-    const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: parseInt(process.env.EMAIL_PORT || '587'),
-      secure: process.env.EMAIL_SECURE === 'true', // true for 465, false for other ports
-      requireTLS: true,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-      tls: {
-        ciphers: 'SSLv3',
-        rejectUnauthorized: false, // For self-signed certificates
-      },
-    });
+    // Initialize Resend
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     // Email content
-    const mailOptions = {
-      from: `"Stratoma Contact Form" <${process.env.EMAIL_FROM}>`,
-      to: process.env.EMAIL_TO,
-      replyTo: email,
-      subject: `New ${role} inquiry from ${company}`,
-      text: `
+    const emailSubject = `New ${role} inquiry from ${company}`;
+    const emailText = `
 New contact form submission from Stratoma Interchange website:
 
 Company: ${company}
@@ -85,8 +68,9 @@ ${inquiry}
 Submitted: ${new Date().toISOString()}
 IP: ${request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown'}
 User Agent: ${request.headers.get('user-agent') || 'Unknown'}
-      `.trim(),
-      html: `
+      `.trim();
+
+    const emailHtml = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -139,13 +123,19 @@ User Agent: ${request.headers.get('user-agent') || 'Unknown'}
   </div>
 </body>
 </html>
-      `.trim(),
-    };
+      `.trim();
 
-    // Send email
+    // Send email with Resend
     try {
-      await transporter.sendMail(mailOptions);
-      console.log('Email sent successfully to:', process.env.EMAIL_TO);
+      const data = await resend.emails.send({
+        from: process.env.RESEND_FROM || 'Stratoma Contact <onboarding@resend.dev>',
+        to: process.env.RESEND_TO || 'stratoma.ai@gmail.com',
+        replyTo: email,
+        subject: emailSubject,
+        text: emailText,
+        html: emailHtml,
+      });
+      console.log('Email sent successfully:', data);
     } catch (emailError) {
       console.error('Failed to send email:', emailError);
       // Don't fail the request if email fails - log it instead
