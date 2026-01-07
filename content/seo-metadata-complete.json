@@ -1,0 +1,200 @@
+{
+  "homepage": {
+    "title": "ScaleOps Automation | Automatización con IA para Escalar tu Negocio",
+    "description": "Automatiza tu negocio con IA, chatbots y sistemas 24/7. Recupera hasta 80% de tu tiempo en tareas repetitivas. Consultoría gratuita.",
+    "keywords": "automatización con IA, automatizar negocio, chatbot empresas, automatización empresarial, sistemas automatización",
+    "og": {
+      "title": "ScaleOps Automation - Automatiza y Escala tu Negocio con IA",
+      "description": "Libera 20 horas semanales con automatización inteligente. Chatbots, IA, WhatsApp, CRM y más. Consultoría gratis.",
+      "image": "/og-image-home.jpg",
+      "url": "https://scaleops.com"
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "title": "ScaleOps Automation - Automatización con IA",
+      "description": "Automatiza WhatsApp, CRM y procesos. Recupera tiempo, aumenta ventas. Consultoría gratuita.",
+      "image": "/twitter-card-home.jpg"
+    },
+    "canonical": "https://scaleops.com"
+  },
+  
+  "whatsapp-automation": {
+    "title": "Chatbot WhatsApp | Automatiza Respuestas y Captura Leads 24/7",
+    "description": "Chatbot con IA para WhatsApp que atiende consultas, califica leads y agenda citas automáticamente. Integración completa con tu CRM. Respuesta <30s.",
+    "keywords": "chatbot whatsapp, automatizar whatsapp, bot whatsapp business, automatización whatsapp empresas",
+    "og": {
+      "title": "Chatbot WhatsApp Automation - ScaleOps",
+      "description": "Atiende consultas 24/7, califica leads y agenda citas en WhatsApp automáticamente. 85% de consultas resueltas sin intervención.",
+      "image": "/og-whatsapp.jpg",
+      "url": "https://scaleops.com/servicios/whatsapp-automation"
+    },
+    "canonical": "https://scaleops.com/servicios/whatsapp-automation"
+  },
+  
+  "gohighlevel": {
+    "title": "GoHighLevel España | Implementación y Configuración Completa",
+    "description": "Expertos en GoHighLevel. Diseñamos embudos, configuramos CRM y automatizamos tu marketing y ventas. Soporte en español. +40% conversión.",
+    "keywords": "gohighlevel español, gohighlevel españa, embudos de venta automatizados, gohighlevel",
+    "og": {
+      "title": "GoHighLevel Implementation - ScaleOps",
+      "description": "Implementación completa de GoHighLevel en español. Embudos, CRM, automatización multicanal. Agencias, coaches, consultorías.",
+      "image": "/og-gohighlevel.jpg",
+      "url": "https://scaleops.com/servicios/gohighlevel"
+    },
+    "canonical": "https://scaleops.com/servicios/gohighlevel"
+  },
+  
+  "n8n-automation": {
+    "title": "n8n Automatización | Conecta todas tus Herramientas Automáticamente",
+    "description": "Automatización de procesos con n8n. Conectamos CRM, pagos, Google Sheets y más. Consultoría y desarrollo personalizado. Sin límites de workflows.",
+    "keywords": "n8n automatización, n8n español, automatización de procesos n8n, n8n consultoría",
+    "og": {
+      "title": "n8n Automation Services - ScaleOps",
+      "description": "Workflows complejos con n8n. Conecta 300+ apps sin límites. Ahorra 4-6h/día en sincronización manual.",
+      "image": "/og-n8n.jpg",
+      "url": "https://scaleops.com/servicios/n8n-automation"
+    },
+    "canonical": "https://scaleops.com/servicios/n8n-automation"
+  },
+  
+  "ai-agents": {
+    "title": "Asistentes con IA | Agentes Autónomos para Atención y Ventas",
+    "description": "Desarrollamos asistentes con IA entrenados con tus datos. Atienden clientes, califican leads y ejecutan procesos complejos 24/7. 90%+ precisión.",
+    "keywords": "asistentes con IA, chatbot inteligencia artificial, agentes autónomos IA, chatbot empresarial",
+    "og": {
+      "title": "AI Agents & Assistants - ScaleOps",
+      "description": "Asistentes con IA que conocen tu negocio. Entrenados con tu documentación. WhatsApp, web, app. Múltiples idiomas.",
+      "image": "/og-ai-agents.jpg",
+      "url": "https://scaleops.com/servicios/ai-agents"
+    },
+    "canonical": "https://scaleops.com/servicios/ai-agents"
+  },
+  
+  "consultoria": {
+    "title": "Consultoría de Procesos | Optimiza y Automatiza tu Negocio",
+    "description": "Analizamos tus procesos, detectamos cuellos de botella y diseñamos soluciones de automatización personalizadas. Primera consultoría gratis.",
+    "keywords": "consultoría de procesos, consultoría automatización, optimización procesos empresariales",
+    "og": {
+      "title": "Consultoría de Automatización - ScaleOps",
+      "description": "Roadmap completo de automatización. Auditoría de procesos, quick wins, ROI estimado. Primera sesión gratis.",
+      "image": "/og-consultoria.jpg",
+      "url": "https://scaleops.com/servicios/consultoria"
+    },
+    "canonical": "https://scaleops.com/servicios/consultoria"
+  },
+  
+  "consultoria-gratuita": {
+    "title": "Consultoría Gratuita de Automatización | 30 Min Sin Compromiso",
+    "description": "Descubre qué procesos automatizar, cuántas horas recuperar y tu ROI estimado. 30 minutos, sin costo, sin presión. Agenda ahora.",
+    "keywords": "consultoría gratuita automatización, consultoría gratis IA, auditoría procesos gratis",
+    "og": {
+      "title": "Consultoría Gratuita - ScaleOps Automation",
+      "description": "30 minutos para descubrir tu potencial de automatización. Auditoría + mapa de oportunidades + ROI. 100% gratis.",
+      "image": "/og-consultoria-gratis.jpg",
+      "url": "https://scaleops.com/consultoria-gratuita"
+    },
+    "canonical": "https://scaleops.com/consultoria-gratuita",
+    "noindex": false,
+    "priority": "high"
+  },
+  
+  "nosotros": {
+    "title": "Sobre Nosotros | ScaleOps Automation - Expertos en IA y Automatización",
+    "description": "Especialistas en automatización con IA. +50 empresas automatizadas en España y LATAM. Equipo con background en operaciones y tecnología.",
+    "keywords": "scaleops automation, agencia automatización IA, expertos gohighlevel, consultores n8n",
+    "canonical": "https://scaleops.com/nosotros"
+  },
+  
+  "contacto": {
+    "title": "Contacto | Hablemos de Automatizar tu Negocio",
+    "description": "Contáctanos para automatizar tu negocio. WhatsApp: +34 611 03 19 47 | Email: hola@scaleops.com. Respuesta en <24h.",
+    "keywords": "contacto scaleops, automatización empresas españa, consultoría automatización",
+    "canonical": "https://scaleops.com/contacto"
+  },
+  
+  "structuredData": {
+    "organization": {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "ScaleOps Automation",
+      "alternateName": "ScaleOps",
+      "url": "https://scaleops.com",
+      "logo": "https://scaleops.com/logo.png",
+      "description": "Expertos en automatización con IA, chatbots, WhatsApp, n8n y GoHighLevel para empresas que quieren escalar.",
+      "sameAs": [
+        "https://www.linkedin.com/company/scaleops-automation",
+        "https://twitter.com/scaleops"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+34-611-031-947",
+        "contactType": "Sales",
+        "email": "hola@scaleops.com",
+        "availableLanguage": ["Spanish", "English"]
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "ES"
+      }
+    },
+    
+    "website": {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "ScaleOps Automation",
+      "url": "https://scaleops.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://scaleops.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    
+    "breadcrumb": {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": []
+    },
+    
+    "service": {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Business Process Automation",
+      "provider": {
+        "@type": "Organization",
+        "name": "ScaleOps Automation"
+      },
+      "areaServed": ["ES", "MX", "CO", "AR", "CL"],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Automation Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "WhatsApp Automation",
+              "description": "Chatbot con IA para WhatsApp"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "GoHighLevel Implementation",
+              "description": "Embudos y CRM con GoHighLevel"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "n8n Automation",
+              "description": "Automatización de procesos con n8n"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

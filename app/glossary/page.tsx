@@ -3,15 +3,15 @@ import Link from 'next/link';
 import { Search } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Commodity Trading Glossary - Terms & Definitions | Stratoma Interchange',
+  title: 'Glosario - Términos de Automatización | ScaleOps Automation',
   description:
-    'Comprehensive glossary of commodity trading terms, Urea 46% specifications, payment instruments, shipping terminology, and international trade definitions.',
+    'Glosario de términos de automatización, IA, chatbots, WhatsApp Business, GoHighLevel, n8n y tecnologías de automatización empresarial.',
   keywords:
-    'commodity trading glossary, trading terms, ICPO, SBLC, DLC, FOB, CFR, CIF, SGS, bill of lading, incoterms, fertilizer terminology',
+    'glosario automatización, términos IA, chatbot, WhatsApp Business API, GoHighLevel, n8n, automatización procesos',
   openGraph: {
-    title: 'Commodity Trading Glossary - Stratoma Interchange',
+    title: 'Glosario de Automatización - ScaleOps Automation',
     description:
-      'Essential terms and definitions for international commodity trading, fertilizers, and petrochemicals.',
+      'Términos y definiciones esenciales de automatización con IA y transformación digital empresarial.',
   },
 };
 

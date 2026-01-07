@@ -5,13 +5,13 @@ import { Calendar, Clock, Tag, ArrowRight } from 'lucide-react';
 import { getAllBlogPosts, getAllCategories, getAllTags } from '@/lib/blog';
 
 export const metadata: Metadata = {
-  title: 'Blog - Commodity Trading Insights & Guides | Stratoma Interchange',
+  title: 'Blog - Automatización con IA & Guías | ScaleOps Automation',
   description:
-    'Expert insights on Urea 46% trading, SGS inspection, international trade procedures, payment instruments, and commodity market analysis from Stratoma Interchange.',
+    'Guías expertas sobre automatización con IA, chatbots, WhatsApp Business, GoHighLevel, n8n y estrategias de automatización empresarial.',
   openGraph: {
-    title: 'Commodity Trading Blog - Stratoma Interchange',
+    title: 'Blog de Automatización - ScaleOps Automation',
     description:
-      'In-depth guides on fertilizer trading, SGS inspection, SBLC/DLC procedures, and international commodity markets.',
+      'Guías detalladas sobre automatización con IA, chatbots, WhatsApp, GoHighLevel y transformación digital.',
   },
 };
 
@@ -28,14 +28,14 @@ export default function BlogPage() {
       <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-200 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex justify-between items-center">
           <Link href="/" className="text-2xl lg:text-3xl font-bold tracking-tight">
-            <span className="text-blue-600">STRAT</span>
-            <span className="text-green-600">OMA</span>
+            <span className="text-blue-600">ScaleOps</span>
+            <span className="text-gray-900"> Automation</span>
           </Link>
           <Link
             href="/"
             className="text-gray-700 hover:text-blue-600 transition-colors text-sm font-medium"
           >
-            ← Back to Home
+            ← Volver al Inicio
           </Link>
         </div>
       </nav>
@@ -44,14 +44,13 @@ export default function BlogPage() {
       <section className="pt-32 pb-16 px-6 lg:px-12 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-5xl mx-auto text-center">
           <div className="inline-block px-4 py-2 bg-blue-100 text-blue-700 font-medium text-sm rounded-full mb-6">
-            Insights & Expertise
+            Conocimiento & Experiencia
           </div>
           <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
-            Commodity Trading <span className="text-blue-600">Knowledge Hub</span>
+            Centro de <span className="text-blue-600">Automatización con IA</span>
           </h1>
           <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
-            Expert guides, market insights, and practical knowledge for international Urea 46% trading and
-            commodity transactions.
+            Guías expertas, casos de uso y conocimiento práctico sobre automatización empresarial, chatbots, WhatsApp y transformación digital.
           </p>
         </div>
       </section>
@@ -215,24 +214,23 @@ export default function BlogPage() {
       {/* CTA */}
       <section className="py-16 px-6 lg:px-12 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl lg:text-5xl font-bold mb-6 text-gray-900">Ready to Start Trading?</h2>
+          <h2 className="text-3xl lg:text-5xl font-bold mb-6 text-gray-900">¿Listo para Automatizar?</h2>
           <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
-            Put this knowledge into practice. Contact our team for expert assistance with your Urea 46%
-            trading needs.
+            Aplica este conocimiento a tu negocio. Contacta a nuestro equipo para una consultoría gratuita sobre automatización.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/#contact"
               className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/30"
             >
-              <span>Contact Us</span>
+              <span>Consultoría Gratuita</span>
               <ArrowRight size={20} />
             </Link>
             <Link
               href="/faq"
               className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:border-blue-600 hover:text-blue-600 transition-all"
             >
-              <span>View FAQ</span>
+              <span>Ver FAQ</span>
             </Link>
           </div>
         </div>
@@ -242,7 +240,7 @@ export default function BlogPage() {
       <footer className="border-t border-gray-200 py-10 px-6 lg:px-12 bg-gray-900">
         <div className="max-w-7xl mx-auto text-center">
           <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} Stratoma Interchange. All rights reserved.
+            © {new Date().getFullYear()} ScaleOps Automation. Todos los derechos reservados.
           </p>
         </div>
       </footer>

@@ -17,30 +17,32 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://stratomai.com'),
+  metadataBase: new URL('https://scaleops.com'),
   title: {
-    default: 'Stratoma Interchange - Global Urea 46% Trading',
-    template: '%s | Stratoma Interchange',
+    default: 'ScaleOps Automation | Automatización con IA para Escalar tu Negocio',
+    template: '%s | ScaleOps Automation',
   },
-  description: 'Premier intermediary for international Urea 46% and petrochemical trading. ISO 9001:2015 certified. SGS inspected. Secure SBLC/DLC transactions.',
+  description: 'Automatiza tu negocio con IA, chatbots y sistemas 24/7. Recupera hasta 80% de tu tiempo en tareas repetitivas. Consultoría gratuita.',
   keywords: [
-    'urea 46% trading',
-    'commodities trading',
-    'petrochemical derivatives',
-    'international trade',
-    'SBLC transactions',
-    'DLC trading',
-    'SGS inspection',
-    'ISO 9001 certified',
-    'urea granular',
-    'urea prilled',
-    'supply chain solutions',
-    'ICPO trading',
-    'commodity intermediary',
+    'automatización con IA',
+    'automatizar negocio',
+    'chatbot empresas',
+    'automatización empresarial',
+    'sistemas automatización',
+    'chatbot whatsapp',
+    'gohighlevel español',
+    'n8n automatización',
+    'WhatsApp Business automation',
+    'GoHighLevel',
+    'agentes de IA',
+    'CRM automation',
+    'workflow automation',
+    'chatbots IA',
+    'automatización de procesos',
   ],
-  authors: [{ name: 'Stratoma Interchange' }],
-  creator: 'Stratoma Interchange',
-  publisher: 'Ribon Real Estate Services SL',
+  authors: [{ name: 'ScaleOps Automation' }],
+  creator: 'ScaleOps Automation',
+  publisher: 'ScaleOps Automation',
   formatDetection: {
     email: false,
     address: false,
@@ -48,27 +50,26 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    alternateLocale: ['es_ES'],
-    url: 'https://stratomai.com',
-    siteName: 'Stratoma Interchange',
-    title: 'Stratoma Interchange - Global Urea 46% Trading',
-    description: 'Premier intermediary for international Urea 46% and petrochemical trading. ISO 9001:2015 certified with SGS inspection.',
+    locale: 'es_ES',
+    url: 'https://scaleops.com',
+    siteName: 'ScaleOps Automation',
+    title: 'ScaleOps Automation - Automatiza y Escala tu Negocio con IA',
+    description: 'Libera 20 horas semanales con automatización inteligente. Chatbots, IA, WhatsApp, CRM y más. Consultoría gratis.',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/og-image-home.jpg',
         width: 1200,
         height: 630,
-        alt: 'Stratoma Interchange - Global Commodities Trading',
+        alt: 'ScaleOps Automation - Automatización Empresarial con IA',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Stratoma Interchange - Global Urea 46% Trading',
-    description: 'Premier intermediary for international Urea 46% and petrochemical trading. ISO 9001:2015 certified.',
-    images: ['/twitter-image.jpg'],
-    creator: '@stratomai',
+    title: 'ScaleOps Automation - Automatización con IA',
+    description: 'Automatiza WhatsApp, CRM y procesos. Recupera tiempo, aumenta ventas. Consultoría gratuita.',
+    images: ['/twitter-card-home.jpg'],
+    creator: '@scaleops',
   },
   robots: {
     index: true,
@@ -82,23 +83,15 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://stratomai.com',
-    languages: {
-      'en-US': 'https://stratomai.com',
-      'es-ES': 'https://stratomai.com/es',
-    },
+    canonical: 'https://scaleops.com',
   },
-  verification: {
-    google: 'your-google-verification-code',
-    yandex: 'your-yandex-verification-code',
-  },
-  category: 'business',
+  category: 'technology',
 };
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#0066CC',
+  themeColor: '#3b82f6',
 };
 
 export default function RootLayout({
@@ -107,12 +100,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning>
       <head>
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
-        <meta name="theme-color" content="#0066CC" />
+        <meta name="theme-color" content="#3b82f6" />
       </head>
       <body className={`${inter.variable} ${jetbrains.variable} antialiased`}>
         {children}

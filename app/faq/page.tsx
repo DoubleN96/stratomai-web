@@ -2,142 +2,174 @@
 
 import Link from 'next/link';
 import FAQ, { generateFAQSchema } from '@/components/FAQ';
-import { useEffect } from 'react';
+import { HelpCircle, MessageCircle, Zap, Settings, Shield, TrendingUp, DollarSign, Phone } from 'lucide-react';
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
 
-const faqItemsEN = [
+const faqCategories = [
   {
-    question: 'What products does Stratoma Interchange trade?',
-    answer:
-      'We specialize in Urea 46% (both granular and prilled forms) and petrochemical derivatives. All products meet international quality standards and are verified through SGS inspection.',
+    title: 'General',
+    icon: HelpCircle,
+    faqs: [
+      {
+        question: '¿Qué es ScaleOps Automation?',
+        answer: 'Somos una agencia especializada en automatización de procesos empresariales usando IA, chatbots, WhatsApp, n8n y GoHighLevel. Ayudamos a negocios a escalar sin aumentar costos operativos proporcionalmente.',
+      },
+      {
+        question: '¿Para qué tipo de empresas es ScaleOps?',
+        answer: 'Trabajamos con negocios establecidos (facturación €100K+/año, 5-50 empleados) que reciben mínimo 50 leads o consultas por mes y quieren automatizar procesos repetitivos.',
+      },
+      {
+        question: '¿Cuánto cuesta la automatización?',
+        answer: 'Depende del alcance y complejidad. Nuestros planes van desde soluciones starter (1 automatización) hasta enterprise (múltiples sedes). La primera consultoría es gratuita y te damos una propuesta personalizada con ROI estimado.',
+      },
+    ],
   },
   {
-    question: 'What is ICPO and why do you require it?',
-    answer:
-      'ICPO (Irrevocable Corporate Purchase Order) is a legally binding document from the buyer committing to purchase. We only accept bankable ICPO with complete KYC documentation to ensure serious, qualified buyers and sellers.',
+    title: 'Servicios',
+    icon: Zap,
+    faqs: [
+      {
+        question: '¿Qué servicios ofrecen exactamente?',
+        answer: '• Automatización de WhatsApp, Instagram y Facebook con chatbots IA\n• Implementación de embudos y CRM en GoHighLevel\n• Automatización de procesos con n8n\n• Asistentes con IA entrenados con tus datos\n• Consultoría de procesos y estrategia',
+      },
+      {
+        question: '¿Pueden automatizar procesos específicos de mi industria?',
+        answer: 'Sí. Hemos trabajado con +10 industrias: agencias, ecommerce, consultorias, inmobiliarias, clínicas, academias, B2B, etc. Adaptamos las automatizaciones a tus procesos específicos.',
+      },
+      {
+        question: '¿Qué diferencia a ScaleOps de otras agencias?',
+        answer: '1. Hablamos lenguaje de negocio, no solo tech\n2. Implementamos sin interrumpir tu operación\n3. Acompañamiento continuo (no vendemos y desaparecemos)\n4. Enfoque en ROI medible, no solo features',
+      },
+    ],
   },
   {
-    question: 'What payment instruments do you accept?',
-    answer:
-      'We work with SBLC (Standby Letter of Credit) and DLC (Documentary Letter of Credit) from recognized international banks. These instruments provide security for both buyers and sellers in international trade.',
+    title: 'Implementación',
+    icon: Settings,
+    faqs: [
+      {
+        question: '¿Cuánto tiempo toma implementar?',
+        answer: '• Starter (1 flujo): 2-3 semanas\n• Growth (múltiples flujos): 4-8 semanas\n• Enterprise: 8-16 semanas\n\nTrabajamos en fases para que veas resultados rápidos.',
+      },
+      {
+        question: '¿Necesito parar mi operación para implementar?',
+        answer: 'No. Trabajamos en paralelo a tu operación actual. Probamos todo en ambiente de staging y migramos solo cuando está perfecto.',
+      },
+      {
+        question: '¿Qué necesito tener listo antes de comenzar?',
+        answer: '• Claridad sobre tus procesos actuales\n• Acceso a las herramientas que usas (CRM, email, etc.)\n• Persona de contacto de tu equipo\n• Presupuesto definido',
+      },
+      {
+        question: '¿Mi equipo necesita capacitación técnica?',
+        answer: 'No. Capacitamos a tu equipo para que usen las automatizaciones, no para que las programen. Todo queda documentado y fácil de usar.',
+      },
+    ],
   },
   {
-    question: 'How does the SGS inspection process work?',
-    answer:
-      'SGS (Société Générale de Surveillance) provides independent third-party inspection of commodities. This ensures product quality, quantity, and specifications match what was agreed. The SGS inspection report is a critical document in the transaction.',
+    title: 'Chatbots y WhatsApp',
+    icon: MessageCircle,
+    faqs: [
+      {
+        question: '¿Los chatbots se ven poco profesionales?',
+        answer: 'No cuando están bien hechos. Nuestros chatbots con IA conversan naturalmente, entienden contexto y saben cuándo escalar a un humano. El 90% de clientes no nota que hablan con IA.',
+      },
+      {
+        question: '¿Puedo mantener el toque humano?',
+        answer: 'Sí. Los chatbots atienden consultas frecuentes 24/7 y tu equipo se enfoca en casos complejos y cierre de ventas. Es complementario, no reemplazo.',
+      },
+      {
+        question: '¿Qué pasa si el chatbot no entiende algo?',
+        answer: 'Tiene escalamiento inteligente: si detecta que no puede ayudar, deriva a un humano automáticamente o agenda una llamada.',
+      },
+      {
+        question: '¿Funciona en WhatsApp Business normal o necesito API?',
+        answer: 'Para automatización avanzada necesitas WhatsApp Business API (nosotros te ayudamos a conseguirlo). WhatsApp Business app tiene limitaciones.',
+      },
+    ],
   },
   {
-    question: 'What is the typical trading process timeline?',
-    answer:
-      'The process typically takes 2-4 weeks from initial ICPO submission to payment instrument activation. This includes NCNDA/IMFPA signing (1-2 days), SPA negotiation (3-5 days), proof of product verification (3-7 days), and SBLC/DLC activation (5-10 days).',
+    title: 'Integraciones',
+    icon: Shield,
+    faqs: [
+      {
+        question: '¿Se integra con mi CRM actual?',
+        answer: 'Probablemente sí. Integramos con HubSpot, Pipedrive, Salesforce, Zoho, GoHighLevel y 300+ herramientas. Si tiene API, lo conectamos.',
+      },
+      {
+        question: '¿Qué pasa con mis datos actuales?',
+        answer: 'Los migramos de forma segura. No pierdes nada. Todo queda respaldado.',
+      },
+      {
+        question: '¿Es seguro conectar todas mis herramientas?',
+        answer: 'Sí. Usamos conexiones encriptadas, tokens seguros y cumplimos GDPR. Nunca almacenamos datos sensibles innecesariamente.',
+      },
+    ],
   },
   {
-    question: 'Do you offer spot or contract trading?',
-    answer:
-      'We facilitate both spot transactions (immediate delivery) and contract trading (scheduled deliveries over time). The specific terms are negotiated in the Sales & Purchase Agreement (SPA) based on your requirements.',
+    title: 'Resultados',
+    icon: TrendingUp,
+    faqs: [
+      {
+        question: '¿Cuánto tiempo realmente voy a ahorrar?',
+        answer: 'Nuestros clientes reportan:\n• 80% menos tiempo en responder consultas repetitivas\n• 15-25 horas/semana recuperadas en promedio\n• 3-5x más leads atendidos con mismo equipo',
+      },
+      {
+        question: '¿Cuánto tarda en verse el ROI?',
+        answer: 'Típicamente 1-3 meses. En automatizaciones simples (WhatsApp), a veces en semanas.',
+      },
+      {
+        question: '¿Qué pasa si no funciona como esperaba?',
+        answer: 'Ajustamos hasta que funcione. Tenemos período de prueba y garantía de satisfacción. Si un enfoque no funciona, probamos otro.',
+      },
+    ],
   },
   {
-    question: 'What is the minimum order quantity?',
-    answer:
-      'Minimum order quantities vary by product and delivery terms. For Urea 46%, typical minimums are 12,500 MT (one vessel load) for FOB terms. Contact us for specific requirements and smaller quantity options.',
+    title: 'Pricing',
+    icon: DollarSign,
+    faqs: [
+      {
+        question: '¿Por qué no muestran precios exactos?',
+        answer: 'Porque cada negocio es diferente. Una agencia con 3 canales necesita solución distinta que un ecommerce con catálogo grande. Personalizamos la propuesta y precio según tu caso.',
+      },
+      {
+        question: '¿Hay costos ocultos?',
+        answer: 'No. La propuesta incluye todo: implementación, integraciones, capacitación, soporte. Solo podrías tener costos de herramientas externas (ej: OpenAI API, GoHighLevel license).',
+      },
+      {
+        question: '¿Puedo empezar con algo pequeño y crecer?',
+        answer: 'Sí, es lo recomendado. Comienza con 1-2 automatizaciones críticas (plan Starter) y luego escalas.',
+      },
+    ],
   },
   {
-    question: 'What documentation is required to start trading?',
-    answer:
-      'You need: (1) Company registration documents, (2) Bank Comfort Letter (BCL), (3) Passport copies of signatories, (4) Proof of address, (5) Tax identification, (6) Completed KYC forms. We help guide you through the documentation process.',
-  },
-  {
-    question: 'What are FOB, CFR, and CIF terms?',
-    answer:
-      'FOB (Free On Board) = seller delivers goods on vessel, buyer pays shipping. CFR (Cost & Freight) = seller pays shipping to destination. CIF (Cost, Insurance & Freight) = seller pays shipping and insurance. These are Incoterms defining responsibilities.',
-  },
-  {
-    question: 'How are prices determined?',
-    answer:
-      'Prices are based on international commodity markets, trade route, delivery terms (FOB/CFR/CIF), quantity, and current supply-demand dynamics. We provide transparent pricing aligned with market benchmarks.',
-  },
-  {
-    question: 'What regions do you serve?',
-    answer:
-      'We operate globally with established networks in Middle East (FOB Persian Gulf), Asia (India, Southeast Asia), Europe, Africa, and Americas. Our Spain base allows us to serve European and international markets efficiently.',
-  },
-  {
-    question: 'How do you ensure transaction security?',
-    answer:
-      'Security through: (1) Bankable ICPO with verified KYC, (2) Legal protection via NCNDA/IMFPA, (3) SGS inspection verification, (4) SBLC/DLC payment instruments from recognized banks, (5) Transparent SPA with clear terms.',
+    title: 'Consultoría Gratuita',
+    icon: Phone,
+    faqs: [
+      {
+        question: '¿La consultoría gratuita es realmente gratis?',
+        answer: 'Sí, 100%. No pedimos tarjeta, no hay letra pequeña. 30-45 minutos donde analizamos tu caso y te damos roadmap, sin compromiso.',
+      },
+      {
+        question: '¿Me van a presionar para contratar?',
+        answer: 'No. Si vemos que no es para ti, te lo decimos honestamente. Preferimos clientes que realmente necesitan automatización.',
+      },
+      {
+        question: '¿Qué necesito preparar para la consultoría?',
+        answer: '• Descripción breve de tu negocio\n• Procesos que más tiempo consumen\n• Herramientas que usas actualmente\n• Objetivos de crecimiento\n\nPero no te estreses, guiamos la conversación.',
+      },
+    ],
   },
 ];
 
-const faqItemsES = [
-  {
-    question: '¿Qué productos comercializa Stratoma Interchange?',
-    answer:
-      'Nos especializamos en Urea 46% (formas granular y perlada) y derivados petroquímicos. Todos los productos cumplen estándares internacionales de calidad y son verificados mediante inspección SGS.',
-  },
-  {
-    question: '¿Qué es ICPO y por qué lo requieren?',
-    answer:
-      'ICPO (Orden de Compra Corporativa Irrevocable) es un documento legalmente vinculante del comprador comprometiéndose a comprar. Solo aceptamos ICPO bancables con documentación KYC completa para asegurar compradores y vendedores serios y calificados.',
-  },
-  {
-    question: '¿Qué instrumentos de pago aceptan?',
-    answer:
-      'Trabajamos con SBLC (Carta de Crédito Stand-by) y DLC (Carta de Crédito Documentaria) de bancos internacionales reconocidos. Estos instrumentos proporcionan seguridad para compradores y vendedores en comercio internacional.',
-  },
-  {
-    question: '¿Cómo funciona el proceso de inspección SGS?',
-    answer:
-      'SGS (Société Générale de Surveillance) proporciona inspección independiente de terceros de commodities. Esto asegura que calidad, cantidad y especificaciones del producto coincidan con lo acordado. El informe SGS es un documento crítico en la transacción.',
-  },
-  {
-    question: '¿Cuál es el cronograma típico del proceso comercial?',
-    answer:
-      'El proceso típicamente toma 2-4 semanas desde la presentación inicial del ICPO hasta la activación del instrumento de pago. Esto incluye firma NCNDA/IMFPA (1-2 días), negociación SPA (3-5 días), verificación prueba de producto (3-7 días), y activación SBLC/DLC (5-10 días).',
-  },
-  {
-    question: '¿Ofrecen comercio spot o contratos?',
-    answer:
-      'Facilitamos tanto transacciones spot (entrega inmediata) como comercio contractual (entregas programadas). Los términos específicos se negocian en el Acuerdo de Compraventa (SPA) según sus requisitos.',
-  },
-  {
-    question: '¿Cuál es la cantidad mínima de pedido?',
-    answer:
-      'Las cantidades mínimas varían por producto y términos de entrega. Para Urea 46%, los mínimos típicos son 12,500 TM (carga de un buque) para términos FOB. Contáctenos para requisitos específicos y opciones de cantidades menores.',
-  },
-  {
-    question: '¿Qué documentación se requiere para comenzar a comerciar?',
-    answer:
-      'Necesita: (1) Documentos de registro de empresa, (2) Carta de Confort Bancaria (BCL), (3) Copias de pasaportes de signatarios, (4) Comprobante de domicilio, (5) Identificación fiscal, (6) Formularios KYC completados. Le ayudamos a guiarse a través del proceso de documentación.',
-  },
-  {
-    question: '¿Qué son los términos FOB, CFR y CIF?',
-    answer:
-      'FOB (Franco a Bordo) = vendedor entrega mercancías en buque, comprador paga envío. CFR (Costo y Flete) = vendedor paga envío a destino. CIF (Costo, Seguro y Flete) = vendedor paga envío y seguro. Estos son Incoterms que definen responsabilidades.',
-  },
-  {
-    question: '¿Cómo se determinan los precios?',
-    answer:
-      'Los precios se basan en mercados internacionales de commodities, ruta comercial, términos de entrega (FOB/CFR/CIF), cantidad, y dinámicas actuales de oferta-demanda. Proporcionamos precios transparentes alineados con benchmarks del mercado.',
-  },
-  {
-    question: '¿Qué regiones atienden?',
-    answer:
-      'Operamos globalmente con redes establecidas en Medio Oriente (FOB Golfo Pérsico), Asia (India, Sudeste Asiático), Europa, África y Américas. Nuestra base en España nos permite servir mercados europeos e internacionales eficientemente.',
-  },
-  {
-    question: '¿Cómo aseguran la seguridad de las transacciones?',
-    answer:
-      'Seguridad mediante: (1) ICPO bancable con KYC verificado, (2) Protección legal vía NCNDA/IMFPA, (3) Verificación inspección SGS, (4) Instrumentos de pago SBLC/DLC de bancos reconocidos, (5) SPA transparente con términos claros.',
-  },
-];
+// Flatten all FAQs for schema generation
+const allFAQs = faqCategories.flatMap((cat) => cat.faqs);
 
 export default function FAQPage() {
-  const faqSchema = generateFAQSchema(faqItemsEN);
+  const faqSchema = generateFAQSchema(allFAQs);
 
   return (
-    <div className="min-h-screen bg-[#0a0f0d] text-[#e8e6df]">
+    <div className="min-h-screen bg-white text-gray-900">
       {/* FAQ Schema */}
       <script
         type="application/ld+json"
@@ -145,74 +177,87 @@ export default function FAQPage() {
       />
 
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-[#0a0f0d]/90 backdrop-blur-xl border-b border-[#8b7355]/10 z-40">
-        <div className="max-w-[1800px] mx-auto px-6 lg:px-20 h-24 flex justify-between items-center">
-          <Link href="/" className="text-2xl lg:text-3xl font-bold tracking-tighter">
-            <span className="text-[#8b7355]">STRAT</span>
-            <span className="text-[#e8e6df]">OMA</span>
+      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-200 z-40 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex justify-between items-center">
+          <Link href="/" className="text-2xl lg:text-3xl font-bold tracking-tight">
+            <span className="text-blue-600">ScaleOps</span>
+            <span className="text-gray-900"> Automation</span>
           </Link>
           <Link
             href="/"
-            className="text-[#8b7355] hover:text-[#a08766] transition-colors font-mono text-xs uppercase tracking-widest"
+            className="text-gray-700 hover:text-blue-600 transition-colors text-sm font-medium"
           >
-            Back to Home
+            ← Volver al Inicio
           </Link>
         </div>
       </nav>
 
       {/* Hero */}
-      <section className="pt-40 pb-20 px-6 lg:px-20">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="inline-block px-5 py-3 border border-[#8b7355]/40 font-mono text-xs tracking-[0.35em] text-[#8b7355] mb-8">
-            FREQUENTLY ASKED QUESTIONS
+      <section className="pt-32 pb-16 px-6 lg:px-12 bg-gradient-to-br from-blue-50 via-white to-green-50">
+        <div className="max-w-5xl mx-auto text-center">
+          <div className="inline-block px-4 py-2 bg-blue-100 text-blue-700 font-medium text-sm rounded-full mb-6">
+            Preguntas Frecuentes
           </div>
-          <h1 className="text-5xl lg:text-8xl font-bold mb-8 leading-tight font-serif">
-            Everything You Need to Know About <span className="text-[#8b7355]">Commodities Trading</span>
+          <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+            Todo lo que Necesitas Saber sobre <span className="text-blue-600">Automatización</span>
           </h1>
-          <p className="text-xl lg:text-2xl text-[#e8e6df]/60 max-w-3xl font-sans font-light">
-            Find answers to common questions about Urea 46% trading, payment procedures, documentation requirements, and international trade processes.
+          <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
+            Encuentra respuestas sobre chatbots, automatización con IA, WhatsApp Business, GoHighLevel, n8n y cómo transformar tu negocio.
           </p>
         </div>
       </section>
 
-      {/* FAQ Content */}
-      <section className="py-20 px-6 lg:px-20 border-t border-[#8b7355]/10">
-        <div className="max-w-[1400px] mx-auto">
-          <FAQ items={faqItemsEN} lang="en" />
-        </div>
-      </section>
+      {/* FAQ Categories */}
+      {faqCategories.map((category, idx) => (
+        <section
+          key={category.title}
+          className={`py-16 px-6 lg:px-12 ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
+        >
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center gap-4 mb-10">
+              <div className="w-14 h-14 flex items-center justify-center bg-blue-100 text-blue-600 rounded-xl">
+                <category.icon size={28} />
+              </div>
+              <h2 className="text-3xl lg:text-4xl font-bold">{category.title}</h2>
+            </div>
+            <FAQ items={category.faqs} lang="es" />
+          </div>
+        </section>
+      ))}
 
       {/* CTA */}
-      <section className="py-20 px-6 lg:px-20 border-t border-[#8b7355]/10 bg-gradient-to-b from-[#0a0f0d] to-[#0d1410]">
-        <div className="max-w-[1400px] mx-auto text-center">
-          <h2 className="text-4xl lg:text-6xl font-bold mb-8 font-serif">Still Have Questions?</h2>
-          <p className="text-xl text-[#e8e6df]/60 mb-12 max-w-2xl mx-auto font-sans font-light">
-            Our team is here to help. Contact us directly for personalized assistance with your commodities trading inquiries.
+      <section className="py-20 px-6 lg:px-12 bg-gradient-to-br from-blue-50 via-white to-green-50">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl lg:text-5xl font-bold mb-6">¿Todavía tienes preguntas?</h2>
+          <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
+            Nuestro equipo está aquí para ayudarte. Agenda una consultoría gratuita de 30 minutos sin compromiso.
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/#contact"
-              className="inline-flex items-center gap-4 px-12 py-6 bg-[#8b7355] text-[#0a0f0d] font-mono text-sm tracking-widest uppercase hover:bg-[#a08766] transition-colors duration-300"
+              className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/30"
             >
-              Contact Us
+              <Phone size={20} />
+              <span>Consultoría Gratuita</span>
             </Link>
             <a
               href="https://wa.me/34611031947"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-4 px-12 py-6 border-2 border-[#8b7355]/40 text-[#8b7355] font-mono text-sm tracking-widest uppercase hover:border-[#8b7355] hover:bg-[#8b7355]/10 transition-all duration-300"
+              className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:border-green-600 hover:text-green-600 transition-all"
             >
-              WhatsApp
+              <MessageCircle size={20} />
+              <span>WhatsApp</span>
             </a>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[#8b7355]/10 py-12 px-6 lg:px-20">
-        <div className="max-w-[1400px] mx-auto text-center">
-          <p className="text-[#e8e6df]/30 font-mono text-xs">
-            © {new Date().getFullYear()} Stratoma Interchange. All rights reserved.
+      <footer className="border-t border-gray-200 py-10 px-6 lg:px-12 bg-gray-900">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-gray-500 text-sm">
+            © {new Date().getFullYear()} ScaleOps Automation. Todos los derechos reservados.
           </p>
         </div>
       </footer>

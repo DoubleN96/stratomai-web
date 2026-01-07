@@ -1,64 +1,64 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, Award, Globe, Shield, Users } from 'lucide-react';
+import { ArrowRight, Bot, Users, Zap, Target, Shield, TrendingUp } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'About Us - Stratoma Interchange',
-  description: 'Learn about Stratoma Interchange, your trusted partner in global commodities trading. ISO 9001:2015 certified intermediary for Urea 46% and petrochemical derivatives.',
+  title: 'Sobre Nosotros - ScaleOps Automation',
+  description: 'Expertos en automatización con IA. Ayudamos a negocios a escalar sin aumentar costos operativos con chatbots, WhatsApp, GoHighLevel y n8n.',
   openGraph: {
-    title: 'About Stratoma Interchange - Global Commodities Trading',
-    description: 'Premier intermediary for international trade in Urea 46% and petrochemical derivatives. ISO 9001:2015 certified with SGS inspection.',
+    title: 'Sobre ScaleOps Automation - Expertos en IA y Automatización',
+    description: 'Especialistas en automatización con IA para empresas que quieren crecer. +50 empresas automatizadas en España y LATAM.',
   },
 };
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#0a0f0d] text-[#e8e6df]">
+    <div className="min-h-screen bg-white text-gray-900">
       {/* Simple Navigation */}
-      <nav className="fixed top-0 w-full bg-[#0a0f0d]/90 backdrop-blur-xl border-b border-[#8b7355]/10 z-40">
-        <div className="max-w-[1800px] mx-auto px-6 lg:px-20 h-24 flex justify-between items-center">
-          <Link href="/" className="text-2xl lg:text-3xl font-bold tracking-tighter">
-            <span className="text-[#8b7355]">STRAT</span>
-            <span className="text-[#e8e6df]">OMA</span>
+      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-200 z-40 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex justify-between items-center">
+          <Link href="/" className="text-2xl lg:text-3xl font-bold tracking-tight">
+            <span className="text-blue-600">ScaleOps</span>
+            <span className="text-gray-900"> Automation</span>
           </Link>
           <Link
             href="/"
-            className="text-[#8b7355] hover:text-[#a08766] transition-colors font-mono text-xs uppercase tracking-widest"
+            className="text-gray-700 hover:text-blue-600 transition-colors text-sm font-medium"
           >
-            Back to Home
+            ← Volver al Inicio
           </Link>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-40 pb-20 px-6 lg:px-20">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="inline-block px-5 py-3 border border-[#8b7355]/40 font-mono text-xs tracking-[0.35em] text-[#8b7355] mb-8">
-            ABOUT STRATOMA INTERCHANGE
+      <section className="pt-32 pb-20 px-6 lg:px-12 bg-gradient-to-br from-blue-50 via-white to-green-50">
+        <div className="max-w-5xl mx-auto">
+          <div className="inline-block px-4 py-2 bg-blue-100 text-blue-700 font-medium text-sm rounded-full mb-6">
+            SOBRE SCALEOPS AUTOMATION
           </div>
-          <h1 className="text-5xl lg:text-8xl font-bold mb-8 leading-tight font-serif">
-            Your Trusted Partner in <span className="text-[#8b7355]">Global Commodities Trading</span>
+          <h1 className="text-4xl lg:text-6xl font-bold mb-8 leading-tight">
+            Automatizamos tu negocio para que <span className="text-blue-600">escales sin límites</span>
           </h1>
-          <p className="text-xl lg:text-2xl text-[#e8e6df]/60 max-w-3xl font-sans font-light">
-            Stratoma Interchange is a premier intermediary specializing in international trade of Urea 46% and petrochemical derivatives. We build reliable supply chains that connect global buyers and sellers with transparent, bankable procedures.
+          <p className="text-lg lg:text-xl text-gray-600 max-w-3xl">
+            Somos una agencia especializada en automatización con IA, chatbots y sistemas inteligentes. Transformamos operaciones manuales en procesos automáticos que funcionan 24/7, liberando a tu equipo para enfocarse en lo que realmente importa: crecer.
           </p>
         </div>
       </section>
 
-      {/* Company Overview */}
-      <section className="py-20 px-6 lg:px-20 border-t border-[#8b7355]/10">
-        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16">
+      {/* Who We Are */}
+      <section className="py-20 px-6 lg:px-12 border-t border-gray-200">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16">
           <div>
-            <h2 className="text-4xl lg:text-6xl font-bold mb-8 font-serif">Who We Are</h2>
-            <div className="space-y-6 text-lg text-[#e8e6df]/70 font-sans font-light leading-relaxed">
+            <h2 className="text-3xl lg:text-5xl font-bold mb-8">Quiénes Somos</h2>
+            <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
               <p>
-                Founded on principles of transparency and reliability, Stratoma Interchange operates as a trusted intermediary in the global commodities market. Our expertise lies in facilitating secure, compliant transactions for Urea 46% fertilizers and petrochemical derivatives.
+                ScaleOps Automation nace de la frustración de ver negocios exitosos atascados por tareas manuales repetitivas. Veíamos empresas con productos excelentes perdiendo leads porque no podían responder a tiempo, equipos quemados por hacer lo mismo todos los días, y dueños trabajando 70 horas semanales en tareas que una IA podría hacer mejor.
               </p>
               <p>
-                We understand that international commodities trading requires precision, trust, and deep market knowledge. Our team brings decades of combined experience in supply chain management, trade finance, and international commerce.
+                Decidimos cambiar eso. Combinamos expertise en operaciones, tecnología e IA para crear sistemas que realmente funcionan en el mundo real, no solo en teoría.
               </p>
               <p>
-                Operating from Spain under Ribon Real Estate Services SL, we serve clients worldwide with bilingual support in English and Spanish, ensuring clear communication across all stages of the trading process.
+                Hoy ayudamos a negocios en España y LATAM a automatizar atención al cliente, calificación de leads, agendamiento de citas, seguimiento comercial y procesos internos. Todo con el objetivo de que recuperes tiempo, aumentes conversión y escales sin contratar proporcionalmente.
               </p>
             </div>
           </div>
@@ -66,33 +66,112 @@ export default function AboutPage() {
           <div className="space-y-8">
             {[
               {
-                icon: Globe,
-                title: 'Global Reach',
-                description: 'Connecting buyers and sellers across continents with established networks in key markets including Middle East, Asia, Europe, and Americas.',
-              },
-              {
-                icon: Shield,
-                title: 'Secure Transactions',
-                description: 'All trades backed by bankable instruments (SBLC/DLC) and verified through SGS inspection, ensuring complete transaction security.',
-              },
-              {
-                icon: Award,
-                title: 'Quality Certified',
-                description: 'ISO 9001:2015 certified quality management systems ensuring consistent, reliable service delivery.',
+                icon: Bot,
+                title: 'Enfoque Práctico',
+                description: 'No vendemos tecnología por vender. Diseñamos soluciones que resuelven problemas reales de negocio con ROI medible.',
               },
               {
                 icon: Users,
-                title: 'Expert Team',
-                description: 'Experienced professionals specializing in trade finance, logistics, compliance, and market analysis.',
+                title: 'Acompañamiento Continuo',
+                description: 'No desaparecemos después de implementar. Te acompañamos, optimizamos y mejoramos los sistemas contigo.',
+              },
+              {
+                icon: Zap,
+                title: 'Implementación Ágil',
+                description: 'Trabajamos en fases, entregando valor rápido. No proyectos de 6 meses, sino resultados tangibles en semanas.',
+              },
+              {
+                icon: Target,
+                title: 'Lenguaje de Negocio',
+                description: 'Hablamos de procesos, tiempo ahorrado y leads convertidos. No de código, APIs o infraestructura (eso lo manejamos nosotros).',
               },
             ].map((item, i) => (
               <div key={i} className="flex gap-6 items-start">
-                <div className="w-14 h-14 flex items-center justify-center border-2 border-[#8b7355] bg-[#8b7355]/10 flex-shrink-0">
-                  <item.icon className="text-[#8b7355]" size={28} />
+                <div className="w-14 h-14 flex items-center justify-center bg-blue-100 text-blue-600 rounded-xl flex-shrink-0">
+                  <item.icon size={28} />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold mb-2 font-serif">{item.title}</h3>
-                  <p className="text-[#e8e6df]/60 font-sans font-light">{item.description}</p>
+                  <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                  <p className="text-gray-600">{item.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Our Approach */}
+      <section className="py-20 px-6 lg:px-12 bg-gray-50 border-t border-gray-200">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl lg:text-5xl font-bold mb-12 text-center">Nuestro Enfoque</h2>
+          <div className="grid lg:grid-cols-3 gap-8">
+            {[
+              {
+                number: '01',
+                title: 'Entender el Negocio',
+                description: 'Primero entendemos tus procesos, dolores y objetivos. No imponemos soluciones estándar.',
+              },
+              {
+                number: '02',
+                title: 'Quick Wins Primero',
+                description: 'Identificamos automatizaciones de alto impacto y rápida implementación para generar confianza.',
+              },
+              {
+                number: '03',
+                title: 'Escalar Gradualmente',
+                description: 'Una vez demostrado el valor, expandimos la automatización a más procesos y áreas.',
+              },
+            ].map((step, i) => (
+              <div key={i} className="bg-white p-8 rounded-2xl border-2 border-gray-200 hover:border-blue-600 transition-all">
+                <div className="text-5xl font-bold text-blue-600/20 mb-6">
+                  {step.number}
+                </div>
+                <h3 className="text-2xl font-bold mb-4">{step.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section className="py-20 px-6 lg:px-12 border-t border-gray-200">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl lg:text-5xl font-bold mb-16 text-center">Por Qué Elegirnos</h2>
+          <div className="grid lg:grid-cols-2 gap-8">
+            {[
+              {
+                title: 'Hablamos Español Nativo',
+                description: 'Entendemos los matices del español (España y LATAM). Chatbots que suenan naturales, no traducidos de inglés.',
+              },
+              {
+                title: 'Experiencia en Operaciones',
+                description: 'No solo sabemos programar, sabemos cómo funcionan los negocios. Background en ventas, marketing y operaciones.',
+              },
+              {
+                title: 'Stack Tecnológico Abierto',
+                description: 'Trabajamos con las mejores herramientas del mercado (n8n, GoHighLevel, GPT-4), no vendemos software propietario.',
+              },
+              {
+                title: 'Enfoque ROI',
+                description: 'Cada automatización debe pagar por sí misma. Si no genera retorno, no la implementamos.',
+              },
+              {
+                title: 'Sin Atadura a Largo Plazo',
+                description: 'Contratos flexibles, no queremos clientes atrapados sino clientes satisfechos que se quedan porque funciona.',
+              },
+              {
+                title: 'Transparencia Total',
+                description: 'Todo queda documentado. El código y las automatizaciones son tuyos. Sin cajas negras.',
+              },
+            ].map((item, i) => (
+              <div key={i} className="flex gap-4 items-start">
+                <div className="text-2xl font-bold text-blue-600 flex-shrink-0">
+                  {String(i + 1).padStart(2, '0')}
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{item.description}</p>
                 </div>
               </div>
             ))}
@@ -101,75 +180,33 @@ export default function AboutPage() {
       </section>
 
       {/* Our Values */}
-      <section className="py-20 px-6 lg:px-20 border-t border-[#8b7355]/10 bg-gradient-to-b from-[#0a0f0d] to-[#0d1410]">
-        <div className="max-w-[1400px] mx-auto">
-          <h2 className="text-4xl lg:text-6xl font-bold mb-16 font-serif">Our Core Values</h2>
+      <section className="py-20 px-6 lg:px-12 bg-gradient-to-br from-blue-50 via-white to-green-50 border-t border-gray-200">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl lg:text-5xl font-bold mb-12 text-center">Nuestros Valores</h2>
           <div className="grid lg:grid-cols-3 gap-8">
             {[
               {
-                title: 'Transparency',
-                description: 'Clear communication, honest practices, and full disclosure at every stage of the trading process. No hidden fees, no surprises.',
+                icon: Shield,
+                title: 'Profesionalismo',
+                description: 'Tratamos tu negocio como si fuera nuestro. Cumplimos plazos, respondemos rápido, documentamos todo.',
               },
               {
-                title: 'Reliability',
-                description: 'Consistent delivery on promises, timely execution of transactions, and dependable support throughout the entire trade cycle.',
+                icon: TrendingUp,
+                title: 'Resultados',
+                description: 'No nos interesa implementar tecnología cool. Nos interesa que vendas más, ahorres tiempo y escales.',
               },
               {
-                title: 'Compliance',
-                description: 'Strict adherence to international trade regulations, KYC/AML procedures, and industry best practices for secure transactions.',
+                icon: Users,
+                title: 'Claridad',
+                description: 'Explicamos las cosas en lenguaje humano. Si algo no va a funcionar, te lo decimos antes, no después.',
               },
             ].map((value, i) => (
-              <div key={i} className="border-2 border-[#8b7355]/20 p-10 hover:border-[#8b7355]/60 transition-all duration-300">
-                <div className="text-6xl font-bold text-[#8b7355]/20 font-mono mb-6">
-                  {String(i + 1).padStart(2, '0')}
+              <div key={i} className="bg-white p-8 rounded-2xl border border-gray-200 text-center">
+                <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center bg-blue-100 text-blue-600 rounded-xl">
+                  <value.icon size={32} />
                 </div>
-                <h3 className="text-3xl font-bold mb-4 font-serif">{value.title}</h3>
-                <p className="text-[#e8e6df]/60 font-sans font-light leading-relaxed">{value.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us */}
-      <section className="py-20 px-6 lg:px-20 border-t border-[#8b7355]/10">
-        <div className="max-w-[1400px] mx-auto">
-          <h2 className="text-4xl lg:text-6xl font-bold mb-16 font-serif">Why Choose Stratoma Interchange</h2>
-          <div className="grid lg:grid-cols-2 gap-12">
-            {[
-              {
-                title: 'Bankable Procedures Only',
-                description: 'We exclusively work with verified, bankable ICPO and complete KYC documentation. This ensures all parties are serious, qualified, and financially capable.',
-              },
-              {
-                title: 'SGS Verified Products',
-                description: 'All commodities verified through independent SGS inspection, providing third-party assurance of quality and specifications.',
-              },
-              {
-                title: 'Secure Payment Terms',
-                description: 'Transactions backed by SBLC (Standby Letter of Credit) or DLC (Documentary Letter of Credit) from recognized international banks.',
-              },
-              {
-                title: 'Full Documentation',
-                description: 'Complete transparency with NCNDA/IMFPA agreements, detailed SPA (Sales & Purchase Agreement), and proof of product documentation.',
-              },
-              {
-                title: 'Market Expertise',
-                description: 'Deep understanding of Urea 46% and petrochemical markets, pricing dynamics, and trade flows across major global hubs.',
-              },
-              {
-                title: 'Multilingual Support',
-                description: 'Bilingual team providing seamless communication in English and Spanish for international clients.',
-              },
-            ].map((item, i) => (
-              <div key={i} className="flex gap-6">
-                <div className="text-3xl font-bold text-[#8b7355] font-mono flex-shrink-0">
-                  {String(i + 1).padStart(2, '0')}
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-3 font-serif">{item.title}</h3>
-                  <p className="text-[#e8e6df]/60 font-sans font-light leading-relaxed">{item.description}</p>
-                </div>
+                <h3 className="text-2xl font-bold mb-4">{value.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{value.description}</p>
               </div>
             ))}
           </div>
@@ -177,26 +214,26 @@ export default function AboutPage() {
       </section>
 
       {/* Legal Information */}
-      <section className="py-20 px-6 lg:px-20 border-t border-[#8b7355]/10">
-        <div className="max-w-[1400px] mx-auto">
-          <h2 className="text-4xl lg:text-6xl font-bold mb-12 font-serif">Legal Information</h2>
-          <div className="bg-gradient-to-br from-[#1a2520] to-[#0a0f0d] border-2 border-[#8b7355]/20 p-12">
-            <div className="space-y-6 text-lg text-[#e8e6df]/70 font-sans font-light">
+      <section className="py-20 px-6 lg:px-12 border-t border-gray-200">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl lg:text-4xl font-bold mb-8">Información Legal</h2>
+          <div className="bg-gray-50 border-2 border-gray-200 rounded-2xl p-8 lg:p-12">
+            <div className="space-y-4 text-gray-700">
               <p>
-                <strong className="text-[#e8e6df] font-semibold">Legal Entity:</strong> Ribon Real Estate Services SL
+                <strong className="text-gray-900 font-semibold">Entidad Legal:</strong> Ribon Real Estate Services SL
               </p>
               <p>
-                <strong className="text-[#e8e6df] font-semibold">Registration:</strong> Registered in Spain
+                <strong className="text-gray-900 font-semibold">Registro:</strong> Registrada en España
               </p>
               <p>
-                <strong className="text-[#e8e6df] font-semibold">Certifications:</strong> ISO 9001:2015 Quality Management System
+                <strong className="text-gray-900 font-semibold">Nombre Comercial:</strong> ScaleOps Automation
               </p>
               <p>
-                <strong className="text-[#e8e6df] font-semibold">Compliance:</strong> All transactions subject to our terms and conditions, international trade regulations, and KYC/AML procedures
+                <strong className="text-gray-900 font-semibold">Actividad:</strong> Consultoría y desarrollo de soluciones de automatización empresarial
               </p>
-              <div className="pt-6 border-t border-[#8b7355]/20 mt-8">
-                <p className="text-sm text-[#e8e6df]/50">
-                  Stratoma Interchange is a trading name operated by Ribon Real Estate Services SL. All business activities are conducted in accordance with Spanish law and international trade regulations.
+              <div className="pt-6 border-t border-gray-300 mt-8">
+                <p className="text-sm text-gray-600">
+                  ScaleOps Automation es un nombre comercial operado por Ribon Real Estate Services SL. Todas las actividades comerciales se realizan de conformidad con la legislación española y las regulaciones de protección de datos (GDPR).
                 </p>
               </div>
             </div>
@@ -205,35 +242,35 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-6 lg:px-20 border-t border-[#8b7355]/10 bg-gradient-to-b from-[#0a0f0d] to-[#0d1410]">
-        <div className="max-w-[1400px] mx-auto text-center">
-          <h2 className="text-4xl lg:text-6xl font-bold mb-8 font-serif">Ready to Start Trading?</h2>
-          <p className="text-xl text-[#e8e6df]/60 mb-12 max-w-2xl mx-auto font-sans font-light">
-            Contact our team today to discuss your commodities trading requirements and learn how we can facilitate your next transaction.
+      <section className="py-20 px-6 lg:px-12 border-t border-gray-200 bg-gradient-to-br from-blue-50 via-white to-green-50">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl lg:text-5xl font-bold mb-6">¿Listo para Automatizar?</h2>
+          <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
+            Agenda una consultoría gratuita de 30 minutos. Analizamos tu caso, identificamos oportunidades de automatización y te damos un roadmap claro. Sin compromiso.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link
               href="/#contact"
-              className="inline-flex items-center gap-4 px-12 py-6 bg-[#8b7355] text-[#0a0f0d] font-mono text-sm tracking-widest uppercase hover:bg-[#a08766] transition-colors duration-300"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/30"
             >
-              <span>Contact Us</span>
+              <span>Consultoría Gratuita</span>
               <ArrowRight size={20} />
             </Link>
             <Link
-              href="/#process"
-              className="inline-flex items-center gap-4 px-12 py-6 border-2 border-[#8b7355]/40 text-[#8b7355] font-mono text-sm tracking-widest uppercase hover:border-[#8b7355] hover:bg-[#8b7355]/10 transition-all duration-300"
+              href="/#servicios"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-white border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:border-blue-600 hover:text-blue-600 transition-all"
             >
-              <span>View Process</span>
+              <span>Ver Servicios</span>
             </Link>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[#8b7355]/10 py-12 px-6 lg:px-20">
-        <div className="max-w-[1400px] mx-auto text-center">
-          <p className="text-[#e8e6df]/30 font-mono text-xs">
-            © {new Date().getFullYear()} Stratoma Interchange. All rights reserved.
+      <footer className="border-t border-gray-200 py-10 px-6 lg:px-12 bg-gray-900">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-gray-500 text-sm">
+            © {new Date().getFullYear()} ScaleOps Automation. Todos los derechos reservados.
           </p>
         </div>
       </footer>

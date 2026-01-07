@@ -1,57 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { translations } from '@/lib/translations';
+import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import Image from 'next/image';
-import {
-  getOrganizationSchema,
-  getWebSiteSchema,
-  getBreadcrumbSchema,
-  getLocalBusinessSchema,
-} from './schema';
+import { MessageCircle, TrendingUp, Workflow, Bot, Compass, CheckCircle2, ArrowRight, Calendar, Mail, Phone } from 'lucide-react';
 
-export default function HomePage() {
-  const [lang, setLang] = useState<'en' | 'es'>('en');
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+export default function ScaleOpsHomePage() {
   const { scrollYProgress } = useScroll();
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 1.1]);
-
-  const t = translations[lang];
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  const toggleLanguage = () => {
-    setLang(prev => prev === 'en' ? 'es' : 'en');
-  };
-
-  // Generate JSON-LD structured data
-  const organizationSchema = getOrganizationSchema();
-  const websiteSchema = getWebSiteSchema();
-  const breadcrumbSchema = getBreadcrumbSchema();
-  const localBusinessSchema = getLocalBusinessSchema();
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 font-sans overflow-x-hidden" lang={lang}>
-      {/* JSON-LD Structured Data for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@graph': [organizationSchema, websiteSchema, breadcrumbSchema, localBusinessSchema],
-          }),
-        }}
-      />
-      {/* Removed custom cursor and noise overlay for cleaner design */}
-
+    <div className="min-h-screen bg-white text-gray-900 font-sans overflow-x-hidden" lang="es">
       {/* Navbar */}
       <motion.nav
         initial={{ y: -100 }}
@@ -68,85 +26,35 @@ export default function HomePage() {
               transition={{ delay: 0.2 }}
               className="text-2xl lg:text-3xl font-bold tracking-tight"
             >
-              <span className="text-blue-600">STRAT</span>
-              <span className="text-green-600">OMA</span>
+              <span className="text-blue-600">ScaleOps</span>
+              <span className="text-gray-900"> Automation</span>
             </motion.div>
 
             <div className="flex items-center gap-6 lg:gap-8">
               <div className="hidden lg:flex items-center gap-8 text-sm font-medium">
-                <motion.a
-                  href="/products"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="text-gray-700 hover:text-blue-600 transition-colors duration-200"
-                >
-                  {t.nav.products}
-                </motion.a>
-                <motion.a
-                  href="/blog"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="text-gray-700 hover:text-blue-600 transition-colors duration-200"
-                >
-                  {t.nav.blog}
-                </motion.a>
-                <motion.a
-                  href="/glossary"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="text-gray-700 hover:text-blue-600 transition-colors duration-200"
-                >
-                  {t.nav.glossary}
-                </motion.a>
-                <motion.a
-                  href="/faq"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="text-gray-700 hover:text-blue-600 transition-colors duration-200"
-                >
-                  {t.nav.faq}
-                </motion.a>
-                <motion.a
-                  href="/about"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.7 }}
-                  className="text-gray-700 hover:text-blue-600 transition-colors duration-200"
-                >
-                  {t.nav.about}
-                </motion.a>
-                <motion.a
-                  href="#contact"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.8 }}
-                  className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors duration-200"
-                >
-                  {t.nav.contact}
-                </motion.a>
+                <a href="#servicios" className="text-gray-700 hover:text-blue-600 transition-colors">
+                  Servicios
+                </a>
+                <a href="#proceso" className="text-gray-700 hover:text-blue-600 transition-colors">
+                  Proceso
+                </a>
+                <Link href="/blog" className="text-gray-700 hover:text-blue-600 transition-colors">
+                  Blog
+                </Link>
+                <Link href="/faq" className="text-gray-700 hover:text-blue-600 transition-colors">
+                  FAQ
+                </Link>
+                <a href="#contact" className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors">
+                  Consultoría Gratuita
+                </a>
               </div>
-
-              <motion.button
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.6 }}
-                onClick={toggleLanguage}
-                className="px-4 py-2 border-2 border-gray-300 hover:border-blue-600 text-gray-700 hover:text-blue-600 text-sm font-medium rounded-lg transition-all duration-200"
-              >
-                {lang.toUpperCase()}
-              </motion.button>
             </div>
           </div>
         </div>
       </motion.nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-green-50" aria-label="Hero banner">
-        {/* Hero background pattern */}
+      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="absolute inset-0 z-0 opacity-[0.03]">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-green-500 rounded-full blur-3xl" />
@@ -164,7 +72,7 @@ export default function HomePage() {
               className="mb-6"
             >
               <div className="inline-block px-4 py-2 bg-blue-100 text-blue-700 font-medium text-sm rounded-full mb-8">
-                Global Commodities Excellence
+                Expertos en Automatización con IA
               </div>
             </motion.div>
 
@@ -174,7 +82,7 @@ export default function HomePage() {
               transition={{ duration: 1, delay: 0.5 }}
               className="text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight tracking-tight mb-8 text-gray-900"
             >
-              {t.hero.title}
+              Automatiza tu negocio y libera 20 horas semanales
             </motion.h1>
 
             <motion.div
@@ -184,8 +92,28 @@ export default function HomePage() {
               className="max-w-2xl"
             >
               <p className="text-lg lg:text-xl text-gray-600 leading-relaxed mb-10">
-                {t.hero.subtitle}
+                Diseñamos e implementamos sistemas con IA, chatbots y automatización que capturan leads,
+                atienden clientes 24/7 y ejecutan procesos sin intervención manual.
               </p>
+
+              <div className="space-y-3 mb-10">
+                {[
+                  'Respuesta automática en WhatsApp, web e Instagram 24/7',
+                  'Leads calificados y citas agendadas sin esfuerzo manual',
+                  'Procesos conectados: CRM, pagos, agenda y reporting',
+                ].map((bullet, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 1.4 + i * 0.1 }}
+                    className="flex items-start gap-3"
+                  >
+                    <CheckCircle2 className="text-green-600 w-6 h-6 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700">{bullet}</span>
+                  </motion.div>
+                ))}
+              </div>
 
               <div className="flex flex-wrap gap-4">
                 <motion.a
@@ -194,16 +122,16 @@ export default function HomePage() {
                   whileTap={{ scale: 0.98 }}
                   className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-lg font-medium text-lg hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/30"
                 >
-                  {t.hero.cta}
-                  <span className="text-xl">→</span>
+                  Agendar Consultoría Gratuita
+                  <ArrowRight className="w-5 h-5" />
                 </motion.a>
                 <motion.a
-                  href="/products"
+                  href="#servicios"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="inline-flex items-center gap-2 bg-white border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg font-medium text-lg hover:border-blue-600 hover:text-blue-600 transition-colors"
                 >
-                  View Products
+                  Ver Cómo Funciona
                 </motion.a>
               </div>
             </motion.div>
@@ -213,12 +141,12 @@ export default function HomePage() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.9 }}
-            className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-8"
+            className="lg:col-span-5 grid grid-cols-1 gap-8"
           >
             {[
-              { value: '1200+', label: lang === 'en' ? 'Transactions/Year' : 'Transacciones/Año', color: 'blue' },
-              { value: '98.5%', label: lang === 'en' ? 'Success Rate' : 'Tasa de Éxito', color: 'green' },
-              { value: '24/7', label: lang === 'en' ? 'Global Coverage' : 'Cobertura Global', color: 'blue' },
+              { value: '80%', label: 'Menos tiempo en tareas repetitivas', color: 'blue' },
+              { value: '24/7', label: 'Atención automática sin pausas', color: 'green' },
+              { value: '3-5x', label: 'Más leads atendidos', color: 'blue' },
             ].map((stat, i) => (
               <motion.div
                 key={i}
@@ -239,8 +167,91 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* Product Section */}
-      <section id="products" className="relative py-20 lg:py-28 bg-gray-50" aria-labelledby="products-heading">
+      {/* Problems Section */}
+      <section className="py-20 lg:py-28 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold mb-4">
+              Si en tu empresa pasa esto, somos la solución que necesitas
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: 'Pierdes leads porque respondes tarde',
+                description: 'Respondes en 2-3 horas y el lead ya contrató a tu competencia. El 30% de las oportunidades se pierden por no atender rápido.',
+                stat: '35% de leads se pierden en 4h',
+              },
+              {
+                title: 'Tu equipo pasa horas en tareas repetitivas',
+                description: 'Responder las mismas preguntas por WhatsApp, hacer seguimiento manual. Tu equipo en modo "apaga fuegos".',
+                stat: '4-6 horas/día en tareas automatizables',
+              },
+              {
+                title: 'Cada persona hace el seguimiento a su manera',
+                description: 'No hay proceso estandarizado. Resultado: clientes olvidados y caos cuando alguien se va.',
+                stat: '60% pierden info crítica',
+              },
+              {
+                title: 'Para crecer necesitas contratar',
+                description: 'Cada cliente nuevo requiere 1 persona más. Quieres crecer pero los márgenes no aguantan.',
+                stat: '73% no escalan por costos',
+              },
+              {
+                title: 'Pierdes ventas fuera de horario',
+                description: 'Tus clientes buscan información de noche, fines de semana. Si no respondes, van con quien sí lo hace.',
+                stat: '42% consultas fuera de horario',
+              },
+              {
+                title: 'No sabes cuántos leads llegan',
+                description: 'Todo está en la cabeza de tu equipo, no en un sistema medible. Sin datos, sin optimización.',
+                stat: 'Sin visibilidad = sin crecimiento',
+              },
+            ].map((problem, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-white border border-gray-200 rounded-xl p-6 hover:border-blue-500 hover:shadow-xl transition-all"
+              >
+                <h3 className="text-xl font-bold mb-3 text-gray-900">{problem.title}</h3>
+                <p className="text-gray-600 mb-4">{problem.description}</p>
+                <div className="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-sm font-semibold rounded-full">
+                  {problem.stat}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mt-16 p-8 bg-gradient-to-r from-blue-50 to-green-50 rounded-2xl"
+          >
+            <p className="text-xl font-semibold text-gray-900 mb-4">
+              La buena noticia: todos estos problemas se resuelven con automatización inteligente
+            </p>
+            <a
+              href="#servicios"
+              className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700"
+            >
+              Descubre Qué Puedes Automatizar <ArrowRight className="w-5 h-5" />
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="servicios" className="py-20 lg:py-28 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0 }}
@@ -249,109 +260,71 @@ export default function HomePage() {
             className="text-center mb-16"
           >
             <div className="inline-block px-4 py-2 bg-blue-100 text-blue-700 font-medium text-sm rounded-full mb-4">
-              Our Products
+              Nuestros Servicios
             </div>
-            <h2 id="products-heading" className="text-4xl lg:text-5xl font-bold mb-4 leading-tight text-gray-900">
-              {t.products.title}
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              {t.products.subtitle}
+            <h2 className="text-4xl lg:text-5xl font-bold mb-4">Automatización Completa para tu Negocio</h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Soluciones de IA y automatización para cada parte de tu operación
             </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Urea 46% Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="group relative bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 border border-gray-200"
-            >
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1200&q=80"
-                  alt="High quality Urea 46% granular and prilled fertilizer for international trade"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                <div className="absolute bottom-4 left-6">
-                  <h3 className="text-3xl font-bold text-white">
-                    {t.products.urea.title}
-                  </h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: MessageCircle,
+                title: 'WhatsApp & Canales de Chat',
+                description: 'Chatbots con IA que atienden consultas, califican leads y agendan citas 24/7 en todos tus canales.',
+                color: 'blue',
+              },
+              {
+                icon: TrendingUp,
+                title: 'GoHighLevel CRM',
+                description: 'Embudos completos, pipelines automatizados y seguimiento multicanal para agencias y consultorías.',
+                color: 'green',
+              },
+              {
+                icon: Workflow,
+                title: 'n8n Automation',
+                description: 'Conecta todas tus herramientas: CRM, pagos, Google Sheets, email. Cero trabajo manual.',
+                color: 'purple',
+              },
+              {
+                icon: Bot,
+                title: 'Asistentes con IA',
+                description: 'Agentes entrenados con tus datos. Atienden como expertos de tu equipo, 90%+ precisión.',
+                color: 'indigo',
+              },
+              {
+                icon: Compass,
+                title: 'Consultoría de Procesos',
+                description: 'Analizamos tus procesos, diseñamos roadmap completo y acompañamos la implementación.',
+                color: 'blue',
+              },
+            ].map((service, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group bg-white p-8 rounded-xl border border-gray-200 hover:border-blue-500 hover:shadow-2xl transition-all duration-300"
+              >
+                <div className="mb-4">
+                  <service.icon className="w-12 h-12 text-blue-600" />
                 </div>
-              </div>
-
-              <div className="p-8">
-                <div className="space-y-4">
-                  {[
-                    { label: t.products.urea.form, value: 'Granular / Prilled' },
-                    { label: t.products.urea.nitrogen, value: '46% min' },
-                    { label: t.products.urea.moisture, value: '0.5% max' },
-                    { label: t.products.urea.biuret, value: '1% max' },
-                  ].map((spec, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.1 }}
-                      className="flex justify-between items-center border-b border-gray-200 pb-3"
-                    >
-                      <span className="text-gray-600 font-medium text-sm">
-                        {spec.label}
-                      </span>
-                      <span className="text-gray-900 font-semibold tabular-nums">
-                        {spec.value}
-                      </span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Quality Standards Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="bg-gradient-to-br from-green-50 to-blue-50 border border-gray-200 rounded-2xl p-10 lg:p-12"
-            >
-              <h3 className="text-3xl lg:text-4xl font-bold mb-8 text-gray-900">
-                {t.products.standards.title}
-              </h3>
-
-              <div className="space-y-6">
-                {[
-                  t.products.standards.quality,
-                  t.products.standards.inspection,
-                  t.products.standards.certification,
-                ].map((item, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2 + i * 0.1 }}
-                    className="flex gap-4"
-                  >
-                    <div className="flex-shrink-0 w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
-                      ✓
-                    </div>
-                    <p className="text-gray-700 leading-relaxed text-base lg:text-lg">
-                      {item}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
+                <h3 className="text-xl font-bold mb-3 text-gray-900">{service.title}</h3>
+                <p className="text-gray-600 mb-4">{service.description}</p>
+                <a href="#contact" className="inline-flex items-center text-blue-600 font-semibold group-hover:gap-2 transition-all">
+                  Ver Detalles <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Process Section */}
-      <section id="process" className="relative py-20 lg:py-28 bg-white" aria-labelledby="process-heading">
+      <section id="proceso" className="py-20 lg:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0 }}
@@ -359,55 +332,52 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <div className="inline-block px-4 py-2 bg-green-100 text-green-700 font-medium text-sm rounded-full mb-4">
-              Our Process
-            </div>
-            <h2 id="process-heading" className="text-4xl lg:text-5xl font-bold mb-4 text-gray-900">
-              {t.process.title}
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-6">
-              {t.process.subtitle}
+            <h2 className="text-4xl lg:text-5xl font-bold mb-4">Cómo Automatizamos tu Negocio</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Sin caos ni sorpresas. Método probado en 5 pasos que no interrumpe tu operación
             </p>
-            <div className="inline-block px-6 py-3 bg-yellow-50 border-l-4 border-yellow-500 rounded-r-lg">
-              <p className="text-yellow-800 font-medium text-sm">
-                {t.process.note}
-              </p>
-            </div>
           </motion.div>
 
-          <div className="grid lg:grid-cols-3 gap-6">
-            {t.process.steps.map((step, i) => (
+          <div className="grid lg:grid-cols-5 gap-8">
+            {[
+              { title: 'Diagnóstico Gratuito', description: '30-45 min analizando tus procesos, dolores y objetivos. Sin compromiso.' },
+              { title: 'Mapa de Oportunidades', description: 'Priorizamos automatizaciones por impacto vs esfuerzo. Quick wins identificados.' },
+              { title: 'Diseño de Solución', description: 'Arquitectura completa: herramientas, integraciones, flujos de datos y KPIs.' },
+              { title: 'Implementación', description: 'En fases: piloto, pruebas, ajustes, escala. Entrenamiento incluido.' },
+              { title: 'Optimización Continua', description: 'Monitoreamos métricas y mejoramos mes a mes basados en datos reales.' },
+            ].map((step, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.15 }}
-                className="group relative bg-white border-2 border-gray-200 rounded-xl p-8 hover:border-blue-500 hover:shadow-xl transition-all duration-300"
+                transition={{ delay: i * 0.1 }}
+                className="relative"
               >
-                <div className="absolute top-4 right-4 text-7xl font-bold text-blue-50 group-hover:text-blue-100 transition-colors duration-300">
-                  {String(i + 1).padStart(2, '0')}
+                <div className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mb-4">
+                  {i + 1}
                 </div>
-
-                <div className="relative z-10">
-                  <div className="w-12 h-12 bg-blue-600 text-white rounded-lg flex items-center justify-center text-xl font-bold mb-4">
-                    {i + 1}
-                  </div>
-                  <h3 className="text-xl lg:text-2xl font-bold mb-4 leading-tight text-gray-900">
-                    {step.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed text-sm lg:text-base">
-                    {step.description}
-                  </p>
-                </div>
+                <h3 className="text-lg font-bold mb-2 text-gray-900">{step.title}</h3>
+                <p className="text-gray-600 text-sm">{step.description}</p>
               </motion.div>
             ))}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-12 p-6 bg-yellow-50 border-l-4 border-yellow-500 rounded-r-lg"
+          >
+            <p className="text-yellow-800 font-medium">
+              ⚠️ Implementamos sin interrumpir tu operación actual. Trabajamos en paralelo y migramos cuando todo está probado.
+            </p>
+          </motion.div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="relative py-20 lg:py-28 bg-gradient-to-br from-blue-50 via-white to-green-50" aria-labelledby="contact-heading">
+      <section id="contact" className="py-20 lg:py-28 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0 }}
@@ -415,19 +385,14 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <div className="inline-block px-4 py-2 bg-blue-100 text-blue-700 font-medium text-sm rounded-full mb-4">
-              Get In Touch
-            </div>
-            <h2 id="contact-heading" className="text-4xl lg:text-5xl font-bold mb-4 text-gray-900">
-              {t.contact.title}
-            </h2>
-            <p className="text-lg text-gray-600">
-              {t.contact.subtitle}
+            <h2 className="text-4xl lg:text-5xl font-bold mb-4">¿Listo para Recuperar tu Tiempo?</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Agenda una consultoría gratuita de 30 minutos. Analizamos tus procesos y te mostramos
+              exactamente qué automatizar, cuánto tiempo recuperar y tu ROI.
             </p>
           </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Info */}
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -435,177 +400,142 @@ export default function HomePage() {
               className="space-y-6"
             >
               <div className="bg-white border-l-4 border-blue-600 rounded-r-xl p-6 shadow-md">
-                <div className="text-sm font-semibold text-gray-500 mb-2">
-                  Email
+                <div className="flex items-center gap-3">
+                  <Mail className="w-6 h-6 text-blue-600" />
+                  <div>
+                    <div className="text-sm font-semibold text-gray-500">Email</div>
+                    <a href="mailto:info@stratomai.com" className="text-xl text-blue-600 hover:text-blue-700 font-medium">
+                      info@stratomai.com
+                    </a>
+                  </div>
                 </div>
-                <a
-                  href="mailto:info@stratomai.com"
-                  className="text-xl lg:text-2xl text-blue-600 hover:text-blue-700 transition-colors duration-200 font-medium"
-                >
-                  info@stratomai.com
-                </a>
               </div>
 
               <div className="bg-white border-l-4 border-green-600 rounded-r-xl p-6 shadow-md">
-                <div className="text-sm font-semibold text-gray-500 mb-2">
-                  WhatsApp
+                <div className="flex items-center gap-3">
+                  <Phone className="w-6 h-6 text-green-600" />
+                  <div>
+                    <div className="text-sm font-semibold text-gray-500">WhatsApp</div>
+                    <a href="https://wa.me/34611031947" className="text-xl text-green-600 hover:text-green-700 font-medium">
+                      +34 611 03 19 47
+                    </a>
+                  </div>
                 </div>
-                <a
-                  href="https://wa.me/34611031947"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xl lg:text-2xl text-green-600 hover:text-green-700 transition-colors duration-200 font-medium"
-                >
-                  +34 611 03 19 47
-                </a>
               </div>
 
               <div className="bg-gray-50 rounded-xl p-6">
-                <p className="text-gray-600 text-base leading-relaxed">
-                  {lang === 'en'
-                    ? 'Professional commodities trading requires precision and trust. Contact us to discuss your requirements with our expert team.'
-                    : 'El comercio profesional de commodities requiere precisión y confianza. Contáctenos para discutir sus requisitos con nuestro equipo experto.'
-                  }
+                <h3 className="font-bold text-gray-900 mb-3">Qué Incluye la Consultoría Gratuita:</h3>
+                <ul className="space-y-2">
+                  {[
+                    'Auditoría de procesos actuales (15 min)',
+                    'Mapa de oportunidades de automatización (10 min)',
+                    'Estimación de horas recuperables y ROI (5 min)',
+                    'Próximos pasos recomendados (sin presión)',
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-gray-700">
+                      <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-4 text-sm text-gray-600 font-medium">
+                  🎁 Sin compromiso · Sin costo · Sin letra pequeña
                 </p>
               </div>
             </motion.div>
 
-            {/* Contact Form */}
-            <motion.form
+            <motion.div
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-white rounded-2xl p-8 shadow-lg space-y-6"
+              className="bg-white rounded-2xl p-8 shadow-lg"
             >
-              <div className="grid grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    {t.contact.form.company}
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full bg-gray-50 border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none px-4 py-3 rounded-lg transition-all duration-200"
-                    required
-                  />
+              <form className="space-y-6">
+                <div className="grid grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">Nombre</label>
+                    <input type="text" className="w-full bg-gray-50 border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none px-4 py-3 rounded-lg" required />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                    <input type="email" className="w-full bg-gray-50 border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none px-4 py-3 rounded-lg" required />
+                  </div>
                 </div>
-
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    {t.contact.form.email}
-                  </label>
-                  <input
-                    type="email"
-                    className="w-full bg-gray-50 border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none px-4 py-3 rounded-lg transition-all duration-200"
-                    required
-                  />
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Empresa</label>
+                  <input type="text" className="w-full bg-gray-50 border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none px-4 py-3 rounded-lg" required />
                 </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    {t.contact.form.role}
-                  </label>
-                  <select className="w-full bg-gray-50 border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none px-4 py-3 rounded-lg transition-all duration-200">
-                    <option value="">{t.contact.form.selectRole}</option>
-                    <option value="buyer">{t.contact.form.buyer}</option>
-                    <option value="seller">{t.contact.form.seller}</option>
-                    <option value="mandate">{t.contact.form.mandate}</option>
-                  </select>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">¿Qué quieres automatizar?</label>
+                  <textarea rows={4} className="w-full bg-gray-50 border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none px-4 py-3 rounded-lg resize-none" required />
                 </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    {t.contact.form.product}
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Urea 46%, etc."
-                    className="w-full bg-gray-50 border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none px-4 py-3 rounded-lg transition-all duration-200 placeholder:text-gray-400"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  {t.contact.form.inquiry}
-                </label>
-                <textarea
-                  rows={6}
-                  className="w-full bg-gray-50 border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none px-4 py-3 rounded-lg transition-all duration-200 resize-none"
-                  required
-                />
-              </div>
-
-              <div className="pt-4">
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                <button
                   type="submit"
-                  className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors duration-200 shadow-lg shadow-blue-600/30"
+                  className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/30"
                 >
-                  <span>{t.contact.form.submit}</span>
-                  <span className="text-xl">→</span>
-                </motion.button>
-              </div>
-            </motion.form>
+                  <Calendar className="w-5 h-5" />
+                  Agendar Mi Consultoría Gratuita
+                </button>
+              </form>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="relative border-t border-gray-200 py-16 bg-gray-900 text-white" role="contentinfo">
+      <footer className="bg-gray-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-3 gap-12 mb-12">
+          <div className="grid lg:grid-cols-4 gap-12 mb-12">
             <div>
               <div className="text-3xl font-bold mb-6">
-                <span className="text-blue-400">STRAT</span>
-                <span className="text-green-400">OMA</span>
+                <span className="text-blue-400">ScaleOps</span>
+                <span className="text-white"> Automation</span>
               </div>
-              <p className="text-gray-400 text-base leading-relaxed">
-                {t.footer.tagline}
+              <p className="text-gray-400 mb-4">
+                Automatización inteligente para negocios que crecen
               </p>
             </div>
 
             <div>
-              <h4 className="text-sm font-semibold text-gray-300 mb-4">
-                {t.footer.contact.title}
-              </h4>
+              <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase">Servicios</h4>
+              <ul className="space-y-2">
+                <li><a href="#servicios" className="text-gray-400 hover:text-white transition-colors">WhatsApp Automation</a></li>
+                <li><a href="#servicios" className="text-gray-400 hover:text-white transition-colors">GoHighLevel</a></li>
+                <li><a href="#servicios" className="text-gray-400 hover:text-white transition-colors">n8n Automatizaciones</a></li>
+                <li><a href="#servicios" className="text-gray-400 hover:text-white transition-colors">Asistentes con IA</a></li>
+                <li><a href="#servicios" className="text-gray-400 hover:text-white transition-colors">Consultoría</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase">Recursos</h4>
+              <ul className="space-y-2">
+                <li><Link href="/blog" className="text-gray-400 hover:text-white transition-colors">Blog</Link></li>
+                <li><Link href="/faq" className="text-gray-400 hover:text-white transition-colors">FAQ</Link></li>
+                <li><Link href="/glossary" className="text-gray-400 hover:text-white transition-colors">Glosario</Link></li>
+                <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors">Sobre Nosotros</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase">Contacto</h4>
               <div className="space-y-3">
-                <a
-                  href="mailto:info@stratomai.com"
-                  className="block text-blue-400 hover:text-blue-300 transition-colors duration-200 text-base"
-                >
+                <a href="mailto:info@stratomai.com" className="block text-blue-400 hover:text-blue-300">
                   info@stratomai.com
                 </a>
-                <a
-                  href="https://wa.me/34611031947"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-green-400 hover:text-green-300 transition-colors duration-200 text-base"
-                >
+                <a href="https://wa.me/34611031947" className="block text-green-400 hover:text-green-300">
                   +34 611 03 19 47
                 </a>
               </div>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-semibold text-gray-300 mb-4">
-                {t.footer.legal.title}
-              </h4>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                {t.footer.legal.notice}
-              </p>
             </div>
           </div>
 
           <div className="border-t border-gray-800 pt-8 flex flex-col lg:flex-row justify-between items-center gap-4">
             <p className="text-gray-500 text-sm">
-              © {new Date().getFullYear()} Stratoma Interchange
+              © {new Date().getFullYear()} ScaleOps Automation. Todos los derechos reservados.
             </p>
             <p className="text-gray-500 text-sm">
-              {t.footer.rights}
+              Automatización con IA para negocios que crecen
             </p>
           </div>
         </div>

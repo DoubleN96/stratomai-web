@@ -8,8 +8,32 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    // Validate required fields
-    const { company, email, role, product, inquiry, honeypot } = body;
+    // Extract form fields - support both old and new format
+    const {
+      nombre,
+      name,
+      email,
+      empresa,
+      company,
+      telefono,
+      phone,
+      servicio,
+      service,
+      mensaje,
+      message,
+      inquiry,
+      role,
+      product,
+      honeypot,
+    } = body;
+
+    // Use new field names with fallback to old ones
+    const contactName = nombre || name;
+    const contactEmail = email;
+    const contactCompany = empresa || company;
+    const contactPhone = telefono || phone;
+    const contactService = servicio || service;
+    const contactMessage = mensaje || message || inquiry;
 
     // Honeypot field - if filled, it's a bot
     if (honeypot) {
@@ -17,32 +41,29 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate required fields
-    if (!company || !email || !role || !inquiry) {
+    if (!contactName || !contactEmail || !contactMessage) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: 'Faltan campos requeridos' },
         { status: 400 }
       );
     }
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });
-    }
-
-    // Validate role
-    const validRoles = ['buyer', 'seller', 'mandate'];
-    if (!validRoles.includes(role)) {
-      return NextResponse.json({ error: 'Invalid role' }, { status: 400 });
+    if (!emailRegex.test(contactEmail)) {
+      return NextResponse.json(
+        { error: 'Dirección de email inválida' },
+        { status: 400 }
+      );
     }
 
     // Log the submission
     console.log('Contact form submission:', {
-      company,
-      email,
-      role,
-      product,
-      inquiry,
+      name: contactName,
+      email: contactEmail,
+      company: contactCompany,
+      phone: contactPhone,
+      service: contactService,
       timestamp: new Date().toISOString(),
       ip: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip'),
       userAgent: request.headers.get('user-agent'),
@@ -52,20 +73,21 @@ export async function POST(request: NextRequest) {
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     // Email content
-    const emailSubject = `New ${role} inquiry from ${company}`;
+    const emailSubject = `Nueva consulta de ${contactName}${contactCompany ? ` - ${contactCompany}` : ''}`;
     const emailText = `
-New contact form submission from Stratoma Interchange website:
+Nueva consulta desde ScaleOps Automation:
 
-Company: ${company}
-Email: ${email}
-Role: ${role}
-Product of Interest: ${product || 'Not specified'}
+Nombre: ${contactName}
+Email: ${contactEmail}
+${contactCompany ? `Empresa: ${contactCompany}` : ''}
+${contactPhone ? `Teléfono: ${contactPhone}` : ''}
+${contactService ? `Servicio de interés: ${contactService}` : ''}
 
-Inquiry:
-${inquiry}
+Mensaje:
+${contactMessage}
 
 ---
-Submitted: ${new Date().toISOString()}
+Enviado: ${new Date().toISOString()}
 IP: ${request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown'}
 User Agent: ${request.headers.get('user-agent') || 'Unknown'}
       `.trim();
@@ -77,47 +99,55 @@ User Agent: ${request.headers.get('user-agent') || 'Unknown'}
   <style>
     body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
     .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-    .header { background: linear-gradient(135deg, #0066CC 0%, #2E7D32 100%); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }
+    .header { background: linear-gradient(135deg, #3b82f6 0%, #22c55e 100%); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }
     .content { background: #f8f9fa; padding: 30px; border-radius: 0 0 8px 8px; }
     .field { margin-bottom: 20px; }
-    .label { font-weight: bold; color: #0066CC; margin-bottom: 5px; }
-    .value { background: white; padding: 12px; border-left: 4px solid #0066CC; border-radius: 4px; }
-    .inquiry { background: white; padding: 15px; border-left: 4px solid #2E7D32; border-radius: 4px; white-space: pre-wrap; }
+    .label { font-weight: bold; color: #3b82f6; margin-bottom: 5px; }
+    .value { background: white; padding: 12px; border-left: 4px solid #3b82f6; border-radius: 4px; }
+    .inquiry { background: white; padding: 15px; border-left: 4px solid #22c55e; border-radius: 4px; white-space: pre-wrap; }
     .footer { margin-top: 20px; padding-top: 20px; border-top: 2px solid #dee2e6; font-size: 12px; color: #6c757d; }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
-      <h1 style="margin: 0;">New Contact Form Submission</h1>
-      <p style="margin: 10px 0 0 0;">Stratoma Interchange</p>
+      <h1 style="margin: 0;">Nueva Consulta</h1>
+      <p style="margin: 10px 0 0 0;">ScaleOps Automation</p>
     </div>
     <div class="content">
       <div class="field">
-        <div class="label">Company:</div>
-        <div class="value">${company}</div>
+        <div class="label">Nombre:</div>
+        <div class="value">${contactName}</div>
       </div>
       <div class="field">
         <div class="label">Email:</div>
-        <div class="value"><a href="mailto:${email}">${email}</a></div>
+        <div class="value"><a href="mailto:${contactEmail}">${contactEmail}</a></div>
       </div>
+      ${contactCompany ? `
       <div class="field">
-        <div class="label">Role:</div>
-        <div class="value">${role.charAt(0).toUpperCase() + role.slice(1)}</div>
+        <div class="label">Empresa:</div>
+        <div class="value">${contactCompany}</div>
       </div>
-      ${product ? `
+      ` : ''}
+      ${contactPhone ? `
       <div class="field">
-        <div class="label">Product of Interest:</div>
-        <div class="value">${product}</div>
+        <div class="label">Teléfono:</div>
+        <div class="value">${contactPhone}</div>
+      </div>
+      ` : ''}
+      ${contactService ? `
+      <div class="field">
+        <div class="label">Servicio de interés:</div>
+        <div class="value">${contactService}</div>
       </div>
       ` : ''}
       <div class="field">
-        <div class="label">Inquiry:</div>
-        <div class="inquiry">${inquiry}</div>
+        <div class="label">Mensaje:</div>
+        <div class="inquiry">${contactMessage}</div>
       </div>
       <div class="footer">
-        <strong>Submitted:</strong> ${new Date().toLocaleString('en-US', { timeZone: 'UTC' })} UTC<br>
-        <strong>IP Address:</strong> ${request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown'}
+        <strong>Enviado:</strong> ${new Date().toLocaleString('es-ES', { timeZone: 'Europe/Madrid' })} (Madrid)<br>
+        <strong>IP:</strong> ${request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'Unknown'}
       </div>
     </div>
   </div>
@@ -128,9 +158,9 @@ User Agent: ${request.headers.get('user-agent') || 'Unknown'}
     // Send email with Resend
     try {
       const data = await resend.emails.send({
-        from: process.env.RESEND_FROM || 'Stratoma Contact <onboarding@resend.dev>',
-        to: process.env.RESEND_TO || 'stratoma.ai@gmail.com',
-        replyTo: email,
+        from: process.env.RESEND_FROM || 'ScaleOps Contact <onboarding@resend.dev>',
+        to: process.env.RESEND_TO || 'info@scaleops.com',
+        replyTo: contactEmail,
         subject: emailSubject,
         text: emailText,
         html: emailHtml,
@@ -146,7 +176,7 @@ User Agent: ${request.headers.get('user-agent') || 'Unknown'}
     return NextResponse.json(
       {
         success: true,
-        message: 'Thank you for your inquiry. We will contact you shortly.',
+        message: 'Gracias por tu consulta. Te responderemos pronto.',
       },
       { status: 200 }
     );
