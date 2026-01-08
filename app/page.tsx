@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import ContactForm from '@/components/ContactForm';
 import {
   MessageCircle,
   TrendingUp,
@@ -154,11 +155,13 @@ export default function StratomaAIHomePage() {
                     <ArrowRight className="w-5 h-5" />
                   </Link>
                   <a
-                    href="#contact"
+                    href="https://wa.me/34611031947?text=Hola%2C%20quiero%20una%20consultoría%20gratuita%20sobre%20automatización%20con%20IA"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-purple-200 text-purple-600 rounded-xl font-semibold hover:border-purple-400 transition-all text-lg"
                   >
-                    <Calendar className="w-5 h-5" />
-                    Consultoría Gratuita
+                    <MessageCircle className="w-5 h-5" />
+                    WhatsApp Directo
                   </a>
                 </div>
                 <Link
@@ -714,71 +717,7 @@ export default function StratomaAIHomePage() {
             </div>
 
             {/* Contact Form */}
-            <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
-              <form className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                    Nombre completo *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    placeholder="Tu nombre"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                    Email corporativo *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    placeholder="tu@empresa.com"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
-                    Empresa
-                  </label>
-                  <input
-                    type="text"
-                    id="company"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    placeholder="Nombre de tu empresa"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                    ¿Qué necesitas automatizar? *
-                  </label>
-                  <textarea
-                    id="message"
-                    required
-                    rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    placeholder="Cuéntanos brevemente sobre tu negocio y qué procesos quieres automatizar..."
-                  ></textarea>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all"
-                >
-                  Solicitar Consultoría Gratuita
-                </button>
-
-                <p className="text-xs text-gray-500 text-center">
-                  Respuesta en menos de 24 horas. Sin compromiso.
-                </p>
-              </form>
-            </div>
+            <ContactForm />
           </div>
         </div>
       </section>

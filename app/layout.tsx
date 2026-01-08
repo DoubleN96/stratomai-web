@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -108,6 +109,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${jetbrains.variable} antialiased`}>
         {children}
+        <FloatingWhatsApp />
       </body>
     </html>
   );
