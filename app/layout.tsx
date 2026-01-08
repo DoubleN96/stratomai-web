@@ -17,32 +17,31 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://scaleops.com'),
+  metadataBase: new URL('https://stratomai.com'),
   title: {
-    default: 'ScaleOps Automation | Automatización con IA para Escalar tu Negocio',
-    template: '%s | ScaleOps Automation',
+    default: 'Stratoma AI | Automatización con Inteligencia Artificial en Madrid',
+    template: '%s | Stratoma AI',
   },
-  description: 'Automatiza tu negocio con IA, chatbots y sistemas 24/7. Recupera hasta 80% de tu tiempo en tareas repetitivas. Consultoría gratuita.',
+  description: 'Agencia de IA en Madrid. Chatbots inteligentes, automatización WhatsApp y asistentes virtuales para empresas. Aumenta ventas y ahorra tiempo con inteligencia artificial.',
   keywords: [
-    'automatización con IA',
-    'automatizar negocio',
-    'chatbot empresas',
-    'automatización empresarial',
-    'sistemas automatización',
-    'chatbot whatsapp',
-    'gohighlevel español',
-    'n8n automatización',
-    'WhatsApp Business automation',
-    'GoHighLevel',
-    'agentes de IA',
-    'CRM automation',
-    'workflow automation',
-    'chatbots IA',
-    'automatización de procesos',
+    'automatización IA Madrid',
+    'chatbot empresas Madrid',
+    'inteligencia artificial Madrid',
+    'agencia IA Madrid',
+    'automatización WhatsApp Madrid',
+    'chatbot español Madrid',
+    'asistente virtual IA Madrid',
+    'consultoría IA Madrid',
+    'desarrollo IA Madrid',
+    'automatización procesos Madrid',
+    'chatbot para negocios',
+    'IA empresas España',
+    'automatizar atención cliente',
+    'chatbot WhatsApp empresas',
   ],
-  authors: [{ name: 'ScaleOps Automation' }],
-  creator: 'ScaleOps Automation',
-  publisher: 'ScaleOps Automation',
+  authors: [{ name: 'Stratoma AI' }],
+  creator: 'Stratoma AI',
+  publisher: 'Stratoma AI',
   formatDetection: {
     email: false,
     address: false,
@@ -51,10 +50,10 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'es_ES',
-    url: 'https://scaleops.com',
-    siteName: 'ScaleOps Automation',
-    title: 'ScaleOps Automation - Automatiza y Escala tu Negocio con IA',
-    description: 'Libera 20 horas semanales con automatización inteligente. Chatbots, IA, WhatsApp, CRM y más. Consultoría gratis.',
+    url: 'https://stratomai.com',
+    siteName: 'Stratoma AI',
+    title: 'Stratoma AI - Agencia de Inteligencia Artificial en Madrid',
+    description: 'Automatización con IA para empresas de Madrid. Chatbots inteligentes, WhatsApp automation y asistentes virtuales. Consultoría gratuita.',
     images: [
       {
         url: '/og-image-home.jpg',
@@ -66,10 +65,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ScaleOps Automation - Automatización con IA',
-    description: 'Automatiza WhatsApp, CRM y procesos. Recupera tiempo, aumenta ventas. Consultoría gratuita.',
+    title: 'Stratoma AI - Inteligencia Artificial en Madrid',
+    description: 'Agencia de IA en Madrid. Chatbots, automatización y asistentes virtuales para empresas. Consultoría gratuita.',
     images: ['/twitter-card-home.jpg'],
-    creator: '@scaleops',
+    creator: '@stratomai',
   },
   robots: {
     index: true,
@@ -83,7 +82,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://scaleops.com',
+    canonical: 'https://stratomai.com',
   },
   category: 'technology',
 };
@@ -91,7 +90,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#3b82f6',
+  themeColor: '#7C3AED',
 };
 
 export default function RootLayout({

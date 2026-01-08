@@ -2,19 +2,33 @@
 
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { MessageCircle, TrendingUp, Workflow, Bot, Compass, CheckCircle2, ArrowRight, Calendar, Mail, Phone } from 'lucide-react';
+import {
+  MessageCircle,
+  TrendingUp,
+  Workflow,
+  Bot,
+  Compass,
+  CheckCircle2,
+  ArrowRight,
+  Calendar,
+  Mail,
+  Phone,
+  Sparkles,
+  Zap,
+  Building2
+} from 'lucide-react';
 
-export default function ScaleOpsHomePage() {
+export default function StratomaAIHomePage() {
   const { scrollYProgress } = useScroll();
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 font-sans overflow-x-hidden" lang="es">
-      {/* Navbar */}
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 text-gray-900 font-sans overflow-x-hidden" lang="es">
+      {/* Navbar con diseño más atractivo */}
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-200 z-40 shadow-sm"
+        className="fixed top-0 w-full bg-white/80 backdrop-blur-xl border-b border-purple-100 z-50 shadow-sm"
         role="navigation"
         aria-label="Main navigation"
       >
@@ -24,27 +38,34 @@ export default function ScaleOpsHomePage() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-2xl lg:text-3xl font-bold tracking-tight"
+              className="flex items-center gap-3"
             >
-              <span className="text-blue-600">ScaleOps</span>
-              <span className="text-gray-900"> Automation</span>
+              <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center">
+                <Sparkles className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <div className="text-2xl lg:text-3xl font-bold tracking-tight bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  Stratoma AI
+                </div>
+                <div className="text-xs text-gray-500 -mt-1">Madrid, España</div>
+              </div>
             </motion.div>
 
             <div className="flex items-center gap-6 lg:gap-8">
               <div className="hidden lg:flex items-center gap-8 text-sm font-medium">
-                <a href="#servicios" className="text-gray-700 hover:text-blue-600 transition-colors">
+                <a href="#servicios" className="text-gray-700 hover:text-purple-600 transition-colors">
                   Servicios
                 </a>
-                <a href="#proceso" className="text-gray-700 hover:text-blue-600 transition-colors">
-                  Proceso
+                <a href="#casos-uso" className="text-gray-700 hover:text-purple-600 transition-colors">
+                  Casos de Uso
                 </a>
-                <Link href="/blog" className="text-gray-700 hover:text-blue-600 transition-colors">
+                <Link href="/blog" className="text-gray-700 hover:text-purple-600 transition-colors">
                   Blog
                 </Link>
-                <Link href="/faq" className="text-gray-700 hover:text-blue-600 transition-colors">
+                <Link href="/faq" className="text-gray-700 hover:text-purple-600 transition-colors">
                   FAQ
                 </Link>
-                <a href="#contact" className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors">
+                <a href="#contact" className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2.5 rounded-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all">
                   Consultoría Gratuita
                 </a>
               </div>
@@ -53,179 +74,187 @@ export default function ScaleOpsHomePage() {
         </div>
       </motion.nav>
 
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-green-50">
-        <div className="absolute inset-0 z-0 opacity-[0.03]">
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-green-500 rounded-full blur-3xl" />
+      {/* Hero Section - Diseño muy atractivo */}
+      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        {/* Background decorativo */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+          <div className="absolute top-40 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+          <div className="absolute bottom-20 right-1/3 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
         </div>
 
-        <motion.div
-          style={{ opacity: heroOpacity }}
-          className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-24 lg:py-32 grid lg:grid-cols-12 gap-12"
-        >
-          <div className="lg:col-span-7">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="mb-6"
+              transition={{ duration: 0.6 }}
             >
-              <div className="inline-block px-4 py-2 bg-blue-100 text-blue-700 font-medium text-sm rounded-full mb-8">
-                Expertos en Automatización con IA
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full mb-6 text-sm font-medium">
+                <Building2 className="w-4 h-4" />
+                Agencia de IA en Madrid
               </div>
-            </motion.div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight tracking-tight mb-8 text-gray-900"
-            >
-              Automatiza tu negocio y libera 20 horas semanales
-            </motion.h1>
+              <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+                Inteligencia Artificial que{' '}
+                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  Impulsa tu Negocio
+                </span>
+              </h1>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.2 }}
-              className="max-w-2xl"
-            >
-              <p className="text-lg lg:text-xl text-gray-600 leading-relaxed mb-10">
-                Diseñamos e implementamos sistemas con IA, chatbots y automatización que capturan leads,
-                atienden clientes 24/7 y ejecutan procesos sin intervención manual.
+              <p className="text-xl lg:text-2xl text-gray-600 mb-8 leading-relaxed">
+                Automatizamos tu atención al cliente, ventas y procesos con IA.
+                Ahorra hasta 20 horas semanales y multiplica por 3 tu capacidad de atención.
               </p>
 
-              <div className="space-y-3 mb-10">
+              <ul className="space-y-4 mb-10">
                 {[
-                  'Respuesta automática en WhatsApp, web e Instagram 24/7',
-                  'Leads calificados y citas agendadas sin esfuerzo manual',
-                  'Procesos conectados: CRM, pagos, agenda y reporting',
-                ].map((bullet, i) => (
-                  <motion.div
+                  'Chatbots inteligentes en WhatsApp, web e Instagram',
+                  'Asistentes virtuales que atienden 24/7 en español',
+                  'Automatización de procesos que conecta todas tus herramientas'
+                ].map((benefit, i) => (
+                  <motion.li
                     key={i}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 1.4 + i * 0.1 }}
+                    transition={{ delay: 0.8 + i * 0.1 }}
                     className="flex items-start gap-3"
                   >
-                    <CheckCircle2 className="text-green-600 w-6 h-6 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700">{bullet}</span>
-                  </motion.div>
+                    <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
+                    <span className="text-gray-700 text-lg">{benefit}</span>
+                  </motion.li>
                 ))}
-              </div>
+              </ul>
 
-              <div className="flex flex-wrap gap-4">
-                <motion.a
-                  href="#contact"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-lg font-medium text-lg hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/30"
-                >
-                  Agendar Consultoría Gratuita
-                  <ArrowRight className="w-5 h-5" />
-                </motion.a>
-                <motion.a
-                  href="#servicios"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="inline-flex items-center gap-2 bg-white border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg font-medium text-lg hover:border-blue-600 hover:text-blue-600 transition-colors"
-                >
-                  Ver Cómo Funciona
-                </motion.a>
-              </div>
-            </motion.div>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.9 }}
-            className="lg:col-span-5 grid grid-cols-1 gap-8"
-          >
-            {[
-              { value: '80%', label: 'Menos tiempo en tareas repetitivas', color: 'blue' },
-              { value: '24/7', label: 'Atención automática sin pausas', color: 'green' },
-              { value: '3-5x', label: 'Más leads atendidos', color: 'blue' },
-            ].map((stat, i) => (
               <motion.div
-                key={i}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.1 + i * 0.2 }}
-                className={`bg-white border-l-4 ${stat.color === 'blue' ? 'border-blue-600' : 'border-green-600'} rounded-r-lg p-6 shadow-md`}
+                transition={{ delay: 1.1 }}
+                className="flex flex-col sm:flex-row gap-4"
               >
-                <div className={`text-4xl lg:text-5xl font-bold ${stat.color === 'blue' ? 'text-blue-600' : 'text-green-600'} tabular-nums`}>
-                  {stat.value}
-                </div>
-                <div className="text-sm text-gray-600 font-medium mt-2">
-                  {stat.label}
-                </div>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all text-lg"
+                >
+                  <Calendar className="w-5 h-5" />
+                  Agenda una Demo Gratuita
+                  <ArrowRight className="w-5 h-5" />
+                </a>
+                <a
+                  href="#casos-uso"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-purple-200 text-purple-600 rounded-xl font-semibold hover:border-purple-400 transition-all text-lg"
+                >
+                  Ver Casos de Éxito
+                </a>
               </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
+            </motion.div>
+
+            {/* Stats Cards - Diseño moderno */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5 }}
+              className="grid grid-cols-2 gap-6"
+            >
+              {[
+                { value: '80%', label: 'Ahorro de tiempo', sublabel: 'en tareas repetitivas', color: 'from-purple-500 to-purple-600' },
+                { value: '24/7', label: 'Disponibilidad', sublabel: 'atención automática', color: 'from-blue-500 to-blue-600' },
+                { value: '3-5x', label: 'Más capacidad', sublabel: 'leads atendidos', color: 'from-green-500 to-green-600' },
+                { value: '100%', label: 'En español', sublabel: 'IA nativa Madrid', color: 'from-pink-500 to-pink-600' },
+              ].map((stat, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.1 + i * 0.1 }}
+                  className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border border-gray-100"
+                >
+                  <div className={`text-5xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-2`}>
+                    {stat.value}
+                  </div>
+                  <div className="text-gray-900 font-semibold text-sm mb-1">
+                    {stat.label}
+                  </div>
+                  <div className="text-gray-500 text-xs">
+                    {stat.sublabel}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
       </section>
 
-      {/* Problems Section */}
-      <section className="py-20 lg:py-28 bg-white">
+      {/* Problemas Section */}
+      <section className="py-20 lg:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl lg:text-5xl font-bold mb-4">
-              Si en tu empresa pasa esto, somos la solución que necesitas
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              ¿Tu empresa sufre estos{' '}
+              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                problemas
+              </span>?
             </h2>
-          </motion.div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Si respondes a alguna de estas situaciones, la IA puede ayudarte
+            </p>
+          </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                title: 'Pierdes leads porque respondes tarde',
-                description: 'Respondes en 2-3 horas y el lead ya contrató a tu competencia. El 30% de las oportunidades se pierden por no atender rápido.',
-                stat: '35% de leads se pierden en 4h',
+                problem: 'Pierdes leads porque no puedes responder a tiempo',
+                stat: '67% leads perdidos',
+                icon: MessageCircle,
+                color: 'purple'
               },
               {
-                title: 'Tu equipo pasa horas en tareas repetitivas',
-                description: 'Responder las mismas preguntas por WhatsApp, hacer seguimiento manual. Tu equipo en modo "apaga fuegos".',
-                stat: '4-6 horas/día en tareas automatizables',
+                problem: 'Tu equipo dedica horas a responder las mismas consultas',
+                stat: '15-20h/semana',
+                icon: Zap,
+                color: 'blue'
               },
               {
-                title: 'Cada persona hace el seguimiento a su manera',
-                description: 'No hay proceso estandarizado. Resultado: clientes olvidados y caos cuando alguien se va.',
-                stat: '60% pierden info crítica',
+                problem: 'No puedes atender fuera de horario laboral',
+                stat: '40% consultas fuera horario',
+                icon: Calendar,
+                color: 'green'
               },
               {
-                title: 'Para crecer necesitas contratar',
-                description: 'Cada cliente nuevo requiere 1 persona más. Quieres crecer pero los márgenes no aguantan.',
-                stat: '73% no escalan por costos',
+                problem: 'Procesos manuales ralentizan tu operación',
+                stat: '60% tiempo perdido',
+                icon: Workflow,
+                color: 'pink'
               },
               {
-                title: 'Pierdes ventas fuera de horario',
-                description: 'Tus clientes buscan información de noche, fines de semana. Si no respondes, van con quien sí lo hace.',
-                stat: '42% consultas fuera de horario',
+                problem: 'Crecimiento limitado por tamaño de equipo',
+                stat: 'Costes fijos altos',
+                icon: TrendingUp,
+                color: 'indigo'
               },
               {
-                title: 'No sabes cuántos leads llegan',
-                description: 'Todo está en la cabeza de tu equipo, no en un sistema medible. Sin datos, sin optimización.',
-                stat: 'Sin visibilidad = sin crecimiento',
+                problem: 'Información dispersa en múltiples herramientas',
+                stat: 'Datos no conectados',
+                icon: Bot,
+                color: 'violet'
               },
-            ].map((problem, i) => (
+            ].map((item, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-white border border-gray-200 rounded-xl p-6 hover:border-blue-500 hover:shadow-xl transition-all"
+                className="bg-gradient-to-br from-gray-50 to-white p-8 rounded-2xl border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all"
               >
-                <h3 className="text-xl font-bold mb-3 text-gray-900">{problem.title}</h3>
-                <p className="text-gray-600 mb-4">{problem.description}</p>
-                <div className="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-sm font-semibold rounded-full">
-                  {problem.stat}
+                <div className={`w-14 h-14 bg-gradient-to-br from-${item.color}-100 to-${item.color}-200 rounded-xl flex items-center justify-center mb-4`}>
+                  <item.icon className={`w-7 h-7 text-${item.color}-600`} />
+                </div>
+                <p className="text-lg font-semibold text-gray-900 mb-3">
+                  {item.problem}
+                </p>
+                <div className={`inline-block px-3 py-1 bg-${item.color}-100 text-${item.color}-700 rounded-full text-sm font-medium`}>
+                  {item.stat}
                 </div>
               </motion.div>
             ))}
@@ -235,87 +264,115 @@ export default function ScaleOpsHomePage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mt-16 p-8 bg-gradient-to-r from-blue-50 to-green-50 rounded-2xl"
+            className="mt-12 text-center"
           >
-            <p className="text-xl font-semibold text-gray-900 mb-4">
-              La buena noticia: todos estos problemas se resuelven con automatización inteligente
-            </p>
             <a
-              href="#servicios"
-              className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700"
+              href="#contact"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all"
             >
-              Descubre Qué Puedes Automatizar <ArrowRight className="w-5 h-5" />
+              Resolver mis Problemas con IA
+              <ArrowRight className="w-5 h-5" />
             </a>
           </motion.div>
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="servicios" className="py-20 lg:py-28 bg-gray-50">
+      {/* Servicios Section - Diseño mejorado */}
+      <section id="servicios" className="py-20 lg:py-32 bg-gradient-to-br from-purple-50 via-white to-blue-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <div className="inline-block px-4 py-2 bg-blue-100 text-blue-700 font-medium text-sm rounded-full mb-4">
-              Nuestros Servicios
-            </div>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-4">Automatización Completa para tu Negocio</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Soluciones de IA y automatización para cada parte de tu operación
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              Servicios de{' '}
+              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                Inteligencia Artificial
+              </span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Soluciones de IA personalizadas para empresas en Madrid
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
                 icon: MessageCircle,
-                title: 'WhatsApp & Canales de Chat',
-                description: 'Chatbots con IA que atienden consultas, califican leads y agendan citas 24/7 en todos tus canales.',
-                color: 'blue',
-              },
-              {
-                icon: TrendingUp,
-                title: 'GoHighLevel CRM',
-                description: 'Embudos completos, pipelines automatizados y seguimiento multicanal para agencias y consultorías.',
-                color: 'green',
-              },
-              {
-                icon: Workflow,
-                title: 'n8n Automation',
-                description: 'Conecta todas tus herramientas: CRM, pagos, Google Sheets, email. Cero trabajo manual.',
-                color: 'purple',
+                title: 'Chatbots & WhatsApp IA',
+                description: 'Automatiza atención en WhatsApp, web e Instagram con IA que entiende español perfectamente',
+                features: ['Respuesta automática 24/7', 'Calificación de leads', 'Integración CRM'],
+                color: 'from-purple-500 to-purple-600',
+                link: '/casos-uso/chatbot-whatsapp'
               },
               {
                 icon: Bot,
-                title: 'Asistentes con IA',
-                description: 'Agentes entrenados con tus datos. Atienden como expertos de tu equipo, 90%+ precisión.',
-                color: 'indigo',
+                title: 'Asistentes Virtuales',
+                description: 'IA entrenada con tus datos que atiende como tu mejor empleado',
+                features: ['Entrenados con tu info', 'Multiidioma', 'Voz natural'],
+                color: 'from-blue-500 to-blue-600',
+                link: '/casos-uso/asistente-virtual'
+              },
+              {
+                icon: Workflow,
+                title: 'Automatización Procesos',
+                description: 'Conecta todas tus herramientas y automatiza flujos de trabajo completos',
+                features: ['300+ integraciones', 'Workflows personalizados', 'Ahorro 15-20h/semana'],
+                color: 'from-green-500 to-green-600',
+                link: '/casos-uso/automatizacion-procesos'
+              },
+              {
+                icon: TrendingUp,
+                title: 'IA para Ventas',
+                description: 'Automatiza prospección, seguimiento y cierre con inteligencia artificial',
+                features: ['Lead scoring automático', 'Emails personalizados', 'Predicción cierre'],
+                color: 'from-pink-500 to-pink-600',
+                link: '/casos-uso/ia-ventas'
               },
               {
                 icon: Compass,
-                title: 'Consultoría de Procesos',
-                description: 'Analizamos tus procesos, diseñamos roadmap completo y acompañamos la implementación.',
-                color: 'blue',
+                title: 'Consultoría IA',
+                description: 'Te ayudamos a identificar qué automatizar y cómo implementarlo',
+                features: ['Auditoría procesos', 'Roadmap personalizado', 'ROI estimado'],
+                color: 'from-indigo-500 to-indigo-600',
+                link: '/casos-uso/consultoria-ia'
+              },
+              {
+                icon: Sparkles,
+                title: 'Desarrollo IA Custom',
+                description: 'Soluciones de IA a medida para necesidades específicas',
+                features: ['Modelos propios', 'Integraciones complejas', 'Soporte dedicado'],
+                color: 'from-violet-500 to-violet-600',
+                link: '/casos-uso/desarrollo-custom'
               },
             ].map((service, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="group bg-white p-8 rounded-xl border border-gray-200 hover:border-blue-500 hover:shadow-2xl transition-all duration-300"
+                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all border border-gray-100 group"
               >
-                <div className="mb-4">
-                  <service.icon className="w-12 h-12 text-blue-600" />
+                <div className={`w-16 h-16 bg-gradient-to-br ${service.color} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                  <service.icon className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-900">{service.title}</h3>
-                <p className="text-gray-600 mb-4">{service.description}</p>
-                <a href="#contact" className="inline-flex items-center text-blue-600 font-semibold group-hover:gap-2 transition-all">
-                  Ver Detalles <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                <h3 className="text-2xl font-bold mb-3 text-gray-900">{service.title}</h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
+
+                <ul className="space-y-2 mb-6">
+                  {service.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-center gap-2 text-sm text-gray-700">
+                      <CheckCircle2 className="w-4 h-4 text-green-600" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                <a
+                  href={service.link}
+                  className="inline-flex items-center gap-2 text-purple-600 font-semibold hover:gap-3 transition-all"
+                >
+                  Ver caso de uso
+                  <ArrowRight className="w-4 h-4" />
                 </a>
               </motion.div>
             ))}
@@ -323,161 +380,184 @@ export default function ScaleOpsHomePage() {
         </div>
       </section>
 
-      {/* Process Section */}
-      <section id="proceso" className="py-20 lg:py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl lg:text-5xl font-bold mb-4">Cómo Automatizamos tu Negocio</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Sin caos ni sorpresas. Método probado en 5 pasos que no interrumpe tu operación
-            </p>
-          </motion.div>
-
-          <div className="grid lg:grid-cols-5 gap-8">
-            {[
-              { title: 'Diagnóstico Gratuito', description: '30-45 min analizando tus procesos, dolores y objetivos. Sin compromiso.' },
-              { title: 'Mapa de Oportunidades', description: 'Priorizamos automatizaciones por impacto vs esfuerzo. Quick wins identificados.' },
-              { title: 'Diseño de Solución', description: 'Arquitectura completa: herramientas, integraciones, flujos de datos y KPIs.' },
-              { title: 'Implementación', description: 'En fases: piloto, pruebas, ajustes, escala. Entrenamiento incluido.' },
-              { title: 'Optimización Continua', description: 'Monitoreamos métricas y mejoramos mes a mes basados en datos reales.' },
-            ].map((step, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="relative"
-              >
-                <div className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mb-4">
-                  {i + 1}
-                </div>
-                <h3 className="text-lg font-bold mb-2 text-gray-900">{step.title}</h3>
-                <p className="text-gray-600 text-sm">{step.description}</p>
-              </motion.div>
-            ))}
-          </div>
-
+      {/* CTA Madrid - Nuevo */}
+      <section className="py-20 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+        <div className="max-w-5xl mx-auto px-6 lg:px-12 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-12 p-6 bg-yellow-50 border-l-4 border-yellow-500 rounded-r-lg"
           >
-            <p className="text-yellow-800 font-medium">
-              ⚠️ Implementamos sin interrumpir tu operación actual. Trabajamos en paralelo y migramos cuando todo está probado.
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              Agencia de IA en el corazón de Madrid
+            </h2>
+            <p className="text-xl mb-8 opacity-90">
+              Trabajamos con empresas de toda España, con presencia física en Madrid.
+              Implementaciones rápidas, soporte en español y resultados medibles.
             </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-purple-600 rounded-xl font-semibold hover:shadow-lg transition-all"
+              >
+                <Phone className="w-5 h-5" />
+                Agendar Consultoría
+              </a>
+              <a
+                href="tel:+34611031947"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-purple-700/50 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-purple-700 transition-all"
+              >
+                <Phone className="w-5 h-5" />
+                +34 611 03 19 47
+              </a>
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 lg:py-28 bg-gradient-to-br from-blue-50 via-white to-green-50">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl lg:text-5xl font-bold mb-4">¿Listo para Recuperar tu Tiempo?</h2>
+      <section id="contact" className="py-20 lg:py-32 bg-white">
+        <div className="max-w-6xl mx-auto px-6 lg:px-12">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              Empieza tu{' '}
+              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                Transformación con IA
+              </span>
+            </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Agenda una consultoría gratuita de 30 minutos. Analizamos tus procesos y te mostramos
-              exactamente qué automatizar, cuánto tiempo recuperar y tu ROI.
+              Agenda una consultoría gratuita de 30 minutos. Te mostramos cómo la IA puede ayudar a tu negocio.
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="space-y-6"
-            >
-              <div className="bg-white border-l-4 border-blue-600 rounded-r-xl p-6 shadow-md">
-                <div className="flex items-center gap-3">
-                  <Mail className="w-6 h-6 text-blue-600" />
-                  <div>
-                    <div className="text-sm font-semibold text-gray-500">Email</div>
-                    <a href="mailto:info@stratomai.com" className="text-xl text-blue-600 hover:text-blue-700 font-medium">
-                      info@stratomai.com
-                    </a>
+            {/* Contact Info */}
+            <div className="space-y-8">
+              <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-2xl">
+                <h3 className="text-2xl font-bold mb-6">Contacta con Nosotros</h3>
+
+                <div className="space-y-4">
+                  <a href="mailto:hola@stratomai.com" className="flex items-center gap-4 p-4 bg-white rounded-xl hover:shadow-md transition-all">
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
+                      <Mail className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-gray-900">Email</div>
+                      <div className="text-purple-600">hola@stratomai.com</div>
+                    </div>
+                  </a>
+
+                  <a href="https://wa.me/34611031947" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 bg-white rounded-xl hover:shadow-md transition-all">
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
+                      <MessageCircle className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-gray-900">WhatsApp</div>
+                      <div className="text-green-600">+34 611 03 19 47</div>
+                    </div>
+                  </a>
+
+                  <div className="flex items-center gap-4 p-4 bg-white rounded-xl">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                      <Building2 className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-gray-900">Oficina</div>
+                      <div className="text-gray-600">Madrid, España</div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white border-l-4 border-green-600 rounded-r-xl p-6 shadow-md">
-                <div className="flex items-center gap-3">
-                  <Phone className="w-6 h-6 text-green-600" />
-                  <div>
-                    <div className="text-sm font-semibold text-gray-500">WhatsApp</div>
-                    <a href="https://wa.me/34611031947" className="text-xl text-green-600 hover:text-green-700 font-medium">
-                      +34 611 03 19 47
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="font-bold text-gray-900 mb-3">Qué Incluye la Consultoría Gratuita:</h3>
-                <ul className="space-y-2">
-                  {[
-                    'Auditoría de procesos actuales (15 min)',
-                    'Mapa de oportunidades de automatización (10 min)',
-                    'Estimación de horas recuperables y ROI (5 min)',
-                    'Próximos pasos recomendados (sin presión)',
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-2 text-gray-700">
-                      <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
+              <div className="bg-purple-50 p-6 rounded-xl">
+                <h4 className="font-bold text-gray-900 mb-3">¿Qué incluye la consultoría?</h4>
+                <ul className="space-y-2 text-gray-700">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-purple-600 mt-0.5" />
+                    <span>Análisis de tus procesos actuales</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-purple-600 mt-0.5" />
+                    <span>Identificación de oportunidades de IA</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-purple-600 mt-0.5" />
+                    <span>Estimación de ROI y tiempo de implementación</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-purple-600 mt-0.5" />
+                    <span>Roadmap personalizado sin compromiso</span>
+                  </li>
                 </ul>
-                <p className="mt-4 text-sm text-gray-600 font-medium">
-                  🎁 Sin compromiso · Sin costo · Sin letra pequeña
-                </p>
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="bg-white rounded-2xl p-8 shadow-lg"
-            >
+            {/* Contact Form */}
+            <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
               <form className="space-y-6">
-                <div className="grid grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Nombre</label>
-                    <input type="text" className="w-full bg-gray-50 border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none px-4 py-3 rounded-lg" required />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Email</label>
-                    <input type="email" className="w-full bg-gray-50 border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none px-4 py-3 rounded-lg" required />
-                  </div>
-                </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Empresa</label>
-                  <input type="text" className="w-full bg-gray-50 border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none px-4 py-3 rounded-lg" required />
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                    Nombre completo *
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    placeholder="Tu nombre"
+                  />
                 </div>
+
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">¿Qué quieres automatizar?</label>
-                  <textarea rows={4} className="w-full bg-gray-50 border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none px-4 py-3 rounded-lg resize-none" required />
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                    Email corporativo *
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    placeholder="tu@empresa.com"
+                  />
                 </div>
+
+                <div>
+                  <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+                    Empresa
+                  </label>
+                  <input
+                    type="text"
+                    id="company"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    placeholder="Nombre de tu empresa"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                    ¿Qué necesitas automatizar? *
+                  </label>
+                  <textarea
+                    id="message"
+                    required
+                    rows={4}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    placeholder="Cuéntanos brevemente sobre tu negocio y qué procesos quieres automatizar..."
+                  ></textarea>
+                </div>
+
                 <button
                   type="submit"
-                  className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/30"
+                  className="w-full py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all"
                 >
-                  <Calendar className="w-5 h-5" />
-                  Agendar Mi Consultoría Gratuita
+                  Solicitar Consultoría Gratuita
                 </button>
+
+                <p className="text-xs text-gray-500 text-center">
+                  Respuesta en menos de 24 horas. Sin compromiso.
+                </p>
               </form>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -487,23 +567,29 @@ export default function ScaleOpsHomePage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-4 gap-12 mb-12">
             <div>
-              <div className="text-3xl font-bold mb-6">
-                <span className="text-blue-400">ScaleOps</span>
-                <span className="text-white"> Automation</span>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center">
+                  <Sparkles className="w-6 h-6 text-white" />
+                </div>
+                <div className="text-2xl font-bold">Stratoma AI</div>
               </div>
-              <p className="text-gray-400 mb-4">
-                Automatización inteligente para negocios que crecen
+              <p className="text-gray-400 text-sm mb-4">
+                Agencia de Inteligencia Artificial en Madrid. Automatización, chatbots y soluciones de IA para empresas.
               </p>
+              <div className="text-sm text-gray-400">
+                <p>Madrid, España</p>
+                <p>hola@stratomai.com</p>
+              </div>
             </div>
 
             <div>
               <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase">Servicios</h4>
               <ul className="space-y-2">
-                <li><a href="#servicios" className="text-gray-400 hover:text-white transition-colors">WhatsApp Automation</a></li>
-                <li><a href="#servicios" className="text-gray-400 hover:text-white transition-colors">GoHighLevel</a></li>
-                <li><a href="#servicios" className="text-gray-400 hover:text-white transition-colors">n8n Automatizaciones</a></li>
-                <li><a href="#servicios" className="text-gray-400 hover:text-white transition-colors">Asistentes con IA</a></li>
-                <li><a href="#servicios" className="text-gray-400 hover:text-white transition-colors">Consultoría</a></li>
+                <li><a href="/casos-uso/chatbot-whatsapp" className="text-gray-400 hover:text-white transition-colors">Chatbots WhatsApp</a></li>
+                <li><a href="/casos-uso/asistente-virtual" className="text-gray-400 hover:text-white transition-colors">Asistentes IA</a></li>
+                <li><a href="/casos-uso/automatizacion-procesos" className="text-gray-400 hover:text-white transition-colors">Automatización</a></li>
+                <li><a href="/casos-uso/ia-ventas" className="text-gray-400 hover:text-white transition-colors">IA para Ventas</a></li>
+                <li><a href="/casos-uso/consultoria-ia" className="text-gray-400 hover:text-white transition-colors">Consultoría</a></li>
               </ul>
             </div>
 
@@ -520,26 +606,50 @@ export default function ScaleOpsHomePage() {
             <div>
               <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase">Contacto</h4>
               <div className="space-y-3">
-                <a href="mailto:info@stratomai.com" className="block text-blue-400 hover:text-blue-300">
-                  info@stratomai.com
+                <a href="mailto:hola@stratomai.com" className="block text-purple-400 hover:text-purple-300">
+                  hola@stratomai.com
                 </a>
                 <a href="https://wa.me/34611031947" className="block text-green-400 hover:text-green-300">
-                  +34 611 03 19 47
+                  WhatsApp: +34 611 03 19 47
+                </a>
+                <a href="tel:+34611031947" className="block text-blue-400 hover:text-blue-300">
+                  Tel: +34 611 03 19 47
                 </a>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-gray-800 pt-8 flex flex-col lg:flex-row justify-between items-center gap-4">
-            <p className="text-gray-500 text-sm">
-              © {new Date().getFullYear()} ScaleOps Automation. Todos los derechos reservados.
-            </p>
-            <p className="text-gray-500 text-sm">
-              Automatización con IA para negocios que crecen
-            </p>
+          <div className="border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
+            <p>© {new Date().getFullYear()} Stratoma AI. Todos los derechos reservados. | Agencia de IA en Madrid, España</p>
           </div>
         </div>
       </footer>
+
+      <style jsx>{`
+        @keyframes blob {
+          0% {
+            transform: translate(0px, 0px) scale(1);
+          }
+          33% {
+            transform: translate(30px, -50px) scale(1.1);
+          }
+          66% {
+            transform: translate(-20px, 20px) scale(0.9);
+          }
+          100% {
+            transform: translate(0px, 0px) scale(1);
+          }
+        }
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+      `}</style>
     </div>
   );
 }

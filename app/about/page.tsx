@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { ArrowRight, Bot, Users, Zap, Target, Shield, TrendingUp } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Sobre Nosotros - ScaleOps Automation',
-  description: 'Expertos en automatización con IA. Ayudamos a negocios a escalar sin aumentar costos operativos con chatbots, WhatsApp, GoHighLevel y n8n.',
+  title: 'Sobre Nosotros - Stratoma AI',
+  description: 'Agencia de Inteligencia Artificial en Madrid. Ayudamos a empresas a automatizar procesos, implementar chatbots y asistentes virtuales con IA.',
   openGraph: {
-    title: 'Sobre ScaleOps Automation - Expertos en IA y Automatización',
-    description: 'Especialistas en automatización con IA para empresas que quieren crecer. +50 empresas automatizadas en España y LATAM.',
+    title: 'Sobre Stratoma AI - Agencia de IA en Madrid',
+    description: 'Especialistas en automatización con IA para empresas de Madrid. Chatbots, asistentes virtuales y automatización de procesos.',
   },
 };
 
@@ -17,9 +17,8 @@ export default function AboutPage() {
       {/* Simple Navigation */}
       <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-200 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex justify-between items-center">
-          <Link href="/" className="text-2xl lg:text-3xl font-bold tracking-tight">
-            <span className="text-blue-600">ScaleOps</span>
-            <span className="text-gray-900"> Automation</span>
+          <Link href="/" className="flex items-center gap-2">
+            <span className="text-2xl lg:text-3xl font-bold tracking-tight bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Stratoma AI</span>
           </Link>
           <Link
             href="/"
@@ -33,14 +32,14 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 lg:px-12 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-5xl mx-auto">
-          <div className="inline-block px-4 py-2 bg-blue-100 text-blue-700 font-medium text-sm rounded-full mb-6">
-            SOBRE SCALEOPS AUTOMATION
+          <div className="inline-block px-4 py-2 bg-purple-100 text-purple-700 font-medium text-sm rounded-full mb-6">
+            SOBRE STRATOMA AI
           </div>
           <h1 className="text-4xl lg:text-6xl font-bold mb-8 leading-tight">
-            Automatizamos tu negocio para que <span className="text-blue-600">escales sin límites</span>
+            Inteligencia Artificial para <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">empresas de Madrid</span>
           </h1>
           <p className="text-lg lg:text-xl text-gray-600 max-w-3xl">
-            Somos una agencia especializada en automatización con IA, chatbots y sistemas inteligentes. Transformamos operaciones manuales en procesos automáticos que funcionan 24/7, liberando a tu equipo para enfocarse en lo que realmente importa: crecer.
+            Somos una agencia de IA en Madrid especializada en chatbots, asistentes virtuales y automatización de procesos. Ayudamos a empresas a crecer sin aumentar costes operativos, implementando soluciones de inteligencia artificial que funcionan 24/7.
           </p>
         </div>
       </section>
@@ -52,13 +51,13 @@ export default function AboutPage() {
             <h2 className="text-3xl lg:text-5xl font-bold mb-8">Quiénes Somos</h2>
             <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
               <p>
-                ScaleOps Automation nace de la frustración de ver negocios exitosos atascados por tareas manuales repetitivas. Veíamos empresas con productos excelentes perdiendo leads porque no podían responder a tiempo, equipos quemados por hacer lo mismo todos los días, y dueños trabajando 70 horas semanales en tareas que una IA podría hacer mejor.
+                Stratoma AI nace en Madrid con la misión de hacer la inteligencia artificial accesible para empresas españolas. Vimos que la IA estaba transformando grandes corporaciones, pero pymes y startups quedaban atrás por falta de conocimiento técnico y soporte local.
               </p>
               <p>
-                Decidimos cambiar eso. Combinamos expertise en operaciones, tecnología e IA para crear sistemas que realmente funcionan en el mundo real, no solo en teoría.
+                Decidimos cambiar eso. Creamos una agencia de IA que habla español de verdad, entiende el mercado madrileño y acompaña a empresas en su transformación digital con inteligencia artificial.
               </p>
               <p>
-                Hoy ayudamos a negocios en España y LATAM a automatizar atención al cliente, calificación de leads, agendamiento de citas, seguimiento comercial y procesos internos. Todo con el objetivo de que recuperes tiempo, aumentes conversión y escales sin contratar proporcionalmente.
+                Hoy ayudamos a empresas de Madrid y toda España a implementar chatbots inteligentes, asistentes virtuales y automatización de procesos. Nuestro equipo combina expertise en IA, desarrollo y operaciones para entregar soluciones que generan resultados reales, no solo demos impresionantes.
               </p>
             </div>
           </div>
@@ -226,14 +225,14 @@ export default function AboutPage() {
                 <strong className="text-gray-900 font-semibold">Registro:</strong> Registrada en España
               </p>
               <p>
-                <strong className="text-gray-900 font-semibold">Nombre Comercial:</strong> ScaleOps Automation
+                <strong className="text-gray-900 font-semibold">Nombre Comercial:</strong> Stratoma AI
               </p>
               <p>
                 <strong className="text-gray-900 font-semibold">Actividad:</strong> Consultoría y desarrollo de soluciones de automatización empresarial
               </p>
               <div className="pt-6 border-t border-gray-300 mt-8">
                 <p className="text-sm text-gray-600">
-                  ScaleOps Automation es un nombre comercial operado por Ribon Real Estate Services SL. Todas las actividades comerciales se realizan de conformidad con la legislación española y las regulaciones de protección de datos (GDPR).
+                  Stratoma AI es un nombre comercial operado por Ribon Real Estate Services SL. Agencia de IA con sede en Madrid, España. Todas las actividades se realizan de conformidad con la legislación española y GDPR.
                 </p>
               </div>
             </div>
@@ -270,7 +269,7 @@ export default function AboutPage() {
       <footer className="border-t border-gray-200 py-10 px-6 lg:px-12 bg-gray-900">
         <div className="max-w-7xl mx-auto text-center">
           <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} ScaleOps Automation. Todos los derechos reservados.
+            © {new Date().getFullYear()} Stratoma AI. Todos los derechos reservados. | Agencia de IA en Madrid, España
           </p>
         </div>
       </footer>
