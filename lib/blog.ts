@@ -17,7 +17,9 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
-  {
+  // Blog posts sobre automatización con IA y chatbots se agregarán aquí
+  // Contenido antiguo sobre materias primas eliminado - 2025-01-08
+  /*{
     slug: 'urea-46-complete-guide-international-trade',
     title: 'Urea 46% Complete Guide: International Trade & Specifications',
     description: 'Comprehensive guide to Urea 46% fertilizer trading, covering technical specifications, global demand, pricing factors, and trade procedures for international buyers and sellers.',
@@ -1695,7 +1697,7 @@ Never skip or rush KYC. The 10-20 days required for proper verification is a sma
       alt: 'Business and trading concepts',
     },
     content: `Beginner's guide to commodity trading covering essential terms, processes, documentation, and first steps. Keywords: beginners guide, trading basics`,
-  },
+  },*/
 ];
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
