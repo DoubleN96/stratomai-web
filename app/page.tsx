@@ -426,7 +426,7 @@ export default function StratomaAIHomePage() {
                 image: 'MG',
                 result: '27h/semana ahorradas',
                 metric: 'De 4 a 15 leads/día',
-                revenue: '+€8,400/mes en ingresos',
+                revenue: 'Ingresos +180% en 60 días',
                 timeframe: 'Primeros 60 días',
                 quote: 'ROI recuperado en 6 semanas. Ahora mi equipo se enfoca en ventas complejas, no en responder consultas básicas.'
               },
@@ -435,7 +435,7 @@ export default function StratomaAIHomePage() {
                 industry: 'E-commerce',
                 person: 'Carlos Ruiz, Director',
                 image: 'CR',
-                result: '€4,200/mes ahorrados',
+                result: 'ROI en 14 días',
                 metric: '89% consultas por IA',
                 revenue: 'Conversión +32%',
                 timeframe: 'Implementación 14 días',
@@ -448,7 +448,7 @@ export default function StratomaAIHomePage() {
                 image: 'AM',
                 result: '180h/mes recuperadas',
                 metric: '95% asistencia a citas',
-                revenue: '€12K/mes adicionales',
+                revenue: 'Ingresos duplicados',
                 timeframe: 'Primeros 90 días',
                 quote: 'Confirmaciones automáticas por WhatsApp. Casi no tenemos no-shows. Esto es oro para una clínica.'
               }

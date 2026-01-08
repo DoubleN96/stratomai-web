@@ -109,8 +109,7 @@ export default function SprintAutomatizacionPage() {
             Todo lo que Obtienes
           </h2>
           <p className="text-xl text-center text-gray-600 mb-12">
-            Value Stack Total: <span className="line-through text-gray-400">€24,500</span>{' '}
-            <span className="text-purple-600 font-bold text-3xl">€9,900</span>
+            Paquete Completo de Implementación + Bonos de Alto Valor
           </p>
 
           <div className="space-y-4 mb-12">
@@ -137,10 +136,6 @@ export default function SprintAutomatizacionPage() {
                     ))}
                   </ul>
                 </div>
-                <div className="text-right">
-                  <div className="text-sm opacity-75 line-through mb-1">€12,000</div>
-                  <div className="text-3xl font-bold">€9,900</div>
-                </div>
               </div>
             </div>
 
@@ -155,8 +150,7 @@ export default function SprintAutomatizacionPage() {
                   <h4 className="text-xl font-bold text-gray-900">3 Meses de Soporte Premium</h4>
                 </div>
                 <div className="ml-auto text-right">
-                  <div className="text-sm text-gray-500 line-through">€3,000</div>
-                  <div className="text-xl font-bold text-green-600">GRATIS</div>
+                  <div className="text-xl font-bold text-green-600">INCLUIDO</div>
                 </div>
               </div>
               <ul className="space-y-2 ml-15">
@@ -184,8 +178,7 @@ export default function SprintAutomatizacionPage() {
                   <h4 className="text-xl font-bold text-gray-900">Auditoría Completa de Automatización</h4>
                 </div>
                 <div className="ml-auto text-right">
-                  <div className="text-sm text-gray-500 line-through">€2,500</div>
-                  <div className="text-xl font-bold text-green-600">GRATIS</div>
+                  <div className="text-xl font-bold text-green-600">INCLUIDO</div>
                 </div>
               </div>
               <ul className="space-y-2 ml-15">
@@ -210,11 +203,10 @@ export default function SprintAutomatizacionPage() {
                 </div>
                 <div>
                   <div className="text-sm font-semibold text-green-700">BONO #3</div>
-                  <h4 className="text-xl font-bold text-gray-900">Templates de Prompts de IA (€50K+ Invertidos)</h4>
+                  <h4 className="text-xl font-bold text-gray-900">Biblioteca de Templates de IA</h4>
                 </div>
                 <div className="ml-auto text-right">
-                  <div className="text-sm text-gray-500 line-through">€5,000</div>
-                  <div className="text-xl font-bold text-green-600">GRATIS</div>
+                  <div className="text-xl font-bold text-green-600">INCLUIDO</div>
                 </div>
               </div>
               <ul className="space-y-2 ml-15">
@@ -242,8 +234,7 @@ export default function SprintAutomatizacionPage() {
                   <h4 className="text-xl font-bold text-gray-900">Masterclass: Cómo Escalar con IA</h4>
                 </div>
                 <div className="ml-auto text-right">
-                  <div className="text-sm text-gray-500 line-through">€2,000</div>
-                  <div className="text-xl font-bold text-green-600">GRATIS</div>
+                  <div className="text-xl font-bold text-green-600">INCLUIDO</div>
                 </div>
               </div>
               <ul className="space-y-2 ml-15">
@@ -262,14 +253,11 @@ export default function SprintAutomatizacionPage() {
             </div>
           </div>
 
-          {/* Precio Total */}
+          {/* CTA Solicitar Plaza */}
           <div className="bg-gradient-to-br from-purple-600 to-blue-600 text-white rounded-2xl p-8 text-center">
-            <div className="text-lg mb-2">Valor Total del Paquete:</div>
-            <div className="text-4xl font-bold line-through opacity-75 mb-2">€24,500</div>
-            <div className="text-sm mb-4">Inversión Hoy:</div>
-            <div className="text-6xl lg:text-7xl font-bold mb-4">€9,900</div>
-            <div className="text-xl mb-6">
-              O 3 pagos de <span className="font-bold">€3,500</span> sin interés
+            <div className="text-lg mb-2">Paquete Completo Incluye:</div>
+            <div className="text-3xl font-bold mb-6">
+              Implementación + 4 Bonos de Alto Valor + 90 Días de Garantía
             </div>
             <a
               href="#solicitar"
@@ -279,8 +267,9 @@ export default function SprintAutomatizacionPage() {
               Solicitar Mi Plaza Ahora
               <ArrowRight className="w-6 h-6" />
             </a>
-            <p className="text-sm mt-4 opacity-90">
-              ✓ Solo 2 plazas disponibles este mes
+            <p className="text-sm mt-6 opacity-90">
+              ✓ Solo 2 plazas disponibles este mes<br/>
+              ✓ Presupuesto personalizado en la consultoría
             </p>
           </div>
         </div>
@@ -379,7 +368,7 @@ export default function SprintAutomatizacionPage() {
               </div>
               <ul className="space-y-3">
                 {[
-                  'Tu empresa factura mínimo €100K/año',
+                  'Tu empresa tiene un mínimo de volumen operativo',
                   'Recibes 50+ leads o consultas por mes',
                   'Tu equipo responde las mismas preguntas repetidamente',
                   'Quieres escalar sin contratar más personal',
@@ -409,7 +398,7 @@ export default function SprintAutomatizacionPage() {
                   'Buscas una solución mágica sin esfuerzo',
                   'No estás dispuesto a colaborar en la implementación',
                   'Tu negocio recibe menos de 20 consultas/mes',
-                  'No tienes presupuesto para invertir €9,900',
+                  'No estás listo para invertir en automatización ahora',
                   'Quieres resultados sin cambiar procesos',
                   'Prefieres contratar personas en lugar de automatizar',
                   'No crees en la tecnología',
@@ -531,9 +520,9 @@ export default function SprintAutomatizacionPage() {
                 company: 'EcoShop Online',
                 industry: 'E-commerce',
                 person: 'Carlos Ruiz, Director',
-                result: '€4,200/mes ahorrados',
+                result: 'ROI en 6 semanas',
                 metric: '89% consultas resueltas por IA',
-                quote: 'ROI recuperado en 6 semanas. Mi equipo ahora se enfoca en ventas complejas, no en responder "¿hacéis envíos?"'
+                quote: 'Recuperamos la inversión rapidísimo. Mi equipo ahora se enfoca en ventas complejas, no en responder "¿hacéis envíos?"'
               },
               {
                 company: 'Clínica DentalPro',
@@ -588,8 +577,8 @@ export default function SprintAutomatizacionPage() {
                 a: 'Tienes 90 días para medir resultados. Si no ahorras mínimo 20 horas semanales, te devolvemos el 100% de tu inversión. Sin complicaciones, sin preguntas. Asumimos todo el riesgo.'
               },
               {
-                q: '¿Puedo pagar en plazos?',
-                a: 'Sí, ofrecemos 3 pagos de €3,500 sin interés. Primer pago al reservar, segundo al día 15, tercero al día 30.'
+                q: '¿Cuál es la inversión?',
+                a: 'El presupuesto se personaliza según tu caso específico: tamaño de empresa, número de flujos a automatizar, integraciones necesarias, etc. En la consultoría gratuita te damos una propuesta detallada con ROI estimado. Ofrecemos opciones de pago flexibles.'
               },
               {
                 q: '¿Qué necesito tener listo antes de empezar?',
@@ -644,10 +633,17 @@ export default function SprintAutomatizacionPage() {
           </p>
 
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8 max-w-2xl mx-auto">
-            <div className="text-5xl font-bold mb-2">€9,900</div>
-            <div className="text-xl mb-4">O 3 pagos de €3,500 sin interés</div>
-            <div className="text-sm opacity-90">
-              Incluye: Implementación completa + 4 bonos (valor €12,500) + Garantía ROI 90 días
+            <div className="text-3xl font-bold mb-4">
+              Paquete Completo con Todo Incluido
+            </div>
+            <div className="text-lg opacity-90 mb-4">
+              ✓ Implementación completa en 14 días<br/>
+              ✓ 4 bonos de alto valor incluidos<br/>
+              ✓ 90 días de garantía ROI o reembolso 100%<br/>
+              ✓ Opciones de pago flexibles disponibles
+            </div>
+            <div className="text-sm opacity-75">
+              Presupuesto personalizado según tu caso en la consultoría gratuita
             </div>
           </div>
 
