@@ -1263,7 +1263,7 @@ export default function IAMarketingPage() {
                 Agendar por WhatsApp
               </a>
               <a
-                href="mailto:hola@stratomai.com?subject=Auditoría%20IA%20Marketing%20Digital"
+                href="mailto:info@stratomai?subject=Auditoría%20IA%20Marketing%20Digital"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-700/50 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-blue-700 transition-all text-lg border-2 border-white/20"
               >
                 <Mail className="w-5 h-5" />
@@ -1357,10 +1357,10 @@ export default function IAMarketingPage() {
               </h4>
               <div className="space-y-3">
                 <a
-                  href="mailto:hola@stratomai.com"
+                  href="mailto:info@stratomai"
                   className="block text-blue-400 hover:text-blue-300"
                 >
-                  hola@stratomai.com
+                  info@stratomai
                 </a>
                 <a
                   href="https://wa.me/34611031947"

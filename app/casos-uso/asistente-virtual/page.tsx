@@ -1108,7 +1108,7 @@ export default function AsistenteVirtualPage() {
 
               <div className="space-y-4">
                 <a
-                  href="mailto:hola@stratomai.com"
+                  href="mailto:info@stratomai"
                   className="flex items-center gap-4 p-4 bg-white rounded-xl hover:shadow-md transition-all border border-gray-200"
                 >
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center">
@@ -1116,7 +1116,7 @@ export default function AsistenteVirtualPage() {
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900">Email</div>
-                    <div className="text-blue-600">hola@stratomai.com</div>
+                    <div className="text-blue-600">info@stratomai</div>
                   </div>
                 </a>
 

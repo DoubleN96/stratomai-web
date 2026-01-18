@@ -1062,7 +1062,7 @@ Webhook → Servidor Node.js
               <ArrowRight className="w-6 h-6" />
             </a>
             <a
-              href="mailto:hola@stratomai.com"
+              href="mailto:info@stratomai"
               className="inline-flex items-center justify-center gap-3 px-10 py-4 bg-green-700/50 backdrop-blur-sm text-white rounded-xl font-semibold text-lg hover:bg-green-700 transition-all"
             >
               <Mail className="w-5 h-5" />

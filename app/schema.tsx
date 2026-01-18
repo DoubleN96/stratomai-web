@@ -17,7 +17,7 @@ export function getOrganizationSchema() {
       '@type': 'ContactPoint',
       telephone: '+34-611-03-19-47',
       contactType: 'Customer Service',
-      email: 'info@stratomai.com',
+      email: 'info@stratomai',
       availableLanguage: ['English', 'Spanish'],
     },
     sameAs: [
@@ -123,7 +123,7 @@ export function getLocalBusinessSchema() {
     image: 'https://stratomainterchange.com/logo.png',
     url: 'https://stratomainterchange.com',
     telephone: '+34-611-03-19-47',
-    email: 'info@stratomai.com',
+    email: 'info@stratomai',
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'ES',

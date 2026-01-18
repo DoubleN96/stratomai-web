@@ -661,13 +661,13 @@ export default function StratomaAIHomePage() {
                 <h3 className="text-2xl font-bold mb-6">Contacta con Nosotros</h3>
 
                 <div className="space-y-4">
-                  <a href="mailto:hola@stratomai.com" className="flex items-center gap-4 p-4 bg-white rounded-xl hover:shadow-md transition-all">
+                  <a href="mailto:info@stratomai" className="flex items-center gap-4 p-4 bg-white rounded-xl hover:shadow-md transition-all">
                     <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center">
                       <Mail className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <div className="font-semibold text-gray-900">Email</div>
-                      <div className="text-blue-600">hola@stratomai.com</div>
+                      <div className="text-blue-600">info@stratomai</div>
                     </div>
                   </a>
 
@@ -738,7 +738,7 @@ export default function StratomaAIHomePage() {
               </p>
               <div className="text-sm text-gray-400">
                 <p>Madrid, España</p>
-                <p>hola@stratomai.com</p>
+                <p>info@stratomai</p>
               </div>
             </div>
 
@@ -766,8 +766,8 @@ export default function StratomaAIHomePage() {
             <div>
               <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase">Contacto</h4>
               <div className="space-y-3">
-                <a href="mailto:hola@stratomai.com" className="block text-blue-400 hover:text-blue-300">
-                  hola@stratomai.com
+                <a href="mailto:info@stratomai" className="block text-blue-400 hover:text-blue-300">
+                  info@stratomai
                 </a>
                 <a href="https://wa.me/34611031947" className="block text-green-400 hover:text-green-300">
                   WhatsApp: +34 611 03 19 47

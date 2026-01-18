@@ -1196,11 +1196,11 @@ export default function DesarrolloCustomPage() {
                 <h4 className="font-bold text-gray-900 mb-4 text-lg">Contacto Directo</h4>
                 <div className="space-y-3">
                   <a
-                    href="mailto:hola@stratomai.com"
+                    href="mailto:info@stratomai"
                     className="flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors"
                   >
                     <Mail className="w-5 h-5" />
-                    <span>hola@stratomai.com</span>
+                    <span>info@stratomai</span>
                   </a>
                   <a
                     href="https://wa.me/34611031947"
@@ -1248,7 +1248,7 @@ export default function DesarrolloCustomPage() {
               </p>
               <div className="text-sm text-gray-400">
                 <p>Madrid, España</p>
-                <p>hola@stratomai.com</p>
+                <p>info@stratomai</p>
               </div>
             </div>
 
@@ -1275,8 +1275,8 @@ export default function DesarrolloCustomPage() {
             <div>
               <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase">Contacto</h4>
               <div className="space-y-3">
-                <a href="mailto:hola@stratomai.com" className="block text-blue-400 hover:text-blue-300 text-sm">
-                  hola@stratomai.com
+                <a href="mailto:info@stratomai" className="block text-blue-400 hover:text-blue-300 text-sm">
+                  info@stratomai
                 </a>
                 <a href="https://wa.me/34611031947" className="block text-green-400 hover:text-green-300 text-sm">
                   WhatsApp: +34 611 03 19 47

@@ -623,11 +623,11 @@ export default function WebExpress24hPage() {
               Pedir Mi Web Ahora
             </a>
             <a
-              href="mailto:marcelino@stratoma.ai?subject=Web Express 24h"
+              href="mailto:info@stratomai?subject=Web Express 24h"
               className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-blue-800 text-white rounded-xl text-lg font-semibold hover:bg-blue-900 transition-all"
             >
               <Mail className="w-6 h-6" />
-              marcelino@stratoma.ai
+              info@stratomai
             </a>
           </div>
 

@@ -660,7 +660,7 @@ export default function SprintAutomatizacionPage() {
             </a>
 
             <a
-              href="mailto:hola@stratomai.com?subject=Reserva%20Sprint%20Automatización%20IA&body=Hola%2C%20quiero%20más%20información%20sobre%20el%20Sprint%20de%20Automatización%20IA."
+              href="mailto:info@stratomai?subject=Reserva%20Sprint%20Automatización%20IA&body=Hola%2C%20quiero%20más%20información%20sobre%20el%20Sprint%20de%20Automatización%20IA."
               className="inline-flex items-center justify-center gap-3 px-10 py-4 bg-blue-700/50 backdrop-blur-sm text-white rounded-xl font-semibold text-lg hover:bg-blue-700 transition-all"
             >
               Reservar Plaza por Email
@@ -697,7 +697,7 @@ export default function SprintAutomatizacionPage() {
           <div className="mt-4 flex justify-center gap-6 text-sm">
             <Link href="/faq" className="text-gray-400 hover:text-white">FAQ</Link>
             <Link href="/" className="text-gray-400 hover:text-white">Inicio</Link>
-            <a href="mailto:hola@stratomai.com" className="text-gray-400 hover:text-white">Contacto</a>
+            <a href="mailto:info@stratomai" className="text-gray-400 hover:text-white">Contacto</a>
           </div>
         </div>
       </footer>

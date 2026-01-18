@@ -1286,7 +1286,7 @@ export default function IAVentasPage() {
                     WhatsApp
                   </a>
                   <a
-                    href="mailto:hola@stratomai.com?subject=Demo%20IA%20para%20Ventas"
+                    href="mailto:info@stratomai?subject=Demo%20IA%20para%20Ventas"
                     className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-all"
                   >
                     <Mail className="w-5 h-5" />
@@ -1381,10 +1381,10 @@ export default function IAVentasPage() {
                 </h4>
                 <div className="space-y-3">
                   <a
-                    href="mailto:hola@stratomai.com"
+                    href="mailto:info@stratomai"
                     className="block text-blue-400 hover:text-blue-300"
                   >
-                    hola@stratomai.com
+                    info@stratomai
                   </a>
                   <a
                     href="https://wa.me/34611031947"
