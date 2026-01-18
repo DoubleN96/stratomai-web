@@ -28,7 +28,7 @@ import {
   Activity,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { fadeInUp, scaleIn, staggerContainer, staggerItem } from '@/lib/motion-variants';
+import { fadeInUp, fadeIn, staggerContainer, staggerItem } from '@/lib/motion-variants';
 import FAQ from '@/components/FAQ';
 import { ContactForm } from '@/components/shared/ContactForm';
 
@@ -509,7 +509,7 @@ export default function ConsultoriaPage() {
           {/* Company Overview */}
           <div className="grid lg:grid-cols-3 gap-8 mb-12">
             <motion.div
-              variants={scaleIn}
+              variants={fadeIn}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -538,7 +538,7 @@ export default function ConsultoriaPage() {
             </motion.div>
 
             <motion.div
-              variants={scaleIn}
+              variants={fadeIn}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -568,7 +568,7 @@ export default function ConsultoriaPage() {
             </motion.div>
 
             <motion.div
-              variants={scaleIn}
+              variants={fadeIn}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}

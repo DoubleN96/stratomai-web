@@ -30,7 +30,7 @@ import {
   Play,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { fadeInUp, scaleIn, staggerContainer, staggerItem } from '@/lib/motion-variants';
+import { fadeInUp, fadeIn, staggerContainer, staggerItem } from '@/lib/motion-variants';
 import { StatCard } from '@/components/ui/StatCard';
 import FAQ, { generateFAQSchema } from '@/components/FAQ';
 import { ContactForm } from '@/components/shared/ContactForm';
@@ -401,7 +401,7 @@ export default function AutomatizacionProcesosPage() {
 
             {/* Resultados */}
             <motion.div
-              variants={scaleIn}
+              variants={fadeIn}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -529,7 +529,7 @@ export default function AutomatizacionProcesosPage() {
             {integrationLogos.map((logo, i) => (
               <motion.div
                 key={i}
-                variants={scaleIn}
+                variants={fadeIn}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -654,7 +654,7 @@ export default function AutomatizacionProcesosPage() {
           </motion.div>
 
           <motion.div
-            variants={scaleIn}
+            variants={fadeIn}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -788,7 +788,7 @@ export default function AutomatizacionProcesosPage() {
           <div className="grid md:grid-cols-3 gap-8">
             {/* Plan Starter */}
             <motion.div
-              variants={scaleIn}
+              variants={fadeIn}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -829,7 +829,7 @@ export default function AutomatizacionProcesosPage() {
 
             {/* Plan Professional */}
             <motion.div
-              variants={scaleIn}
+              variants={fadeIn}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -878,7 +878,7 @@ export default function AutomatizacionProcesosPage() {
 
             {/* Plan Enterprise */}
             <motion.div
-              variants={scaleIn}
+              variants={fadeIn}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}

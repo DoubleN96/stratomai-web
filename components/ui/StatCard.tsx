@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import type { LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { scaleIn } from '@/lib/motion-variants';
+import { fadeIn } from '@/lib/motion-variants';
 
 type StatCardProps = {
   value: string;
@@ -49,7 +49,7 @@ export function StatCard({
 
   return (
     <motion.div
-      variants={scaleIn}
+      variants={fadeIn}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-50px' }}

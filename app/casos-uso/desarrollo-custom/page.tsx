@@ -32,7 +32,7 @@ import {
   Activity,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { fadeInUp, scaleIn, staggerContainer, staggerItem } from '@/lib/motion-variants';
+import { fadeInUp, fadeIn, staggerContainer, staggerItem } from '@/lib/motion-variants';
 import FAQ, { generateFAQSchema } from '@/components/FAQ';
 import { ContactForm } from '@/components/shared/ContactForm';
 
@@ -575,7 +575,7 @@ export default function DesarrolloCustomPage() {
 
           {/* Resultados */}
           <motion.div
-            variants={scaleIn}
+            variants={fadeIn}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -765,7 +765,7 @@ export default function DesarrolloCustomPage() {
             {techStack.map((stack, i) => (
               <motion.div
                 key={i}
-                variants={scaleIn}
+                variants={fadeIn}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -975,7 +975,7 @@ export default function DesarrolloCustomPage() {
           <div className="grid md:grid-cols-3 gap-8">
             {/* MVP/PoC */}
             <motion.div
-              variants={scaleIn}
+              variants={fadeIn}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -1018,7 +1018,7 @@ export default function DesarrolloCustomPage() {
 
             {/* Proyecto Completo */}
             <motion.div
-              variants={scaleIn}
+              variants={fadeIn}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -1069,7 +1069,7 @@ export default function DesarrolloCustomPage() {
 
             {/* Retainer Mensual */}
             <motion.div
-              variants={scaleIn}
+              variants={fadeIn}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}

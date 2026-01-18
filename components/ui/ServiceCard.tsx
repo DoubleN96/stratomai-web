@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import type { LucideIcon } from 'lucide-react';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { cardHover, fadeInUp } from '@/lib/motion-variants';
+import { fadeInUp } from '@/lib/motion-variants';
 
 type ServiceCardProps = {
   title: string;
@@ -38,12 +38,7 @@ export function ServiceCard({
       className={cn('group h-full', className)}
     >
       <Link href={ctaLink}>
-        <motion.div
-          variants={cardHover}
-          initial="rest"
-          whileHover="hover"
-          className="h-full bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-brand-primary-500 hover:shadow-xl transition-all duration-300"
-        >
+        <div className="h-full bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-brand-primary-500 hover:shadow-xl hover:scale-[1.01] transition-all duration-300">
           {/* Icon */}
           <div className="mb-6">
             <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-primary-500 to-brand-primary-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300">
@@ -90,7 +85,7 @@ export function ServiceCard({
             <span>{ctaText}</span>
             <ArrowRight className="w-5 h-5" />
           </div>
-        </motion.div>
+        </div>
       </Link>
     </motion.div>
   );

@@ -1,31 +1,32 @@
 /**
- * ScaleOps Automation Design Tokens
+ * Stratoma AI Design Tokens
  * Central source of truth for design system values
+ * Azul corporativo + Verde confianza
  */
 
 export const colors = {
-  // Primary brand colors
+  // Primary brand color - Azul corporativo
   primary: {
     50: '#eff6ff',
     100: '#dbeafe',
     200: '#bfdbfe',
     300: '#93c5fd',
     400: '#60a5fa',
-    500: '#3b82f6', // Main primary
-    600: '#2563eb',
+    500: '#3b82f6',
+    600: '#2563eb', // PRIMARY - Botones, títulos
     700: '#1d4ed8',
     800: '#1e40af',
     900: '#1e3a8a',
   },
-  // Secondary/accent colors
-  accent: {
+  // Secondary brand color - Verde confianza
+  secondary: {
     50: '#f0fdf4',
     100: '#dcfce7',
     200: '#bbf7d0',
     300: '#86efac',
     400: '#4ade80',
-    500: '#22c55e', // Main accent
-    600: '#16a34a',
+    500: '#22c55e',
+    600: '#16a34a', // SECONDARY - CTAs secundarias
     700: '#15803d',
     800: '#166534',
     900: '#14532d',

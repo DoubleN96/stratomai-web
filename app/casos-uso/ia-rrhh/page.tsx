@@ -34,7 +34,7 @@ import {
   DollarSign,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { fadeInUp, scaleIn, staggerContainer, staggerItem } from '@/lib/motion-variants';
+import { fadeInUp, fadeIn, staggerContainer, staggerItem } from '@/lib/motion-variants';
 import FAQ, { generateFAQSchema } from '@/components/FAQ';
 import { ContactForm } from '@/components/shared/ContactForm';
 
@@ -763,7 +763,7 @@ export default function IARRHHPage() {
               ].map((phase, i) => (
                 <motion.div
                   key={i}
-                  variants={scaleIn}
+                  variants={fadeIn}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
@@ -780,7 +780,7 @@ export default function IARRHHPage() {
 
           {/* Resultados en 4 meses */}
           <motion.div
-            variants={scaleIn}
+            variants={fadeIn}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -956,7 +956,7 @@ export default function IARRHHPage() {
             {hrProcesses.map((process, i) => (
               <motion.div
                 key={i}
-                variants={scaleIn}
+                variants={fadeIn}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -1072,7 +1072,7 @@ export default function IARRHHPage() {
             {keyMetrics.map((metric, i) => (
               <motion.div
                 key={i}
-                variants={scaleIn}
+                variants={fadeIn}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -1132,7 +1132,7 @@ export default function IARRHHPage() {
             {integrations.map((integration, i) => (
               <motion.div
                 key={i}
-                variants={scaleIn}
+                variants={fadeIn}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -1194,7 +1194,7 @@ export default function IARRHHPage() {
             {complianceItems.map((item, i) => (
               <motion.div
                 key={i}
-                variants={scaleIn}
+                variants={fadeIn}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -1266,7 +1266,7 @@ export default function IARRHHPage() {
             {pricingPlans.map((plan, i) => (
               <motion.div
                 key={i}
-                variants={scaleIn}
+                variants={fadeIn}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
