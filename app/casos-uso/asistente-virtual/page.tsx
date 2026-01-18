@@ -45,14 +45,14 @@ import { fadeInUp, staggerContainer, staggerItem } from '@/lib/motion-variants';
 
 export default function AsistenteVirtualPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 text-gray-900 font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 text-gray-900 font-sans">
       <Navbar />
 
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden">
         {/* Background decorativo */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 right-10 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow"></div>
+          <div className="absolute top-20 right-10 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow"></div>
           <div className="absolute top-40 left-10 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow animation-delay-2000"></div>
           <div className="absolute bottom-20 right-1/3 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow animation-delay-4000"></div>
         </div>
@@ -64,14 +64,14 @@ export default function AsistenteVirtualPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full mb-6 text-sm font-medium">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full mb-6 text-sm font-medium">
                 <Bot className="w-4 h-4" />
                 Asistentes Virtuales con IA
               </div>
 
               <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
                 Asistentes Virtuales con IA{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   para tu Empresa en Madrid
                 </span>
               </h1>
@@ -109,7 +109,7 @@ export default function AsistenteVirtualPage() {
               >
                 <a
                   href="#contact"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all text-lg"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-700 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/30 transition-all text-lg"
                 >
                   <Calendar className="w-5 h-5" />
                   Ver Demo en Vivo
@@ -117,7 +117,7 @@ export default function AsistenteVirtualPage() {
                 </a>
                 <a
                   href="#caso-exito"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-purple-200 text-purple-600 rounded-xl font-semibold hover:border-purple-400 transition-all text-lg"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-blue-200 text-blue-600 rounded-xl font-semibold hover:border-blue-400 transition-all text-lg"
                 >
                   Ver Caso de Éxito Real
                 </a>
@@ -132,7 +132,7 @@ export default function AsistenteVirtualPage() {
               className="grid grid-cols-2 gap-6"
             >
               {[
-                { value: '90%', label: 'Consultas resueltas', sublabel: 'automáticamente', color: 'from-purple-500 to-purple-600', icon: Target },
+                { value: '90%', label: 'Consultas resueltas', sublabel: 'automáticamente', color: 'from-blue-600 to-blue-700', icon: Target },
                 { value: '24/7', label: 'Disponibilidad', sublabel: 'sin pausas', color: 'from-blue-500 to-blue-600', icon: Clock },
                 { value: '4.8/5', label: 'Satisfacción', sublabel: 'clientes', color: 'from-green-500 to-green-600', icon: Star },
                 { value: '< 5seg', label: 'Tiempo respuesta', sublabel: 'promedio', color: 'from-pink-500 to-pink-600', icon: Zap },
@@ -179,7 +179,7 @@ export default function AsistenteVirtualPage() {
               </div>
               <h2 className="text-4xl lg:text-5xl font-bold mb-6">
                 Cómo una Academia en Madrid{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   Multiplicó su Capacidad
                 </span>
               </h2>
@@ -301,7 +301,7 @@ export default function AsistenteVirtualPage() {
               className="space-y-8"
             >
               {/* Testimonial */}
-              <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-2xl border border-purple-200">
+              <div className="bg-gradient-to-br from-blue-50 to-green-50 p-8 rounded-2xl border border-blue-200">
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
@@ -333,8 +333,8 @@ export default function AsistenteVirtualPage() {
                     { week: 'Semana 4', task: 'Optimización y monitoreo', icon: BarChart3 },
                   ].map((step, i) => (
                     <div key={i} className="flex items-center gap-4">
-                      <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <step.icon className="w-5 h-5 text-purple-600" />
+                      <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <step.icon className="w-5 h-5 text-blue-600" />
                       </div>
                       <div className="flex-1">
                         <div className="font-semibold text-gray-900">{step.week}</div>
@@ -351,7 +351,7 @@ export default function AsistenteVirtualPage() {
       </section>
 
       {/* Qué hace un Asistente IA */}
-      <section className="py-20 lg:py-32 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <section className="py-20 lg:py-32 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <motion.div
@@ -362,7 +362,7 @@ export default function AsistenteVirtualPage() {
             >
               <h2 className="text-4xl lg:text-5xl font-bold mb-6">
                 ¿Qué puede hacer{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   tu Asistente IA
                 </span>?
               </h2>
@@ -385,7 +385,7 @@ export default function AsistenteVirtualPage() {
                 title: 'Responde Dudas sobre Productos/Servicios',
                 description: 'Conoce todo tu catálogo, precios, características y disponibilidad. Responde al instante cualquier consulta técnica o comercial.',
                 example: 'Ej: "¿Cuál es la diferencia entre el plan Pro y Enterprise?"',
-                color: 'from-purple-500 to-purple-600'
+                color: 'from-blue-600 to-blue-700'
               },
               {
                 icon: Calendar,
@@ -454,7 +454,7 @@ export default function AsistenteVirtualPage() {
             >
               <h2 className="text-4xl lg:text-5xl font-bold mb-6">
                 Disponible en{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   Todos tus Canales
                 </span>
               </h2>
@@ -518,7 +518,7 @@ export default function AsistenteVirtualPage() {
               <motion.div
                 key={i}
                 variants={staggerItem}
-                className="bg-gradient-to-br from-gray-50 to-white p-8 rounded-2xl border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all relative"
+                className="bg-gradient-to-br from-gray-50 to-white p-8 rounded-2xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all relative"
               >
                 {channel.popular && (
                   <div className="absolute top-4 right-4">
@@ -542,9 +542,9 @@ export default function AsistenteVirtualPage() {
             viewport={{ once: true }}
             className="mt-12 text-center"
           >
-            <div className="inline-block bg-purple-50 border-2 border-purple-200 rounded-xl p-6">
+            <div className="inline-block bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
               <p className="text-gray-700 mb-4">
-                <strong className="text-purple-600">Ventaja:</strong> Todos los canales comparten el mismo conocimiento.
+                <strong className="text-blue-600">Ventaja:</strong> Todos los canales comparten el mismo conocimiento.
                 Tu asistente IA aprende de cada interacción y mejora continuamente.
               </p>
             </div>
@@ -553,7 +553,7 @@ export default function AsistenteVirtualPage() {
       </section>
 
       {/* Proceso de Entrenamiento */}
-      <section className="py-20 lg:py-32 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <section className="py-20 lg:py-32 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <motion.div
@@ -564,7 +564,7 @@ export default function AsistenteVirtualPage() {
             >
               <h2 className="text-4xl lg:text-5xl font-bold mb-6">
                 Proceso de{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   Entrenamiento
                 </span>
               </h2>
@@ -589,7 +589,7 @@ export default function AsistenteVirtualPage() {
                   description: 'Reunión inicial para entender tu negocio, procesos y objetivos. Identificamos qué información necesita conocer tu asistente.',
                   items: ['Catálogo productos/servicios', 'FAQs y dudas frecuentes', 'Políticas y procedimientos', 'Integraciones necesarias'],
                   duration: 'Semana 1',
-                  color: 'from-purple-500 to-purple-600'
+                  color: 'from-blue-600 to-blue-700'
                 },
                 {
                   step: '02',
@@ -634,7 +634,7 @@ export default function AsistenteVirtualPage() {
                           <h3 className="text-2xl font-bold text-gray-900 mb-2">{phase.title}</h3>
                           <p className="text-gray-600 leading-relaxed">{phase.description}</p>
                         </div>
-                        <div className="bg-purple-100 text-purple-700 px-4 py-2 rounded-lg font-semibold text-sm whitespace-nowrap ml-4">
+                        <div className="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg font-semibold text-sm whitespace-nowrap ml-4">
                           {phase.duration}
                         </div>
                       </div>
@@ -672,7 +672,7 @@ export default function AsistenteVirtualPage() {
             >
               <h2 className="text-4xl lg:text-5xl font-bold mb-6">
                 Asistente IA vs{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   Otras Opciones
                 </span>
               </h2>
@@ -700,7 +700,7 @@ export default function AsistenteVirtualPage() {
                     <Bot className="w-6 h-6" />
                     <h3 className="text-lg font-bold">Asistente IA</h3>
                   </div>
-                  <p className="text-purple-100 text-xs mt-1">Recomendado</p>
+                  <p className="text-blue-100 text-xs mt-1">Recomendado</p>
                 </div>
                 <div className="bg-gray-100 p-6 rounded-t-2xl">
                   <div className="flex items-center gap-2 text-gray-700">
@@ -770,7 +770,7 @@ export default function AsistenteVirtualPage() {
                     <div key={`feature-${i}`} className="bg-gray-50 p-6 border-t border-gray-200">
                       <p className="font-semibold text-gray-900">{row.feature}</p>
                     </div>
-                    <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-6 border-t border-purple-200">
+                    <div className="bg-gradient-to-br from-blue-50 to-green-50 p-6 border-t border-blue-200">
                       <div className="flex items-center gap-2">
                         <row.ai.icon className={`w-5 h-5 ${row.ai.color}`} />
                         <span className="text-gray-900 font-medium">{row.ai.text}</span>
@@ -811,7 +811,7 @@ export default function AsistenteVirtualPage() {
       </section>
 
       {/* Casos de Uso por Industria */}
-      <section className="py-20 lg:py-32 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <section className="py-20 lg:py-32 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <motion.div
@@ -822,7 +822,7 @@ export default function AsistenteVirtualPage() {
             >
               <h2 className="text-4xl lg:text-5xl font-bold mb-6">
                 Casos de Uso{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   por Industria
                 </span>
               </h2>
@@ -844,7 +844,7 @@ export default function AsistenteVirtualPage() {
                 icon: GraduationCap,
                 industry: 'Educación y Academias',
                 useCases: ['Información sobre cursos y precios', 'Proceso de matrícula automatizado', 'Resolución de dudas académicas', 'Seguimiento progreso alumnos'],
-                color: 'from-purple-500 to-purple-600'
+                color: 'from-blue-600 to-blue-700'
               },
               {
                 icon: ShoppingCart,
@@ -912,7 +912,7 @@ export default function AsistenteVirtualPage() {
             >
               <h2 className="text-4xl lg:text-5xl font-bold mb-6">
                 Planes y{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   Precios
                 </span>
               </h2>
@@ -984,13 +984,13 @@ export default function AsistenteVirtualPage() {
                 variants={staggerItem}
                 className={`relative bg-white rounded-2xl p-8 border-2 transition-all ${
                   plan.popular
-                    ? 'border-purple-500 shadow-2xl scale-105'
+                    ? 'border-blue-500 shadow-2xl scale-105'
                     : 'border-gray-200 shadow-lg hover:shadow-xl'
                 }`}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                    <span className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg">
+                    <span className="bg-gradient-to-r from-blue-700 to-blue-600 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg">
                       Más Popular
                     </span>
                   </div>
@@ -1024,7 +1024,7 @@ export default function AsistenteVirtualPage() {
                   href="#contact"
                   className={`block w-full text-center py-4 rounded-xl font-semibold transition-all ${
                     plan.popular
-                      ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:shadow-lg hover:shadow-purple-500/50'
+                      ? 'bg-gradient-to-r from-blue-700 to-blue-600 text-white hover:shadow-lg hover:shadow-blue-500/30'
                       : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                   }`}
                 >
@@ -1040,14 +1040,14 @@ export default function AsistenteVirtualPage() {
             viewport={{ once: true }}
             className="mt-16 text-center"
           >
-            <div className="inline-block bg-gradient-to-br from-purple-50 to-blue-50 border-2 border-purple-200 rounded-xl p-6">
+            <div className="inline-block bg-gradient-to-br from-blue-50 to-green-50 border-2 border-blue-200 rounded-xl p-6">
               <h4 className="font-bold text-gray-900 mb-2">¿No estás seguro qué plan necesitas?</h4>
               <p className="text-gray-700 mb-4">
                 Agenda una demo gratuita y te ayudamos a elegir el plan perfecto para tu negocio
               </p>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-700 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
               >
                 <Calendar className="w-5 h-5" />
                 Agendar Demo Gratuita
@@ -1058,7 +1058,7 @@ export default function AsistenteVirtualPage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 lg:py-32 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <section id="contact" className="py-20 lg:py-32 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <motion.div
@@ -1069,7 +1069,7 @@ export default function AsistenteVirtualPage() {
             >
               <h2 className="text-4xl lg:text-5xl font-bold mb-6">
                 Agenda tu{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   Demo Gratuita
                 </span>
               </h2>
@@ -1099,7 +1099,7 @@ export default function AsistenteVirtualPage() {
                     'Respuestas a todas tus dudas'
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" />
                       <span className="text-gray-700 text-lg">{item}</span>
                     </li>
                   ))}
@@ -1111,12 +1111,12 @@ export default function AsistenteVirtualPage() {
                   href="mailto:hola@stratomai.com"
                   className="flex items-center gap-4 p-4 bg-white rounded-xl hover:shadow-md transition-all border border-gray-200"
                 >
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center">
                     <Mail className="w-6 h-6 text-white" />
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900">Email</div>
-                    <div className="text-purple-600">hola@stratomai.com</div>
+                    <div className="text-blue-600">hola@stratomai.com</div>
                   </div>
                 </a>
 
@@ -1161,7 +1161,7 @@ export default function AsistenteVirtualPage() {
       </section>
 
       {/* CTA Final */}
-      <section className="py-20 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+      <section className="py-20 bg-gradient-to-r from-blue-700 to-blue-600 text-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-12 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1179,7 +1179,7 @@ export default function AsistenteVirtualPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-purple-600 rounded-xl font-semibold hover:shadow-lg transition-all"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-blue-600 rounded-xl font-semibold hover:shadow-lg transition-all"
               >
                 <Calendar className="w-5 h-5" />
                 Ver Demo Gratuita
@@ -1188,7 +1188,7 @@ export default function AsistenteVirtualPage() {
                 href="https://wa.me/34611031947"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-purple-700/50 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-purple-700 transition-all"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-700/50 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-blue-700 transition-all"
               >
                 <MessageCircle className="w-5 h-5" />
                 Consultar por WhatsApp

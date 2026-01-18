@@ -89,7 +89,7 @@ export default function CalculadoraROIPage() {
       <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-200 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl lg:text-3xl font-bold tracking-tight bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            <span className="text-2xl lg:text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
               Stratoma AI
             </span>
           </Link>
@@ -103,7 +103,7 @@ export default function CalculadoraROIPage() {
       </nav>
 
       {/* Hero */}
-      <section className="pt-32 pb-16 px-6 lg:px-12 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <section className="pt-32 pb-16 px-6 lg:px-12 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-5xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-full mb-6 text-sm font-medium">
             <Sparkles className="w-4 h-4" />
@@ -112,7 +112,7 @@ export default function CalculadoraROIPage() {
 
           <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
             Calculadora de ROI de{' '}
-            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
               Automatización IA
             </span>
           </h1>
@@ -142,9 +142,9 @@ export default function CalculadoraROIPage() {
       {/* Calculator Form */}
       <section className="py-20 px-6 lg:px-12 bg-white">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-8 lg:p-12 border border-purple-200">
+          <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl p-8 lg:p-12 border border-blue-200">
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-700 to-blue-600 rounded-xl flex items-center justify-center">
                 <Calculator className="w-6 h-6 text-white" />
               </div>
               <h2 className="text-3xl font-bold">Datos de tu Negocio</h2>
@@ -164,9 +164,9 @@ export default function CalculadoraROIPage() {
                     max="50"
                     value={inputs.employeeCount}
                     onChange={(e) => setInputs({ ...inputs, employeeCount: parseInt(e.target.value) })}
-                    className="flex-1 h-3 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+                    className="flex-1 h-3 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                   />
-                  <div className="w-20 px-4 py-2 bg-white border-2 border-purple-300 rounded-lg text-center font-bold text-purple-600">
+                  <div className="w-20 px-4 py-2 bg-white border-2 border-blue-300 rounded-lg text-center font-bold text-blue-600">
                     {inputs.employeeCount}
                   </div>
                 </div>
@@ -186,9 +186,9 @@ export default function CalculadoraROIPage() {
                     step="1000"
                     value={inputs.avgSalary}
                     onChange={(e) => setInputs({ ...inputs, avgSalary: parseInt(e.target.value) })}
-                    className="flex-1 h-3 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+                    className="flex-1 h-3 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                   />
-                  <div className="w-32 px-4 py-2 bg-white border-2 border-purple-300 rounded-lg text-center font-bold text-purple-600">
+                  <div className="w-32 px-4 py-2 bg-white border-2 border-blue-300 rounded-lg text-center font-bold text-blue-600">
                     {formatCurrency(inputs.avgSalary)}
                   </div>
                 </div>
@@ -210,9 +210,9 @@ export default function CalculadoraROIPage() {
                     max="40"
                     value={inputs.hoursOnRepetitiveTasks}
                     onChange={(e) => setInputs({ ...inputs, hoursOnRepetitiveTasks: parseInt(e.target.value) })}
-                    className="flex-1 h-3 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+                    className="flex-1 h-3 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                   />
-                  <div className="w-24 px-4 py-2 bg-white border-2 border-purple-300 rounded-lg text-center font-bold text-purple-600">
+                  <div className="w-24 px-4 py-2 bg-white border-2 border-blue-300 rounded-lg text-center font-bold text-blue-600">
                     {inputs.hoursOnRepetitiveTasks}h
                   </div>
                 </div>
@@ -232,9 +232,9 @@ export default function CalculadoraROIPage() {
                     step="10"
                     value={inputs.monthlyLeads}
                     onChange={(e) => setInputs({ ...inputs, monthlyLeads: parseInt(e.target.value) })}
-                    className="flex-1 h-3 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+                    className="flex-1 h-3 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                   />
-                  <div className="w-24 px-4 py-2 bg-white border-2 border-purple-300 rounded-lg text-center font-bold text-purple-600">
+                  <div className="w-24 px-4 py-2 bg-white border-2 border-blue-300 rounded-lg text-center font-bold text-blue-600">
                     {inputs.monthlyLeads}
                   </div>
                 </div>
@@ -253,9 +253,9 @@ export default function CalculadoraROIPage() {
                     max="24"
                     value={inputs.leadResponseTime}
                     onChange={(e) => setInputs({ ...inputs, leadResponseTime: parseInt(e.target.value) })}
-                    className="flex-1 h-3 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+                    className="flex-1 h-3 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                   />
-                  <div className="w-24 px-4 py-2 bg-white border-2 border-purple-300 rounded-lg text-center font-bold text-purple-600">
+                  <div className="w-24 px-4 py-2 bg-white border-2 border-blue-300 rounded-lg text-center font-bold text-blue-600">
                     {inputs.leadResponseTime}h
                   </div>
                 </div>
@@ -278,9 +278,9 @@ export default function CalculadoraROIPage() {
                     step="5"
                     value={inputs.missedLeadsPercent}
                     onChange={(e) => setInputs({ ...inputs, missedLeadsPercent: parseInt(e.target.value) })}
-                    className="flex-1 h-3 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+                    className="flex-1 h-3 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                   />
-                  <div className="w-24 px-4 py-2 bg-white border-2 border-purple-300 rounded-lg text-center font-bold text-purple-600">
+                  <div className="w-24 px-4 py-2 bg-white border-2 border-blue-300 rounded-lg text-center font-bold text-blue-600">
                     {inputs.missedLeadsPercent}%
                   </div>
                 </div>
@@ -300,9 +300,9 @@ export default function CalculadoraROIPage() {
                     step="100"
                     value={inputs.avgDealValue}
                     onChange={(e) => setInputs({ ...inputs, avgDealValue: parseInt(e.target.value) })}
-                    className="flex-1 h-3 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+                    className="flex-1 h-3 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                   />
-                  <div className="w-32 px-4 py-2 bg-white border-2 border-purple-300 rounded-lg text-center font-bold text-purple-600">
+                  <div className="w-32 px-4 py-2 bg-white border-2 border-blue-300 rounded-lg text-center font-bold text-blue-600">
                     {formatCurrency(inputs.avgDealValue)}
                   </div>
                 </div>
@@ -311,7 +311,7 @@ export default function CalculadoraROIPage() {
 
             <button
               onClick={handleCalculate}
-              className="w-full mt-10 py-5 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-bold text-xl hover:shadow-2xl hover:shadow-purple-500/50 transition-all flex items-center justify-center gap-3"
+              className="w-full mt-10 py-5 bg-gradient-to-r from-blue-700 to-blue-600 text-white rounded-xl font-bold text-xl hover:shadow-2xl hover:shadow-blue-500/30 transition-all flex items-center justify-center gap-3"
             >
               <Calculator className="w-6 h-6" />
               Calcular Mi ROI
@@ -347,9 +347,9 @@ export default function CalculadoraROIPage() {
                 <div className="text-xs text-gray-500">Tiempo + Ingresos recuperados</div>
               </div>
 
-              <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-purple-500">
+              <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-blue-500">
                 <div className="text-sm font-semibold text-gray-600 mb-2">ROI</div>
-                <div className="text-4xl font-bold text-purple-600 mb-1">
+                <div className="text-4xl font-bold text-blue-600 mb-1">
                   {results.roi.toFixed(0)}%
                 </div>
                 <div className="text-xs text-gray-500">Retorno de inversión primer año</div>
@@ -377,27 +377,27 @@ export default function CalculadoraROIPage() {
               {/* Ahorro de Tiempo */}
               <div className="bg-white rounded-2xl p-8 shadow-lg">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                    <Clock className="w-6 h-6 text-purple-600" />
+                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <Clock className="w-6 h-6 text-blue-600" />
                   </div>
                   <h3 className="text-2xl font-bold">Ahorro de Tiempo</h3>
                 </div>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center py-3 border-b border-gray-200">
                     <span className="text-gray-700">Ahorro mensual:</span>
-                    <span className="text-xl font-bold text-purple-600">
+                    <span className="text-xl font-bold text-blue-600">
                       {formatCurrency(results.monthlySavings)}
                     </span>
                   </div>
                   <div className="flex justify-between items-center py-3 border-b border-gray-200">
                     <span className="text-gray-700">Ahorro anual:</span>
-                    <span className="text-xl font-bold text-purple-600">
+                    <span className="text-xl font-bold text-blue-600">
                       {formatCurrency(results.yearlySavings)}
                     </span>
                   </div>
                   <div className="flex justify-between items-center py-3">
                     <span className="text-gray-700">Horas recuperadas/mes:</span>
-                    <span className="text-xl font-bold text-purple-600">
+                    <span className="text-xl font-bold text-blue-600">
                       {results.hoursPerMonth.toFixed(0)} horas
                     </span>
                   </div>
@@ -436,7 +436,7 @@ export default function CalculadoraROIPage() {
             </div>
 
             {/* CTA */}
-            <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-8 lg:p-12 text-white text-center">
+            <div className="bg-gradient-to-r from-blue-700 to-blue-600 rounded-2xl p-8 lg:p-12 text-white text-center">
               <h3 className="text-3xl lg:text-4xl font-bold mb-4">
                 ¿Quieres Conseguir Estos Resultados?
               </h3>
@@ -446,7 +446,7 @@ export default function CalculadoraROIPage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   href="/oferta/sprint-automatizacion"
-                  className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-purple-600 rounded-xl font-bold text-lg hover:shadow-2xl transition-all"
+                  className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-blue-600 rounded-xl font-bold text-lg hover:shadow-2xl transition-all"
                 >
                   Ver Sprint de Automatización
                   <ArrowRight className="w-5 h-5" />
@@ -455,7 +455,7 @@ export default function CalculadoraROIPage() {
                   href="https://wa.me/34611031947?text=Hola%2C%20acabo%20de%20usar%20la%20calculadora%20de%20ROI%20y%20quiero%20más%20información"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-purple-700/50 backdrop-blur-sm text-white rounded-xl font-semibold text-lg hover:bg-purple-700 transition-all"
+                  className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-blue-700/50 backdrop-blur-sm text-white rounded-xl font-semibold text-lg hover:bg-blue-700 transition-all"
                 >
                   Hablar por WhatsApp
                 </a>

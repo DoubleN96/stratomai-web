@@ -50,7 +50,7 @@ const aiSolutions = [
     icon: FileSearch,
     title: 'Screening Inteligente de CVs',
     description: 'IA analiza y clasifica CVs automáticamente según requisitos del puesto. Identifica candidatos cualificados en segundos, no en horas.',
-    color: 'from-purple-500 to-purple-600',
+    color: 'from-blue-600 to-blue-700',
     benefits: ['Ahorra 90% del tiempo de screening', 'Elimina sesgos inconscientes', 'Ranking automático de candidatos'],
   },
   {
@@ -268,7 +268,7 @@ const keyMetrics = [
     before: '4.200€',
     after: '2.500€',
     improvement: '-40%',
-    color: 'from-purple-500 to-purple-600',
+    color: 'from-blue-600 to-blue-700',
   },
   {
     metric: 'Retention Rate',
@@ -479,7 +479,7 @@ export default function IARRHHPage() {
       <section className="relative py-20 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-20 right-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+          <div className="absolute top-40 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
@@ -603,7 +603,7 @@ export default function IARRHHPage() {
                   <span className="px-3 py-1 bg-blue-200 text-blue-800 rounded-full text-sm font-medium">
                     Consultoría RRHH
                   </span>
-                  <span className="px-3 py-1 bg-purple-200 text-purple-800 rounded-full text-sm font-medium">
+                  <span className="px-3 py-1 bg-blue-200 text-purple-800 rounded-full text-sm font-medium">
                     20 empleados
                   </span>
                   <span className="px-3 py-1 bg-green-200 text-green-800 rounded-full text-sm font-medium">
@@ -807,7 +807,7 @@ export default function IARRHHPage() {
                   icon: TrendingDown,
                   metric: '-40% time-to-hire',
                   detail: '45 días → 27 días',
-                  color: 'from-purple-500 to-purple-600',
+                  color: 'from-blue-600 to-blue-700',
                 },
                 {
                   icon: TrendingUp,

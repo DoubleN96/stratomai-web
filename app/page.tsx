@@ -25,12 +25,12 @@ export default function StratomaAIHomePage() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 text-gray-900 font-sans overflow-x-hidden" lang="es">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 text-gray-900 font-sans overflow-x-hidden" lang="es">
       {/* Navbar con diseño más atractivo */}
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className="fixed top-0 w-full bg-white/80 backdrop-blur-xl border-b border-purple-100 z-50 shadow-sm"
+        className="fixed top-0 w-full bg-white/80 backdrop-blur-xl border-b border-blue-100 z-50 shadow-sm"
         role="navigation"
         aria-label="Main navigation"
       >
@@ -42,11 +42,11 @@ export default function StratomaAIHomePage() {
               transition={{ delay: 0.2 }}
               className="flex items-center gap-3"
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-700 to-blue-600 rounded-xl flex items-center justify-center">
                 <Sparkles className="w-6 h-6 text-white" />
               </div>
               <div>
-                <div className="text-2xl lg:text-3xl font-bold tracking-tight bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <div className="text-2xl lg:text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   Stratoma AI
                 </div>
                 <div className="text-xs text-gray-500 -mt-1">Madrid, España</div>
@@ -55,19 +55,19 @@ export default function StratomaAIHomePage() {
 
             <div className="flex items-center gap-6 lg:gap-8">
               <div className="hidden lg:flex items-center gap-8 text-sm font-medium">
-                <a href="#servicios" className="text-gray-700 hover:text-purple-600 transition-colors">
+                <a href="#servicios" className="text-gray-700 hover:text-blue-600 transition-colors">
                   Servicios
                 </a>
-                <a href="#casos-uso" className="text-gray-700 hover:text-purple-600 transition-colors">
+                <a href="#casos-uso" className="text-gray-700 hover:text-blue-600 transition-colors">
                   Casos de Uso
                 </a>
-                <Link href="/blog" className="text-gray-700 hover:text-purple-600 transition-colors">
+                <Link href="/blog" className="text-gray-700 hover:text-blue-600 transition-colors">
                   Blog
                 </Link>
-                <Link href="/faq" className="text-gray-700 hover:text-purple-600 transition-colors">
+                <Link href="/faq" className="text-gray-700 hover:text-blue-600 transition-colors">
                   FAQ
                 </Link>
-                <a href="#contact" className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2.5 rounded-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all">
+                <a href="#contact" className="bg-gradient-to-r from-blue-700 to-blue-600 text-white px-6 py-2.5 rounded-lg hover:shadow-lg hover:shadow-blue-500/30 transition-all">
                   Consultoría Gratuita
                 </a>
               </div>
@@ -91,7 +91,7 @@ export default function StratomaAIHomePage() {
       <section className="relative min-h-screen flex items-center pt-32 overflow-hidden">
         {/* Background decorativo */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+          <div className="absolute top-20 right-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
           <div className="absolute top-40 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
           <div className="absolute bottom-20 right-1/3 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
         </div>
@@ -103,14 +103,14 @@ export default function StratomaAIHomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full mb-6 text-sm font-medium">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full mb-6 text-sm font-medium">
                 <Building2 className="w-4 h-4" />
                 Agencia de IA en Madrid
               </div>
 
               <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
                 Inteligencia Artificial que{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   Impulsa tu Negocio
                 </span>
               </h1>
@@ -148,7 +148,7 @@ export default function StratomaAIHomePage() {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
                     href="/oferta/sprint-automatizacion"
-                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all text-lg"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-700 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/30 transition-all text-lg"
                   >
                     <Zap className="w-5 h-5" />
                     Ver Oferta Sprint (Solo 3 Plazas)
@@ -158,7 +158,7 @@ export default function StratomaAIHomePage() {
                     href="https://wa.me/34611031947?text=Hola%2C%20quiero%20una%20consultoría%20gratuita%20sobre%20automatización%20con%20IA"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-purple-200 text-purple-600 rounded-xl font-semibold hover:border-purple-400 transition-all text-lg"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-blue-200 text-blue-600 rounded-xl font-semibold hover:border-blue-400 transition-all text-lg"
                   >
                     <MessageCircle className="w-5 h-5" />
                     WhatsApp Directo
@@ -182,7 +182,7 @@ export default function StratomaAIHomePage() {
               className="grid grid-cols-2 gap-6"
             >
               {[
-                { value: '80%', label: 'Ahorro de tiempo', sublabel: 'en tareas repetitivas', color: 'from-purple-500 to-purple-600' },
+                { value: '80%', label: 'Ahorro de tiempo', sublabel: 'en tareas repetitivas', color: 'from-blue-600 to-blue-700' },
                 { value: '24/7', label: 'Disponibilidad', sublabel: 'atención automática', color: 'from-blue-500 to-blue-600' },
                 { value: '3-5x', label: 'Más capacidad', sublabel: 'leads atendidos', color: 'from-green-500 to-green-600' },
                 { value: '100%', label: 'En español', sublabel: 'IA nativa Madrid', color: 'from-pink-500 to-pink-600' },
@@ -216,7 +216,7 @@ export default function StratomaAIHomePage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               ¿Tu empresa sufre estos{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 problemas
               </span>?
             </h2>
@@ -231,7 +231,7 @@ export default function StratomaAIHomePage() {
                 problem: 'Pierdes leads porque no puedes responder a tiempo',
                 stat: '67% leads perdidos',
                 icon: MessageCircle,
-                color: 'purple'
+                color: "blue"
               },
               {
                 problem: 'Tu equipo dedica horas a responder las mismas consultas',
@@ -270,7 +270,7 @@ export default function StratomaAIHomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-gradient-to-br from-gray-50 to-white p-8 rounded-2xl border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all"
+                className="bg-gradient-to-br from-gray-50 to-white p-8 rounded-2xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all"
               >
                 <div className={`w-14 h-14 bg-gradient-to-br from-${item.color}-100 to-${item.color}-200 rounded-xl flex items-center justify-center mb-4`}>
                   <item.icon className={`w-7 h-7 text-${item.color}-600`} />
@@ -293,7 +293,7 @@ export default function StratomaAIHomePage() {
           >
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-700 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/30 transition-all"
             >
               Resolver mis Problemas con IA
               <ArrowRight className="w-5 h-5" />
@@ -303,12 +303,12 @@ export default function StratomaAIHomePage() {
       </section>
 
       {/* Servicios Section - Diseño mejorado */}
-      <section id="servicios" className="py-20 lg:py-32 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <section id="servicios" className="py-20 lg:py-32 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Servicios de{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 Inteligencia Artificial
               </span>
             </h2>
@@ -324,7 +324,7 @@ export default function StratomaAIHomePage() {
                 title: 'Chatbots & WhatsApp IA',
                 description: 'Automatiza atención en WhatsApp, web e Instagram con IA que entiende español perfectamente',
                 features: ['Respuesta automática 24/7', 'Calificación de leads', 'Integración CRM'],
-                color: 'from-purple-500 to-purple-600',
+                color: 'from-blue-600 to-blue-700',
                 link: '/casos-uso/chatbot-whatsapp'
               },
               {
@@ -394,7 +394,7 @@ export default function StratomaAIHomePage() {
 
                 <a
                   href={service.link}
-                  className="inline-flex items-center gap-2 text-purple-600 font-semibold hover:gap-3 transition-all"
+                  className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:gap-3 transition-all"
                 >
                   Ver caso de uso
                   <ArrowRight className="w-4 h-4" />
@@ -459,22 +459,22 @@ export default function StratomaAIHomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-8 border border-purple-200"
+                className="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl p-8 border border-blue-200"
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                  <div className="w-14 h-14 bg-gradient-to-br from-blue-700 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
                     {testimonial.image}
                   </div>
                   <div>
                     <div className="font-bold text-gray-900">{testimonial.person}</div>
                     <div className="text-sm text-gray-600">{testimonial.company}</div>
-                    <div className="text-xs text-purple-600 font-medium">{testimonial.industry}</div>
+                    <div className="text-xs text-blue-600 font-medium">{testimonial.industry}</div>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 mb-6">
                   <div className="bg-white rounded-lg p-3">
-                    <div className="text-2xl font-bold text-purple-600">{testimonial.result}</div>
+                    <div className="text-2xl font-bold text-blue-600">{testimonial.result}</div>
                     <div className="text-xs text-gray-600">Ahorro</div>
                   </div>
                   <div className="bg-white rounded-lg p-3">
@@ -513,7 +513,7 @@ export default function StratomaAIHomePage() {
       </section>
 
       {/* CTA Madrid - Nuevo */}
-      <section className="py-20 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+      <section className="py-20 bg-gradient-to-r from-blue-700 to-blue-600 text-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-12 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -530,14 +530,14 @@ export default function StratomaAIHomePage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-purple-600 rounded-xl font-semibold hover:shadow-lg transition-all"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-blue-600 rounded-xl font-semibold hover:shadow-lg transition-all"
               >
                 <Phone className="w-5 h-5" />
                 Agendar Consultoría
               </a>
               <a
                 href="tel:+34611031947"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-purple-700/50 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-purple-700 transition-all"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-700/50 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-blue-700 transition-all"
               >
                 <Phone className="w-5 h-5" />
                 +34 611 03 19 47
@@ -575,7 +575,7 @@ export default function StratomaAIHomePage() {
               <p className="text-gray-700 text-center mb-4">
                 Si no ahorras mínimo 20 horas semanales en los primeros 90 días, te devolvemos el 100% de tu inversión.
               </p>
-              <Link href="/oferta/sprint-automatizacion" className="text-purple-600 font-semibold text-center block hover:underline">
+              <Link href="/oferta/sprint-automatizacion" className="text-blue-600 font-semibold text-center block hover:underline">
                 Ver detalles →
               </Link>
             </motion.div>
@@ -596,7 +596,7 @@ export default function StratomaAIHomePage() {
               <p className="text-gray-700 text-center mb-4">
                 Seguimos ajustando hasta que funcione perfectamente. Soporte ilimitado durante implementación.
               </p>
-              <a href="#contact" className="text-purple-600 font-semibold text-center block hover:underline">
+              <a href="#contact" className="text-blue-600 font-semibold text-center block hover:underline">
                 Contactar →
               </a>
             </motion.div>
@@ -617,7 +617,7 @@ export default function StratomaAIHomePage() {
               <p className="text-gray-700 text-center mb-4">
                 Resultados visibles en 14 días. Si tardamos más, primer mes de soporte gratis.
               </p>
-              <a href="#contact" className="text-purple-600 font-semibold text-center block hover:underline">
+              <a href="#contact" className="text-blue-600 font-semibold text-center block hover:underline">
                 Más info →
               </a>
             </motion.div>
@@ -627,7 +627,7 @@ export default function StratomaAIHomePage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-8 text-white text-center"
+            className="mt-12 bg-gradient-to-r from-blue-700 to-blue-600 rounded-2xl p-8 text-white text-center"
           >
             <p className="text-2xl font-bold mb-2">
               En otras palabras: No tienes forma de perder
@@ -645,7 +645,7 @@ export default function StratomaAIHomePage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Empieza tu{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 Transformación con IA
               </span>
             </h2>
@@ -657,17 +657,17 @@ export default function StratomaAIHomePage() {
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Info */}
             <div className="space-y-8">
-              <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-2xl">
+              <div className="bg-gradient-to-br from-blue-50 to-green-50 p-8 rounded-2xl">
                 <h3 className="text-2xl font-bold mb-6">Contacta con Nosotros</h3>
 
                 <div className="space-y-4">
                   <a href="mailto:hola@stratomai.com" className="flex items-center gap-4 p-4 bg-white rounded-xl hover:shadow-md transition-all">
-                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center">
                       <Mail className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <div className="font-semibold text-gray-900">Email</div>
-                      <div className="text-purple-600">hola@stratomai.com</div>
+                      <div className="text-blue-600">hola@stratomai.com</div>
                     </div>
                   </a>
 
@@ -693,23 +693,23 @@ export default function StratomaAIHomePage() {
                 </div>
               </div>
 
-              <div className="bg-purple-50 p-6 rounded-xl">
+              <div className="bg-blue-50 p-6 rounded-xl">
                 <h4 className="font-bold text-gray-900 mb-3">¿Qué incluye la consultoría?</h4>
                 <ul className="space-y-2 text-gray-700">
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-purple-600 mt-0.5" />
+                    <CheckCircle2 className="w-5 h-5 text-blue-600 mt-0.5" />
                     <span>Análisis de tus procesos actuales</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-purple-600 mt-0.5" />
+                    <CheckCircle2 className="w-5 h-5 text-blue-600 mt-0.5" />
                     <span>Identificación de oportunidades de IA</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-purple-600 mt-0.5" />
+                    <CheckCircle2 className="w-5 h-5 text-blue-600 mt-0.5" />
                     <span>Estimación de ROI y tiempo de implementación</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-purple-600 mt-0.5" />
+                    <CheckCircle2 className="w-5 h-5 text-blue-600 mt-0.5" />
                     <span>Roadmap personalizado sin compromiso</span>
                   </li>
                 </ul>
@@ -728,7 +728,7 @@ export default function StratomaAIHomePage() {
           <div className="grid lg:grid-cols-4 gap-12 mb-12">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-700 to-blue-600 rounded-xl flex items-center justify-center">
                   <Sparkles className="w-6 h-6 text-white" />
                 </div>
                 <div className="text-2xl font-bold">Stratoma AI</div>
@@ -766,7 +766,7 @@ export default function StratomaAIHomePage() {
             <div>
               <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase">Contacto</h4>
               <div className="space-y-3">
-                <a href="mailto:hola@stratomai.com" className="block text-purple-400 hover:text-purple-300">
+                <a href="mailto:hola@stratomai.com" className="block text-blue-400 hover:text-blue-300">
                   hola@stratomai.com
                 </a>
                 <a href="https://wa.me/34611031947" className="block text-green-400 hover:text-green-300">

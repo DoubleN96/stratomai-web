@@ -104,7 +104,7 @@ function FAQSection() {
               transition={{ duration: 0.3 }}
               className="flex-shrink-0"
             >
-              <ChevronDown className="w-5 h-5 text-purple-600" />
+              <ChevronDown className="w-5 h-5 text-blue-600" />
             </motion.div>
           </button>
 
@@ -129,17 +129,17 @@ function FAQSection() {
 
 export default function IAMarketingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
       {/* Navbar */}
-      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-xl border-b border-purple-100 z-50 shadow-sm">
+      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-xl border-b border-blue-100 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="flex justify-between items-center h-20">
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-700 to-blue-600 rounded-xl flex items-center justify-center">
                 <Sparkles className="w-6 h-6 text-white" />
               </div>
               <div>
-                <div className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <div className="text-2xl font-bold bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   Stratoma AI
                 </div>
                 <div className="text-xs text-gray-500 -mt-1">Madrid, España</div>
@@ -149,13 +149,13 @@ export default function IAMarketingPage() {
             <div className="flex items-center gap-6">
               <Link
                 href="/"
-                className="text-gray-700 hover:text-purple-600 transition-colors"
+                className="text-gray-700 hover:text-blue-600 transition-colors"
               >
                 Inicio
               </Link>
               <a
                 href="#contact"
-                className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2.5 rounded-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all"
+                className="bg-gradient-to-r from-blue-700 to-blue-600 text-white px-6 py-2.5 rounded-lg hover:shadow-lg hover:shadow-blue-500/30 transition-all"
               >
                 Auditoría Gratuita
               </a>
@@ -168,7 +168,7 @@ export default function IAMarketingPage() {
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-20 right-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
-          <div className="absolute top-40 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse animation-delay-2000"></div>
+          <div className="absolute top-40 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse animation-delay-2000"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
@@ -206,7 +206,7 @@ export default function IAMarketingPage() {
                 </a>
                 <a
                   href="#caso-exito"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-purple-200 text-purple-600 rounded-xl font-semibold hover:border-purple-400 transition-all text-lg"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-blue-200 text-blue-600 rounded-xl font-semibold hover:border-blue-400 transition-all text-lg"
                 >
                   Ver Resultados
                 </a>
@@ -219,7 +219,7 @@ export default function IAMarketingPage() {
                   <div className="text-sm text-gray-600">ROI en campañas</div>
                 </div>
                 <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-md">
-                  <div className="text-3xl font-bold text-purple-600 mb-1">+320%</div>
+                  <div className="text-3xl font-bold text-blue-600 mb-1">+320%</div>
                   <div className="text-sm text-gray-600">Leads cualificados</div>
                 </div>
                 <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-md">
@@ -268,9 +268,9 @@ export default function IAMarketingPage() {
                       <span>Optimizado por IA</span>
                     </div>
                   </div>
-                  <div className="bg-purple-50 p-4 rounded-xl">
+                  <div className="bg-blue-50 p-4 rounded-xl">
                     <div className="text-sm text-gray-600 mb-1">CTR</div>
-                    <div className="text-2xl font-bold text-purple-600">+89%</div>
+                    <div className="text-2xl font-bold text-blue-600">+89%</div>
                     <div className="flex items-center gap-1 text-xs text-green-600 mt-1">
                       <TrendingUp className="w-3 h-3" />
                       <span>Copy IA + Segmentación</span>
@@ -440,7 +440,7 @@ export default function IAMarketingPage() {
             </div>
 
             {/* Timeline de Implementación */}
-            <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-2xl border border-purple-200 mb-12">
+            <div className="bg-gradient-to-br from-blue-50 to-green-50 p-8 rounded-2xl border border-blue-200 mb-12">
               <h3 className="text-2xl font-bold mb-6 text-gray-900 text-center">
                 Timeline de Implementación (5 Semanas)
               </h3>
@@ -473,7 +473,7 @@ export default function IAMarketingPage() {
                   },
                 ].map((phase, i) => (
                   <div key={i} className="bg-white p-4 rounded-xl border border-gray-200">
-                    <div className="text-sm font-bold text-purple-600 mb-2">{phase.week}</div>
+                    <div className="text-sm font-bold text-blue-600 mb-2">{phase.week}</div>
                     <div className="text-base font-bold text-gray-900 mb-2">{phase.title}</div>
                     <div className="text-sm text-gray-600">{phase.description}</div>
                   </div>
@@ -498,7 +498,7 @@ export default function IAMarketingPage() {
                   <div className="text-xs text-gray-500">Optimización predictiva</div>
                 </div>
                 <div className="bg-white p-6 rounded-xl shadow-md text-center">
-                  <div className="text-4xl font-bold text-purple-600 mb-2">83%</div>
+                  <div className="text-4xl font-bold text-blue-600 mb-2">83%</div>
                   <div className="text-sm text-gray-600 mb-1">Menos tiempo en reportes</div>
                   <div className="text-xs text-gray-500">30h → 5h por semana</div>
                 </div>
@@ -553,7 +553,7 @@ export default function IAMarketingPage() {
       </section>
 
       {/* Soluciones de IA para Marketing */}
-      <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
@@ -581,7 +581,7 @@ export default function IAMarketingPage() {
                 title: 'Personalización de Contenido en Tiempo Real',
                 description:
                   'Genera y personaliza copy de emails, ads y landing pages automáticamente según comportamiento de usuario.',
-                color: 'from-purple-500 to-purple-600',
+                color: 'from-blue-600 to-blue-700',
               },
               {
                 icon: Target,
@@ -678,7 +678,7 @@ export default function IAMarketingPage() {
                 name: 'Facebook / Instagram Ads',
                 description: 'Segmentación dinámica y creative testing automático',
                 icon: Users,
-                color: 'from-purple-500 to-purple-600',
+                color: 'from-blue-600 to-blue-700',
               },
               {
                 name: 'LinkedIn Ads',
@@ -711,7 +711,7 @@ export default function IAMarketingPage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all"
+                className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all"
               >
                 <div
                   className={`w-12 h-12 bg-gradient-to-br ${platform.color} rounded-xl flex items-center justify-center mb-4`}
@@ -729,7 +729,7 @@ export default function IAMarketingPage() {
       </section>
 
       {/* Proceso de Implementación */}
-      <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
@@ -761,7 +761,7 @@ export default function IAMarketingPage() {
                 description:
                   'Conectamos todas tus plataformas vía API: Ads, CRM, Analytics, Email Marketing',
                 icon: Layers,
-                color: 'purple',
+                color: "blue",
               },
               {
                 phase: 'Fase 3',
@@ -797,14 +797,14 @@ export default function IAMarketingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all"
+                className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all"
               >
                 <div
                   className={`w-12 h-12 bg-gradient-to-br from-${phase.color}-500 to-${phase.color}-600 rounded-xl flex items-center justify-center mb-4`}
                 >
                   <phase.icon className="w-6 h-6 text-white" />
                 </div>
-                <div className="text-sm font-bold text-purple-600 mb-2">{phase.phase}</div>
+                <div className="text-sm font-bold text-blue-600 mb-2">{phase.phase}</div>
                 <h3 className="text-lg font-bold mb-2 text-gray-900">{phase.title}</h3>
                 <div className="text-sm text-gray-500 mb-3">{phase.duration}</div>
                 <p className="text-sm text-gray-600 leading-relaxed">
@@ -882,7 +882,7 @@ export default function IAMarketingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all group"
+                className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all group"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -905,7 +905,7 @@ export default function IAMarketingPage() {
       </section>
 
       {/* Métricas que Mejora */}
-      <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
@@ -937,7 +937,7 @@ export default function IAMarketingPage() {
                 metric: 'Conversion Rate',
                 description: 'Tasa de conversión de leads a clientes',
                 improvement: '+40-80%',
-                color: 'purple',
+                color: "blue",
               },
               {
                 metric: 'CPA (Cost Per Acquisition)',
@@ -1031,7 +1031,7 @@ export default function IAMarketingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all text-center group"
+                className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all text-center group"
               >
                 <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform">
                   <industry.icon className="w-7 h-7 text-white" />
@@ -1047,7 +1047,7 @@ export default function IAMarketingPage() {
       </section>
 
       {/* Pricing */}
-      <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
@@ -1093,7 +1093,7 @@ export default function IAMarketingPage() {
                   'Gestor de cuenta dedicado',
                   'Optimización mensual personalizada',
                 ],
-                color: 'purple',
+                color: "blue",
                 popular: true,
               },
               {
@@ -1124,13 +1124,13 @@ export default function IAMarketingPage() {
                 transition={{ delay: i * 0.15 }}
                 className={`relative bg-white rounded-2xl p-8 border-2 ${
                   plan.popular
-                    ? 'border-purple-500 shadow-2xl shadow-purple-500/20 scale-105'
+                    ? 'border-blue-500 shadow-2xl shadow-purple-500/20 scale-105'
                     : 'border-gray-200 shadow-lg'
                 } hover:shadow-2xl transition-all`}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                    <div className="bg-gradient-to-r from-blue-700 to-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
                       Más Popular
                     </div>
                   </div>
@@ -1173,7 +1173,7 @@ export default function IAMarketingPage() {
                   href="#contact"
                   className={`block w-full py-3 rounded-xl font-semibold text-center transition-all ${
                     plan.popular
-                      ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:shadow-lg hover:shadow-purple-500/50'
+                      ? 'bg-gradient-to-r from-blue-700 to-blue-600 text-white hover:shadow-lg hover:shadow-blue-500/30'
                       : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                   }`}
                 >
@@ -1264,7 +1264,7 @@ export default function IAMarketingPage() {
               </a>
               <a
                 href="mailto:hola@stratomai.com?subject=Auditoría%20IA%20Marketing%20Digital"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-purple-700/50 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-purple-700 transition-all text-lg border-2 border-white/20"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-700/50 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-blue-700 transition-all text-lg border-2 border-white/20"
               >
                 <Mail className="w-5 h-5" />
                 Enviar Email
@@ -1284,7 +1284,7 @@ export default function IAMarketingPage() {
           <div className="grid lg:grid-cols-4 gap-12 mb-12">
             <div>
               <Link href="/" className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-700 to-blue-600 rounded-xl flex items-center justify-center">
                   <Sparkles className="w-6 h-6 text-white" />
                 </div>
                 <div className="text-2xl font-bold">Stratoma AI</div>
@@ -1358,7 +1358,7 @@ export default function IAMarketingPage() {
               <div className="space-y-3">
                 <a
                   href="mailto:hola@stratomai.com"
-                  className="block text-purple-400 hover:text-purple-300"
+                  className="block text-blue-400 hover:text-blue-300"
                 >
                   hola@stratomai.com
                 </a>

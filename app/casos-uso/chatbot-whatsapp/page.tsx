@@ -35,7 +35,7 @@ export default function ChatbotWhatsAppCaseStudy() {
       <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-200 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl lg:text-3xl font-bold tracking-tight bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            <span className="text-2xl lg:text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
               Stratoma AI
             </span>
           </Link>
@@ -376,8 +376,8 @@ export default function ChatbotWhatsAppCaseStudy() {
               {activeDay === 2 && (
                 <div className="space-y-6">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center">
-                      <Settings className="w-8 h-8 text-purple-600" />
+                    <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center">
+                      <Settings className="w-8 h-8 text-blue-600" />
                     </div>
                     <div>
                       <h3 className="text-3xl font-bold">Día 2-3: Setup Técnico e Integraciones</h3>
@@ -449,7 +449,7 @@ export default function ChatbotWhatsAppCaseStudy() {
                             }
                           ].map((step, i) => (
                             <div key={i} className="bg-white rounded p-3">
-                              <div className="font-semibold text-sm text-purple-600 mb-1">{step.time}</div>
+                              <div className="font-semibold text-sm text-blue-600 mb-1">{step.time}</div>
                               <div className="font-medium text-sm mb-1">{step.task}</div>
                               <div className="text-xs text-gray-600">{step.details}</div>
                             </div>
@@ -651,8 +651,8 @@ Webhook → Servidor Node.js
               {activeDay >= 8 && activeDay <= 10 && (
                 <div className="space-y-6">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center">
-                      <TestTube className="w-8 h-8 text-purple-600" />
+                    <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center">
+                      <TestTube className="w-8 h-8 text-blue-600" />
                     </div>
                     <div>
                       <h3 className="text-3xl font-bold">Día 8-10: Testing y Refinamiento</h3>
@@ -660,7 +660,7 @@ Webhook → Servidor Node.js
                     </div>
                   </div>
 
-                  <div className="bg-purple-50 rounded-xl p-6 border border-purple-200">
+                  <div className="bg-blue-50 rounded-xl p-6 border border-blue-200">
                     <h4 className="font-bold mb-4">Proceso de Testing en 3 Fases</h4>
 
                     <div className="space-y-4">
@@ -831,9 +831,9 @@ Webhook → Servidor Node.js
                             <div className="font-semibold">Escaladas a humano</div>
                             <div className="text-2xl font-bold text-blue-700">19 (22%)</div>
                           </div>
-                          <div className="bg-purple-100 rounded p-2">
+                          <div className="bg-blue-100 rounded p-2">
                             <div className="font-semibold">Tiempo respuesta</div>
-                            <div className="text-2xl font-bold text-purple-700">3.2 seg</div>
+                            <div className="text-2xl font-bold text-blue-700">3.2 seg</div>
                           </div>
                         </div>
                       </div>
@@ -895,8 +895,8 @@ Webhook → Servidor Node.js
                                 <li>• Contacto de soporte 24/7 por 90 días</li>
                               </ul>
                             </div>
-                            <div className="mt-2 bg-purple-50 rounded p-2">
-                              <strong className="text-purple-700">Proyecto completado:</strong> ✅ En tiempo (14 días) ✅ En presupuesto ✅ KPIs superados
+                            <div className="mt-2 bg-blue-50 rounded p-2">
+                              <strong className="text-blue-700">Proyecto completado:</strong> ✅ En tiempo (14 días) ✅ En presupuesto ✅ KPIs superados
                             </div>
                           </div>
                         </div>
@@ -985,7 +985,7 @@ Webhook → Servidor Node.js
           </div>
 
           {/* Impacto de Negocio */}
-          <div className="bg-gradient-to-br from-purple-600 to-blue-600 text-white rounded-2xl p-8">
+          <div className="bg-gradient-to-br from-blue-700 to-blue-600 text-white rounded-2xl p-8">
             <h3 className="text-2xl font-bold mb-6 text-center">💰 Impacto en el Negocio</h3>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="text-center">
@@ -1013,7 +1013,7 @@ Webhook → Servidor Node.js
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-2xl p-8 lg:p-12 shadow-xl border border-gray-200">
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-700 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
                 M
               </div>
               <div>

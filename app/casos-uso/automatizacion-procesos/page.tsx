@@ -55,7 +55,7 @@ const automationProcesses = [
     icon: Users,
     title: 'Lead Capture Automático',
     description: 'Captura leads de formularios web y envíalos automáticamente a tu CRM con email de seguimiento personalizado.',
-    color: 'from-purple-500 to-purple-600',
+    color: 'from-blue-600 to-blue-700',
   },
   {
     icon: Receipt,
@@ -180,17 +180,17 @@ export default function AutomatizacionProcesosPage() {
   const roi = calculateROI();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 text-gray-900 font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 text-gray-900 font-sans">
       {/* Navbar Simple */}
-      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-xl border-b border-purple-100 z-50 shadow-sm">
+      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-xl border-b border-blue-100 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="flex justify-between items-center h-20">
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-700 to-blue-600 rounded-xl flex items-center justify-center">
                 <Sparkles className="w-6 h-6 text-white" />
               </div>
               <div>
-                <div className="text-2xl lg:text-3xl font-bold tracking-tight bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <div className="text-2xl lg:text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   Stratoma AI
                 </div>
                 <div className="text-xs text-gray-500 -mt-1">Madrid, España</div>
@@ -199,19 +199,19 @@ export default function AutomatizacionProcesosPage() {
             <div className="flex items-center gap-4">
               <Link
                 href="/#servicios"
-                className="hidden lg:inline-block text-gray-700 hover:text-purple-600 transition-colors"
+                className="hidden lg:inline-block text-gray-700 hover:text-blue-600 transition-colors"
               >
                 Servicios
               </Link>
               <Link
                 href="/blog"
-                className="hidden lg:inline-block text-gray-700 hover:text-purple-600 transition-colors"
+                className="hidden lg:inline-block text-gray-700 hover:text-blue-600 transition-colors"
               >
                 Blog
               </Link>
               <a
                 href="#contact"
-                className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2.5 rounded-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all"
+                className="bg-gradient-to-r from-blue-700 to-blue-600 text-white px-6 py-2.5 rounded-lg hover:shadow-lg hover:shadow-blue-500/30 transition-all"
               >
                 Consultoría Gratuita
               </a>
@@ -227,7 +227,7 @@ export default function AutomatizacionProcesosPage() {
       <section className="relative py-20 lg:py-32 overflow-hidden">
         {/* Background decorativo */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+          <div className="absolute top-20 right-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
           <div className="absolute top-40 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
         </div>
 
@@ -237,7 +237,7 @@ export default function AutomatizacionProcesosPage() {
               variants={fadeInUp}
               initial="hidden"
               animate="visible"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full mb-6 text-sm font-medium"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full mb-6 text-sm font-medium"
             >
               <Workflow className="w-4 h-4" />
               Automatización de Procesos Madrid
@@ -251,7 +251,7 @@ export default function AutomatizacionProcesosPage() {
               className="text-5xl lg:text-7xl font-bold mb-6 leading-tight"
             >
               Automatización de Procesos Empresariales con{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 IA en Madrid
               </span>
             </motion.h1>
@@ -276,7 +276,7 @@ export default function AutomatizacionProcesosPage() {
             >
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all text-lg"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-700 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/30 transition-all text-lg"
               >
                 <Calendar className="w-5 h-5" />
                 Agenda Demo Gratuita
@@ -284,7 +284,7 @@ export default function AutomatizacionProcesosPage() {
               </a>
               <a
                 href="#roi-calculator"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-purple-200 text-purple-600 rounded-xl font-semibold hover:border-purple-400 transition-all text-lg"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-blue-200 text-blue-600 rounded-xl font-semibold hover:border-blue-400 transition-all text-lg"
               >
                 Calcular mi ROI
               </a>
@@ -308,7 +308,7 @@ export default function AutomatizacionProcesosPage() {
                   variants={staggerItem}
                   className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-md border border-gray-100"
                 >
-                  <stat.icon className="w-8 h-8 text-purple-600 mb-2" />
+                  <stat.icon className="w-8 h-8 text-blue-600 mb-2" />
                   <div className="text-3xl font-bold text-gray-900">{stat.value}</div>
                   <div className="text-sm text-gray-600">{stat.label}</div>
                 </motion.div>
@@ -330,7 +330,7 @@ export default function AutomatizacionProcesosPage() {
           >
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Caso de Éxito:{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 Agencia de Marketing Digital
               </span>
             </h2>
@@ -454,7 +454,7 @@ export default function AutomatizacionProcesosPage() {
       </section>
 
       {/* Procesos que Automatizamos */}
-      <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <motion.div
             variants={fadeInUp}
@@ -465,7 +465,7 @@ export default function AutomatizacionProcesosPage() {
           >
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Procesos que{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 Automatizamos
               </span>
             </h2>
@@ -516,7 +516,7 @@ export default function AutomatizacionProcesosPage() {
           >
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Integra Todas tus{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 Herramientas
               </span>
             </h2>
@@ -534,7 +534,7 @@ export default function AutomatizacionProcesosPage() {
                 whileInView="visible"
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
-                className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-purple-400 hover:shadow-lg transition-all text-center group"
+                className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-blue-400 hover:shadow-lg transition-all text-center group"
               >
                 <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">
                   {logo.name === 'HubSpot' && '🟠'}
@@ -578,7 +578,7 @@ export default function AutomatizacionProcesosPage() {
       </section>
 
       {/* Metodología */}
-      <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <motion.div
             variants={fadeInUp}
@@ -589,7 +589,7 @@ export default function AutomatizacionProcesosPage() {
           >
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Nuestra{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 Metodología
               </span>
             </h2>
@@ -610,10 +610,10 @@ export default function AutomatizacionProcesosPage() {
                 className="relative"
               >
                 <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all border border-gray-100 h-full">
-                  <div className="text-6xl font-bold text-purple-100 mb-4">
+                  <div className="text-6xl font-bold text-blue-100 mb-4">
                     {item.step}
                   </div>
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center mb-4">
                     <item.icon className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-gray-900">
@@ -644,7 +644,7 @@ export default function AutomatizacionProcesosPage() {
           >
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Calcula tu{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 ROI
               </span>
             </h2>
@@ -658,7 +658,7 @@ export default function AutomatizacionProcesosPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-8 lg:p-12 border-2 border-purple-200"
+            className="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl p-8 lg:p-12 border-2 border-blue-200"
           >
             <div className="space-y-8">
               <div>
@@ -671,11 +671,11 @@ export default function AutomatizacionProcesosPage() {
                   max="40"
                   value={roiInputs.hoursPerWeek}
                   onChange={(e) => setRoiInputs({ ...roiInputs, hoursPerWeek: parseInt(e.target.value) })}
-                  className="w-full h-3 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+                  className="w-full h-3 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                 />
                 <div className="flex justify-between mt-2 text-sm text-gray-600">
                   <span>5h</span>
-                  <span className="text-2xl font-bold text-purple-600">{roiInputs.hoursPerWeek}h/semana</span>
+                  <span className="text-2xl font-bold text-blue-600">{roiInputs.hoursPerWeek}h/semana</span>
                   <span>40h</span>
                 </div>
               </div>
@@ -691,23 +691,23 @@ export default function AutomatizacionProcesosPage() {
                   step="5"
                   value={roiInputs.costPerHour}
                   onChange={(e) => setRoiInputs({ ...roiInputs, costPerHour: parseInt(e.target.value) })}
-                  className="w-full h-3 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+                  className="w-full h-3 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                 />
                 <div className="flex justify-between mt-2 text-sm text-gray-600">
                   <span>15€</span>
-                  <span className="text-2xl font-bold text-purple-600">{roiInputs.costPerHour}€/hora</span>
+                  <span className="text-2xl font-bold text-blue-600">{roiInputs.costPerHour}€/hora</span>
                   <span>100€</span>
                 </div>
               </div>
 
-              <div className="border-t-2 border-purple-300 pt-8 mt-8">
+              <div className="border-t-2 border-blue-300 pt-8 mt-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
                   Tu Potencial de Ahorro
                 </h3>
                 <div className="grid md:grid-cols-3 gap-6">
                   <div className="bg-white rounded-xl p-6 text-center shadow-lg">
                     <div className="text-sm text-gray-600 mb-2">Horas ahorradas/mes</div>
-                    <div className="text-4xl font-bold text-purple-600">{roi.monthlyHoursSaved}h</div>
+                    <div className="text-4xl font-bold text-blue-600">{roi.monthlyHoursSaved}h</div>
                   </div>
                   <div className="bg-white rounded-xl p-6 text-center shadow-lg">
                     <div className="text-sm text-gray-600 mb-2">Ahorro mensual</div>
@@ -723,7 +723,7 @@ export default function AutomatizacionProcesosPage() {
               <div className="text-center pt-6">
                 <a
                   href="#contact"
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all text-lg"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-700 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/30 transition-all text-lg"
                 >
                   <Calendar className="w-5 h-5" />
                   Agenda Demo y Empieza a Ahorrar
@@ -736,7 +736,7 @@ export default function AutomatizacionProcesosPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-4xl mx-auto px-6 lg:px-12">
           <motion.div
             variants={fadeInUp}
@@ -747,7 +747,7 @@ export default function AutomatizacionProcesosPage() {
           >
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Preguntas{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 Frecuentes
               </span>
             </h2>
@@ -776,7 +776,7 @@ export default function AutomatizacionProcesosPage() {
           >
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Planes de{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 Automatización
               </span>
             </h2>
@@ -792,7 +792,7 @@ export default function AutomatizacionProcesosPage() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-purple-400 hover:shadow-xl transition-all"
+              className="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-blue-400 hover:shadow-xl transition-all"
             >
               <h3 className="text-2xl font-bold mb-4 text-gray-900">Starter</h3>
               <div className="mb-6">
@@ -834,7 +834,7 @@ export default function AutomatizacionProcesosPage() {
               whileInView="visible"
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl p-8 text-white relative shadow-2xl scale-105"
+              className="bg-gradient-to-br from-blue-700 to-blue-600 rounded-2xl p-8 text-white relative shadow-2xl scale-105"
             >
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow-400 text-gray-900 px-4 py-1 rounded-full text-sm font-bold">
                 MÁS POPULAR
@@ -870,7 +870,7 @@ export default function AutomatizacionProcesosPage() {
               </ul>
               <a
                 href="#contact"
-                className="block w-full text-center py-3 bg-white text-purple-600 rounded-lg font-semibold hover:bg-gray-100 transition-all"
+                className="block w-full text-center py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition-all"
               >
                 Empezar
               </a>
@@ -883,7 +883,7 @@ export default function AutomatizacionProcesosPage() {
               whileInView="visible"
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-purple-400 hover:shadow-xl transition-all"
+              className="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-blue-400 hover:shadow-xl transition-all"
             >
               <h3 className="text-2xl font-bold mb-4 text-gray-900">Enterprise</h3>
               <div className="mb-6">
@@ -926,7 +926,7 @@ export default function AutomatizacionProcesosPage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <section id="contact" className="py-20 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
           <motion.div
             variants={fadeInUp}
@@ -937,7 +937,7 @@ export default function AutomatizacionProcesosPage() {
           >
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Empieza a Automatizar{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 Hoy Mismo
               </span>
             </h2>
@@ -959,28 +959,28 @@ export default function AutomatizacionProcesosPage() {
                 <h3 className="text-2xl font-bold mb-6 text-gray-900">¿Por qué elegirnos?</h3>
                 <ul className="space-y-4">
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <div className="font-semibold text-gray-900">Experiencia en Madrid</div>
                       <div className="text-gray-600 text-sm">Conocemos el mercado local y sus necesidades</div>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <div className="font-semibold text-gray-900">Resultados Rápidos</div>
                       <div className="text-gray-600 text-sm">Primeras automatizaciones en 1-3 días</div>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <div className="font-semibold text-gray-900">Soporte Continuo</div>
                       <div className="text-gray-600 text-sm">No te dejamos solo después de la implementación</div>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <div className="font-semibold text-gray-900">ROI Garantizado</div>
                       <div className="text-gray-600 text-sm">La automatización se paga sola en pocos meses</div>
@@ -994,7 +994,7 @@ export default function AutomatizacionProcesosPage() {
                 <div className="space-y-3">
                   <a
                     href="mailto:hola@stratomai.com"
-                    className="flex items-center gap-3 text-gray-700 hover:text-purple-600 transition-colors"
+                    className="flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors"
                   >
                     <Mail className="w-5 h-5" />
                     <span>hola@stratomai.com</span>
@@ -1035,7 +1035,7 @@ export default function AutomatizacionProcesosPage() {
           <div className="grid lg:grid-cols-4 gap-12 mb-12">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-700 to-blue-600 rounded-xl flex items-center justify-center">
                   <Sparkles className="w-6 h-6 text-white" />
                 </div>
                 <div className="text-2xl font-bold">Stratoma AI</div>
@@ -1072,7 +1072,7 @@ export default function AutomatizacionProcesosPage() {
             <div>
               <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase">Contacto</h4>
               <div className="space-y-3">
-                <a href="mailto:hola@stratomai.com" className="block text-purple-400 hover:text-purple-300 text-sm">
+                <a href="mailto:hola@stratomai.com" className="block text-blue-400 hover:text-blue-300 text-sm">
                   hola@stratomai.com
                 </a>
                 <a href="https://wa.me/34611031947" className="block text-green-400 hover:text-green-300 text-sm">

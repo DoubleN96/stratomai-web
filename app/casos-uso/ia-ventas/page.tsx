@@ -43,7 +43,7 @@ function ROICalculator() {
   const yearlyIncrease = monthlyIncrease * 12;
 
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-xl border border-purple-200">
+    <div className="bg-white rounded-2xl p-8 shadow-xl border border-blue-200">
       <h3 className="text-2xl font-bold mb-6 text-gray-900">
         Calcula tu ROI con IA en Ventas
       </h3>
@@ -60,7 +60,7 @@ function ROICalculator() {
             step="50"
             value={leads}
             onChange={(e) => setLeads(Number(e.target.value))}
-            className="w-full h-2 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+            className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
           />
         </div>
 
@@ -75,7 +75,7 @@ function ROICalculator() {
             step="5"
             value={closingRate}
             onChange={(e) => setClosingRate(Number(e.target.value))}
-            className="w-full h-2 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+            className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
           />
         </div>
 
@@ -90,7 +90,7 @@ function ROICalculator() {
             step="500"
             value={avgTicket}
             onChange={(e) => setAvgTicket(Number(e.target.value))}
-            className="w-full h-2 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+            className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
           />
         </div>
       </div>
@@ -103,9 +103,9 @@ function ROICalculator() {
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-4 rounded-xl border-2 border-purple-200">
-          <div className="text-sm text-purple-700 mb-1">Con IA en Ventas</div>
-          <div className="text-2xl font-bold text-purple-600">
+        <div className="bg-gradient-to-br from-blue-50 to-green-50 p-4 rounded-xl border-2 border-blue-200">
+          <div className="text-sm text-blue-700 mb-1">Con IA en Ventas</div>
+          <div className="text-2xl font-bold text-blue-600">
             €{newRevenue.toLocaleString('es-ES')}
           </div>
         </div>
@@ -208,7 +208,7 @@ function FAQSection() {
               transition={{ duration: 0.3 }}
               className="flex-shrink-0"
             >
-              <ChevronDown className="w-5 h-5 text-purple-600" />
+              <ChevronDown className="w-5 h-5 text-blue-600" />
             </motion.div>
           </button>
 
@@ -295,17 +295,17 @@ export default function IAVentasPage() {
   return (
     <>
       <SchemaMarkup />
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
         {/* Navbar */}
-        <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-xl border-b border-purple-100 z-50 shadow-sm">
+        <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-xl border-b border-blue-100 z-50 shadow-sm">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="flex justify-between items-center h-20">
               <Link href="/" className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-700 to-blue-600 rounded-xl flex items-center justify-center">
                   <Sparkles className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  <div className="text-2xl font-bold bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                     Stratoma AI
                   </div>
                   <div className="text-xs text-gray-500 -mt-1">Madrid, España</div>
@@ -315,13 +315,13 @@ export default function IAVentasPage() {
               <div className="flex items-center gap-6">
                 <Link
                   href="/"
-                  className="text-gray-700 hover:text-purple-600 transition-colors"
+                  className="text-gray-700 hover:text-blue-600 transition-colors"
                 >
                   Inicio
                 </Link>
                 <a
                   href="#contact"
-                  className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2.5 rounded-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all"
+                  className="bg-gradient-to-r from-blue-700 to-blue-600 text-white px-6 py-2.5 rounded-lg hover:shadow-lg hover:shadow-blue-500/30 transition-all"
                 >
                   Agenda Demo
                 </a>
@@ -333,7 +333,7 @@ export default function IAVentasPage() {
         {/* Hero Section */}
         <section className="relative pt-32 pb-20 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute top-20 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+            <div className="absolute top-20 right-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
             <div className="absolute top-40 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse animation-delay-2000"></div>
           </div>
 
@@ -344,14 +344,14 @@ export default function IAVentasPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full mb-6 text-sm font-medium">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full mb-6 text-sm font-medium">
                   <TrendingUp className="w-4 h-4" />
                   Aumenta tu Tasa de Cierre hasta 38%
                 </div>
 
                 <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
                   IA para Ventas en{' '}
-                  <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                     Madrid
                   </span>
                 </h1>
@@ -365,7 +365,7 @@ export default function IAVentasPage() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
                   <a
                     href="#contact"
-                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all text-lg"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-700 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/30 transition-all text-lg"
                   >
                     <Calendar className="w-5 h-5" />
                     Agenda Demo Gratuita
@@ -373,7 +373,7 @@ export default function IAVentasPage() {
                   </a>
                   <a
                     href="#caso-exito"
-                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-purple-200 text-purple-600 rounded-xl font-semibold hover:border-purple-400 transition-all text-lg"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-blue-200 text-blue-600 rounded-xl font-semibold hover:border-blue-400 transition-all text-lg"
                   >
                     Ver Caso de Estudio
                   </a>
@@ -387,7 +387,7 @@ export default function IAVentasPage() {
                     transition={{ delay: 0.2 }}
                     className="bg-white rounded-xl p-6 shadow-lg"
                   >
-                    <div className="text-4xl font-bold text-purple-600 mb-2">
+                    <div className="text-4xl font-bold text-blue-600 mb-2">
                       +38%
                     </div>
                     <div className="text-sm text-gray-600">Tasa de Cierre</div>
@@ -431,7 +431,7 @@ export default function IAVentasPage() {
               <div className="text-center mb-12">
                 <h2 className="text-4xl lg:text-5xl font-bold mb-4">
                   Caso de Estudio:{' '}
-                  <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                     TechSales Pro
                   </span>
                 </h2>
@@ -500,14 +500,14 @@ export default function IAVentasPage() {
                 {/* Solución */}
                 <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-2xl border border-blue-200">
                   <h3 className="text-2xl font-bold mb-6 text-gray-900 flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-700 to-blue-600 rounded-xl flex items-center justify-center">
                       <Lightbulb className="w-5 h-5 text-white" />
                     </div>
                     La Solución con IA
                   </h3>
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                      <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                       <div>
                         <strong className="text-gray-900">
                           Lead Scoring Predictivo
@@ -519,7 +519,7 @@ export default function IAVentasPage() {
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                      <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                       <div>
                         <strong className="text-gray-900">
                           Seguimiento Automático Personalizado
@@ -531,7 +531,7 @@ export default function IAVentasPage() {
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                      <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                       <div>
                         <strong className="text-gray-900">
                           Análisis de Conversaciones
@@ -590,9 +590,9 @@ export default function IAVentasPage() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: i * 0.1 }}
-                      className="bg-gradient-to-br from-purple-50 to-blue-50 p-4 rounded-xl border border-purple-200"
+                      className="bg-gradient-to-br from-blue-50 to-green-50 p-4 rounded-xl border border-blue-200"
                     >
-                      <div className="text-xs font-semibold text-purple-600 mb-2">
+                      <div className="text-xs font-semibold text-blue-600 mb-2">
                         {phase.week}
                       </div>
                       <div className="font-bold text-gray-900 mb-1 text-sm">
@@ -627,8 +627,8 @@ export default function IAVentasPage() {
                     </div>
                   </div>
                   <div className="bg-white p-6 rounded-xl text-center">
-                    <DollarSign className="w-12 h-12 text-purple-600 mx-auto mb-3" />
-                    <div className="text-4xl font-bold text-purple-600 mb-2">
+                    <DollarSign className="w-12 h-12 text-blue-600 mx-auto mb-3" />
+                    <div className="text-4xl font-bold text-blue-600 mb-2">
                       +180%
                     </div>
                     <div className="text-sm text-gray-600">ROI primer trimestre</div>
@@ -648,7 +648,7 @@ export default function IAVentasPage() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="mt-12 bg-gradient-to-r from-purple-600 to-blue-600 p-8 rounded-2xl text-white"
+                className="mt-12 bg-gradient-to-r from-blue-700 to-blue-600 p-8 rounded-2xl text-white"
               >
                 <div className="flex items-start gap-4 mb-4">
                   <Star className="w-8 h-8 text-yellow-300 fill-yellow-300" />
@@ -681,12 +681,12 @@ export default function IAVentasPage() {
         </section>
 
         {/* Funcionalidades de IA para Ventas */}
-        <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+        <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-green-50">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="text-center mb-16">
               <h2 className="text-4xl lg:text-5xl font-bold mb-6">
                 Funcionalidades de{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   IA para Ventas
                 </span>
               </h2>
@@ -703,7 +703,7 @@ export default function IAVentasPage() {
                   title: 'Lead Scoring Predictivo',
                   description:
                     'IA analiza comportamiento, demografía y engagement para puntuar automáticamente cada lead (0-100) y predecir probabilidad de compra.',
-                  color: 'from-purple-500 to-purple-600',
+                  color: 'from-blue-600 to-blue-700',
                 },
                 {
                   icon: MessageSquare,
@@ -786,7 +786,7 @@ export default function IAVentasPage() {
             <div className="text-center mb-16">
               <h2 className="text-4xl lg:text-5xl font-bold mb-6">
                 Proceso de{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   Implementación
                 </span>
               </h2>
@@ -808,7 +808,7 @@ export default function IAVentasPage() {
                     'Evaluación de integraciones CRM y herramientas existentes',
                   ],
                   icon: BarChart3,
-                  color: 'purple',
+                  color: "blue",
                 },
                 {
                   phase: 'Fase 2',
@@ -869,7 +869,7 @@ export default function IAVentasPage() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="bg-gradient-to-r from-gray-50 to-white p-8 rounded-2xl border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all"
+                  className="bg-gradient-to-r from-gray-50 to-white p-8 rounded-2xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all"
                 >
                   <div className="flex items-start gap-6">
                     <div
@@ -880,7 +880,7 @@ export default function IAVentasPage() {
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-3">
                         <div>
-                          <div className="text-sm font-semibold text-purple-600 mb-1">
+                          <div className="text-sm font-semibold text-blue-600 mb-1">
                             {phase.phase}
                           </div>
                           <h3 className="text-2xl font-bold text-gray-900">
@@ -913,12 +913,12 @@ export default function IAVentasPage() {
         </section>
 
         {/* Integraciones CRM */}
-        <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+        <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-green-50">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="text-center mb-16">
               <h2 className="text-4xl lg:text-5xl font-bold mb-6">
                 Integraciones{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   CRM
                 </span>
               </h2>
@@ -935,7 +935,7 @@ export default function IAVentasPage() {
                 { name: 'Zoho CRM', color: 'from-red-500 to-red-600' },
                 {
                   name: 'Microsoft Dynamics',
-                  color: 'from-purple-500 to-purple-600',
+                  color: 'from-blue-600 to-blue-700',
                 },
               ].map((crm, i) => (
                 <motion.div
@@ -965,7 +965,7 @@ export default function IAVentasPage() {
               </p>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 text-purple-600 font-semibold hover:text-purple-700"
+                className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700"
               >
                 Consultar Integraciones
                 <ArrowRight className="w-4 h-4" />
@@ -980,7 +980,7 @@ export default function IAVentasPage() {
             <div className="text-center mb-12">
               <h2 className="text-4xl lg:text-5xl font-bold mb-6">
                 Calcula tu{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   ROI
                 </span>
               </h2>
@@ -994,12 +994,12 @@ export default function IAVentasPage() {
         </section>
 
         {/* Industrias que se Benefician */}
-        <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+        <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-green-50">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="text-center mb-16">
               <h2 className="text-4xl lg:text-5xl font-bold mb-6">
                 Industrias que{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   se Benefician
                 </span>
               </h2>
@@ -1066,7 +1066,7 @@ export default function IAVentasPage() {
             <div className="text-center mb-16">
               <h2 className="text-4xl lg:text-5xl font-bold mb-6">
                 Planes y{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   Precios
                 </span>
               </h2>
@@ -1109,7 +1109,7 @@ export default function IAVentasPage() {
                     'Gestor de cuenta dedicado',
                     'Optimización mensual de IA',
                   ],
-                  color: 'purple',
+                  color: "blue",
                   popular: true,
                 },
                 {
@@ -1141,13 +1141,13 @@ export default function IAVentasPage() {
                   transition={{ delay: i * 0.15 }}
                   className={`relative bg-white rounded-2xl p-8 border-2 ${
                     plan.popular
-                      ? 'border-purple-500 shadow-2xl shadow-purple-500/20 scale-105'
+                      ? 'border-blue-500 shadow-2xl shadow-purple-500/20 scale-105'
                       : 'border-gray-200 shadow-lg'
                   } hover:shadow-2xl transition-all`}
                 >
                   {plan.popular && (
                     <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                      <div className="bg-gradient-to-r from-blue-700 to-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
                         Más Popular
                       </div>
                     </div>
@@ -1188,7 +1188,7 @@ export default function IAVentasPage() {
                     href="#contact"
                     className={`block w-full py-3 rounded-xl font-semibold text-center transition-all ${
                       plan.popular
-                        ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:shadow-lg hover:shadow-purple-500/50'
+                        ? 'bg-gradient-to-r from-blue-700 to-blue-600 text-white hover:shadow-lg hover:shadow-blue-500/30'
                         : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                     }`}
                   >
@@ -1209,12 +1209,12 @@ export default function IAVentasPage() {
         </section>
 
         {/* FAQ */}
-        <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+        <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-green-50">
           <div className="max-w-4xl mx-auto px-6 lg:px-12">
             <div className="text-center mb-16">
               <h2 className="text-4xl lg:text-5xl font-bold mb-6">
                 Preguntas{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   Frecuentes
                 </span>
               </h2>
@@ -1233,7 +1233,7 @@ export default function IAVentasPage() {
             <div className="text-center mb-12">
               <h2 className="text-4xl lg:text-5xl font-bold mb-6">
                 Agenda tu{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   Demo Gratuita
                 </span>
               </h2>
@@ -1244,31 +1244,31 @@ export default function IAVentasPage() {
             </div>
 
             <div className="grid lg:grid-cols-2 gap-12 mb-12">
-              <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-2xl border border-purple-200">
+              <div className="bg-gradient-to-br from-blue-50 to-green-50 p-8 rounded-2xl border border-blue-200">
                 <h3 className="text-2xl font-bold mb-6 text-gray-900">
                   ¿Qué incluye la demo?
                 </h3>
                 <ul className="space-y-4">
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                    <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                     <span className="text-gray-700">
                       Análisis personalizado de tu proceso de ventas actual
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                    <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                     <span className="text-gray-700">
                       Demo en vivo de lead scoring y automatizaciones
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                    <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                     <span className="text-gray-700">
                       Estimación de ROI específica para tu negocio
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                    <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                     <span className="text-gray-700">
                       Plan de implementación paso a paso sin compromiso
                     </span>
@@ -1287,7 +1287,7 @@ export default function IAVentasPage() {
                   </a>
                   <a
                     href="mailto:hola@stratomai.com?subject=Demo%20IA%20para%20Ventas"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-700 transition-all"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-all"
                   >
                     <Mail className="w-5 h-5" />
                     Email
@@ -1308,7 +1308,7 @@ export default function IAVentasPage() {
             <div className="grid lg:grid-cols-4 gap-12 mb-12">
               <div>
                 <Link href="/" className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center">
+                  <div className="w-10 h-10 bg-gradient-to-br from-blue-700 to-blue-600 rounded-xl flex items-center justify-center">
                     <Sparkles className="w-6 h-6 text-white" />
                   </div>
                   <div className="text-2xl font-bold">Stratoma AI</div>
@@ -1382,7 +1382,7 @@ export default function IAVentasPage() {
                 <div className="space-y-3">
                   <a
                     href="mailto:hola@stratomai.com"
-                    className="block text-purple-400 hover:text-purple-300"
+                    className="block text-blue-400 hover:text-blue-300"
                   >
                     hola@stratomai.com
                   </a>

@@ -41,7 +41,7 @@ export default function FloatingWhatsApp() {
           <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 w-80 mb-2 animate-in slide-in-from-bottom-4">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-700 to-blue-600 rounded-full flex items-center justify-center">
                   <MessageCircle className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -81,7 +81,7 @@ export default function FloatingWhatsApp() {
                 href={`https://wa.me/${phoneNumber}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block text-center text-sm text-purple-600 hover:text-purple-700 font-medium"
+                className="block text-center text-sm text-blue-600 hover:text-blue-700 font-medium"
               >
                 O escribe tu mensaje personalizado →
               </a>

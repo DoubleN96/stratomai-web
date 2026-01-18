@@ -49,7 +49,7 @@ const projectTypes = [
     title: 'NLP Personalizado',
     description: 'Procesamiento de lenguaje natural para documentos específicos, análisis de sentimiento y extracción de información.',
     examples: 'Análisis de contratos, clasificación de documentos',
-    color: 'from-purple-500 to-purple-600',
+    color: 'from-blue-600 to-blue-700',
   },
   {
     icon: TrendingUp,
@@ -366,7 +366,7 @@ export default function DesarrolloCustomPage() {
       <section className="relative py-20 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-20 right-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+          <div className="absolute top-40 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
@@ -592,7 +592,7 @@ export default function DesarrolloCustomPage() {
                 <div className="text-gray-700 font-semibold">Tiempo de Entrega</div>
               </div>
               <div className="bg-white rounded-xl p-6 text-center shadow-lg">
-                <div className="text-5xl font-bold text-purple-600 mb-2">95%</div>
+                <div className="text-5xl font-bold text-blue-600 mb-2">95%</div>
                 <div className="text-gray-700 font-semibold">Precisión Predicción</div>
               </div>
               <div className="bg-white rounded-xl p-6 text-center shadow-lg">
@@ -1281,7 +1281,7 @@ export default function DesarrolloCustomPage() {
                 <a href="https://wa.me/34611031947" className="block text-green-400 hover:text-green-300 text-sm">
                   WhatsApp: +34 611 03 19 47
                 </a>
-                <a href="tel:+34611031947" className="block text-purple-400 hover:text-purple-300 text-sm">
+                <a href="tel:+34611031947" className="block text-blue-400 hover:text-blue-300 text-sm">
                   Tel: +34 611 03 19 47
                 </a>
               </div>

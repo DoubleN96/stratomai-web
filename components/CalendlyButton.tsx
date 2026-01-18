@@ -40,11 +40,11 @@ export default function CalendlyButton({
 
     switch (variant) {
       case 'primary':
-        return `${baseClasses} px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-purple-500/50`;
+        return `${baseClasses} px-8 py-4 bg-gradient-to-r from-blue-700 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/30`;
       case 'secondary':
-        return `${baseClasses} px-8 py-4 bg-white border-2 border-purple-200 text-purple-600 rounded-xl hover:border-purple-400`;
+        return `${baseClasses} px-8 py-4 bg-white border-2 border-blue-200 text-blue-600 rounded-xl hover:border-blue-400`;
       case 'link':
-        return `${baseClasses} text-purple-600 hover:text-purple-700 underline`;
+        return `${baseClasses} text-blue-600 hover:text-blue-700 underline`;
       default:
         return baseClasses;
     }
@@ -96,7 +96,7 @@ export default function CalendlyButton({
                     href={calendlyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-colors"
+                    className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
                   >
                     Abrir Calendly en nueva pestaña
                   </a>

@@ -27,7 +27,7 @@ const colorClasses = {
   },
   purple: {
     border: 'border-purple-600',
-    text: 'text-purple-600',
+    text: 'text-blue-600',
     bg: 'bg-purple-50',
   },
   orange: {

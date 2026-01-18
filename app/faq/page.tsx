@@ -180,7 +180,7 @@ export default function FAQPage() {
       <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-200 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl lg:text-3xl font-bold tracking-tight bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Stratoma AI</span>
+            <span className="text-2xl lg:text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">Stratoma AI</span>
           </Link>
           <Link
             href="/"
@@ -194,11 +194,11 @@ export default function FAQPage() {
       {/* Hero */}
       <section className="pt-32 pb-16 px-6 lg:px-12 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-5xl mx-auto text-center">
-          <div className="inline-block px-4 py-2 bg-purple-100 text-purple-700 font-medium text-sm rounded-full mb-6">
+          <div className="inline-block px-4 py-2 bg-blue-100 text-blue-700 font-medium text-sm rounded-full mb-6">
             Preguntas Frecuentes
           </div>
           <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
-            Todo lo que Necesitas Saber sobre <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Automatización</span>
+            Todo lo que Necesitas Saber sobre <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">Automatización</span>
           </h1>
           <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
             Encuentra respuestas sobre chatbots, automatización con IA, WhatsApp Business y cómo transformar tu negocio con inteligencia artificial.
@@ -214,7 +214,7 @@ export default function FAQPage() {
         >
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center gap-4 mb-10">
-              <div className="w-14 h-14 flex items-center justify-center bg-purple-100 text-purple-600 rounded-xl">
+              <div className="w-14 h-14 flex items-center justify-center bg-blue-100 text-blue-600 rounded-xl">
                 <category.icon size={28} />
               </div>
               <h2 className="text-3xl lg:text-4xl font-bold">{category.title}</h2>

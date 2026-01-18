@@ -114,7 +114,7 @@ function FAQSection() {
               transition={{ duration: 0.3 }}
               className="flex-shrink-0"
             >
-              <ChevronDown className="w-5 h-5 text-purple-600" />
+              <ChevronDown className="w-5 h-5 text-blue-600" />
             </motion.div>
           </button>
 
@@ -174,7 +174,7 @@ function ChatDemo() {
   return (
     <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden max-w-md mx-auto">
       {/* Chat Header */}
-      <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-4 flex items-center gap-3">
+      <div className="bg-gradient-to-r from-blue-700 to-blue-600 text-white p-4 flex items-center gap-3">
         <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
           <Headphones className="w-5 h-5" />
         </div>
@@ -200,7 +200,7 @@ function ChatDemo() {
             <div
               className={`max-w-[80%] ${
                 msg.type === 'customer'
-                  ? 'bg-purple-600 text-white rounded-tl-2xl rounded-tr-2xl rounded-bl-2xl'
+                  ? 'bg-blue-600 text-white rounded-tl-2xl rounded-tr-2xl rounded-bl-2xl'
                   : 'bg-white text-gray-900 rounded-tl-2xl rounded-tr-2xl rounded-br-2xl border border-gray-200'
               } p-3 shadow-sm`}
             >
@@ -208,7 +208,7 @@ function ChatDemo() {
               <div
                 className={`flex items-center gap-2 mt-1 text-xs ${
                   msg.type === 'customer'
-                    ? 'text-purple-200 justify-end'
+                    ? 'text-blue-200 justify-end'
                     : 'text-gray-500'
                 }`}
               >
@@ -233,10 +233,10 @@ function ChatDemo() {
           <input
             type="text"
             placeholder="Escribe tu consulta..."
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             disabled
           />
-          <button className="bg-purple-600 text-white p-2 rounded-lg hover:bg-purple-700 transition-colors">
+          <button className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors">
             <Send className="w-5 h-5" />
           </button>
         </div>
@@ -247,17 +247,17 @@ function ChatDemo() {
 
 export default function AtencionClientePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
       {/* Navbar */}
-      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-xl border-b border-purple-100 z-50 shadow-sm">
+      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-xl border-b border-blue-100 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="flex justify-between items-center h-20">
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-700 to-blue-600 rounded-xl flex items-center justify-center">
                 <Sparkles className="w-6 h-6 text-white" />
               </div>
               <div>
-                <div className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <div className="text-2xl font-bold bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   Stratoma AI
                 </div>
                 <div className="text-xs text-gray-500 -mt-1">Madrid, España</div>
@@ -267,13 +267,13 @@ export default function AtencionClientePage() {
             <div className="flex items-center gap-6">
               <Link
                 href="/"
-                className="text-gray-700 hover:text-purple-600 transition-colors"
+                className="text-gray-700 hover:text-blue-600 transition-colors"
               >
                 Inicio
               </Link>
               <a
                 href="#contact"
-                className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2.5 rounded-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all"
+                className="bg-gradient-to-r from-blue-700 to-blue-600 text-white px-6 py-2.5 rounded-lg hover:shadow-lg hover:shadow-blue-500/30 transition-all"
               >
                 Solicitar Demo
               </a>
@@ -285,7 +285,7 @@ export default function AtencionClientePage() {
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+          <div className="absolute top-20 right-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
           <div className="absolute top-40 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse animation-delay-2000"></div>
         </div>
 
@@ -296,14 +296,14 @@ export default function AtencionClientePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full mb-6 text-sm font-medium">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full mb-6 text-sm font-medium">
                 <Headphones className="w-4 h-4" />
                 Soporte Inteligente 24/7
               </div>
 
               <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
                 IA para Atención al Cliente en{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   Madrid
                 </span>
               </h1>
@@ -315,8 +315,8 @@ export default function AtencionClientePage() {
 
               {/* Stats */}
               <div className="grid grid-cols-3 gap-4 mb-8">
-                <div className="bg-white rounded-xl p-4 shadow-lg border border-purple-100">
-                  <div className="text-3xl font-bold text-purple-600 mb-1">73%</div>
+                <div className="bg-white rounded-xl p-4 shadow-lg border border-blue-100">
+                  <div className="text-3xl font-bold text-blue-600 mb-1">73%</div>
                   <div className="text-sm text-gray-600">
                     Consultas resueltas automáticamente
                   </div>
@@ -336,7 +336,7 @@ export default function AtencionClientePage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
                   href="#demo"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all text-lg"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-700 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/30 transition-all text-lg"
                 >
                   <Calendar className="w-5 h-5" />
                   Ver Demo en Vivo
@@ -344,7 +344,7 @@ export default function AtencionClientePage() {
                 </a>
                 <a
                   href="#caso-exito"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-purple-200 text-purple-600 rounded-xl font-semibold hover:border-purple-400 transition-all text-lg"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-blue-200 text-blue-600 rounded-xl font-semibold hover:border-blue-400 transition-all text-lg"
                 >
                   Caso de Éxito Real
                 </a>
@@ -374,7 +374,7 @@ export default function AtencionClientePage() {
             <div className="text-center mb-12">
               <h2 className="text-4xl lg:text-5xl font-bold mb-4">
                 Caso de Éxito:{' '}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                   EcoShop Madrid
                 </span>
               </h2>
@@ -465,16 +465,16 @@ export default function AtencionClientePage() {
               </div>
 
               {/* Solución */}
-              <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-2xl border border-purple-200">
+              <div className="bg-gradient-to-br from-blue-50 to-green-50 p-8 rounded-2xl border border-blue-200">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-gradient-to-r from-blue-700 to-blue-600 rounded-xl flex items-center justify-center">
                     <Brain className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900">La Solución</h3>
                 </div>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                    <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                     <div>
                       <strong className="text-gray-900 block mb-1">
                         Chatbot IA multicanal
@@ -486,7 +486,7 @@ export default function AtencionClientePage() {
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                    <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                     <div>
                       <strong className="text-gray-900 block mb-1">
                         Base de conocimiento inteligente
@@ -498,7 +498,7 @@ export default function AtencionClientePage() {
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                    <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                     <div>
                       <strong className="text-gray-900 block mb-1">
                         Escalamiento automático
@@ -510,7 +510,7 @@ export default function AtencionClientePage() {
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                    <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                     <div>
                       <strong className="text-gray-900 block mb-1">
                         Integración con Zendesk
@@ -529,7 +529,7 @@ export default function AtencionClientePage() {
             <div className="mb-12">
               <h3 className="text-3xl font-bold text-center mb-8">
                 Timeline de Implementación -{' '}
-                <span className="text-purple-600">4 Semanas</span>
+                <span className="text-blue-600">4 Semanas</span>
               </h3>
               <div className="grid md:grid-cols-4 gap-6">
                 {[
@@ -542,7 +542,7 @@ export default function AtencionClientePage() {
                       'Identificar patrones de consultas',
                       'Mapear flujos de resolución',
                     ],
-                    color: 'purple',
+                    color: "blue",
                   },
                   {
                     week: 'Semana 2',
@@ -689,7 +689,7 @@ export default function AtencionClientePage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-gradient-to-r from-purple-600 to-blue-600 p-8 rounded-2xl text-white"
+              className="bg-gradient-to-r from-blue-700 to-blue-600 p-8 rounded-2xl text-white"
             >
               <div className="flex items-start gap-4 mb-4">
                 <Star className="w-8 h-8 text-yellow-300 fill-yellow-300" />
@@ -723,12 +723,12 @@ export default function AtencionClientePage() {
       </section>
 
       {/* Capacidades de IA para Soporte */}
-      <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Capacidades{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 de IA para Soporte
               </span>
             </h2>
@@ -744,7 +744,7 @@ export default function AtencionClientePage() {
                 title: 'Respuestas Automáticas Inteligentes',
                 description:
                   'Entiende contexto, intención y tono. Responde en lenguaje natural como un humano.',
-                color: 'from-purple-500 to-purple-600',
+                color: 'from-blue-600 to-blue-700',
               },
               {
                 icon: Brain,
@@ -827,7 +827,7 @@ export default function AtencionClientePage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Canales{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 Soportados
               </span>
             </h2>
@@ -844,7 +844,7 @@ export default function AtencionClientePage() {
                 description:
                   'Widget personalizado en tu sitio web. Respuestas instantáneas 24/7.',
                 features: ['Personalizable', 'Mobile responsive', 'Offline support'],
-                color: 'purple',
+                color: "blue",
               },
               {
                 name: 'WhatsApp Business',
@@ -935,12 +935,12 @@ export default function AtencionClientePage() {
       </section>
 
       {/* Proceso de Implementación */}
-      <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Proceso de{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 Implementación
               </span>
             </h2>
@@ -962,7 +962,7 @@ export default function AtencionClientePage() {
                   'Mapear flujos de escalamiento',
                 ],
                 icon: BarChart3,
-                color: 'purple',
+                color: "blue",
               },
               {
                 phase: 'Fase 2',
@@ -1010,7 +1010,7 @@ export default function AtencionClientePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15 }}
-                className="relative bg-white rounded-2xl p-8 shadow-lg border-2 border-purple-200 hover:shadow-xl transition-all"
+                className="relative bg-white rounded-2xl p-8 shadow-lg border-2 border-blue-200 hover:shadow-xl transition-all"
               >
                 <div
                   className={`inline-block bg-gradient-to-r from-${phase.color}-500 to-${phase.color}-600 text-white px-4 py-2 rounded-full text-sm font-bold mb-4`}
@@ -1025,7 +1025,7 @@ export default function AtencionClientePage() {
                 <h3 className="text-xl font-bold mb-2 text-gray-900">
                   {phase.title}
                 </h3>
-                <div className="text-sm text-purple-600 font-semibold mb-4">
+                <div className="text-sm text-blue-600 font-semibold mb-4">
                   Duración: {phase.duration}
                 </div>
                 <ul className="space-y-2">
@@ -1044,7 +1044,7 @@ export default function AtencionClientePage() {
 
                 {i < 3 && (
                   <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
-                    <ArrowRight className="w-6 h-6 text-purple-300" />
+                    <ArrowRight className="w-6 h-6 text-blue-300" />
                   </div>
                 )}
               </motion.div>
@@ -1059,7 +1059,7 @@ export default function AtencionClientePage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Métricas{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 Clave
               </span>
             </h2>
@@ -1092,7 +1092,7 @@ export default function AtencionClientePage() {
                   'Satisfacción del cliente y Net Promoter Score post-conversación.',
                 icon: ThumbsUp,
                 target: '> 85%',
-                color: 'purple',
+                color: "blue",
               },
               {
                 metric: 'Deflection Rate',
@@ -1125,7 +1125,7 @@ export default function AtencionClientePage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all"
+                className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all"
               >
                 <div
                   className={`w-14 h-14 bg-gradient-to-br from-${item.color}-500 to-${item.color}-600 rounded-xl flex items-center justify-center mb-4`}
@@ -1153,12 +1153,12 @@ export default function AtencionClientePage() {
       </section>
 
       {/* Integraciones */}
-      <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Integraciones{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 con tus Herramientas
               </span>
             </h2>
@@ -1221,7 +1221,7 @@ export default function AtencionClientePage() {
             </p>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold"
+              className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold"
             >
               Consultar integración personalizada
               <ArrowRight className="w-4 h-4" />
@@ -1236,7 +1236,7 @@ export default function AtencionClientePage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Planes y{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 Precios
               </span>
             </h2>
@@ -1282,7 +1282,7 @@ export default function AtencionClientePage() {
                   'Gestor de cuenta dedicado',
                   'Optimización mensual',
                 ],
-                color: 'purple',
+                color: "blue",
                 popular: true,
               },
               {
@@ -1314,13 +1314,13 @@ export default function AtencionClientePage() {
                 transition={{ delay: i * 0.15 }}
                 className={`relative bg-white rounded-2xl p-8 border-2 ${
                   plan.popular
-                    ? 'border-purple-500 shadow-2xl shadow-purple-500/20 scale-105'
+                    ? 'border-blue-500 shadow-2xl shadow-purple-500/20 scale-105'
                     : 'border-gray-200 shadow-lg'
                 } hover:shadow-2xl transition-all`}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2 rounded-full text-sm font-semibold shadow-lg">
+                    <div className="bg-gradient-to-r from-blue-700 to-blue-600 text-white px-6 py-2 rounded-full text-sm font-semibold shadow-lg">
                       Más Popular
                     </div>
                   </div>
@@ -1331,7 +1331,7 @@ export default function AtencionClientePage() {
                     {plan.name}
                   </h3>
                   <p className="text-gray-600 text-sm mb-1">{plan.description}</p>
-                  <p className="text-purple-600 text-xs font-semibold">
+                  <p className="text-blue-600 text-xs font-semibold">
                     {plan.volume}
                   </p>
                 </div>
@@ -1341,7 +1341,7 @@ export default function AtencionClientePage() {
                     {plan.price !== 'Personalizado' && (
                       <span className="text-gray-600 text-lg">€</span>
                     )}
-                    <span className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                    <span className="text-5xl font-bold bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                       {plan.price}
                     </span>
                     {plan.price !== 'Personalizado' && (
@@ -1353,7 +1353,7 @@ export default function AtencionClientePage() {
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((feature, idx) => (
                     <li key={idx} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
                       <span className="text-gray-700 text-sm">{feature}</span>
                     </li>
                   ))}
@@ -1363,7 +1363,7 @@ export default function AtencionClientePage() {
                   href="#contact"
                   className={`block w-full py-3 rounded-xl font-semibold text-center transition-all ${
                     plan.popular
-                      ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:shadow-lg hover:shadow-purple-500/50'
+                      ? 'bg-gradient-to-r from-blue-700 to-blue-600 text-white hover:shadow-lg hover:shadow-blue-500/30'
                       : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                   }`}
                 >
@@ -1378,12 +1378,12 @@ export default function AtencionClientePage() {
       </section>
 
       {/* FAQs */}
-      <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-4xl mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Preguntas{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 Frecuentes
               </span>
             </h2>
@@ -1406,7 +1406,7 @@ export default function AtencionClientePage() {
           >
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Prueba el{' '}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
                 Chatbot en Acción
               </span>
             </h2>
@@ -1415,13 +1415,13 @@ export default function AtencionClientePage() {
               atención al cliente
             </p>
 
-            <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-8 mb-8 border border-purple-200">
+            <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl p-8 mb-8 border border-blue-200">
               <h3 className="text-2xl font-bold mb-6 text-gray-900">
                 ¿Qué incluye la demo?
               </h3>
               <div className="grid md:grid-cols-2 gap-6 text-left">
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                   <div>
                     <strong className="text-gray-900 block mb-1">
                       Análisis de tu flujo actual
@@ -1432,7 +1432,7 @@ export default function AtencionClientePage() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                   <div>
                     <strong className="text-gray-900 block mb-1">
                       Demo personalizada
@@ -1443,7 +1443,7 @@ export default function AtencionClientePage() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                   <div>
                     <strong className="text-gray-900 block mb-1">
                       Estimación de ROI
@@ -1454,7 +1454,7 @@ export default function AtencionClientePage() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                   <div>
                     <strong className="text-gray-900 block mb-1">
                       Plan de implementación
@@ -1473,7 +1473,7 @@ export default function AtencionClientePage() {
       {/* CTA Final */}
       <section
         id="contact"
-        className="py-20 bg-gradient-to-r from-purple-600 to-blue-600"
+        className="py-20 bg-gradient-to-r from-blue-700 to-blue-600"
       >
         <div className="max-w-5xl mx-auto px-6 lg:px-12 text-center text-white">
           <motion.div
@@ -1494,21 +1494,21 @@ export default function AtencionClientePage() {
                 href="https://wa.me/34611031947?text=Hola,%20quiero%20agendar%20una%20demo%20de%20IA%20para%20atención%20al%20cliente"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-purple-600 rounded-xl font-semibold hover:shadow-lg transition-all text-lg"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-blue-600 rounded-xl font-semibold hover:shadow-lg transition-all text-lg"
               >
                 <MessageCircle className="w-5 h-5" />
                 Agendar por WhatsApp
               </a>
               <a
                 href="mailto:hola@stratomai.com?subject=Demo%20IA%20Atención%20Cliente"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-purple-700/50 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-purple-700 transition-all text-lg border-2 border-white/20"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-700/50 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-blue-700 transition-all text-lg border-2 border-white/20"
               >
                 <Mail className="w-5 h-5" />
                 Enviar Email
               </a>
               <a
                 href="tel:+34611031947"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-purple-700/50 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-purple-700 transition-all text-lg border-2 border-white/20"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-700/50 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-blue-700 transition-all text-lg border-2 border-white/20"
               >
                 <Phone className="w-5 h-5" />
                 Llamar Ahora
@@ -1528,7 +1528,7 @@ export default function AtencionClientePage() {
           <div className="grid lg:grid-cols-4 gap-12 mb-12">
             <div>
               <Link href="/" className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-700 to-blue-600 rounded-xl flex items-center justify-center">
                   <Sparkles className="w-6 h-6 text-white" />
                 </div>
                 <div className="text-2xl font-bold">Stratoma AI</div>
@@ -1602,7 +1602,7 @@ export default function AtencionClientePage() {
               <div className="space-y-3">
                 <a
                   href="mailto:hola@stratomai.com"
-                  className="block text-purple-400 hover:text-purple-300"
+                  className="block text-blue-400 hover:text-blue-300"
                 >
                   hola@stratomai.com
                 </a>

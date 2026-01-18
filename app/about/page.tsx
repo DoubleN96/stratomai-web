@@ -18,7 +18,7 @@ export default function AboutPage() {
       <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-200 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl lg:text-3xl font-bold tracking-tight bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Stratoma AI</span>
+            <span className="text-2xl lg:text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">Stratoma AI</span>
           </Link>
           <Link
             href="/"
@@ -32,11 +32,11 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 lg:px-12 bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="max-w-5xl mx-auto">
-          <div className="inline-block px-4 py-2 bg-purple-100 text-purple-700 font-medium text-sm rounded-full mb-6">
+          <div className="inline-block px-4 py-2 bg-blue-100 text-blue-700 font-medium text-sm rounded-full mb-6">
             SOBRE STRATOMA AI
           </div>
           <h1 className="text-4xl lg:text-6xl font-bold mb-8 leading-tight">
-            Inteligencia Artificial para <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">empresas de Madrid</span>
+            Inteligencia Artificial para <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">empresas de Madrid</span>
           </h1>
           <p className="text-lg lg:text-xl text-gray-600 max-w-3xl">
             Somos una agencia de IA en Madrid especializada en chatbots, asistentes virtuales y automatización de procesos. Ayudamos a empresas a crecer sin aumentar costes operativos, implementando soluciones de inteligencia artificial que funcionan 24/7.
