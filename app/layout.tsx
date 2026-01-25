@@ -85,6 +85,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://stratomai.com',
   },
+  verification: {
+    google: 'Atm4vTOlZegKW9VwkjZxrh43UQ61QRu6mNsGoHp6hv0',
+  },
   category: 'technology',
 };
 
