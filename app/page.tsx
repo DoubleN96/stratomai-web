@@ -759,15 +759,16 @@ export default function StratomaAIHomePage() {
                 <li><Link href="/blog" className="text-gray-400 hover:text-white transition-colors">Blog</Link></li>
                 <li><Link href="/faq" className="text-gray-400 hover:text-white transition-colors">FAQ</Link></li>
                 <li><Link href="/glossary" className="text-gray-400 hover:text-white transition-colors">Glosario</Link></li>
-                <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors">Sobre Nosotros</Link></li>
+                <li><Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">Política de Privacidad</Link></li>
+                <li><Link href="/terms" className="text-gray-400 hover:text-white transition-colors">Términos de Servicio</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase">Contacto</h4>
               <div className="space-y-3">
-                <a href="mailto:info@stratomai" className="block text-blue-400 hover:text-blue-300">
-                  info@stratomai
+                <a href="mailto:info@stratomai.com" className="block text-blue-400 hover:text-blue-300">
+                  info@stratomai.com
                 </a>
                 <a href="https://wa.me/34611031947" className="block text-green-400 hover:text-green-300">
                   WhatsApp: +34 611 03 19 47
@@ -780,7 +781,8 @@ export default function StratomaAIHomePage() {
           </div>
 
           <div className="border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
-            <p>© {new Date().getFullYear()} Stratoma AI. Todos los derechos reservados. | Agencia de IA en Madrid, España</p>
+            <p>© {new Date().getFullYear()} Stratoma AI. Todos los derechos reservados. | <Link href="/privacy" className="hover:text-white underline decoration-gray-700">Política de Privacidad</Link> | <Link href="/terms" className="hover:text-white underline decoration-gray-700">Términos de Servicio</Link></p>
+            <p className="mt-2 text-xs opacity-50">Stratoma AI - Agencia de IA en Madrid, España</p>
           </div>
         </div>
       </footer>
