@@ -754,13 +754,11 @@ export default function StratomaAIHomePage() {
             </div>
 
             <div>
-              <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase">Recursos</h4>
+              <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase">Legal</h4>
               <ul className="space-y-2">
-                <li><Link href="/blog" className="text-gray-400 hover:text-white transition-colors">Blog</Link></li>
-                <li><Link href="/faq" className="text-gray-400 hover:text-white transition-colors">FAQ</Link></li>
+                <li><a href="https://stratomai.com/privacy" className="text-gray-400 hover:text-white transition-colors">Política de Privacidad</a></li>
+                <li><a href="https://stratomai.com/terms" className="text-gray-400 hover:text-white transition-colors">Términos de Servicio</a></li>
                 <li><Link href="/glossary" className="text-gray-400 hover:text-white transition-colors">Glosario</Link></li>
-                <li><Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">Política de Privacidad</Link></li>
-                <li><Link href="/terms" className="text-gray-400 hover:text-white transition-colors">Términos de Servicio</Link></li>
               </ul>
             </div>
 
@@ -781,8 +779,12 @@ export default function StratomaAIHomePage() {
           </div>
 
           <div className="border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
-            <p>© {new Date().getFullYear()} Stratoma AI. Todos los derechos reservados. | <Link href="/privacy" className="hover:text-white underline decoration-gray-700">Política de Privacidad</Link> | <Link href="/terms" className="hover:text-white underline decoration-gray-700">Términos de Servicio</Link></p>
-            <p className="mt-2 text-xs opacity-50">Stratoma AI - Agencia de IA en Madrid, España</p>
+            <p>© {new Date().getFullYear()} Stratoma AI. Todos los derechos reservados.</p>
+            <div className="mt-2 flex justify-center gap-4 text-xs">
+              <a href="https://stratomai.com/privacy" className="hover:text-white underline decoration-gray-700">Política de Privacidad</a>
+              <a href="https://stratomai.com/terms" className="hover:text-white underline decoration-gray-700">Términos de Servicio</a>
+            </div>
+            <p className="mt-4 text-[10px] opacity-30 uppercase tracking-widest">Stratoma AI - Excellence in Intelligence</p>
           </div>
         </div>
       </footer>
