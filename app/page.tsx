@@ -70,6 +70,7 @@ export default function StratomaAIHomePage() {
                 <a href="#contact" className="bg-gradient-to-r from-blue-700 to-blue-600 text-white px-6 py-2.5 rounded-lg hover:shadow-lg hover:shadow-blue-500/30 transition-all">
                   Consultoría Gratuita
                 </a>
+                <a href="https://stratomai.com/privacy" className="text-xs font-bold text-blue-600 underline">Política de Privacidad</a>
               </div>
             </div>
           </div>
@@ -206,6 +207,24 @@ export default function StratomaAIHomePage() {
                 </motion.div>
               ))}
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Transparency Section for Google OAuth */}
+      <section className="py-12 bg-blue-50 border-y border-blue-100">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+            <div className="flex items-center gap-3">
+              <Shield className="w-8 h-8 text-blue-600" />
+              <div className="text-left">
+                <h3 className="font-bold text-gray-900">Uso Transparente de Datos</h3>
+                <p className="text-sm text-gray-600">Nuestras herramientas utilizan Google OAuth únicamente para autenticación segura.</p>
+              </div>
+            </div>
+            <a href="https://stratomai.com/privacy" className="px-6 py-2 bg-white border border-blue-200 rounded-full text-sm font-bold text-blue-700 hover:bg-blue-50 transition-all">
+              Leer Política de Privacidad Completa
+            </a>
           </div>
         </div>
       </section>
