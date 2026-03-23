@@ -1,952 +1,417 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import ContactForm from '@/components/ContactForm';
-import {
-  MessageCircle,
-  TrendingUp,
-  Workflow,
-  Bot,
-  Compass,
-  CheckCircle2,
-  ArrowRight,
-  Calendar,
-  Mail,
-  Phone,
-  Sparkles,
-  Zap,
-  Building2,
-  Shield
-} from 'lucide-react';
 
 export default function StratomaAIHomePage() {
-  const { scrollYProgress } = useScroll();
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 text-gray-900 font-sans overflow-x-hidden" lang="es">
-      {/* Navbar con diseño más atractivo */}
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        className="fixed top-0 w-full bg-white/80 backdrop-blur-xl border-b border-blue-100 z-50 shadow-sm"
-        role="navigation"
-        aria-label="Main navigation"
-      >
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="flex justify-between items-center h-20">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-              className="flex items-center gap-3"
-            >
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-700 to-blue-600 rounded-xl flex items-center justify-center">
-                <Sparkles className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <div className="text-2xl lg:text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
-                  Stratoma AI
-                </div>
-                <div className="text-xs text-gray-500 -mt-1">Madrid, España</div>
-              </div>
-            </motion.div>
+    <div className="min-h-screen bg-[#0b1326] text-[#dae2fd] font-['Inter'] overflow-x-hidden" lang="es">
 
-            <div className="flex items-center gap-6 lg:gap-8">
-              <div className="hidden lg:flex items-center gap-8 text-sm font-medium">
-                <a href="#servicios" className="text-gray-700 hover:text-blue-600 transition-colors">
-                  Servicios
-                </a>
-                <a href="#casos-uso" className="text-gray-700 hover:text-blue-600 transition-colors">
-                  Casos de Uso
-                </a>
-                <Link href="/blog" className="text-gray-700 hover:text-blue-600 transition-colors">
-                  Blog
-                </Link>
-                <Link href="/faq" className="text-gray-700 hover:text-blue-600 transition-colors">
-                  FAQ
-                </Link>
-                <a href="#contact" className="bg-gradient-to-r from-blue-700 to-blue-600 text-white px-6 py-2.5 rounded-lg hover:shadow-lg hover:shadow-blue-500/30 transition-all">
-                  Consultoría Gratuita
-                </a>
-                <a href="https://stratomai.com/privacy" className="text-xs font-bold text-blue-600 underline">Política de Privacidad</a>
-              </div>
-            </div>
+      {/* Background Orbs */}
+      <div className="fixed w-[500px] h-[500px] rounded-full bg-[#6001d1]/20 top-[-100px] left-[-100px] blur-[120px] z-0 pointer-events-none"></div>
+      <div className="fixed w-[600px] h-[600px] rounded-full bg-[#2b6cee]/10 bottom-[10%] right-[-200px] blur-[120px] z-0 pointer-events-none"></div>
+
+      {/* 1. FIXED NAVBAR */}
+      <nav className="fixed top-0 w-full z-50 bg-slate-900/60 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+        <div className="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+          <div className="text-2xl font-black text-white tracking-tighter" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+            Stratoma AI
           </div>
-        </div>
-      </motion.nav>
-
-      {/* Urgency Banner */}
-      <div className="fixed top-20 left-0 right-0 bg-gradient-to-r from-red-600 to-orange-600 text-white py-3 px-6 z-30 shadow-lg">
-        <div className="max-w-7xl mx-auto flex items-center justify-center gap-4 text-sm font-semibold flex-wrap">
-          <span>🔥 OFERTA ESPECIAL:</span>
-          <span>Solo 3 plazas disponibles para el Sprint de Automatización IA este mes</span>
-          <Link href="/oferta/sprint-automatizacion" className="underline hover:no-underline">
-            Ver Oferta →
-          </Link>
-        </div>
-      </div>
-
-      {/* Hero Section - Diseño muy atractivo */}
-      <section className="relative min-h-screen flex items-center pt-32 overflow-hidden">
-        {/* Background decorativo */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 right-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-          <div className="absolute bottom-20 right-1/3 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full mb-6 text-sm font-medium">
-                <Building2 className="w-4 h-4" />
-                Agencia de IA en Madrid
-              </div>
-
-              <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
-                Inteligencia Artificial que{' '}
-                <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
-                  Impulsa tu Negocio
-                </span>
-              </h1>
-
-              <p className="text-xl lg:text-2xl text-gray-600 mb-8 leading-relaxed">
-                Automatizamos tu atención al cliente, ventas y procesos con IA.
-                Ahorra hasta 20 horas semanales y multiplica por 3 tu capacidad de atención.
-              </p>
-
-              <ul className="space-y-4 mb-10">
-                {[
-                  'Chatbots inteligentes en WhatsApp, web e Instagram',
-                  'Asistentes virtuales que atienden 24/7 en español',
-                  'Automatización de procesos que conecta todas tus herramientas'
-                ].map((benefit, i) => (
-                  <motion.li
-                    key={i}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.8 + i * 0.1 }}
-                    className="flex items-start gap-3"
-                  >
-                    <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700 text-lg">{benefit}</span>
-                  </motion.li>
-                ))}
-              </ul>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.1 }}
-                className="flex flex-col gap-4"
-              >
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link
-                    href="/oferta/sprint-automatizacion"
-                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-700 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/30 transition-all text-lg"
-                  >
-                    <Zap className="w-5 h-5" />
-                    Ver Oferta Sprint (Solo 3 Plazas)
-                    <ArrowRight className="w-5 h-5" />
-                  </Link>
-                  <a
-                    href="https://wa.me/34611031947?text=Hola%2C%20quiero%20una%20consultoría%20gratuita%20sobre%20automatización%20con%20IA"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-blue-200 text-blue-600 rounded-xl font-semibold hover:border-blue-400 transition-all text-lg"
-                  >
-                    <MessageCircle className="w-5 h-5" />
-                    WhatsApp Directo
-                  </a>
-                </div>
-                <Link
-                  href="/recursos/calculadora-roi"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-green-50 border border-green-600 text-green-700 rounded-xl font-medium hover:bg-green-100 transition-all text-sm"
-                >
-                  <TrendingUp className="w-4 h-4" />
-                  Calcular Cuánto Puedo Ahorrar (Gratis)
-                </Link>
-              </motion.div>
-            </motion.div>
-
-            {/* Stats Cards - Diseño moderno */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5 }}
-              className="grid grid-cols-2 gap-6"
-            >
-              {[
-                { value: '80%', label: 'Ahorro de tiempo', sublabel: 'en tareas repetitivas', color: 'from-blue-600 to-blue-700' },
-                { value: '24/7', label: 'Disponibilidad', sublabel: 'atención automática', color: 'from-blue-500 to-blue-600' },
-                { value: '3-5x', label: 'Más capacidad', sublabel: 'leads atendidos', color: 'from-green-500 to-green-600' },
-                { value: '100%', label: 'En español', sublabel: 'IA nativa Madrid', color: 'from-pink-500 to-pink-600' },
-              ].map((stat, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.1 + i * 0.1 }}
-                  className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border border-gray-100"
-                >
-                  <div className={`text-5xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-2`}>
-                    {stat.value}
-                  </div>
-                  <div className="text-gray-900 font-semibold text-sm mb-1">
-                    {stat.label}
-                  </div>
-                  <div className="text-gray-500 text-xs">
-                    {stat.sublabel}
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
+          <div className="hidden md:flex gap-8 items-center" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+            <a className="text-slate-400 hover:text-white transition-colors font-bold tracking-tight" href="#como-funciona">Cómo Funciona</a>
+            <a className="text-slate-400 hover:text-white transition-colors font-bold tracking-tight" href="#casos">Casos Reales</a>
+            <a className="text-slate-400 hover:text-white transition-colors font-bold tracking-tight" href="#servicios">Servicios</a>
+            <a className="text-slate-400 hover:text-white transition-colors font-bold tracking-tight" href="#contacto">Contacto</a>
           </div>
-        </div>
-      </section>
-
-      {/* Transparency Section for Google OAuth */}
-      <section className="py-12 bg-blue-50 border-y border-blue-100">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8">
-            <div className="flex items-center gap-3">
-              <Shield className="w-8 h-8 text-blue-600" />
-              <div className="text-left">
-                <h3 className="font-bold text-gray-900">Uso Transparente de Datos</h3>
-                <p className="text-sm text-gray-600">Nuestras herramientas utilizan Google OAuth únicamente para autenticación segura.</p>
-              </div>
-            </div>
-            <a href="https://stratomai.com/privacy" className="px-6 py-2 bg-white border border-blue-200 rounded-full text-sm font-bold text-blue-700 hover:bg-blue-50 transition-all">
-              Leer Política de Privacidad Completa
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Problemas Section */}
-      <section className="py-20 lg:py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              ¿Tu empresa sufre estos{' '}
-              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
-                problemas
-              </span>?
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Si respondes a alguna de estas situaciones, la IA puede ayudarte
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                problem: 'Pierdes leads porque no puedes responder a tiempo',
-                stat: '67% leads perdidos',
-                icon: MessageCircle,
-                color: "blue"
-              },
-              {
-                problem: 'Tu equipo dedica horas a responder las mismas consultas',
-                stat: '15-20h/semana',
-                icon: Zap,
-                color: 'blue'
-              },
-              {
-                problem: 'No puedes atender fuera de horario laboral',
-                stat: '40% consultas fuera horario',
-                icon: Calendar,
-                color: 'green'
-              },
-              {
-                problem: 'Procesos manuales ralentizan tu operación',
-                stat: '60% tiempo perdido',
-                icon: Workflow,
-                color: 'pink'
-              },
-              {
-                problem: 'Crecimiento limitado por tamaño de equipo',
-                stat: 'Costes fijos altos',
-                icon: TrendingUp,
-                color: 'indigo'
-              },
-              {
-                problem: 'Información dispersa en múltiples herramientas',
-                stat: 'Datos no conectados',
-                icon: Bot,
-                color: 'violet'
-              },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-gradient-to-br from-gray-50 to-white p-8 rounded-2xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all"
-              >
-                <div className={`w-14 h-14 bg-gradient-to-br from-${item.color}-100 to-${item.color}-200 rounded-xl flex items-center justify-center mb-4`}>
-                  <item.icon className={`w-7 h-7 text-${item.color}-600`} />
-                </div>
-                <p className="text-lg font-semibold text-gray-900 mb-3">
-                  {item.problem}
-                </p>
-                <div className={`inline-block px-3 py-1 bg-${item.color}-100 text-${item.color}-700 rounded-full text-sm font-medium`}>
-                  {item.stat}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-12 text-center"
+          <a
+            href="https://wa.me/34611031947?text=Hola%2C%20quiero%20una%20consultor%C3%ADa%20gratuita"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-gradient-to-br from-[#b2c5ff] to-[#2b6cee] text-[#002b73] font-black px-6 py-2 rounded-lg hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_#2b6cee] transition-all duration-300"
+            style={{ fontFamily: 'Space Grotesk, sans-serif' }}
           >
+            Consultoría Gratis
+          </a>
+        </div>
+      </nav>
+
+      {/* 2. HERO */}
+      <section className="pt-40 pb-20 px-6 max-w-7xl mx-auto relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="flex flex-col items-start gap-8"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#222a3d] rounded-full border border-white/10">
+            <span className="text-[#d2bbff] text-lg">🤖</span>
+            <span className="text-xs uppercase tracking-widest text-[#d2bbff] font-semibold">
+              Powered by Paperclip — Multi-Agent Orchestration
+            </span>
+          </div>
+
+          <h1
+            className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] max-w-4xl text-white"
+            style={{ fontFamily: 'Space Grotesk, sans-serif' }}
+          >
+            Construimos empresas que se{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#b2c5ff] to-[#d2bbff]">
+              gestionan solas
+            </span>
+          </h1>
+
+          <p className="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed">
+            Automatizamos tus procesos con agentes IA autónomos. Sin código. Sin fricciones.
+            Con resultados medibles desde el día 1.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 mt-4">
             <a
-              href="#contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-700 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/30 transition-all"
+              href="#como-funciona"
+              className="bg-gradient-to-br from-[#b2c5ff] to-[#2b6cee] text-[#002b73] px-8 py-4 rounded-lg font-black text-lg hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_#7c3aed] transition-all duration-300 flex items-center gap-2"
+              style={{ fontFamily: 'Space Grotesk, sans-serif' }}
             >
-              Resolver mis Problemas con IA
-              <ArrowRight className="w-5 h-5" />
+              Ver cómo funciona
+              <span className="material-symbols-outlined">arrow_downward</span>
             </a>
-          </motion.div>
-        </div>
+            <a
+              href="https://wa.me/34611031947"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white/5 backdrop-blur-md border border-white/10 text-white px-8 py-4 rounded-lg font-black text-lg hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_#2b6cee] transition-all duration-300"
+              style={{ fontFamily: 'Space Grotesk, sans-serif' }}
+            >
+              Hablar con un experto
+            </a>
+          </div>
+        </motion.div>
+
+        {/* Hero visual */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.3 }}
+          className="mt-16 w-full aspect-video rounded-xl bg-[#131b2e] border border-white/5 overflow-hidden relative group"
+        >
+          <img
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJeJswApf8Q0BHu6Kib3vEtMS6CTe4YkDr1iUXLdKW1FkmP-bfRqUC2vu6cd8qT0909XTUczPi4Gw-sKF_f_fZmML4UWdkZeP9Y2ikssp8UylGkFPJViPda4IKQ_kbm18SVqkDf4evO_uY_fS83RindKw1v5KDqG379EekHA30OEblylNJbYxORadNcjbowbmMU2VV1ISNBGS5exkfoTqHTq5vUpuPrt9GOFPKzf1ttksXBbUOJgz8cBA86HuFmideN_-3lvcN_UOH"
+            alt="AI network visualization"
+            className="w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-700"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0b1326] to-transparent"></div>
+          <div className="absolute bottom-8 left-8 flex gap-3 items-center">
+            <div className="w-2 h-2 rounded-full bg-[#d2bbff] animate-pulse"></div>
+            <span className="text-xs text-[#d2bbff] uppercase tracking-widest font-semibold">
+              Live: Autonomous Orchestration Active
+            </span>
+          </div>
+        </motion.div>
       </section>
 
-      {/* Servicios Section - Diseño mejorado */}
-      <section id="servicios" className="py-20 lg:py-32 bg-gradient-to-br from-blue-50 via-white to-green-50">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Servicios de{' '}
-              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
-                Inteligencia Artificial
+      {/* 3. TRUST BAR */}
+      <section className="py-12 bg-[#060e20] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-center text-slate-600 text-sm uppercase tracking-[0.3em] mb-10 font-semibold">
+            Las empresas que escalan con nosotros
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-60 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-500">
+            {['TRIPATH', 'NEXAFLOW', 'QUANTUM', 'SYNERGY', 'VELOCITY'].map((name) => (
+              <span key={name} className="text-2xl font-black text-[#dae2fd]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                {name}
               </span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Soluciones de IA personalizadas para empresas en Madrid
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                icon: MessageCircle,
-                title: 'Chatbots & WhatsApp IA',
-                description: 'Automatiza atención en WhatsApp, web e Instagram con IA que entiende español perfectamente',
-                features: ['Respuesta automática 24/7', 'Calificación de leads', 'Integración CRM'],
-                color: 'from-blue-600 to-blue-700',
-                link: '/casos-uso/chatbot-whatsapp'
-              },
-              {
-                icon: Bot,
-                title: 'Asistentes Virtuales',
-                description: 'IA entrenada con tus datos que atiende como tu mejor empleado',
-                features: ['Entrenados con tu info', 'Multiidioma', 'Voz natural'],
-                color: 'from-blue-500 to-blue-600',
-                link: '/casos-uso/asistente-virtual'
-              },
-              {
-                icon: Workflow,
-                title: 'Automatización Procesos',
-                description: 'Conecta todas tus herramientas y automatiza flujos de trabajo completos',
-                features: ['300+ integraciones', 'Workflows personalizados', 'Ahorro 15-20h/semana'],
-                color: 'from-green-500 to-green-600',
-                link: '/casos-uso/automatizacion-procesos'
-              },
-              {
-                icon: TrendingUp,
-                title: 'IA para Ventas',
-                description: 'Automatiza prospección, seguimiento y cierre con inteligencia artificial',
-                features: ['Lead scoring automático', 'Emails personalizados', 'Predicción cierre'],
-                color: 'from-pink-500 to-pink-600',
-                link: '/casos-uso/ia-ventas'
-              },
-              {
-                icon: Compass,
-                title: 'Consultoría IA',
-                description: 'Te ayudamos a identificar qué automatizar y cómo implementarlo',
-                features: ['Auditoría procesos', 'Roadmap personalizado', 'ROI estimado'],
-                color: 'from-indigo-500 to-indigo-600',
-                link: '/casos-uso/consultoria-ia'
-              },
-              {
-                icon: Sparkles,
-                title: 'Desarrollo IA Custom',
-                description: 'Soluciones de IA a medida para necesidades específicas',
-                features: ['Modelos propios', 'Integraciones complejas', 'Soporte dedicado'],
-                color: 'from-violet-500 to-violet-600',
-                link: '/casos-uso/desarrollo-custom'
-              },
-            ].map((service, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all border border-gray-100 group"
-              >
-                <div className={`w-16 h-16 bg-gradient-to-br ${service.color} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                  <service.icon className="w-8 h-8 text-white" />
-                </div>
-
-                <h3 className="text-2xl font-bold mb-3 text-gray-900">{service.title}</h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
-
-                <ul className="space-y-2 mb-6">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center gap-2 text-sm text-gray-700">
-                      <CheckCircle2 className="w-4 h-4 text-green-600" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                <a
-                  href={service.link}
-                  className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:gap-3 transition-all"
-                >
-                  Ver caso de uso
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials with Specific Results */}
-      <section className="py-20 lg:py-32 bg-white">
-        <div className="max-w-6xl mx-auto px-6 lg:px-12">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Resultados Reales de Empresas en Madrid
-            </h2>
-            <p className="text-xl text-gray-600">
-              No son promesas. Son resultados medibles y verificables.
-            </p>
-          </div>
+      {/* 4. HOW IT WORKS */}
+      <section id="como-funciona" className="py-24 px-6 max-w-7xl mx-auto relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <span className="text-[#b2c5ff] font-bold text-lg" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+            Metodología
+          </span>
+          <h2 className="text-4xl md:text-5xl font-bold mt-2 text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+            Arquitectura de Autonomía
+          </h2>
+        </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                company: 'TechConsulting Madrid',
-                industry: 'Consultoría B2B',
-                person: 'María González, CEO',
-                image: 'MG',
-                result: '27h/semana ahorradas',
-                metric: 'De 4 a 15 leads/día',
-                revenue: 'Ingresos +180% en 60 días',
-                timeframe: 'Primeros 60 días',
-                quote: 'ROI recuperado en 6 semanas. Ahora mi equipo se enfoca en ventas complejas, no en responder consultas básicas.'
-              },
-              {
-                company: 'EcoShop Madrid',
-                industry: 'E-commerce',
-                person: 'Carlos Ruiz, Director',
-                image: 'CR',
-                result: 'ROI en 14 días',
-                metric: '89% consultas por IA',
-                revenue: 'Conversión +32%',
-                timeframe: 'Implementación 14 días',
-                quote: 'El chatbot atiende 200+ consultas diarias. Mi equipo solo interviene en casos complejos. Brutal.'
-              },
-              {
-                company: 'Clínica DentalPro',
-                industry: 'Salud',
-                person: 'Dra. Ana Martín',
-                image: 'AM',
-                result: '180h/mes recuperadas',
-                metric: '95% asistencia a citas',
-                revenue: 'Ingresos duplicados',
-                timeframe: 'Primeros 90 días',
-                quote: 'Confirmaciones automáticas por WhatsApp. Casi no tenemos no-shows. Esto es oro para una clínica.'
-              }
-            ].map((testimonial, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl p-8 border border-blue-200"
-              >
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 bg-gradient-to-br from-blue-700 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                    {testimonial.image}
-                  </div>
-                  <div>
-                    <div className="font-bold text-gray-900">{testimonial.person}</div>
-                    <div className="text-sm text-gray-600">{testimonial.company}</div>
-                    <div className="text-xs text-blue-600 font-medium">{testimonial.industry}</div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3 mb-6">
-                  <div className="bg-white rounded-lg p-3">
-                    <div className="text-2xl font-bold text-blue-600">{testimonial.result}</div>
-                    <div className="text-xs text-gray-600">Ahorro</div>
-                  </div>
-                  <div className="bg-white rounded-lg p-3">
-                    <div className="text-2xl font-bold text-green-600">{testimonial.revenue}</div>
-                    <div className="text-xs text-gray-600">Ingresos</div>
-                  </div>
-                  <div className="bg-white rounded-lg p-3 col-span-2">
-                    <div className="text-lg font-bold text-blue-600">{testimonial.metric}</div>
-                    <div className="text-xs text-gray-600">Resultado clave</div>
-                  </div>
-                </div>
-
-                <p className="text-gray-700 mb-4 italic">
-                  &ldquo;{testimonial.quote}&rdquo;
-                </p>
-
-                <div className="text-xs text-gray-500 bg-white rounded-lg px-3 py-2">
-                  ⏱️ {testimonial.timeframe}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-12 text-center"
-          >
-            <div className="inline-block bg-gray-900 text-white px-8 py-4 rounded-xl">
-              <span className="text-lg font-semibold">Promedio de ahorro:</span>{' '}
-              <span className="text-3xl font-bold text-green-400">23.4 horas/semana</span>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-
-
-      {/* Proyectos en Producción — Diseño generado con Stitch */}
-      <section className="py-24 lg:py-32 bg-[#0b1326]" id="proyectos">
-        <div className="max-w-7xl mx-auto px-8">
-          {/* Section Header — fiel al diseño Stitch */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col gap-4 mb-16 md:mb-24"
-          >
-            <span className="text-blue-400 font-bold tracking-[0.2em] text-xs uppercase">PROYECTOS EN PRODUCCIÓN</span>
-            <h2 className="text-[2.5rem] md:text-[3.5rem] font-extrabold tracking-tighter leading-none text-white">
-              Lo que Construimos con IA
-            </h2>
-            <p className="text-slate-400 text-lg md:text-xl font-medium max-w-2xl border-l-2 border-blue-600/30 pl-6 py-1">
-              Casos reales, métricas reales.
-            </p>
-          </motion.div>
-
-          {/* Projects Grid — estructura Stitch */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-
-            {/* CARD 1 - Tripath */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            {
+              icon: 'analytics',
+              color: 'text-[#b2c5ff]',
+              bg: 'bg-[#2b6cee]/20',
+              step: '1',
+              title: 'Auditamos tu negocio',
+              desc: 'Analizamos cuellos de botella y procesos repetitivos que drenan tus recursos.',
+            },
+            {
+              icon: 'settings_input_component',
+              color: 'text-[#d2bbff]',
+              bg: 'bg-[#6001d1]/20',
+              step: '2',
+              title: 'Desplegamos agentes',
+              desc: 'Inyectamos agentes IA especializados usando Paperclip para orquestar tareas complejas.',
+            },
+            {
+              icon: 'rocket_launch',
+              color: 'text-[#ffb693]',
+              bg: 'bg-[#c35000]/20',
+              step: '3',
+              title: 'Tu empresa funciona sola',
+              desc: 'Sistemas que aprenden, ejecutan y escalan sin intervención humana constante.',
+            },
+          ].map((item, i) => (
             <motion.div
+              key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="glass-card group rounded-2xl p-8 md:p-10 relative overflow-hidden"
+              transition={{ delay: i * 0.15 }}
+              className="group p-10 rounded-lg border border-white/5 bg-[#171f33]/70 backdrop-blur-xl hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_#2b6cee] transition-all duration-300"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-transparent pointer-events-none"></div>
-              <div className="relative z-10 flex flex-col h-full">
-                <div className="flex justify-between items-start mb-12">
-                  <span className="bg-blue-500/10 text-blue-400 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase border border-blue-500/20">
-                    Coliving &amp; PropTech
-                  </span>
-                  <div className="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
-                    <Building2 className="w-6 h-6" />
-                  </div>
-                </div>
-                <div className="mb-10">
-                  <h3 className="text-slate-500 text-sm font-bold uppercase tracking-widest mb-2">Tripath · tripath.es</h3>
-                  <div className="text-5xl md:text-6xl font-black tracking-tighter text-white">93.17%</div>
-                  <p className="text-slate-400 font-medium mt-1">Tasa de Ocupación</p>
-                </div>
-                <div className="flex flex-wrap gap-3 mb-8">
-                  <span className="bg-slate-800/80 px-4 py-2 rounded-xl border border-slate-700/50 text-sm font-bold text-white">130.334€/mes</span>
-                  <span className="bg-blue-500/10 px-4 py-2 rounded-xl border border-blue-500/20 text-sm font-bold text-blue-400">158% ROI</span>
-                  <span className="bg-slate-800/80 px-4 py-2 rounded-xl border border-slate-700/50 text-sm font-bold text-slate-300">205 habitaciones</span>
-                </div>
-                <p className="text-slate-400 leading-relaxed mb-12 flex-grow">
-                  Plataforma de coliving gestionada íntegramente con IA Stratoma. 55 pisos activos en Madrid, Alicante y Alcorcón.
-                </p>
-                <a
-                  href="https://tripath.es"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-4 rounded-xl border border-blue-500/30 bg-blue-500/5 hover:bg-blue-500/20 text-white font-bold transition-all duration-300 flex items-center justify-center gap-2 group-hover:border-blue-400"
-                >
-                  Ver proyecto
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
+              <div className={`w-12 h-12 ${item.bg} rounded-lg flex items-center justify-center mb-6 ${item.color} group-hover:bg-[#2b6cee] group-hover:text-white transition-colors`}>
+                <span className="material-symbols-outlined">{item.icon}</span>
               </div>
-            </motion.div>
-
-            {/* CARD 2 - Paperclip */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="glass-card glass-card-violet group rounded-2xl p-8 md:p-10 relative overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-violet-600/5 to-transparent pointer-events-none"></div>
-              <div className="relative z-10 flex flex-col h-full">
-                <div className="flex justify-between items-start mb-12">
-                  <span className="bg-violet-500/10 text-violet-400 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase border border-violet-500/20">
-                    AI Orchestration
-                  </span>
-                  <div className="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-violet-400 group-hover:scale-110 transition-transform">
-                    <Workflow className="w-6 h-6" />
-                  </div>
-                </div>
-                <div className="mb-10">
-                  <h3 className="text-slate-500 text-sm font-bold uppercase tracking-widest mb-2">Paperclip · paperclip.ing</h3>
-                  <div className="text-5xl md:text-6xl font-black tracking-tighter text-white">MIT</div>
-                  <p className="text-slate-400 font-medium mt-1">Open Source · Self-Hosted</p>
-                </div>
-                <div className="flex flex-wrap gap-3 mb-8">
-                  <span className="bg-slate-800/80 px-4 py-2 rounded-xl border border-slate-700/50 text-sm font-bold text-white">Multi-agent</span>
-                  <span className="bg-violet-500/10 px-4 py-2 rounded-xl border border-violet-500/20 text-sm font-bold text-violet-400">Auto-gobernanza</span>
-                  <span className="bg-slate-800/80 px-4 py-2 rounded-xl border border-slate-700/50 text-sm font-bold text-slate-300">Audit logs</span>
-                </div>
-                <p className="text-slate-400 leading-relaxed mb-12 flex-grow">
-                  Plataforma open-source para crear empresas autónomas de agentes IA. Org charts, control de presupuesto por agente y trazabilidad completa.
-                </p>
-                <a
-                  href="https://paperclip.ing"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-4 rounded-xl border border-violet-500/30 bg-violet-500/5 hover:bg-violet-500/20 text-white font-bold transition-all duration-300 flex items-center justify-center gap-2 group-hover:border-violet-400"
-                >
-                  Ver proyecto
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
-              </div>
-            </motion.div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Madrid - Nuevo */}
-      <section className="py-20 bg-gradient-to-r from-blue-700 to-blue-600 text-white">
-        <div className="max-w-5xl mx-auto px-6 lg:px-12 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Agencia de IA en el corazón de Madrid
-            </h2>
-            <p className="text-xl mb-8 opacity-90">
-              Trabajamos con empresas de toda España, con presencia física en Madrid.
-              Implementaciones rápidas, soporte en español y resultados medibles.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-blue-600 rounded-xl font-semibold hover:shadow-lg transition-all"
-              >
-                <Phone className="w-5 h-5" />
-                Agendar Consultoría
-              </a>
-              <a
-                href="tel:+34611031947"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-700/50 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-blue-700 transition-all"
-              >
-                <Phone className="w-5 h-5" />
-                +34 611 03 19 47
-              </a>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Guarantees Section - RISK REVERSAL */}
-      <section className="py-20 lg:py-32 bg-gradient-to-br from-yellow-50 to-orange-50">
-        <div className="max-w-6xl mx-auto px-6 lg:px-12">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Garantías que Eliminan tu Riesgo
-            </h2>
-            <p className="text-xl text-gray-600">
-              No asumes ningún riesgo. Nosotros lo asumimos por ti.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="bg-white rounded-2xl p-8 shadow-lg border-2 border-yellow-400"
-            >
-              <div className="w-16 h-16 bg-yellow-400 rounded-xl flex items-center justify-center mb-6 mx-auto">
-                <Shield className="w-8 h-8 text-yellow-900" />
-              </div>
-              <h3 className="text-2xl font-bold text-center mb-4">
-                Garantía de Resultados
+              <h3 className="text-2xl font-bold mb-4 text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                {item.step}. {item.title}
               </h3>
-              <p className="text-gray-700 text-center mb-4">
-                Si no ahorras mínimo 20 horas semanales en los primeros 90 días, te devolvemos el 100% de tu inversión.
-              </p>
-              <Link href="/oferta/sprint-automatizacion" className="text-blue-600 font-semibold text-center block hover:underline">
-                Ver detalles →
-              </Link>
+              <p className="text-slate-400 leading-relaxed">{item.desc}</p>
             </motion.div>
+          ))}
+        </div>
+      </section>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="bg-white rounded-2xl p-8 shadow-lg border-2 border-blue-400"
-            >
-              <div className="w-16 h-16 bg-blue-400 rounded-xl flex items-center justify-center mb-6 mx-auto">
-                <CheckCircle2 className="w-8 h-8 text-blue-900" />
-              </div>
-              <h3 className="text-2xl font-bold text-center mb-4">
-                Garantía de Funcionamiento
-              </h3>
-              <p className="text-gray-700 text-center mb-4">
-                Seguimos ajustando hasta que funcione perfectamente. Soporte ilimitado durante implementación.
-              </p>
-              <a href="#contact" className="text-blue-600 font-semibold text-center block hover:underline">
-                Contactar →
-              </a>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="bg-white rounded-2xl p-8 shadow-lg border-2 border-green-400"
-            >
-              <div className="w-16 h-16 bg-green-400 rounded-xl flex items-center justify-center mb-6 mx-auto">
-                <Zap className="w-8 h-8 text-green-900" />
-              </div>
-              <h3 className="text-2xl font-bold text-center mb-4">
-                Implementación Rápida
-              </h3>
-              <p className="text-gray-700 text-center mb-4">
-                Resultados visibles en 14 días. Si tardamos más, primer mes de soporte gratis.
-              </p>
-              <a href="#contact" className="text-blue-600 font-semibold text-center block hover:underline">
-                Más info →
-              </a>
-            </motion.div>
-          </div>
-
+      {/* 5. CASE STUDY — TRIPATH */}
+      <section id="casos" className="py-20 px-6 bg-[#131b2e]">
+        <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-12 bg-gradient-to-r from-blue-700 to-blue-600 rounded-2xl p-8 text-white text-center"
+            className="bg-[#060e20] rounded-xl border border-white/10 overflow-hidden flex flex-col lg:flex-row shadow-2xl"
           >
-            <p className="text-2xl font-bold mb-2">
-              En otras palabras: No tienes forma de perder
-            </p>
-            <p className="text-xl opacity-90">
-              O funciona y ahorras 20+ horas semanales, o recuperas cada euro invertido.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-20 lg:py-32 bg-white">
-        <div className="max-w-6xl mx-auto px-6 lg:px-12">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Empieza tu{' '}
-              <span className="bg-gradient-to-r from-blue-700 to-blue-600 bg-clip-text text-transparent">
-                Transformación con IA
+            <div className="lg:w-1/2 p-12 flex flex-col justify-center">
+              <span className="text-[#d2bbff] font-bold text-sm tracking-widest uppercase mb-4" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                Caso de Éxito: Tripath.es
               </span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Agenda una consultoría gratuita de 30 minutos. Te mostramos cómo la IA puede ayudar a tu negocio.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Info */}
-            <div className="space-y-8">
-              <div className="bg-gradient-to-br from-blue-50 to-green-50 p-8 rounded-2xl">
-                <h3 className="text-2xl font-bold mb-6">Contacta con Nosotros</h3>
-
-                <div className="space-y-4">
-                  <a href="mailto:info@stratomai" className="flex items-center gap-4 p-4 bg-white rounded-xl hover:shadow-md transition-all">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center">
-                      <Mail className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-gray-900">Email</div>
-                      <div className="text-blue-600">info@stratomai</div>
-                    </div>
-                  </a>
-
-                  <a href="https://wa.me/34611031947" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 bg-white rounded-xl hover:shadow-md transition-all">
-                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
-                      <MessageCircle className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-gray-900">WhatsApp</div>
-                      <div className="text-green-600">+34 611 03 19 47</div>
-                    </div>
-                  </a>
-
-                  <div className="flex items-center gap-4 p-4 bg-white rounded-xl">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
-                      <Building2 className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-gray-900">Oficina</div>
-                      <div className="text-gray-600">Madrid, España</div>
-                    </div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-8 leading-tight text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                Cómo gestionamos Tripath.es con IA
+              </h2>
+              <p className="text-slate-400 mb-10 leading-relaxed">
+                Plataforma de coliving con 205 habitaciones en Madrid y Alicante. Stratoma gestiona operaciones, reservas y reportes con agentes autónomos orquestados con Paperclip.
+              </p>
+              <div className="grid grid-cols-3 gap-6 mb-10">
+                {[
+                  { value: '93.17%', label: 'Ocupación' },
+                  { value: '130k€/mes', label: 'Facturación' },
+                  { value: '158% ROI', label: 'Anual' },
+                ].map((stat) => (
+                  <div key={stat.label}>
+                    <p className="text-2xl md:text-3xl font-black text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                      {stat.value}
+                    </p>
+                    <p className="text-xs text-slate-500 uppercase tracking-widest mt-1">{stat.label}</p>
                   </div>
-                </div>
+                ))}
               </div>
-
-              <div className="bg-blue-50 p-6 rounded-xl">
-                <h4 className="font-bold text-gray-900 mb-3">¿Qué incluye la consultoría?</h4>
-                <ul className="space-y-2 text-gray-700">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-blue-600 mt-0.5" />
-                    <span>Análisis de tus procesos actuales</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-blue-600 mt-0.5" />
-                    <span>Identificación de oportunidades de IA</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-blue-600 mt-0.5" />
-                    <span>Estimación de ROI y tiempo de implementación</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-blue-600 mt-0.5" />
-                    <span>Roadmap personalizado sin compromiso</span>
-                  </li>
-                </ul>
-              </div>
+              <a
+                href="https://tripath.es"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-[#b2c5ff] font-bold text-lg hover:gap-4 transition-all duration-300"
+                style={{ fontFamily: 'Space Grotesk, sans-serif' }}
+              >
+                Ver Tripath <span className="material-symbols-outlined">arrow_forward</span>
+              </a>
             </div>
-
-            {/* Contact Form */}
-            <ContactForm />
-          </div>
+            <div className="lg:w-1/2 relative h-[400px] lg:h-auto min-h-[300px]">
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUr27dZuHaL1h63TL4FcZVdmQUm5Xp1ec8G53900f6Q__zfk5pnYIrNkkgbxDg7bqvT0oCXGoWcjepsnpVsoy0yQk2ED-DAa9szGfREkqGH-rHpNIZMXiWy2eyibWvskmXGgtptPlQOD9qwFBdXi6DoTc6C1CmVG6YY1zq283voukTxPvm8_OsUCb8q2E9BverxlnvaMzEF9GSWZtLDG6taUrvXUBS5ojzkSMj4vepGnNMQTE2m1cv5xNIApFFbp4HcXYSsUVEqsE9"
+                alt="Tripath dashboard"
+                className="absolute inset-0 w-full h-full object-cover opacity-60"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#060e20] via-transparent to-transparent lg:block hidden"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#060e20] to-transparent lg:hidden"></div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-4 gap-12 mb-12">
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-700 to-blue-600 rounded-xl flex items-center justify-center">
-                  <Sparkles className="w-6 h-6 text-white" />
-                </div>
-                <div className="text-2xl font-bold">Stratoma AI</div>
-              </div>
-              <p className="text-gray-400 text-sm mb-4">
-                Agencia de Inteligencia Artificial en Madrid. Automatización, chatbots y soluciones de IA para empresas.
-              </p>
-              <div className="text-sm text-gray-400">
-                <p>Madrid, España</p>
-                <p>info@stratomai</p>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase">Servicios</h4>
-              <ul className="space-y-2">
-                <li><a href="/casos-uso/chatbot-whatsapp" className="text-gray-400 hover:text-white transition-colors">Chatbots WhatsApp</a></li>
-                <li><a href="/casos-uso/asistente-virtual" className="text-gray-400 hover:text-white transition-colors">Asistentes IA</a></li>
-                <li><a href="/casos-uso/automatizacion-procesos" className="text-gray-400 hover:text-white transition-colors">Automatización</a></li>
-                <li><a href="/casos-uso/ia-ventas" className="text-gray-400 hover:text-white transition-colors">IA para Ventas</a></li>
-                <li><a href="/casos-uso/consultoria-ia" className="text-gray-400 hover:text-white transition-colors">Consultoría</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase">Legal</h4>
-              <ul className="space-y-2">
-                <li><a href="https://stratomai.com/privacy" className="text-gray-400 hover:text-white transition-colors">Política de Privacidad</a></li>
-                <li><a href="https://stratomai.com/terms" className="text-gray-400 hover:text-white transition-colors">Términos de Servicio</a></li>
-                <li><Link href="/glossary" className="text-gray-400 hover:text-white transition-colors">Glosario</Link></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase">Contacto</h4>
-              <div className="space-y-3">
-                <a href="mailto:info@stratomai.com" className="block text-blue-400 hover:text-blue-300">
-                  info@stratomai.com
-                </a>
-                <a href="https://wa.me/34611031947" className="block text-green-400 hover:text-green-300">
-                  WhatsApp: +34 611 03 19 47
-                </a>
-                <a href="tel:+34611031947" className="block text-blue-400 hover:text-blue-300">
-                  Tel: +34 611 03 19 47
-                </a>
-              </div>
-            </div>
+      {/* 6. SERVICES */}
+      <section id="servicios" className="py-24 px-6 max-w-7xl mx-auto relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
+        >
+          <div className="max-w-2xl">
+            <span className="text-[#b2c5ff] font-bold text-lg" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+              Capabilities
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold mt-2 text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+              Nuestras Soluciones
+            </h2>
           </div>
+          <p className="text-slate-400 max-w-sm">
+            No instalamos software. Diseñamos sistemas inteligentes que reemplazan procesos ineficientes.
+          </p>
+        </motion.div>
 
-          <div className="border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
-            <p>© {new Date().getFullYear()} Stratoma AI. Todos los derechos reservados.</p>
-            <div className="mt-2 flex justify-center gap-4 text-xs">
-              <a href="https://stratomai.com/privacy" className="hover:text-white underline decoration-gray-700">Política de Privacidad</a>
-              <a href="https://stratomai.com/terms" className="hover:text-white underline decoration-gray-700">Términos de Servicio</a>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            { icon: 'chat', color: 'text-[#b2c5ff]', title: 'Chatbots de Nueva Generación', desc: 'IA conversacional que no solo responde, sino que resuelve y cierra ventas.' },
+            { icon: 'hub', color: 'text-[#d2bbff]', title: 'Automatización de Flujos', desc: 'Conectamos tus herramientas favoritas en flujos de trabajo autónomos sin fricción.' },
+            { icon: 'psychology', color: 'text-[#ffb693]', title: 'Agentes Autónomos', desc: 'Sistemas que toman decisiones basadas en objetivos complejos sin supervisión.' },
+            { icon: 'insights', color: 'text-[#b2c5ff]', title: 'Análisis de Datos IA', desc: 'Transformamos millones de datos en decisiones estratégicas accionables.' },
+            { icon: 'terminal', color: 'text-[#d2bbff]', title: 'Desarrollo IA Custom', desc: 'Modelos propietarios entrenados específicamente con tus datos de negocio.' },
+            { icon: 'support_agent', color: 'text-[#ffb693]', title: 'Consultoría Estratégica', desc: 'Te acompañamos en la hoja de ruta para la transformación total hacia la IA.' },
+          ].map((service, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="p-8 rounded-lg border border-white/5 bg-[#171f33]/70 backdrop-blur-xl hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_#2b6cee] transition-all duration-300 group"
+            >
+              <span className={`material-symbols-outlined ${service.color} mb-6 text-3xl block group-hover:scale-110 transition-transform`}>
+                {service.icon}
+              </span>
+              <h3 className="text-xl font-bold mb-3 text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                {service.title}
+              </h3>
+              <p className="text-sm text-slate-400 leading-relaxed">{service.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* 7. CTA */}
+      <section id="contacto" className="py-24 px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-5xl mx-auto bg-[#171f33]/70 backdrop-blur-xl rounded-xl border border-white/10 p-12 text-center relative overflow-hidden"
+        >
+          <div className="absolute w-64 h-64 rounded-full bg-[#2b6cee]/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[80px] pointer-events-none"></div>
+          <h2
+            className="text-4xl md:text-6xl font-bold mb-8 text-white relative z-10"
+            style={{ fontFamily: 'Space Grotesk, sans-serif' }}
+          >
+            ¿Listo para automatizar?
+          </h2>
+          <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto relative z-10">
+            Agenda una llamada de 15 minutos para analizar cómo la IA puede optimizar tu operación hoy mismo.
+          </p>
+          <div className="flex flex-col items-center gap-6 relative z-10">
+            <a
+              href="https://wa.me/34611031947?text=Hola%2C%20quiero%20agendar%20una%20consultor%C3%ADa%20gratuita"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white text-[#0b1326] px-10 py-5 rounded-lg font-black text-xl hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_#2b6cee] transition-all duration-300 flex items-center gap-3"
+              style={{ fontFamily: 'Space Grotesk, sans-serif' }}
+            >
+              Agendar Consultoría
+              <span className="material-symbols-outlined">calendar_today</span>
+            </a>
+            <a
+              href="tel:+34611031947"
+              className="text-slate-400 hover:text-white transition-colors flex items-center gap-2 font-medium"
+            >
+              <span className="material-symbols-outlined text-[#b2c5ff]">call</span>
+              WhatsApp +34 611 03 19 47
+            </a>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* 8. FOOTER */}
+      <footer className="bg-slate-950 w-full py-12 px-8 border-t border-white/5">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-7xl mx-auto">
+          <div className="col-span-1 md:col-span-1">
+            <div className="text-xl font-bold text-white mb-6" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+              Stratoma AI
             </div>
-            <p className="mt-4 text-[10px] opacity-30 uppercase tracking-widest">Stratoma AI - Excellence in Intelligence</p>
+            <p className="text-slate-500 text-sm leading-relaxed">
+              Redefiniendo el futuro empresarial a través de la orquestación de agentes autónomos inteligentes.
+            </p>
+          </div>
+          <div>
+            <h4 className="text-white font-bold text-xs uppercase tracking-widest mb-6">Explorar</h4>
+            <ul className="space-y-4">
+              {[
+                { label: 'Servicios', href: '#servicios' },
+                { label: 'Casos Reales', href: '#casos' },
+                { label: 'Blog', href: '/blog' },
+              ].map((l) => (
+                <li key={l.label}>
+                  <a href={l.href} className="text-slate-500 hover:text-blue-400 transition-colors text-sm uppercase tracking-widest">
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-white font-bold text-xs uppercase tracking-widest mb-6">Legal</h4>
+            <ul className="space-y-4">
+              <li><Link href="/privacy" className="text-slate-500 hover:text-blue-400 transition-colors text-sm uppercase tracking-widest">Privacidad</Link></li>
+              <li><Link href="/terms" className="text-slate-500 hover:text-blue-400 transition-colors text-sm uppercase tracking-widest">Términos</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-white font-bold text-xs uppercase tracking-widest mb-6">Conectar</h4>
+            <ul className="space-y-4">
+              <li><a href="https://linkedin.com" className="text-slate-500 hover:text-blue-400 transition-colors text-sm uppercase tracking-widest">LinkedIn</a></li>
+              <li><a href="https://twitter.com" className="text-slate-500 hover:text-blue-400 transition-colors text-sm uppercase tracking-widest">Twitter</a></li>
+              <li className="text-slate-500 text-xs uppercase tracking-widest">+34 611 03 19 47</li>
+            </ul>
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-slate-600 text-xs uppercase tracking-widest">© 2026 Stratoma AI — Madrid, España</p>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-[#d2bbff] animate-pulse"></div>
+            <span className="text-slate-500 text-xs uppercase tracking-tighter">System Status: Fully Autonomous</span>
           </div>
         </div>
       </footer>
 
-      <style jsx>{`
-        @keyframes blob {
-          0% {
-            transform: translate(0px, 0px) scale(1);
-          }
-          33% {
-            transform: translate(30px, -50px) scale(1.1);
-          }
-          66% {
-            transform: translate(-20px, 20px) scale(0.9);
-          }
-          100% {
-            transform: translate(0px, 0px) scale(1);
-          }
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
+      {/* Sticky WhatsApp */}
+      <a
+        href="https://wa.me/34611031947?text=Hola%2C%20me%20interesa%20automatizar%20mi%20negocio"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 group"
+        aria-label="WhatsApp"
+      >
+        <div className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-60"></div>
+        <div className="relative bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-colors">
+          <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
+        </div>
+      </a>
+
+      {/* Material Symbols (needed for icons) */}
+      {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap');
+        .material-symbols-outlined {
+          font-family: 'Material Symbols Outlined';
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
       `}</style>
+
     </div>
   );
 }
