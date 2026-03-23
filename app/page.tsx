@@ -19,6 +19,7 @@ export default function StratomaAIHomePage() {
           </div>
           <div className="hidden md:flex gap-8 items-center" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
             <a className="text-slate-400 hover:text-white transition-colors font-bold tracking-tight" href="#como-funciona">Cómo Funciona</a>
+            <a className="text-slate-400 hover:text-white transition-colors font-bold tracking-tight" href="#stack">Stack</a>
             <a className="text-slate-400 hover:text-white transition-colors font-bold tracking-tight" href="#casos">Casos Reales</a>
             <a className="text-slate-400 hover:text-white transition-colors font-bold tracking-tight" href="#servicios">Servicios</a>
             <a className="text-slate-400 hover:text-white transition-colors font-bold tracking-tight" href="#contacto">Contacto</a>
@@ -184,6 +185,178 @@ export default function StratomaAIHomePage() {
               <p className="text-slate-400 leading-relaxed">{item.desc}</p>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+
+      {/* STACK TECNOLÓGICO — Diseño Stitch */}
+      <section id="stack" className="py-24 px-6 bg-[#060e20] relative">
+        <div className="max-w-7xl mx-auto">
+
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-20"
+          >
+            <span className="inline-block font-bold tracking-[0.2em] text-[#2b6cee] mb-4 uppercase text-xs">
+              STACK TECNOLÓGICO
+            </span>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+              <h2 className="text-5xl md:text-6xl font-bold text-white leading-tight tracking-tight max-w-3xl" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                Las herramientas que dominamos
+              </h2>
+              <p className="text-slate-400 text-lg max-w-md leading-relaxed">
+                No vendemos humo. Desplegamos el stack más potente del mercado para automatizar tu negocio.
+              </p>
+            </div>
+          </motion.div>
+
+          <div className="space-y-24">
+
+            {/* Cat 1: Automatización */}
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <div className="flex items-center gap-4 mb-8">
+                <span className="material-symbols-outlined text-[#b2c5ff] text-3xl">settings_input_component</span>
+                <h3 className="text-2xl font-bold text-white tracking-tight" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Automatización &amp; Flujos</h3>
+                <div className="h-px flex-grow bg-gradient-to-r from-[#2b6cee]/30 to-transparent ml-4"></div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {[
+                  {
+                    icon: 'hub',
+                    badge: 'Líder No-Code',
+                    name: 'n8n',
+                    desc: 'El cerebro de nuestras automatizaciones. Conectamos +500 herramientas sin código. Desde sincronizar CRMs hasta disparar campañas de email en tiempo real.',
+                  },
+                  {
+                    icon: 'account_tree',
+                    badge: 'CRM Completo',
+                    name: 'GoHighLevel (GHL)',
+                    desc: 'CRM todo-en-uno para ventas y marketing. Pipelines, seguimientos automáticos, SMS, email y llamadas de voz IA desde un solo lugar.',
+                  },
+                  {
+                    icon: 'sync_alt',
+                    badge: 'Flujos Complejos',
+                    name: 'Make (Integromat)',
+                    desc: 'Para flujos complejos multi-paso. Ideal para e-commerce, notificaciones y procesamiento de datos en tiempo real.',
+                  },
+                ].map((tool, i) => (
+                  <div key={i} className="group p-8 rounded-lg border border-white/5 bg-[#171f33]/70 backdrop-blur-xl hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_#2b6cee] transition-all duration-300">
+                    <div className="flex justify-between items-start mb-6">
+                      <div className="w-12 h-12 flex items-center justify-center bg-[#222a3d] rounded-lg text-[#b2c5ff]">
+                        <span className="material-symbols-outlined text-2xl">{tool.icon}</span>
+                      </div>
+                      <span className="text-[10px] font-bold text-[#b2c5ff] tracking-widest uppercase">{tool.badge}</span>
+                    </div>
+                    <h4 className="text-xl font-bold text-white mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{tool.name}</h4>
+                    <p className="text-slate-400 text-sm leading-relaxed">{tool.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Cat 2: IA */}
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <div className="flex items-center gap-4 mb-8">
+                <span className="material-symbols-outlined text-[#d2bbff] text-3xl">psychology</span>
+                <h3 className="text-2xl font-bold text-white tracking-tight" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Inteligencia Artificial</h3>
+                <div className="h-px flex-grow bg-gradient-to-r from-[#7c3aed]/30 to-transparent ml-4"></div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[
+                  { name: 'Paperclip', badge: 'Open Source', badgeColor: 'text-[#d2bbff]', borderColor: 'border-[#7c3aed]/20', desc: 'Nuestra herramienta de orquestación multi-agente. Jerarquías de agentes IA con presupuestos, audit logs y gobernanza completa.' },
+                  { name: 'Claude (Anthropic)', badge: 'Razonamiento', badgeColor: 'text-[#d2bbff]', borderColor: 'border-[#7c3aed]/20', desc: 'El modelo de razonamiento más avanzado. Análisis complejos, generación de código y toma de decisiones estratégicas.' },
+                  { name: 'ElevenLabs', badge: 'Voice AI', badgeColor: 'text-[#d2bbff]', borderColor: 'border-[#7c3aed]/20', desc: 'Síntesis de voz ultrarrealista. Asistentes de voz y audiobots para call centers en múltiples idiomas.' },
+                  { name: 'Gemini (Google)', badge: 'Gran Contexto', badgeColor: 'text-[#d2bbff]', borderColor: 'border-[#7c3aed]/20', desc: 'Ventana de contexto masiva para escanear miles de documentos, análisis de repositorios y tareas creativas.' },
+                ].map((tool, i) => (
+                  <div key={i} className={}>
+                    <span className={}>{tool.badge}</span>
+                    <h4 className="text-lg font-bold text-white mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{tool.name}</h4>
+                    <p className="text-slate-400 text-xs leading-relaxed">{tool.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Cat 3: Comunicación */}
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <div className="flex items-center gap-4 mb-8">
+                <span className="material-symbols-outlined text-[#ffb693] text-3xl">forum</span>
+                <h3 className="text-2xl font-bold text-white tracking-tight" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Comunicación &amp; CRM</h3>
+                <div className="h-px flex-grow bg-gradient-to-r from-[#c35000]/30 to-transparent ml-4"></div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[
+                  { icon: 'chat', name: 'WhatsApp Business API', desc: 'Automatizamos conversaciones de ventas, soporte y seguimiento directamente en WhatsApp. El canal con mayor tasa de apertura del mundo.' },
+                  { icon: 'api', name: 'Evolution API', desc: 'Nuestra capa de WhatsApp para conectar múltiples números y gestionar miles de conversaciones simultáneas con agentes IA.' },
+                  { icon: 'call', name: 'Twilio', desc: 'Voz, SMS e integración telefónica. Para call centers con IA y notificaciones críticas de negocio.' },
+                  { icon: 'record_voice_over', name: 'Fathom', desc: 'Transcripción y análisis de reuniones con IA. Cada llamada de ventas se convierte en acciones automatizadas en el CRM.' },
+                ].map((tool, i) => (
+                  <div key={i} className="group p-6 rounded-lg border border-white/5 bg-[#171f33]/70 backdrop-blur-xl hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_#c35000] transition-all duration-300">
+                    <div className="text-[#ffb693] mb-4"><span className="material-symbols-outlined">{tool.icon}</span></div>
+                    <h4 className="text-white font-bold mb-2" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{tool.name}</h4>
+                    <p className="text-slate-400 text-xs leading-relaxed">{tool.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Cat 4: Infraestructura */}
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <div className="flex items-center gap-4 mb-8">
+                <span className="material-symbols-outlined text-emerald-400 text-3xl">database</span>
+                <h3 className="text-2xl font-bold text-white tracking-tight" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Infraestructura &amp; Data</h3>
+                <div className="h-px flex-grow bg-gradient-to-r from-emerald-500/30 to-transparent ml-4"></div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[
+                  { name: 'Google Workspace', desc: 'Gmail, Drive, Sheets y Docs integrados en todos los flujos. Automatizamos reportes, facturas y comunicaciones empresariales.' },
+                  { name: 'Supabase', desc: 'Base de datos PostgreSQL en tiempo real. El backend de todas nuestras apps y dashboards de cliente.' },
+                  { name: 'Coolify', desc: 'Deploy de aplicaciones con un click en nuestra infraestructura. SSL, dominio y CI/CD automático para cada proyecto.' },
+                  { name: 'Notion', desc: 'Centro de conocimiento y gestión de proyectos. Sincronizamos automáticamente con todos los sistemas del cliente.' },
+                ].map((tool, i) => (
+                  <div key={i} className="p-8 rounded-lg border border-white/5 bg-[#131b2e] hover:bg-[#171f33] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_#10b981] transition-all duration-300">
+                    <h4 className="text-white font-bold mb-2" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{tool.name}</h4>
+                    <p className="text-slate-400 text-xs leading-relaxed">{tool.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+          </div>
+
+          {/* Bottom CTA strip — Stitch gradient border */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-24 p-px bg-gradient-to-r from-[#2b6cee] via-[#7c3aed] to-[#2b6cee] rounded-lg"
+          >
+            <div className="bg-[#0b1326] flex flex-col md:flex-row items-center justify-between gap-8 px-12 py-10 rounded-lg">
+              <div className="flex items-center gap-6">
+                <div className="relative">
+                  <div className="w-3 h-3 bg-[#d2bbff] rounded-full animate-pulse shadow-[0_0_15px_rgba(210,187,255,0.8)]"></div>
+                  <div className="absolute inset-0 w-3 h-3 bg-[#d2bbff] rounded-full animate-ping opacity-75"></div>
+                </div>
+                <p className="text-xl md:text-2xl font-bold text-white" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                  ¿Usas alguna de estas herramientas?{' '}
+                  <span className="text-[#b2c5ff]">Podemos potenciarlas con IA.</span>
+                </p>
+              </div>
+              <a
+                href="https://wa.me/34611031947?text=Hola%2C%20quiero%20potenciar%20mis%20herramientas%20con%20IA"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#2b6cee] text-white font-black px-10 py-4 rounded-lg hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_#7c3aed] transition-all duration-300 whitespace-nowrap"
+                style={{ fontFamily: 'Space Grotesk, sans-serif' }}
+              >
+                Empezar ahora
+              </a>
+            </div>
+          </motion.div>
+
         </div>
       </section>
 
