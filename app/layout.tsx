@@ -89,6 +89,10 @@ export const metadata: Metadata = {
     google: 'Atm4vTOlZegKW9VwkjZxrh43UQ61QRu6mNsGoHp6hv0',
   },
   category: 'technology',
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
 };
 
 export const viewport: Viewport = {
@@ -106,9 +110,10 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning>
       <head>
         <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/icon-192.png" />
-        <meta name="theme-color" content="#3b82f6" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
+        <meta name="theme-color" content="#0b1326" />
       </head>
       <body className={`${inter.variable} ${jetbrains.variable} antialiased`}>
         {children}
