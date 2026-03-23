@@ -531,6 +531,112 @@ export default function StratomaAIHomePage() {
         </div>
       </section>
 
+
+      {/* Proyectos en Producción - Tripath & Paperclip */}
+      <section className="py-20 lg:py-32 bg-gray-950" id="proyectos">
+        <div className="max-w-6xl mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <span className="text-blue-400 font-bold text-xs tracking-[0.2em] uppercase">PROYECTOS EN PRODUCCIÓN</span>
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mt-3 mb-4 leading-tight">
+              Lo que Construimos con IA
+            </h2>
+            <p className="text-xl text-gray-400 border-l-4 border-blue-600 pl-5">
+              Casos reales, métricas reales.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+            {/* Card Tripath */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="group relative rounded-2xl p-8 lg:p-10 overflow-hidden border border-white/5 bg-white/5 hover:bg-white/10 hover:border-blue-500/30 transition-all duration-500"
+              style={{ backdropFilter: 'blur(16px)' }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-transparent pointer-events-none"></div>
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="flex justify-between items-start mb-8">
+                  <span className="bg-blue-500/10 text-blue-400 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase border border-blue-500/20">
+                    Coliving &amp; PropTech
+                  </span>
+                  <div className="w-12 h-12 rounded-xl bg-blue-600/10 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform duration-300">
+                    <Building2 className="w-6 h-6" />
+                  </div>
+                </div>
+                <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-3">Tripath · tripath.es</p>
+                <div className="text-6xl font-black tracking-tighter text-white mb-1">93.17%</div>
+                <p className="text-gray-400 font-medium mb-8">Tasa de Ocupación</p>
+                <div className="flex flex-wrap gap-3 mb-8">
+                  <span className="bg-gray-800 px-4 py-2 rounded-xl border border-gray-700 text-sm font-bold text-white">130.334€/mes</span>
+                  <span className="bg-blue-500/10 px-4 py-2 rounded-xl border border-blue-500/20 text-sm font-bold text-blue-400">158% ROI</span>
+                  <span className="bg-gray-800 px-4 py-2 rounded-xl border border-gray-700 text-sm font-bold text-gray-300">205 habitaciones</span>
+                </div>
+                <p className="text-gray-400 leading-relaxed mb-8 flex-grow">
+                  Plataforma de coliving gestionada íntegramente con IA Stratoma. 55 pisos activos en Madrid, Alicante y Alcorcón.
+                </p>
+                <a
+                  href="https://tripath.es"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full py-4 rounded-xl border border-blue-500/30 bg-blue-500/5 hover:bg-blue-500/15 text-white font-bold transition-all duration-300 group-hover:border-blue-400"
+                >
+                  Ver proyecto
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Card Paperclip */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="group relative rounded-2xl p-8 lg:p-10 overflow-hidden border border-white/5 bg-white/5 hover:bg-white/10 hover:border-violet-500/30 transition-all duration-500"
+              style={{ backdropFilter: 'blur(16px)' }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-violet-600/5 to-transparent pointer-events-none"></div>
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="flex justify-between items-start mb-8">
+                  <span className="bg-violet-500/10 text-violet-400 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase border border-violet-500/20">
+                    AI Orchestration
+                  </span>
+                  <div className="w-12 h-12 rounded-xl bg-violet-600/10 flex items-center justify-center text-violet-400 group-hover:scale-110 transition-transform duration-300">
+                    <Workflow className="w-6 h-6" />
+                  </div>
+                </div>
+                <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-3">Paperclip · paperclip.ing</p>
+                <div className="text-6xl font-black tracking-tighter text-white mb-1">MIT</div>
+                <p className="text-gray-400 font-medium mb-8">Open Source · Self-Hosted</p>
+                <div className="flex flex-wrap gap-3 mb-8">
+                  <span className="bg-gray-800 px-4 py-2 rounded-xl border border-gray-700 text-sm font-bold text-white">Multi-agent</span>
+                  <span className="bg-violet-500/10 px-4 py-2 rounded-xl border border-violet-500/20 text-sm font-bold text-violet-400">Auto-gobernanza</span>
+                  <span className="bg-gray-800 px-4 py-2 rounded-xl border border-gray-700 text-sm font-bold text-gray-300">Audit logs</span>
+                </div>
+                <p className="text-gray-400 leading-relaxed mb-8 flex-grow">
+                  Plataforma open-source para crear empresas autónomas de agentes IA. Org charts, control de presupuesto por agente y trazabilidad completa.
+                </p>
+                <a
+                  href="https://paperclip.ing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full py-4 rounded-xl border border-violet-500/30 bg-violet-500/5 hover:bg-violet-500/15 text-white font-bold transition-all duration-300 group-hover:border-violet-400"
+                >
+                  Ver proyecto
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
       {/* CTA Madrid - Nuevo */}
       <section className="py-20 bg-gradient-to-r from-blue-700 to-blue-600 text-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-12 text-center">
