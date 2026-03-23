@@ -271,8 +271,8 @@ export default function StratomaAIHomePage() {
                   { name: 'ElevenLabs', badge: 'Voice AI', badgeColor: 'text-[#d2bbff]', borderColor: 'border-[#7c3aed]/20', desc: 'Síntesis de voz ultrarrealista. Asistentes de voz y audiobots para call centers en múltiples idiomas.' },
                   { name: 'Gemini (Google)', badge: 'Gran Contexto', badgeColor: 'text-[#d2bbff]', borderColor: 'border-[#7c3aed]/20', desc: 'Ventana de contexto masiva para escanear miles de documentos, análisis de repositorios y tareas creativas.' },
                 ].map((tool, i) => (
-                  <div key={i} className={}>
-                    <span className={}>{tool.badge}</span>
+                  <div key={i} className={"group p-8 rounded-lg border-t-2 border-[#7c3aed]/20 bg-[#171f33]/70 backdrop-blur-xl hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_#7c3aed] transition-all duration-300"}>
+                    <span className="text-[10px] font-bold text-[#d2bbff] tracking-widest uppercase block mb-4">{tool.badge}</span>
                     <h4 className="text-lg font-bold text-white mb-3" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{tool.name}</h4>
                     <p className="text-slate-400 text-xs leading-relaxed">{tool.desc}</p>
                   </div>
