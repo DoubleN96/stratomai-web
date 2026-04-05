@@ -60,7 +60,7 @@ export const metadata: Metadata = {
         url: '/og-image-home.jpg',
         width: 1200,
         height: 630,
-        alt: 'ScaleOps Automation - Automatización Empresarial con IA',
+        alt: 'Stratoma AI - Automatización Empresarial con IA',
       },
     ],
   },
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Stratoma AI - Inteligencia Artificial en Madrid',
     description: 'Agencia de IA en Madrid. Chatbots, automatización y asistentes virtuales para empresas. Consultoría gratuita.',
-    images: ['/twitter-card-home.jpg'],
+    images: ['/og-image-home.jpg'],
     creator: '@stratomai',
   },
   robots: {
@@ -114,9 +114,32 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/favicon.svg" />
         <meta name="theme-color" content="#0b1326" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Stratoma AI",
+              url: "https://stratomai.com",
+              description: "Automatización empresarial con Inteligencia Artificial en Madrid",
+              address: { "@type": "PostalAddress", addressLocality: "Madrid", addressCountry: "ES" },
+              contactPoint: { "@type": "ContactPoint", telephone: "+34-610-095-844", contactType: "sales" },
+              sameAs: ["https://linkedin.com/company/stratomai", "https://x.com/stratomai"],
+            }),
+          }}
+        />
       </head>
       <body className={`${inter.variable} ${jetbrains.variable} antialiased`}>
         {children}
+        {/* Stratoma Branding */}
+        <div className="fixed bottom-5 left-5 z-[100]">
+          <div className="bg-white/90 backdrop-blur-sm px-3 py-2 rounded-xl border border-gray-200 text-[10px] text-gray-500 shadow-sm">
+            <div className="font-semibold text-gray-900 mb-0.5">Desarrollado por</div>
+            <div className="font-bold">Stratoma AI</div>
+            <div className="mt-1 pt-1 border-t border-gray-100">+34 611 03 19 47</div>
+          </div>
+        </div>
         <FloatingWhatsApp />
       </body>
     </html>
