@@ -56,3 +56,30 @@ export interface PanelSalesReportNote {
   note: string;
   created_at: string;
 }
+
+export type ConfigCategory = 'env' | 'ghl' | 'email' | 'meta' | 'other';
+
+// Raw row as stored (item_value_enc is the bytea blob, server-only).
+export interface PanelProjectConfigRow {
+  id: string;
+  project_slug: string;
+  category: ConfigCategory;
+  item_key: string;
+  item_value_enc: string | null;
+  is_secret: boolean;
+  updated_at: string;
+}
+
+// Safe-for-UI shape: secrets are masked; plaintext is NEVER sent here unless
+// the admin explicitly requested a reveal (handled by a separate action).
+export interface PanelConfigItem {
+  id: string;
+  category: ConfigCategory;
+  itemKey: string;
+  isSecret: boolean;
+  hasValue: boolean;
+  // For non-secret items, the plaintext is included directly.
+  // For secret items, only a mask is included (reveal happens server-side).
+  display: string;
+  updatedAt: string;
+}
