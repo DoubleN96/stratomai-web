@@ -92,3 +92,6 @@ explore-*.js
 fetch-*.js
 proceso-*.md
 PROMPT*.txt
+
+# Track panel DB migrations (override broad *.sql)
+!supabase/migrations/*.sql
