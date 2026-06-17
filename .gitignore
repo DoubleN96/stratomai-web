@@ -95,3 +95,6 @@ PROMPT*.txt
 
 # Track panel DB migrations (override broad *.sql)
 !supabase/migrations/*.sql
+
+# FASE 3 ingest payload — contains real production secrets, never commit
+scripts/fase3_coolify_projects.json

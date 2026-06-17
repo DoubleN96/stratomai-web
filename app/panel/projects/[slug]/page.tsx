@@ -2,7 +2,9 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { requireSession } from '@/lib/panel/auth';
 import { getProject, listRecentSalesReports } from '@/lib/panel/queries';
+import { getProjectConfig } from '@/lib/panel/config';
 import { PanelHeader } from '@/components/panel/PanelHeader';
+import { ConfigSection } from '@/components/panel/ConfigSection';
 import { EmptyState, GlassCard, Kpi, StatusBadge } from '@/components/panel/ui';
 
 export const dynamic = 'force-dynamic';
@@ -29,6 +31,11 @@ export default async function ProjectPage({
 
   const reports = await listRecentSalesReports(slug, 14);
   const latest = reports[0];
+
+  // Configuration is admin-only. RLS would return nothing for a non-admin
+  // anyway, but we gate the query/render explicitly to avoid extra round-trips.
+  const isAdmin = profile.role === 'admin';
+  const config = isAdmin ? await getProjectConfig(slug) : null;
 
   return (
     <>
@@ -124,6 +131,23 @@ export default async function ProjectPage({
               </tbody>
             </table>
           </GlassCard>
+        )}
+
+        {isAdmin && config && (
+          <section className="mt-12">
+            <div className="mb-4 flex items-center gap-3">
+              <h2 className="text-lg font-bold text-white">Configuración</h2>
+              <span className="rounded-full border border-[#3a4256] bg-[#2a2f3d] px-2.5 py-0.5 text-xs font-medium text-[#9fb0d8]">
+                solo admin
+              </span>
+            </div>
+            <p className="mb-5 text-sm text-[#8597c0]">
+              Variables de entorno (Coolify), GHL, correos y metadatos del
+              proyecto. Los valores secretos están cifrados en reposo; pulsa
+              «Mostrar» para revelarlos (descifrado en servidor).
+            </p>
+            <ConfigSection config={config} />
+          </section>
         )}
       </main>
     </>
