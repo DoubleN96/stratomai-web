@@ -53,11 +53,19 @@ export default async function ProjectPage({
           <StatusBadge status={project.status} />
         </div>
 
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#7f90b8]">
-          {latest
-            ? `Reporte del ${latest.report_date}`
-            : 'Reporting diario de ventas'}
-        </h2>
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-[#7f90b8]">
+            {latest
+              ? `Reporte del ${latest.report_date}`
+              : 'Reporting diario de ventas'}
+          </h2>
+          <Link
+            href={`/panel/projects/${slug}/reporte`}
+            className="whitespace-nowrap rounded-lg bg-[#7ca0ff] px-3 py-1.5 text-xs font-semibold text-[#0b1326] transition-opacity hover:opacity-90"
+          >
+            Reporte diario →
+          </Link>
+        </div>
 
         {latest ? (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
