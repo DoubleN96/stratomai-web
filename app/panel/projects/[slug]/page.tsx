@@ -9,6 +9,9 @@ import { EmptyState, GlassCard, Kpi, StatusBadge } from '@/components/panel/ui';
 
 export const dynamic = 'force-dynamic';
 
+// Projects that have a live GHL/Meta sales-KPI dashboard at /ventas.
+const SALES_DASHBOARD_SLUGS = new Set(['int-kapital']);
+
 function fmtMoney(n: number): string {
   return new Intl.NumberFormat('es-ES', {
     style: 'currency',
@@ -48,9 +51,17 @@ export default async function ProjectPage({
           ← Volver
         </Link>
 
-        <div className="mt-3 mb-6 flex items-center gap-3">
+        <div className="mt-3 mb-6 flex flex-wrap items-center gap-3">
           <h1 className="text-2xl font-bold text-white">{project.name}</h1>
           <StatusBadge status={project.status} />
+          {SALES_DASHBOARD_SLUGS.has(slug) && (
+            <Link
+              href={`/panel/projects/${slug}/ventas`}
+              className="rounded-lg bg-gradient-to-r from-[#7ca0ff] to-[#c4a3ff] px-3 py-1.5 text-xs font-semibold text-[#0b1326] transition-opacity hover:opacity-90"
+            >
+              Dashboard de ventas →
+            </Link>
+          )}
         </div>
 
         <div className="mb-3 flex items-center justify-between gap-3">
