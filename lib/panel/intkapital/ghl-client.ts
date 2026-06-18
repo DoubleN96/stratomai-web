@@ -5,8 +5,8 @@
 // (resolved server-side) — this module NEVER hardcodes secrets and is never
 // imported by a client component.
 
-const GHL_BASE = 'https://services.leadconnectorhq.com';
-const GHL_VERSION = '2021-07-28';
+const GHL_BASE = "https://services.leadconnectorhq.com";
+const GHL_VERSION = "2021-07-28";
 const PAGE_LIMIT = 100; // GHL max per page for opportunities/search
 const MAX_PAGES = 60; // safety cap (60 * 100 = 6000 opps); funnel currently ~457
 const REQUEST_TIMEOUT_MS = 25_000;
@@ -21,6 +21,7 @@ export interface GhlCredentials {
 export interface GhlOpportunity {
   id: string;
   name: string | null;
+  contactId: string | null; // GHL contact id (used for the conversations crawl)
   pipelineId: string;
   pipelineStageId: string;
   status: string; // open | won | lost | abandoned
@@ -46,6 +47,8 @@ interface GhlSearchResponse {
 interface RawOpportunity {
   id: string;
   name?: string | null;
+  contactId?: string | null;
+  contact?: { id?: string | null } | null;
   pipelineId?: string;
   pipelineStageId?: string;
   status?: string;
@@ -61,10 +64,10 @@ interface RawOpportunity {
 export class GhlError extends Error {
   constructor(
     message: string,
-    public readonly status?: number
+    public readonly status?: number,
   ) {
     super(message);
-    this.name = 'GhlError';
+    this.name = "GhlError";
   }
 }
 
@@ -73,17 +76,21 @@ function normalize(raw: RawOpportunity): GhlOpportunity | null {
   return {
     id: raw.id,
     name: raw.name ?? null,
+    // GHL has returned the contact id either flat (`contactId`) or nested
+    // (`contact.id`) across API versions; accept both.
+    contactId: raw.contactId ?? raw.contact?.id ?? null,
     pipelineId: raw.pipelineId,
     pipelineStageId: raw.pipelineStageId,
-    status: raw.status ?? 'open',
+    status: raw.status ?? "open",
     monetaryValue:
-      typeof raw.monetaryValue === 'number' && Number.isFinite(raw.monetaryValue)
+      typeof raw.monetaryValue === "number" &&
+      Number.isFinite(raw.monetaryValue)
         ? raw.monetaryValue
         : 0,
     assignedTo: raw.assignedTo ?? null,
     source: raw.source ?? null,
-    createdAt: raw.createdAt ?? '',
-    updatedAt: raw.updatedAt ?? '',
+    createdAt: raw.createdAt ?? "",
+    updatedAt: raw.updatedAt ?? "",
     lastStageChangeAt: raw.lastStageChangeAt ?? null,
     lastStatusChangeAt: raw.lastStatusChangeAt ?? null,
   };
@@ -91,17 +98,17 @@ function normalize(raw: RawOpportunity): GhlOpportunity | null {
 
 async function fetchPage(
   creds: GhlCredentials,
-  cursor: { startAfter?: number | null; startAfterId?: string | null }
+  cursor: { startAfter?: number | null; startAfterId?: string | null },
 ): Promise<GhlSearchResponse> {
   const url = new URL(`${GHL_BASE}/opportunities/search`);
-  url.searchParams.set('location_id', creds.locationId);
-  url.searchParams.set('pipeline_id', creds.pipelineId);
-  url.searchParams.set('limit', String(PAGE_LIMIT));
+  url.searchParams.set("location_id", creds.locationId);
+  url.searchParams.set("pipeline_id", creds.pipelineId);
+  url.searchParams.set("limit", String(PAGE_LIMIT));
   if (cursor.startAfter != null) {
-    url.searchParams.set('startAfter', String(cursor.startAfter));
+    url.searchParams.set("startAfter", String(cursor.startAfter));
   }
   if (cursor.startAfterId) {
-    url.searchParams.set('startAfterId', cursor.startAfterId);
+    url.searchParams.set("startAfterId", cursor.startAfterId);
   }
 
   const controller = new AbortController();
@@ -111,26 +118,30 @@ async function fetchPage(
       headers: {
         Authorization: `Bearer ${creds.pit}`,
         Version: GHL_VERSION,
-        Accept: 'application/json',
+        Accept: "application/json",
       },
       signal: controller.signal,
-      cache: 'no-store',
+      cache: "no-store",
     });
 
     if (!res.ok) {
       // Log the body server-side only; never include it in the thrown error,
       // since GHL error bodies can reflect auth context.
-      const body = await res.text().catch(() => '');
-      console.error('[intkapital][GHL] API error', res.status, body.slice(0, 500));
+      const body = await res.text().catch(() => "");
+      console.error(
+        "[intkapital][GHL] API error",
+        res.status,
+        body.slice(0, 500),
+      );
       throw new GhlError(`GHL API error (${res.status})`, res.status);
     }
     return (await res.json()) as GhlSearchResponse;
   } catch (e) {
     if (e instanceof GhlError) throw e;
-    if (e instanceof Error && e.name === 'AbortError') {
-      throw new GhlError('GHL request timed out');
+    if (e instanceof Error && e.name === "AbortError") {
+      throw new GhlError("GHL request timed out");
     }
-    throw new GhlError(e instanceof Error ? e.message : 'GHL request failed');
+    throw new GhlError(e instanceof Error ? e.message : "GHL request failed");
   } finally {
     clearTimeout(timer);
   }
@@ -138,7 +149,7 @@ async function fetchPage(
 
 // Fetch ALL opportunities in the configured pipeline, following the cursor.
 export async function fetchAllOpportunities(
-  creds: GhlCredentials
+  creds: GhlCredentials,
 ): Promise<GhlOpportunity[]> {
   const all: GhlOpportunity[] = [];
   let cursor: { startAfter?: number | null; startAfterId?: string | null } = {};
