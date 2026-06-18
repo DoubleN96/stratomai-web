@@ -98,3 +98,7 @@ PROMPT*.txt
 
 # FASE 3 ingest payload — contains real production secrets, never commit
 scripts/fase3_coolify_projects.json
+
+# Local agent tooling artifacts (contain credentials / not part of the app)
+.gemini/
+.claude/skills/
