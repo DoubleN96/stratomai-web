@@ -1,15 +1,18 @@
-import type { OverviewKpis } from '@/lib/panel/intkapital/types';
-import { GlassCard, Kpi } from '@/components/panel/ui';
+import type {
+  ContactMetricsBucket,
+  OverviewKpis,
+} from "@/lib/panel/intkapital/types";
+import { GlassCard, Kpi } from "@/components/panel/ui";
 
 function pct(n: number | null): string {
-  if (n == null) return '—';
+  if (n == null) return "—";
   return `${(n * 100).toFixed(0)}%`;
 }
 
 function money(n: number): string {
-  return new Intl.NumberFormat('es-ES', {
-    style: 'currency',
-    currency: 'EUR',
+  return new Intl.NumberFormat("es-ES", {
+    style: "currency",
+    currency: "EUR",
     maximumFractionDigits: 0,
   }).format(n);
 }
@@ -35,7 +38,9 @@ function Ranking({
             </span>
             <div className="min-w-0 flex-1">
               <div className="mb-1 flex items-center justify-between gap-2">
-                <span className="truncate text-sm text-[#c2cdec]">{it.name}</span>
+                <span className="truncate text-sm text-[#c2cdec]">
+                  {it.name}
+                </span>
                 <span className="shrink-0 text-sm font-semibold tabular-nums text-white">
                   {formatter(it.value)}
                 </span>
@@ -54,7 +59,13 @@ function Ranking({
   );
 }
 
-export function OverviewSection({ overview }: { overview: OverviewKpis }) {
+export function OverviewSection({
+  overview,
+  contact,
+}: {
+  overview: OverviewKpis;
+  contact?: ContactMetricsBucket;
+}) {
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
@@ -93,7 +104,31 @@ export function OverviewSection({ overview }: { overview: OverviewKpis }) {
           value={pct(overview.meetingToCloseRate)}
           accent="green"
         />
+        {contact && (
+          <>
+            <Kpi
+              label="Leads contactados"
+              value={pct(contact.contactedRate)}
+              accent="blue"
+            />
+            <Kpi
+              label="1er contacto <20min"
+              value={pct(contact.fastRate)}
+              accent="green"
+            />
+          </>
+        )}
       </div>
+
+      {contact && contact.uncontactedLeads > 0 && (
+        <p className="text-xs text-[#7f90b8]">
+          {contact.uncontactedLeads} leads sin ninguna llamada humana todavía
+          {contact.avgResponseMins != null && (
+            <> · respuesta media {contact.avgResponseMins.toFixed(1)} min</>
+          )}
+          .
+        </p>
+      )}
 
       <div className="grid gap-4 lg:grid-cols-2">
         <Ranking

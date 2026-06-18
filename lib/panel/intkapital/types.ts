@@ -66,3 +66,55 @@ export interface SalesDashboardData {
   generatedAt: string; // ISO
   sourceCount: number; // total opps analyzed
 }
+
+// ---------------------------------------------------------------------------
+// Setter speed / contact metrics (computed from the Conversations crawl).
+//
+// These are EXPENSIVE to compute (one conversations search + messages fetch per
+// lead, ~900 GHL calls for ~457 leads), so they are produced by a separate
+// CACHED/snapshot layer (see setter-contact.ts / setter-contact-snapshots.ts),
+// NOT on every page render.
+// ---------------------------------------------------------------------------
+
+// The "first human call" rule (see Dani's spec):
+//   First outbound message with messageType === 'TYPE_CALL' whose userId is a
+//   REAL team member (not the automatic bot, which appears as userId "app" or
+//   empty). It counts whether or not the call was answered / had any duration —
+//   it is the first human ATTEMPT to call, period.
+export interface ContactMetricsBucket {
+  // Total leads attributed to this bucket (a setter, or "global").
+  totalLeads: number;
+  // Leads with >= 1 human outbound call ("contactados").
+  contactedLeads: number;
+  // Leads still without any human call ("sin contactar").
+  uncontactedLeads: number;
+  // contactedLeads / totalLeads (0..1), or null when there are no leads.
+  contactedRate: number | null;
+  // Of the CONTACTED leads, how many had their first human call within the
+  // SPEED_WINDOW_MINUTES window after the form was submitted.
+  contactedFast: number;
+  // contactedFast / contactedLeads (0..1), or null when none were contacted.
+  fastRate: number | null;
+  // Average minutes from form submission to first human call, over contacted
+  // leads with a known form timestamp. Null when not computable.
+  avgResponseMins: number | null;
+}
+
+export interface SetterContactKpis extends ContactMetricsBucket {
+  ghlUserId: string;
+  name: string;
+}
+
+export interface SetterContactData {
+  global: ContactMetricsBucket;
+  setters: SetterContactKpis[];
+  // How many leads we could analyze (had a resolvable form timestamp + were
+  // crawled). Used to caveat the numbers honestly in the UI.
+  leadsAnalyzed: number;
+  // Leads we owned but skipped (e.g. crawl error / missing data) — surfaced so
+  // we never silently inflate "uncontactado".
+  leadsSkipped: number;
+  // The speed window used for the "<Xmin" metric, so the UI label matches.
+  speedWindowMinutes: number;
+  generatedAt: string; // ISO
+}
