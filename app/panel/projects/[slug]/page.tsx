@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
 import { requireSession } from '@/lib/panel/auth';
 import { getProject, listRecentSalesReports } from '@/lib/panel/queries';
@@ -6,6 +6,7 @@ import { getProjectConfig } from '@/lib/panel/config';
 import { PanelHeader } from '@/components/panel/PanelHeader';
 import { ConfigSection } from '@/components/panel/ConfigSection';
 import { EmptyState, GlassCard, Kpi, StatusBadge } from '@/components/panel/ui';
+import { COMMAND_CENTER_SLUGS } from '@/lib/panel/tudor/slugs';
 
 export const dynamic = 'force-dynamic';
 
@@ -31,6 +32,12 @@ export default async function ProjectPage({
   // RLS returns null if the user has no access to this project.
   const project = await getProject(slug);
   if (!project) notFound();
+
+  // Command-center projects (e.g. Tudor) render a live dashboard instead of the
+  // sales-report view. Non-admins land straight on it; admins get a link below.
+  if (COMMAND_CENTER_SLUGS.has(slug) && profile.role !== 'admin') {
+    redirect(`/panel/projects/${slug}/comando`);
+  }
 
   const reports = await listRecentSalesReports(slug, 14);
   const latest = reports[0];
@@ -60,6 +67,14 @@ export default async function ProjectPage({
               className="rounded-lg bg-gradient-to-r from-[#7ca0ff] to-[#c4a3ff] px-3 py-1.5 text-xs font-semibold text-[#0b1326] transition-opacity hover:opacity-90"
             >
               Dashboard de ventas →
+            </Link>
+          )}
+          {COMMAND_CENTER_SLUGS.has(slug) && (
+            <Link
+              href={`/panel/projects/${slug}/comando`}
+              className="rounded-lg bg-gradient-to-r from-[#7ca0ff] to-[#c4a3ff] px-3 py-1.5 text-xs font-semibold text-[#0b1326] transition-opacity hover:opacity-90"
+            >
+              Command Center →
             </Link>
           )}
         </div>
