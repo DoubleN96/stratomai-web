@@ -309,6 +309,64 @@ export function CommandCenter({
           </div>
         </div>
       </Card>
+
+      {snapshot.waCommunity && (
+        <Card
+          title="Comunidad WhatsApp · de dónde vienen"
+          tag={`snapshot ${snapshot.waCommunity.asOf}`}
+        >
+          <div className="mb-5 flex flex-wrap gap-8">
+            <Metric
+              big
+              value={nfmt(snapshot.waCommunity.count)}
+              label="miembros del grupo"
+            />
+            <Metric
+              big
+              value={
+                snapshot.waCommunity.leads > 0
+                  ? `${Math.round((snapshot.waCommunity.joined / snapshot.waCommunity.leads) * 100)}%`
+                  : '—'
+              }
+              label={`lead → WhatsApp (${snapshot.waCommunity.joined}/${snapshot.waCommunity.leads})`}
+            />
+          </div>
+          <div className="grid gap-6 md:grid-cols-2">
+            <div>
+              <p className="mb-2 font-mono text-[10px] uppercase tracking-widest text-[#5a6b94]">
+                Miembros por país
+              </p>
+              {snapshot.waCommunity.byCountry.length > 0 ? (
+                <MiniBars
+                  horizontal
+                  data={snapshot.waCommunity.byCountry.map(([c, n]) => ({
+                    label: c,
+                    value: n,
+                  }))}
+                />
+              ) : (
+                <Note>Sin datos.</Note>
+              )}
+            </div>
+            <div>
+              <p className="mb-2 font-mono text-[10px] uppercase tracking-widest text-[#5a6b94]">
+                Los que entraron · por campaña
+              </p>
+              {snapshot.waCommunity.byCampaign.length > 0 ? (
+                <MiniBars
+                  horizontal
+                  data={snapshot.waCommunity.byCampaign.map(([c, n]) => ({
+                    label: c,
+                    value: n,
+                  }))}
+                />
+              ) : (
+                <Note>Sin datos.</Note>
+              )}
+            </div>
+          </div>
+        </Card>
+      )}
     </div>
   );
 }

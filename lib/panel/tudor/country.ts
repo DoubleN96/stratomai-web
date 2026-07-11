@@ -53,14 +53,28 @@ const SORTED_PREFIXES = Object.keys(CALLING_CODES).sort(
   (a, b) => b.length - a.length
 );
 
+function matchDigits(digits: string): string | null {
+  const withPlus = '+' + digits;
+  for (const pref of SORTED_PREFIXES) {
+    if (withPlus.startsWith(pref)) return CALLING_CODES[pref];
+  }
+  return null;
+}
+
 function fromPhone(phone: string): string | null {
   let p = phone.trim().replace(/[\s()\-.]/g, '');
   if (p.startsWith('00')) p = '+' + p.slice(2);
   if (!p.startsWith('+')) return null; // no country context without a prefix
-  for (const pref of SORTED_PREFIXES) {
-    if (p.startsWith(pref)) return CALLING_CODES[pref];
+  const digits = p.slice(1).replace(/\D/g, '');
+  // Un-double the old /lives form's default +40 prefix. A Romanian national
+  // number is 9 digits (so +40 total = 11). A "40…" number longer than that was
+  // almost certainly a FOREIGN number that the old form prepended +40 onto
+  // (the lead never picked a country). Strip the stray 40 and re-infer.
+  if (digits.startsWith('40') && digits.length > 11) {
+    const undoubled = matchDigits(digits.slice(2));
+    if (undoubled) return undoubled;
   }
-  return null;
+  return matchDigits(digits);
 }
 
 export function countryOfLead(c: {

@@ -95,7 +95,26 @@ function resolveSnapshot(cfg: Map<string, string>): TudorSnapshot {
       whatsapp: num(g('BENCH_WHATSAPP'), 19000),
       live: num(g('BENCH_LIVE'), 2000),
     },
+    waCommunity: parseWaSnapshot(g('WA_SNAPSHOT')),
   };
+}
+
+function parseWaSnapshot(raw: string | undefined): TudorSnapshot['waCommunity'] {
+  if (!raw) return null;
+  try {
+    const s = JSON.parse(raw);
+    if (typeof s?.count !== 'number') return null;
+    return {
+      asOf: String(s.asOf ?? ''),
+      count: Number(s.count) || 0,
+      leads: Number(s.leads) || 0,
+      joined: Number(s.joined) || 0,
+      byCountry: Array.isArray(s.byCountry) ? s.byCountry : [],
+      byCampaign: Array.isArray(s.byCampaign) ? s.byCampaign : [],
+    };
+  } catch {
+    return null;
+  }
 }
 
 // Resolve the full Tudor config in a single decrypt pass. Never throws for

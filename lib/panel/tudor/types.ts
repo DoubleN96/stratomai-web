@@ -38,10 +38,20 @@ export type VisitStats =
 // ── Editable snapshots (no public API) + launch benchmark ──
 // Stored as non-secret panel_project_configs so they can be updated from the
 // admin config UI without a redeploy. Defaults mirror the last known figures.
+export interface WaCommunitySnapshot {
+  asOf: string;
+  count: number;
+  leads: number;
+  joined: number;
+  byCountry: Array<[string, number]>;
+  byCampaign: Array<[string, number]>;
+}
+
 export interface TudorSnapshot {
   whatsapp: { members: number; communities: number; capEach: number; target: number };
   skool: { total: number; paying: number; mrr: number; asOf: string };
   bench: { leads: number; whatsapp: number; live: number };
+  waCommunity: WaCommunitySnapshot | null;
 }
 
 export interface TudorDashboard {
