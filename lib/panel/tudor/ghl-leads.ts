@@ -5,6 +5,7 @@
 
 import type { GhlCredentials } from './config-resolver';
 import type { LeadStats } from './types';
+import { countryOfLead } from './country';
 
 const BASE = 'https://services.leadconnectorhq.com';
 const VERSION = '2021-07-28';
@@ -16,6 +17,7 @@ const EMPTY: LeadStats = {
   week: 0,
   byCampaign: [],
   byDay: [],
+  byCountry: [],
   recent: [],
 };
 
@@ -23,6 +25,8 @@ type GhlContact = {
   firstName?: string;
   contactName?: string;
   email?: string;
+  phone?: string;
+  country?: string;
   tags?: string[];
   dateAdded?: string;
   createdAt?: string;
@@ -81,6 +85,17 @@ export async function livesLeadStats(
       .sort((a, b) => b.count - a.count)
       .slice(0, 8);
 
+    // Leads by country (from GHL `country` or inferred from the phone prefix).
+    const countryMap = new Map<string, number>();
+    for (const c of contacts) {
+      const country = countryOfLead(c);
+      countryMap.set(country, (countryMap.get(country) ?? 0) + 1);
+    }
+    const byCountry = [...countryMap.entries()]
+      .map(([country, count]) => ({ country, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 8);
+
     const recent = [...contacts]
       .sort(
         (a, b) =>
@@ -117,7 +132,7 @@ export async function livesLeadStats(
       byDay.push({ day: k.slice(5), count: dayCounts.get(k) ?? 0 });
     }
 
-    return { ok: true, total, today, week, byCampaign, byDay, recent };
+    return { ok: true, total, today, week, byCampaign, byDay, byCountry, recent };
   } catch {
     return EMPTY;
   }

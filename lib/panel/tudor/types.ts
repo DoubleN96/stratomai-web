@@ -10,6 +10,7 @@ export interface LeadStats {
   week: number;
   byCampaign: Array<{ campaign: string; count: number }>;
   byDay: Array<{ day: string; count: number }>;
+  byCountry: Array<{ country: string; count: number }>;
   recent: Array<{ name: string; email: string; campaign: string; date: string }>;
 }
 
@@ -30,6 +31,7 @@ export type VisitStats =
       views: number;
       byDate: Array<{ date: string; sessions: number }>;
       channels: Array<{ label: string; sessions: number }>;
+      countries: Array<{ country: string; sessions: number }>;
     }
   | { ok: false; error: string };
 

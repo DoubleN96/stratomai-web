@@ -123,7 +123,7 @@ export async function getVisits(
 
   const range = [{ startDate: `${days}daysAgo`, endDate: 'today' }];
   try {
-    const [totals, byDateRows, channelRows] = await Promise.all([
+    const [totals, byDateRows, channelRows, countryRows] = await Promise.all([
       runReport(token, propertyId, {
         dateRanges: range,
         metrics: [{ name: 'sessions' }, { name: 'activeUsers' }, { name: 'screenPageViews' }],
@@ -141,6 +141,14 @@ export async function getVisits(
         orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
         limit: 6,
       }),
+      // Country is derived from the visitor IP by GA4 automatically.
+      runReport(token, propertyId, {
+        dateRanges: range,
+        metrics: [{ name: 'sessions' }],
+        dimensions: [{ name: 'country' }],
+        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+        limit: 8,
+      }),
     ]);
 
     const t = totals[0]?.metricValues ?? [{ value: '0' }, { value: '0' }, { value: '0' }];
@@ -157,6 +165,12 @@ export async function getVisits(
         label: r.dimensionValues[0].value,
         sessions: Number(r.metricValues[0].value),
       })),
+      countries: countryRows
+        .map((r) => ({
+          country: r.dimensionValues[0].value || '(desconocido)',
+          sessions: Number(r.metricValues[0].value),
+        }))
+        .filter((c) => c.sessions > 0),
     };
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : String(e) };

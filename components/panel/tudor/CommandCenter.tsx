@@ -135,23 +135,39 @@ export function CommandCenter({
                 }))}
               />
             )}
-            {visits.channels.length > 0 && (
-              <div className="mt-4 border-t border-white/5 pt-3">
-                <p className="mb-2 font-mono text-[10px] uppercase tracking-widest text-[#5a6b94]">
-                  Fuentes de tráfico
-                </p>
-                <div className="flex flex-col gap-1">
-                  {visits.channels.map((c) => (
-                    <div key={c.label} className="flex justify-between text-sm">
-                      <span className="text-[#9fb0d8]">{c.label}</span>
-                      <span className="font-semibold tabular-nums text-white">
-                        {nfmt(c.sessions)}
-                      </span>
-                    </div>
-                  ))}
+            <div className="mt-4 grid gap-6 sm:grid-cols-2">
+              {visits.channels.length > 0 && (
+                <div className="border-t border-white/5 pt-3">
+                  <p className="mb-2 font-mono text-[10px] uppercase tracking-widest text-[#5a6b94]">
+                    Fuentes de tráfico
+                  </p>
+                  <div className="flex flex-col gap-1">
+                    {visits.channels.map((c) => (
+                      <div key={c.label} className="flex justify-between text-sm">
+                        <span className="text-[#9fb0d8]">{c.label}</span>
+                        <span className="font-semibold tabular-nums text-white">
+                          {nfmt(c.sessions)}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+              {visits.countries.length > 0 && (
+                <div className="border-t border-white/5 pt-3">
+                  <p className="mb-2 font-mono text-[10px] uppercase tracking-widest text-[#5a6b94]">
+                    Visitas por país
+                  </p>
+                  <MiniBars
+                    horizontal
+                    data={visits.countries.map((c) => ({
+                      label: c.country,
+                      value: c.sessions,
+                    }))}
+                  />
+                </div>
+              )}
+            </div>
           </>
         ) : (
           <div className="rounded-lg border border-dashed border-white/10 bg-white/[0.02] p-4">
@@ -190,6 +206,20 @@ export function CommandCenter({
                 horizontal
                 data={leads.byCampaign.map((c) => ({
                   label: c.campaign,
+                  value: c.count,
+                }))}
+              />
+            ) : (
+              <Note>Sin datos.</Note>
+            )}
+            <p className="mb-2 mt-5 font-mono text-[10px] uppercase tracking-widest text-[#5a6b94]">
+              Leads por país
+            </p>
+            {leads.ok && leads.byCountry.length > 0 ? (
+              <MiniBars
+                horizontal
+                data={leads.byCountry.map((c) => ({
+                  label: c.country,
                   value: c.count,
                 }))}
               />
