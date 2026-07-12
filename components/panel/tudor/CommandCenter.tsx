@@ -45,7 +45,7 @@ export function CommandCenter({
   project: PanelProject;
   data: TudorDashboard;
 }) {
-  const { leads, visits, capture, snapshot } = data;
+  const { leads, visits, capture, ambassadors, snapshot } = data;
   const { whatsapp, skool, bench } = snapshot;
 
   const leadToWa =
@@ -367,6 +367,71 @@ export function CommandCenter({
           </div>
         </Card>
       )}
+
+      {/* AMBASSADORS (clip-to-unlock) */}
+      <Card title="Embajadores · clip-to-unlock" tag="tudormorari.ai/ambassadors">
+        <div className="mb-5 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <Metric big value={nfmt(ambassadors.count)} label="embajadores" />
+          <Metric big value={nfmt(ambassadors.totalVideos)} label="vídeos publicados" />
+          <Metric big value={nfmt(ambassadors.totalViews)} label="views acumuladas" />
+          <Metric
+            big
+            value={nfmt(ambassadors.totalReferrals)}
+            label="referrals · leads"
+          />
+        </div>
+        {ambassadors.rows.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[540px] text-sm">
+              <thead>
+                <tr className="border-b border-white/10 text-left font-mono text-[10px] uppercase tracking-widest text-[#5a6b94]">
+                  <th className="py-2 pr-3 font-medium">Embajador</th>
+                  <th className="px-3 py-2 font-medium">Vídeos</th>
+                  <th className="px-3 py-2 font-medium">Views</th>
+                  <th className="px-3 py-2 font-medium">Referrals</th>
+                  <th className="px-3 py-2 font-medium">Hito</th>
+                  <th className="py-2 pl-3 font-medium">Acceso</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ambassadors.rows.map((a, i) => (
+                  <tr key={i} className="border-b border-white/5 last:border-0">
+                    <td className="py-2 pr-3">
+                      <div className="font-semibold text-white">{a.name}</div>
+                      <div className="text-[11px] text-[#5a6b94]">{a.handle}</div>
+                    </td>
+                    <td className="px-3 py-2 tabular-nums text-[#dae2fd]">
+                      {nfmt(a.videos)}
+                    </td>
+                    <td className="px-3 py-2 tabular-nums text-[#dae2fd]">
+                      {nfmt(a.viewsTotal)}
+                    </td>
+                    <td className="px-3 py-2 font-semibold tabular-nums text-white">
+                      {nfmt(a.referrals)}
+                    </td>
+                    <td className="px-3 py-2 text-[#9fb0d8]">{a.milestone}</td>
+                    <td className="py-2 pl-3 text-[#9fb0d8]">
+                      {a.accessGranted || '—'}
+                      {a.accessUntil ? ` · hasta ${a.accessUntil}` : ''}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="rounded-lg border border-dashed border-white/10 bg-white/[0.02] p-4">
+            <p className="font-semibold text-white">
+              Aún no hay embajadores registrados.
+            </p>
+            <p className="mt-1 text-xs text-[#8597c0]">
+              Cuando alguien aplique en tudormorari.ai/ambassadors aparecerá aquí:
+              vídeos publicados, views acumuladas, referrals (leads que trae por su
+              enlace) y el hito de acceso alcanzado.
+            </p>
+          </div>
+        )}
+      </Card>
     </div>
   );
 }

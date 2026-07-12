@@ -54,10 +54,34 @@ export interface TudorSnapshot {
   waCommunity: WaCommunitySnapshot | null;
 }
 
+// ── Ambassadors (clip-to-unlock program) — from the "Clippers" sheet + GHL ──
+export interface Ambassador {
+  name: string;
+  handle: string;
+  status: string;
+  videos: number;
+  viewsVerified: number;
+  viewsTotal: number;
+  milestone: string;
+  referrals: number;
+  accessGranted: string;
+  accessUntil: string;
+}
+
+export interface AmbassadorStats {
+  ok: boolean;
+  count: number;
+  totalVideos: number;
+  totalViews: number;
+  totalReferrals: number;
+  rows: Ambassador[];
+}
+
 export interface TudorDashboard {
   leads: LeadStats;
   visits: VisitStats;
   capture: CaptureSummary;
+  ambassadors: AmbassadorStats;
   snapshot: TudorSnapshot;
   gaConfigured: boolean;
   ghlConfigured: boolean;
