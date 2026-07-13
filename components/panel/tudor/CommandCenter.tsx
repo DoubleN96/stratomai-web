@@ -5,6 +5,7 @@
 import { GlassCard, Kpi } from '@/components/panel/ui';
 import { MiniBars, FunnelRow, Metric } from '@/components/panel/tudor/charts';
 import { TudorTasksBoard } from '@/components/panel/tudor/TudorTasksBoard';
+import { TudorReviews } from '@/components/panel/tudor/TudorReviews';
 import type { TudorDashboard } from '@/lib/panel/tudor/types';
 import type { PanelProject } from '@/lib/panel/types';
 
@@ -78,6 +79,11 @@ export function CommandCenter({
       {/* TASKS KANBAN (interactive: add / drag / edit / link docs) */}
       <Card title="Tareas · semana de lanzamiento" tag="kanban · editable">
         <TudorTasksBoard slug={project.slug} initial={snapshot.tasks} />
+      </Card>
+
+      {/* REVIEWS (testimonial intake from /review) */}
+      <Card title="Reseñas · testimonios" tag="tudormorari.ai/review">
+        <TudorReviews slug={project.slug} initial={snapshot.reviews} />
       </Card>
 
       {/* LAUNCH FUNNEL */}

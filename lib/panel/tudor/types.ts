@@ -63,12 +63,25 @@ export interface Task {
   links?: TaskLink[];
 }
 
+// ── Reviews (testimonial intake from tudormorari.ai/review) ──
+export interface Review {
+  id: string;
+  at: string;
+  name: string;
+  email: string;
+  handle: string;
+  rating: number;
+  note: string;
+  approved: boolean;
+}
+
 export interface TudorSnapshot {
   whatsapp: { members: number; communities: number; capEach: number; target: number };
   skool: { total: number; paying: number; mrr: number; asOf: string };
   bench: { leads: number; whatsapp: number; live: number };
   waCommunity: WaCommunitySnapshot | null;
   tasks: Task[];
+  reviews: Review[];
 }
 
 // ── Ambassadors (clip-to-unlock program) — from the "Clippers" sheet + GHL ──
