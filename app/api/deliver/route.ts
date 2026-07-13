@@ -32,6 +32,7 @@ interface Pack {
   full: string;
   drive: string;
   youtube: string;
+  igImage: string;
 }
 
 // campaign(UPPER) -> pack, columns resolved BY HEADER (sheet gets reordered).
@@ -57,6 +58,7 @@ async function loadPack(campaign: string): Promise<Pack | null> {
     drive: idx((l) => l.includes('drive'), 4),
     pub: idx((l) => l.includes('publish'), 5),
     youtube: idx((l) => l.includes('youtube') || l.includes('tutorial'), 6),
+    ig: idx((l) => l.includes('ig image') || l.includes('instagram'), -1),
   };
   const cell = (c: Array<{ v?: unknown } | null>, i: number) => (i >= 0 && c[i]?.v != null ? String(c[i]!.v) : '');
   for (const r of d.table?.rows ?? []) {
@@ -69,31 +71,41 @@ async function loadPack(campaign: string): Promise<Pack | null> {
       full: cell(c, C.full).trim(),
       drive: cell(c, C.drive).trim(),
       youtube: cell(c, C.youtube).trim(),
+      igImage: cell(c, C.ig).trim(),
     };
   }
   return null;
 }
 
-function buildEmail(name: string, primary: string, youtube: string) {
+function buildEmail(name: string, primary: string, youtube: string, igImage: string) {
   const clean = name.replace(/\s+/g, ' ').trim();
   const safeName = esc(clean);
   const link = esc(primary);
   const subject = `Your ${clean} prompt pack is here 🎬`;
-  // Preview of the actual document (Google Drive thumbnail) so people SEE the prompts
-  // in the email instead of distrusting "another link". Falls back to the brand banner.
+  // Layout (per Marcelino): 1) the Instagram POST on top, 2) download info + button +
+  // link, 3) a preview of the prompt document, 4) the join/Academy text.
   const fid = primary.match(/\/d\/([A-Za-z0-9_-]{20,})/)?.[1] || primary.match(/[?&]id=([A-Za-z0-9_-]{20,})/)?.[1] || '';
-  const previewSrc = fid ? `https://drive.google.com/thumbnail?id=${fid}&sz=w640` : FALLBACK_HERO;
+  const docPreview = fid ? `https://drive.google.com/thumbnail?id=${fid}&sz=w640` : '';
+  const topHero = igImage || docPreview || FALLBACK_HERO; // Instagram post if we have it
+  const showDocBelow = Boolean(igImage && docPreview); // doc preview goes lower only when the IG post took the top
   const html =
     `<div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.55;color:#111;max-width:560px">` +
-    `<a href="${link}"><img src="${previewSrc}" alt="${safeName} prompt pack" width="560" style="width:100%;max-width:560px;height:auto;border:1px solid #e6e6e6;border-radius:10px;display:block;margin:0 0 8px"></a>` +
-    (fid ? `<p style="font-size:13px;color:#777;text-align:center;margin:0 0 16px">A preview of your <strong>${safeName}</strong> pack. Tap it, or the button below, to open the full document.</p>` : '') +
+    // 1) The Instagram post (or fallback: doc preview -> banner)
+    `<a href="${igImage || link}"><img src="${esc(topHero)}" alt="${safeName}" width="560" style="width:100%;max-width:560px;height:auto;border-radius:10px;display:block;margin:0 0 16px"></a>` +
+    // 2) Download info + button + raw link + optional tutorial
     `<p>Hey,</p>` +
-    `<p>You're in. Here are your <strong>${safeName}</strong> prompts, exactly as promised. Grab the exact prompts and tutorial here:</p>` +
+    `<p>You're in. Here are your <strong>${safeName}</strong> prompts, exactly as promised. Grab them here:</p>` +
     `<p><a href="${link}" style="display:inline-block;background:#111;color:#fff;text-decoration:none;padding:13px 22px;border-radius:8px;font-weight:bold">Open the full prompt pack</a></p>` +
     `<p style="font-size:13px;color:#555;margin:8px 0 0;word-break:break-all">Or paste this link into your browser: <a href="${link}" style="color:#2b6cee">${link}</a></p>` +
     (youtube
       ? `<p style="margin:14px 0 0"><a href="${esc(youtube)}" style="display:inline-block;background:#FF0000;color:#fff;text-decoration:none;padding:13px 22px;border-radius:8px;font-weight:bold">▶ Watch the 2-3 min tutorial</a></p>`
       : '') +
+    // 3) Preview of the prompt document
+    (showDocBelow
+      ? `<p style="margin:20px 0 6px;font-size:14px;color:#555">A preview of what's inside:</p>` +
+        `<a href="${link}"><img src="${esc(docPreview)}" alt="${safeName} preview" width="560" style="width:100%;max-width:560px;height:auto;border:1px solid #e6e6e6;border-radius:10px;display:block"></a>`
+      : '') +
+    // 4) Join / Academy
     `<div style="border-top:1px solid #eee;margin:22px 0;font-size:0;line-height:0">&nbsp;</div>` +
     `<p>Join my WhatsApp community. It's where I drop direct links to every new prompt and tool the moment they're out, so you never miss one:</p>` +
     `<p><a href="${WA_INVITE}" style="display:inline-block;background:#25D366;color:#fff;text-decoration:none;padding:13px 22px;border-radius:8px;font-weight:bold">Join the WhatsApp community</a></p>` +
@@ -134,7 +146,7 @@ export async function POST(req: Request) {
   const livesLink = `https://tudormorari.ai/lives?utm_campaign=${encodeURIComponent(campaign)}`;
   const title = pack?.title || campaign;
   const primary = pack?.drive || pack?.full || livesLink;
-  const { subject, html } = buildEmail(title, primary, pack?.youtube || '');
+  const { subject, html } = buildEmail(title, primary, pack?.youtube || '', pack?.igImage || '');
 
   // Upsert to get a contactId (idempotent), then email via Conversations API.
   try {
