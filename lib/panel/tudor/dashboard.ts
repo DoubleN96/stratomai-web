@@ -6,24 +6,21 @@ import { resolveTudorConfig } from './config-resolver';
 import { livesLeadStats } from './ghl-leads';
 import { loadCaptureSummary } from './ghl-summary';
 import { getVisits } from './analytics';
-import { getAmbassadors } from './ambassadors';
 import type { TudorDashboard } from './types';
 
 export async function getTudorDashboard(slug: string): Promise<TudorDashboard> {
   const cfg = await resolveTudorConfig(slug);
 
-  const [leads, capture, visits, ambassadors] = await Promise.all([
+  const [leads, capture, visits] = await Promise.all([
     livesLeadStats(cfg.ghl),
     loadCaptureSummary(cfg.ghl),
     getVisits(cfg.ga, 7),
-    getAmbassadors(cfg.ghl),
   ]);
 
   return {
     leads,
     capture,
     visits,
-    ambassadors,
     snapshot: cfg.snapshot,
     gaConfigured: cfg.ga != null,
     ghlConfigured: cfg.ghl != null,

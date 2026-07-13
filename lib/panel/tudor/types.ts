@@ -92,7 +92,8 @@ export interface TudorDashboard {
   leads: LeadStats;
   visits: VisitStats;
   capture: CaptureSummary;
-  ambassadors: AmbassadorStats;
+  // Ambassador programme paused (Tudor vetoed — brand-deal risk). The Ambassador
+  // types + resolver are kept dormant so the section can be restored quickly.
   snapshot: TudorSnapshot;
   gaConfigured: boolean;
   ghlConfigured: boolean;
