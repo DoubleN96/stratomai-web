@@ -47,11 +47,22 @@ export interface WaCommunitySnapshot {
   byCampaign: Array<[string, number]>;
 }
 
+// ── Task board (kanban) — centralised task tracking in the panel ──
+export interface Task {
+  id: string;
+  title: string;
+  brief?: string;
+  status: string;
+  assigned?: string;
+  priority?: string;
+}
+
 export interface TudorSnapshot {
   whatsapp: { members: number; communities: number; capEach: number; target: number };
   skool: { total: number; paying: number; mrr: number; asOf: string };
   bench: { leads: number; whatsapp: number; live: number };
   waCommunity: WaCommunitySnapshot | null;
+  tasks: Task[];
 }
 
 // ── Ambassadors (clip-to-unlock program) — from the "Clippers" sheet + GHL ──

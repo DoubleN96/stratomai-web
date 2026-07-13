@@ -73,6 +73,63 @@ export function CommandCenter({
         <Kpi label="Skool · de pago" value={skool.paying} accent="green" />
       </div>
 
+      {/* TASKS KANBAN */}
+      {snapshot.tasks.length > 0 && (
+        <Card title="Tareas · semana de lanzamiento" tag="kanban · centralizado aquí">
+          <div className="grid gap-4 md:grid-cols-3">
+            {(
+              [
+                { key: 'todo', label: 'Por hacer', match: (s: string) => s === 'Not started' },
+                {
+                  key: 'doing',
+                  label: 'En curso',
+                  match: (s: string) => ['In progress', 'In review', 'Pending approval'].includes(s),
+                },
+                { key: 'done', label: 'Hecho', match: (s: string) => ['Done', 'Published'].includes(s) },
+              ] as const
+            ).map((col) => {
+              const items = snapshot.tasks.filter((t) => col.match(t.status));
+              return (
+                <div key={col.key} className="rounded-xl border border-white/5 bg-white/[0.02] p-3">
+                  <div className="mb-3 flex items-center justify-between">
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-[#5a6b94]">
+                      {col.label}
+                    </span>
+                    <span className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] font-semibold text-[#9fb0d8]">
+                      {items.length}
+                    </span>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    {items.length === 0 ? (
+                      <p className="text-xs text-[#5a6b94]">—</p>
+                    ) : (
+                      items.map((t) => (
+                        <div
+                          key={t.id}
+                          className="rounded-lg border border-white/10 bg-[#12203c] p-3"
+                        >
+                          <div className="text-sm font-semibold leading-snug text-white">
+                            {t.title}
+                          </div>
+                          <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                            {t.assigned && (
+                              <span className="rounded border border-white/10 px-1.5 py-0.5 text-[9px] font-medium text-[#9fb0d8]">
+                                {t.assigned}
+                              </span>
+                            )}
+                            {t.priority && <span className="text-[10px]">{t.priority}</span>}
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </Card>
+      )}
+
       {/* LAUNCH FUNNEL */}
       <Card title="Launch Funnel" tag="benchmark: Ángel Aparicio">
         <p className="mb-4 text-xs text-[#8597c0]">
