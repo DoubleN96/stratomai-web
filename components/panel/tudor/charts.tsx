@@ -56,19 +56,33 @@ export function MiniBars({
     );
   }
 
+  // Vertical bars: value on top (so tiny bars are still readable next to a spike),
+  // day-of-month labels (MM-DD -> DD), and an x-scroll so 14+ days never overflow.
   return (
-    <div className="flex items-end gap-1" style={{ height: 90 }}>
-      {data.map((d) => (
-        <div key={d.label} className="flex flex-1 flex-col items-center gap-1">
-          <div className="flex w-full flex-1 items-end">
-            <div
-              className="w-full rounded-t bg-gradient-to-t from-[#2b6cee] to-[#7ca0ff]"
-              style={{ height: `${(d.value / max) * 100}%`, minHeight: 2 }}
-            />
-          </div>
-          <span className="text-[9px] text-[#5a6b94]">{d.label}</span>
-        </div>
-      ))}
+    <div className="overflow-x-auto pb-1">
+      <div className="flex items-end gap-[3px]" style={{ height: 116, minWidth: data.length * 20 }}>
+        {data.map((d, i) => {
+          const dd = /^\d{2}-\d{2}$/.test(d.label) ? d.label.slice(3) : d.label;
+          const h = max > 0 ? (d.value / max) * 100 : 0;
+          return (
+            <div key={`${d.label}-${i}`} className="flex flex-1 flex-col items-center justify-end gap-1" style={{ minWidth: 16 }}>
+              <span
+                className="text-[9px] font-semibold leading-none tabular-nums text-[#9fb0d8]"
+                style={{ opacity: d.value > 0 ? 1 : 0 }}
+              >
+                {d.value}
+              </span>
+              <div className="flex w-full flex-1 items-end">
+                <div
+                  className="w-full rounded-t bg-gradient-to-t from-[#2b6cee] to-[#7ca0ff]"
+                  style={{ height: `${h}%`, minHeight: d.value > 0 ? 3 : 0 }}
+                />
+              </div>
+              <span className="text-[9px] leading-none text-[#5a6b94]">{dd}</span>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
