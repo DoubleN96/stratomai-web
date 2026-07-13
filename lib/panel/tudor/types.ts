@@ -48,6 +48,11 @@ export interface WaCommunitySnapshot {
 }
 
 // ── Task board (kanban) — centralised task tracking in the panel ──
+export interface TaskLink {
+  label: string;
+  url: string;
+}
+
 export interface Task {
   id: string;
   title: string;
@@ -55,6 +60,7 @@ export interface Task {
   status: string;
   assigned?: string;
   priority?: string;
+  links?: TaskLink[];
 }
 
 export interface TudorSnapshot {

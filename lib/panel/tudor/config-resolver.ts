@@ -114,6 +114,14 @@ function parseTasks(raw: string | undefined): Task[] {
         status: String(t.status ?? 'Not started'),
         assigned: t.assigned ? String(t.assigned) : undefined,
         priority: t.priority ? String(t.priority) : undefined,
+        links: Array.isArray(t.links)
+          ? (t.links as unknown[])
+              .map((l) => {
+                const o = (l && typeof l === 'object' ? l : {}) as { label?: unknown; url?: unknown };
+                return { label: String(o.label ?? ''), url: String(o.url ?? '') };
+              })
+              .filter((l: { label: string; url: string }) => l.url)
+          : undefined,
       }));
   } catch {
     return [];
