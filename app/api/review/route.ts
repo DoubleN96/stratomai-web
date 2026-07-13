@@ -42,23 +42,33 @@ async function readBody(req: Request): Promise<Record<string, unknown>> {
 }
 
 // Best-effort: put the reviewer in GHL tagged by rating for follow-up. Never throws.
+// Tags are ADDED (merge), not passed to upsert — upsert would replace the whole tag
+// list and wipe the contact's history (utm:<pack>, iAnimationClients, etc.).
 async function upsertGhl(review: { name: string; email: string; handle: string; rating: number }) {
   try {
     const cfg = await resolveTudorConfig('tudor');
     if (!cfg.ghl) return;
+    const H = { Authorization: `Bearer ${cfg.ghl.pit}`, Version: '2021-07-28', 'Content-Type': 'application/json' };
     const [firstName, ...rest] = review.name.split(/\s+/);
-    await fetch('https://services.leadconnectorhq.com/contacts/upsert', {
+    const up = await fetch('https://services.leadconnectorhq.com/contacts/upsert', {
       method: 'POST',
-      headers: { Authorization: `Bearer ${cfg.ghl.pit}`, Version: '2021-07-28', 'Content-Type': 'application/json' },
+      headers: H,
       body: JSON.stringify({
         locationId: cfg.ghl.locationId,
         email: review.email,
         firstName: firstName || undefined,
         lastName: rest.join(' ') || undefined,
-        tags: ['review', `review-${review.rating}star`],
         source: 'Review form',
       }),
     });
+    const cid = up.ok ? (await up.json()).contact?.id : null;
+    if (cid) {
+      await fetch(`https://services.leadconnectorhq.com/contacts/${cid}/tags`, {
+        method: 'POST',
+        headers: H,
+        body: JSON.stringify({ tags: ['review', `review-${review.rating}star`] }),
+      });
+    }
   } catch {
     /* non-blocking */
   }

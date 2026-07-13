@@ -132,14 +132,24 @@ export async function POST(req: Request) {
 
   // Upsert to get a contactId (idempotent), then email via Conversations API.
   try {
+    // NOTE: do NOT pass tags to upsert — GHL's upsert REPLACES the tag list, which
+    // would wipe a contact's history (utm:grit, iAnimationClients, etc.). We add
+    // tags via the dedicated endpoint below, which MERGES, so a contact accumulates
+    // a utm:<campaign> tag for every pack they request (segmentation + audiences).
     const up = await fetch('https://services.leadconnectorhq.com/contacts/upsert', {
       method: 'POST',
       headers: H,
-      body: JSON.stringify({ locationId, email, firstName: name || undefined, tags: ['lives-page', `utm:${campaign}`] }),
+      body: JSON.stringify({ locationId, email, firstName: name || undefined }),
     });
     if (!up.ok) throw new Error(`upsert ${up.status}`);
     const cid = (await up.json()).contact?.id;
     if (!cid) throw new Error('no contactId');
+    // Additive tags: never removes existing ones.
+    await fetch(`https://services.leadconnectorhq.com/contacts/${cid}/tags`, {
+      method: 'POST',
+      headers: H,
+      body: JSON.stringify({ tags: ['lives-page', `utm:${campaign}`] }),
+    }).catch(() => {});
     const send = await fetch('https://services.leadconnectorhq.com/conversations/messages', {
       method: 'POST',
       headers: H,
