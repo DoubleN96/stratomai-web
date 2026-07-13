@@ -79,12 +79,17 @@ function buildEmail(name: string, primary: string, youtube: string) {
   const safeName = esc(clean);
   const link = esc(primary);
   const subject = `Your ${clean} prompt pack is here 🎬`;
+  // Preview of the actual document (Google Drive thumbnail) so people SEE the prompts
+  // in the email instead of distrusting "another link". Falls back to the brand banner.
+  const fid = primary.match(/\/d\/([A-Za-z0-9_-]{20,})/)?.[1] || primary.match(/[?&]id=([A-Za-z0-9_-]{20,})/)?.[1] || '';
+  const previewSrc = fid ? `https://drive.google.com/thumbnail?id=${fid}&sz=w640` : FALLBACK_HERO;
   const html =
     `<div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.55;color:#111;max-width:560px">` +
-    `<a href="${link}"><img src="${FALLBACK_HERO}" alt="${safeName}" width="560" style="width:100%;max-width:560px;height:auto;border-radius:10px;display:block;margin:0 0 16px"></a>` +
+    `<a href="${link}"><img src="${previewSrc}" alt="${safeName} prompt pack" width="560" style="width:100%;max-width:560px;height:auto;border:1px solid #e6e6e6;border-radius:10px;display:block;margin:0 0 8px"></a>` +
+    (fid ? `<p style="font-size:13px;color:#777;text-align:center;margin:0 0 16px">A preview of your <strong>${safeName}</strong> pack. Tap it, or the button below, to open the full document.</p>` : '') +
     `<p>Hey,</p>` +
     `<p>You're in. Here are your <strong>${safeName}</strong> prompts, exactly as promised. Grab the exact prompts and tutorial here:</p>` +
-    `<p><a href="${link}" style="display:inline-block;background:#111;color:#fff;text-decoration:none;padding:13px 22px;border-radius:8px;font-weight:bold">Get the prompts + tutorial</a></p>` +
+    `<p><a href="${link}" style="display:inline-block;background:#111;color:#fff;text-decoration:none;padding:13px 22px;border-radius:8px;font-weight:bold">Open the full prompt pack</a></p>` +
     (youtube
       ? `<p style="margin:14px 0 0"><a href="${esc(youtube)}" style="display:inline-block;background:#FF0000;color:#fff;text-decoration:none;padding:13px 22px;border-radius:8px;font-weight:bold">▶ Watch the 2-3 min tutorial</a></p>`
       : '') +
