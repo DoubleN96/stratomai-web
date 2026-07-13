@@ -132,6 +132,7 @@ export async function POST(req: Request) {
   }
   const email = STR(body.email, 200).toLowerCase();
   const name = STR(body.name, 120);
+  const phone = STR(body.phone, 40);
   const campaign = STR(body.campaign, 80) || 'lives';
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     return cors(NextResponse.json({ ok: false, error: 'valid email required' }, { status: 400 }));
@@ -157,7 +158,7 @@ export async function POST(req: Request) {
     const up = await fetch('https://services.leadconnectorhq.com/contacts/upsert', {
       method: 'POST',
       headers: H,
-      body: JSON.stringify({ locationId, email, firstName: name || undefined }),
+      body: JSON.stringify({ locationId, email, firstName: name || undefined, phone: phone || undefined }),
     });
     if (!up.ok) throw new Error(`upsert ${up.status}`);
     const cid = (await up.json()).contact?.id;
