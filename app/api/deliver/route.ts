@@ -90,6 +90,7 @@ function buildEmail(name: string, primary: string, youtube: string) {
     `<p>Hey,</p>` +
     `<p>You're in. Here are your <strong>${safeName}</strong> prompts, exactly as promised. Grab the exact prompts and tutorial here:</p>` +
     `<p><a href="${link}" style="display:inline-block;background:#111;color:#fff;text-decoration:none;padding:13px 22px;border-radius:8px;font-weight:bold">Open the full prompt pack</a></p>` +
+    `<p style="font-size:13px;color:#555;margin:8px 0 0;word-break:break-all">Or paste this link into your browser: <a href="${link}" style="color:#2b6cee">${link}</a></p>` +
     (youtube
       ? `<p style="margin:14px 0 0"><a href="${esc(youtube)}" style="display:inline-block;background:#FF0000;color:#fff;text-decoration:none;padding:13px 22px;border-radius:8px;font-weight:bold">▶ Watch the 2-3 min tutorial</a></p>`
       : '') +
