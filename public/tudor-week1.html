@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Week 1 · Launch Plan — Tudor × Stratoma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F1F0EC;--ink:#0A0A0A;--ink-soft:#3a3a38;--line:#dedcd4;
+  --blue:#6C7CFF;--blue-ink:#3a49d6;--wa:#25D366;--wa-bubble:#dcf8c6;
+  --mono:'Inter',sans-serif;--display:'Sora',sans-serif;--body:'Inter',sans-serif;
+  --sec:clamp(4rem,3rem+5vw,8rem);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blue-ink);font-weight:600}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.05;letter-spacing:-.02em}
+h1{font-size:clamp(2.8rem,1.5rem+6vw,6rem)}
+h2{font-size:clamp(2rem,1.2rem+3vw,3.3rem);margin-bottom:.4em}
+h3{font-size:1.1rem;font-weight:700}
+section{padding-block:var(--sec);position:relative;border-top:1px solid var(--line)}
+.lead{font-size:clamp(1.05rem,.95rem+.6vw,1.3rem);color:var(--ink-soft);max-width:48ch}
+.hero{min-height:90vh;display:flex;flex-direction:column;justify-content:center;border-top:none;position:relative}
+.hero .num{position:absolute;right:-2vw;top:8vh;font-family:var(--display);font-weight:800;font-size:min(42vw,560px);color:var(--blue);opacity:.09;line-height:.8;z-index:0;pointer-events:none}
+.hero .inner{position:relative;z-index:1}
+.hero h1 em{font-style:normal;color:var(--blue-ink)}
+.hero .lead{margin-top:1.4rem}
+.dots{margin-top:2.6rem;display:flex;gap:10px 22px;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);flex-wrap:wrap}
+.dots span{display:inline-flex;align-items:center;gap:7px}
+.dots span::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--blue)}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rv.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+.sec-head{margin-bottom:2.4rem;max-width:56ch}
+.tag{display:inline-block;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-ink);border:1px solid var(--blue);border-radius:100px;padding:5px 12px;margin-bottom:1rem}
+.btn{display:inline-flex;align-items:center;gap:.5em;background:var(--ink);color:var(--paper);text-decoration:none;font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;padding:14px 22px;border-radius:100px;transition:transform .3s,background .3s;margin-top:.4rem}
+.btn:hover{background:var(--blue-ink);transform:translateY(-2px)}
+.scripts{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));margin-top:1.4rem}
+.scard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;transition:transform .35s,box-shadow .35s}
+.scard:hover{transform:translateY(-4px);box-shadow:0 24px 50px -30px rgba(60,73,214,.3)}
+.scard .idx{font-family:var(--display);font-weight:800;font-size:.9rem;color:var(--blue)}
+.scard .ang{font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin:.35rem 0 1rem}
+.scard .script{font-size:.96rem;line-height:1.55;color:var(--ink)}
+.scard .kw{color:var(--wa);font-weight:600}
+.scard.reminder{background:linear-gradient(160deg,#eef0ff,#fff);border-color:var(--blue)}
+.wa-demo{margin-top:2rem;background:#e5ddd5;border-radius:18px;padding:22px;background-image:radial-gradient(rgba(0,0,0,.04) 1px,transparent 1px);background-size:16px 16px}
+.wa-demo .hdr{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:#5b6b52;margin-bottom:14px}
+.bubble{background:var(--wa-bubble);border-radius:12px;border-top-left-radius:2px;padding:14px 16px;max-width:86%;box-shadow:0 1px 1px rgba(0,0,0,.12);font-size:.94rem;color:#0b3d1e;line-height:1.5;white-space:pre-line;margin-bottom:12px}
+.bubble:last-child{margin-bottom:0}
+.bubble .t{display:block;text-align:right;font-size:.64rem;color:#5b6b52;margin-top:6px}
+.watl{display:grid;gap:0;margin-top:2rem}
+.wrow{display:grid;grid-template-columns:130px 1fr;gap:18px;align-items:start;padding:15px 0;border-bottom:1px solid var(--line)}
+.wrow .when{font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--blue-ink);font-weight:600;padding-top:2px}
+.wrow .what{color:var(--ink-soft);font-size:.95rem}
+.wrow .what b{color:var(--ink)}
+@media(max-width:560px){.wrow{grid-template-columns:1fr;gap:3px}}
+.emails{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:1.4rem}
+.email{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}
+.email .tt{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-ink)}
+.email .subj{font-family:var(--display);font-weight:700;font-size:1rem;margin:.5rem 0 .7rem}
+.email .bd{font-size:.9rem;color:var(--ink-soft);line-height:1.5}
+.roadwrap{overflow-x:auto;margin-top:1.4rem;border:1px solid var(--line);border-radius:16px;background:#fff}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.92rem}
+th,td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;background:#faf9f6}
+td .day{font-family:var(--display);font-weight:700}
+td b{color:var(--blue-ink)}
+tr:last-child td{border-bottom:none}
+.rec-row td{background:#fbf7ee}
+.budgetbar,.kpis{display:flex;flex-wrap:wrap;gap:14px;margin-top:1.8rem}
+.bchip{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;flex:1 1 150px}
+.bchip .v{font-family:var(--display);font-weight:800;font-size:1.45rem;color:var(--ink)}
+.bchip .k{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-top:3px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}
+.kpi .v{font-family:var(--display);font-weight:800;font-size:1.25rem;color:var(--blue-ink)}
+.kpi .k{font-size:.88rem;color:var(--ink-soft);margin-top:4px}
+.note{font-family:var(--mono);font-size:.72rem;letter-spacing:.02em;color:var(--ink-soft);margin-top:1.6rem;border-left:2px solid var(--blue);padding-left:14px;line-height:1.6}
+footer{padding:56px 0;border-top:1px solid var(--line);text-align:center}
+footer .m{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap inner">
+    <div class="num">W1</div>
+    <div class="eyebrow rv">Tudor × Stratoma · Meta Ads</div>
+    <h1 class="rv">Week 1<br><em>Launch Plan</em></h1>
+    <p class="lead rv">The ads, the community and the numbers for our first week. Goal: fill Sunday's first free live class and pull people into the WhatsApp community. This is our test week, we find the winners here.</p>
+    <div class="dots rv">
+      <span>6 videos to record</span>
+      <span>Community + email reminders</span>
+      <span>Daily ad roadmap + KPIs</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag">Creative · Week 1</span>
+      <h2>6 videos, recorded in under 24h</h2>
+      <p class="lead">Same setup for all six: talking to camera (car or home), high energy, big captions with the keyword in green, 12-15s, vertical 9:16. Every one ends with the same CTA: Sunday's free live class. Tudor records, we publish them inside the campaign.</p>
+      <a class="btn rv" href="https://www.notion.so/fd00578f541c4cbc813cad5ecb86cae6" target="_blank" rel="noopener">Open the recording tasks in Notion →</a>
+    </div>
+    <div class="scripts">
+      <div class="scard rv"><div class="idx">01</div><div class="ang">The style</div><div class="script">"This is <span class="kw">100% AI</span>, and it doesn't look like it [show a spectacular clip]. Most people make AI videos that scream AI from a mile away. I've done [X] million views making them look completely real. This Sunday I do it <span class="kw">LIVE</span>, for <span class="kw">free</span>, from scratch. <span class="kw">Tap below</span> and I'll see you there."</div></div>
+      <div class="scard rv"><div class="idx">02</div><div class="ang">The mistake</div><div class="script">"<span class="kw">Stop</span> making AI videos that look like AI. The reason yours look fake is one setting everyone gets wrong. I fixed it and hit [X] million views. This Sunday I show you how, <span class="kw">live and free</span>. Tap below."</div></div>
+      <div class="scard rv"><div class="idx">03</div><div class="ang">The tool</div><div class="script">"This is the <span class="kw">exact tool</span> behind my [X] million view video. It's [tool]. Most people use it wrong. I'll show you the settings that make it look real. Live and free this Sunday. <span class="kw">Tap below</span> to join."</div></div>
+      <div class="scard rv"><div class="idx">04</div><div class="ang">The money</div><div class="script">"This is what a brand <span class="kw">paid me</span> for ONE AI video. I've closed [X] deals averaging [Y] each, all AI videos that don't look AI. This Sunday I break down how I land them, live and free. Tap below."</div></div>
+      <div class="scard rv"><div class="idx">05</div><div class="ang">The speed</div><div class="script">"I made this in <span class="kw">10 minutes</span> with one prompt. No camera, no actors, no budget. Just the right prompt and the right tool. [X] million people watched. This Sunday I build one live, start to finish, free. Tap below."</div></div>
+      <div class="scard reminder rv"><div class="idx">★</div><div class="ang">Sunday reminder · day-of</div><div class="script">"Quick reminder: <span class="kw">TODAY</span> at [time] I'm doing the free live class where I build a real AI animation from scratch. <span class="kw">Don't miss it</span>. Tap below for the link, see you there." <br><span style="font-size:.8rem;color:var(--ink-soft)">Runs Sunday only, as retargeting to registrants.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag">Community · WhatsApp</span>
+      <h2>The community, day by day</h2>
+      <p class="lead">Welcome people in, keep the value flowing every day, and warm the whole week toward Sunday's live.</p>
+    </div>
+    <h3 class="rv" style="margin-bottom:.4rem">1 · Welcome message (when they join)</h3>
+    <div class="wa-demo rv">
+      <div class="hdr">Community · welcome</div>
+      <div class="bubble">👋 Welcome, everyone!
+
+First of all, I'm genuinely happy to have you all here. This community is just getting started and you're the first ones in, that honestly means a lot to me.
+
+And I've already got news for you 🔴 This Sunday we go LIVE for the very first time, all of us together. I'll reveal the topic in the next couple of days. Save your Sunday and keep your notifications on 🚀<span class="t">✓✓</span></div>
+    </div>
+    <h3 class="rv" style="margin:2.4rem 0 .4rem">2 · Daily prompt-pack drop (every new pack)</h3>
+    <p class="lead rv" style="font-size:1rem">Every day a new prompt pack drops, a reminder goes out in the community with the landing link. This keeps the habit alive and drives clicks to the domain (builds authority + deliverability).</p>
+    <div class="wa-demo rv">
+      <div class="hdr">Community · daily pack drop</div>
+      <div class="bubble">🎬 New AI prompt pack just dropped 👉 tudormorari.ai/lives
+
+Grab the exact prompts + the step-by-step tutorial. Save it, try it, go make something 🔥<span class="t">✓✓</span></div>
+    </div>
+    <h3 class="rv" style="margin:2.4rem 0 .4rem">3 · Pre-live reminder calendar</h3>
+    <div class="watl">
+      <div class="wrow rv"><div class="when">Wednesday</div><div class="what"><b>Teaser.</b> "Something big is coming this Sunday 👀 Turn your notifications on." No topic yet, pure curiosity.</div></div>
+      <div class="wrow rv"><div class="when">Friday</div><div class="what"><b>The reveal.</b> Announce the live topic + "save your Sunday."</div></div>
+      <div class="wrow rv"><div class="when">Saturday</div><div class="what"><b>Anticipation.</b> "Tomorrow. Here's exactly what you'll walk away with."</div></div>
+      <div class="wrow rv"><div class="when">Sunday · AM</div><div class="what"><b>Live day.</b> "TODAY at [time]. Here's your link 👉".</div></div>
+      <div class="wrow rv"><div class="when">Sunday · −1h</div><div class="what"><b>Last call.</b> "We start in 1 hour. Grab a coffee and join here 👇".</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag">Email · Reminder sequence</span>
+      <h2>3 emails before the live</h2>
+      <p class="lead">To the full list. Built to maximise attendance, spaced across the week.</p>
+    </div>
+    <div class="emails">
+      <div class="email rv"><div class="tt">5 days before</div><div class="subj">Save your Sunday</div><div class="bd">"This Sunday I'm doing my first ever live class, free. I build a real AI animation from scratch, start to finish. Block the time, the link is coming. See you there."</div></div>
+      <div class="email rv"><div class="tt">2 days before · content revealed</div><div class="subj">Here's exactly what we'll do live</div><div class="bd">"Sunday's topic revealed: [topic]. You'll walk away knowing how to make AI videos that don't look AI. No slides, no fluff, just the real workflow. Here's your link 👉"</div></div>
+      <div class="email rv"><div class="tt">1 day before · why you can't miss it</div><div class="subj">Don't miss this one</div><div class="bd">"Tomorrow. This is the exact system behind my [X]M-view videos, live and free, once. If you're serious about AI video, be there. It could save you months of guessing. Link inside 👇"</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag">The event · Sunday Live</span>
+      <h2>How the live works</h2>
+      <p class="lead">One hour, live on YouTube, free. No slides. Tudor builds a real AI animation from scratch, start to finish, and the audience watches it happen.</p>
+    </div>
+    <div class="watl">
+      <div class="wrow rv"><div class="when">0-5 min</div><div class="what"><b>Welcome + promise.</b> Who it's for, what they walk away with today.</div></div>
+      <div class="wrow rv"><div class="when">5-40 min</div><div class="what"><b>Build live.</b> One real AI animation from a blank prompt to a finished, real-looking video. The exact tools, prompts and settings, on screen.</div></div>
+      <div class="wrow rv"><div class="when">40-50 min</div><div class="what"><b>Q&amp;A.</b> Live questions, build on requests from the chat.</div></div>
+      <div class="wrow rv"><div class="when">50-60 min</div><div class="what"><b>Next step.</b> Invite into the Academy ($49/mo or $400/yr) for those who want the full system.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag">Paid · Meta Ads</span>
+      <h2>Daily ad roadmap</h2>
+      <p class="lead">Ads start <b>Tuesday</b> (Monday is the recording day, no time to record + publish today). €150/day base (€100 acquisition angles + €50 boosting the viral reels), with a Sunday peak for the reminder. Kill losers, scale winners.</p>
+    </div>
+    <div class="roadwrap rv">
+      <table>
+        <thead><tr><th>Day</th><th>What runs</th><th>Budget</th><th>Focus / KPI</th></tr></thead>
+        <tbody>
+          <tr class="rec-row"><td><span class="day">Mon</span></td><td>Record day. Tudor records all 6 videos. We set up campaigns, audiences (4k list + lookalikes), Pixel + Lead + "WhatsApp joined" event.</td><td><b>—</b></td><td>Everything ready to launch Tuesday.</td></tr>
+          <tr><td><span class="day">Tue</span></td><td>Launch: 5 angles (cold + lookalike) + boost 3 reels with real post IDs</td><td><b>€150</b><br>100 + 50</td><td>Start learning. CPL + hook rate.</td></tr>
+          <tr><td><span class="day">Wed</span></td><td>Let it run, no edits (learning phase)</td><td><b>€150</b></td><td>Data volume. CTR &gt; 1%.</td></tr>
+          <tr><td><span class="day">Thu</span></td><td>First read: kill worst hook rate, push budget to the winner</td><td><b>€150</b></td><td>Hook rate (3s) &gt; 25-30%.</td></tr>
+          <tr><td><span class="day">Fri</span></td><td>Scale winners +20%. Start soft retargeting (video-viewers, site visitors). Teaser</td><td><b>€150</b></td><td>Cost per registration.</td></tr>
+          <tr><td><span class="day">Sat</span></td><td>Reminders + social proof to registrants</td><td><b>€150</b></td><td>Attendance confirmations.</td></tr>
+          <tr><td><span class="day">Sun</span></td><td>Reminder video to registrants (retargeting), peak in the hours before the live</td><td><b>€150 + 50-100</b></td><td>Live attendance.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="budgetbar rv">
+      <div class="bchip"><div class="v">€150<span style="font-size:.9rem">/day</span></div><div class="k">Base (100 angles + 50 boost)</div></div>
+      <div class="bchip"><div class="v">~€900</div><div class="k">Week 1 (Tue-Sun)</div></div>
+      <div class="bchip"><div class="v">+€50-100</div><div class="k">Sunday peak (reminder)</div></div>
+      <div class="bchip"><div class="v">5/wk</div><div class="k">New creatives per week</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag">Targets · Test week</span>
+      <h2>What we expect</h2>
+      <p class="lead">Week 1 is a TEST. The real goal isn't max volume, it's finding 1-2 winning creatives and a baseline CPL we can scale from. Numbers below are estimates, on top of the ~100-130 organic leads/day we already get.</p>
+    </div>
+    <div class="kpis rv">
+      <div class="bchip"><div class="v">~40-120k</div><div class="k">Added reach (week, estimate)</div></div>
+      <div class="bchip"><div class="v">~150-450</div><div class="k">Added leads / registrations (estimate)</div></div>
+      <div class="bchip"><div class="v">1-2</div><div class="k">Winning creatives to find</div></div>
+      <div class="bchip"><div class="v">Baseline</div><div class="k">CPL to establish → scale week 2</div></div>
+    </div>
+    <div class="kpis rv" style="margin-top:14px">
+      <div class="kpi"><div class="v">Hook rate</div><div class="k">3s retention &gt; 25-30%. The creative's #1 metric.</div></div>
+      <div class="kpi"><div class="v">CPL</div><div class="k">Cost per registration. Fixed after week 1.</div></div>
+      <div class="kpi"><div class="v">Lead → WhatsApp</div><div class="k">~31% today. Goal: raise it (gate + CAPI event).</div></div>
+      <div class="kpi"><div class="v">Attendance</div><div class="k">Registrants who show up to Sunday's live.</div></div>
+    </div>
+    <p class="note rv">We optimise Meta toward people ENTERING the WhatsApp community, not just filling the form (via the "WhatsApp joined" CAPI event). Blockers before scaling hard: Tudor records the 6 videos + the live date is set, and measurement is green. This is a living document. References to highlight: coming.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag">Post-live · Measurement</span>
+      <h2>What we measure after the live</h2>
+      <p class="lead">The live is the conversion event. After it, we read the numbers that tell us if the funnel converts, not just if it fills.</p>
+    </div>
+    <div class="kpis rv">
+      <div class="kpi"><div class="v">Show-up rate</div><div class="k">Registrants who actually attended the live.</div></div>
+      <div class="kpi"><div class="v">Watch time</div><div class="k">Avg view duration + peak concurrent viewers.</div></div>
+      <div class="kpi"><div class="v">Chat engagement</div><div class="k">Comments and questions during the build.</div></div>
+      <div class="kpi"><div class="v">WhatsApp joins</div><div class="k">Attendees who joined the community from the live.</div></div>
+      <div class="kpi"><div class="v">Skool signups</div><div class="k">$49/mo or $400/yr conversions from live + follow-up.</div></div>
+      <div class="kpi"><div class="v">Replay + email</div><div class="k">Post-live YouTube views + follow-up email opens/clicks.</div></div>
+    </div>
+    <p class="note rv">Plus a 1-question feedback survey to attendees ("what should I build next?") that feeds the next live's topic and the next ad angles.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><div class="m">Tudor × Stratoma · Week 1 Launch Plan · Living document</div></div>
+</footer>
+
+<script>
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}})},{threshold:.1,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i%6,5)*55)+'ms';io.observe(el);});
+</script>
+</body>
+</html>
