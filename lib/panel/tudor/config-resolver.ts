@@ -116,6 +116,7 @@ function parseReviews(raw: string | undefined): Review[] {
         handle: String(r.handle ?? ''),
         rating: Number(r.rating) || 0,
         note: String(r.note ?? ''),
+        video: r.video ? String(r.video) : undefined,
         approved: Boolean(r.approved),
       }))
       .sort((a, b) => (a.at < b.at ? 1 : -1)); // newest first

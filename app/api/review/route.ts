@@ -89,6 +89,8 @@ export async function POST(req: Request) {
   const email = STR(body.email, 200).toLowerCase();
   const handle = STR(body.handle, 120);
   const note = STR(body.note, 4000);
+  const videoRaw = STR(body.video, 2000);
+  const video = /^https?:\/\//i.test(videoRaw) ? videoRaw : ''; // link OR uploaded-file URL
   const rating = Math.max(0, Math.min(5, parseInt(String(body.rating ?? ''), 10) || 0));
   if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || !rating) {
     return cors(NextResponse.json({ ok: false, error: 'name, valid email and rating required' }, { status: 400 }));
@@ -121,6 +123,7 @@ export async function POST(req: Request) {
     handle,
     rating,
     note,
+    video,
     approved: false,
   };
   rows.push(entry);

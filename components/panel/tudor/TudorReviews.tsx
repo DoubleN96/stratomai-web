@@ -93,6 +93,16 @@ export function TudorReviews({ slug, initial }: { slug: string; initial: Review[
                   <Stars n={r.rating} />
                 </div>
                 {r.note && <p className="mt-1.5 whitespace-pre-wrap text-sm text-[#dae2fd]">{r.note}</p>}
+                {r.video && (
+                  <a
+                    href={r.video}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-1.5 inline-flex items-center gap-1 text-xs font-semibold text-[#7fd0ff] underline"
+                  >
+                    🎥 Ver vídeo
+                  </a>
+                )}
                 <div className="mt-1.5 text-[10px] text-[#5a6b94]">
                   {r.email}
                   {r.at ? ` · ${new Date(r.at).toLocaleDateString('es-ES')}` : ''}

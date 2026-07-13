@@ -72,6 +72,7 @@ export interface Review {
   handle: string;
   rating: number;
   note: string;
+  video?: string;
   approved: boolean;
 }
 
