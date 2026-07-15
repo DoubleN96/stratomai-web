@@ -77,6 +77,14 @@ export default async function ProjectPage({
               Command Center →
             </Link>
           )}
+          {COMMAND_CENTER_SLUGS.has(slug) && (
+            <Link
+              href={`/panel/projects/${slug}/marketing`}
+              className="rounded-lg border border-[#2c3f6b] bg-[#16223f] px-3 py-1.5 text-xs font-semibold text-[#9fc0ff] transition-colors hover:border-[#4a648f]"
+            >
+              Marketing →
+            </Link>
+          )}
         </div>
 
         <div className="mb-3 flex items-center justify-between gap-3">
