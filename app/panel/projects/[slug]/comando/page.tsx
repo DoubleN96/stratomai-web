@@ -49,6 +49,12 @@ export default async function ComandoPage({
           <span className="rounded-full border border-[#2c3f6b] bg-[#16223f] px-2.5 py-0.5 text-xs font-medium text-[#9fc0ff]">
             Command Center · solo lectura
           </span>
+          <Link
+            href={`/panel/projects/${slug}/marketing`}
+            className="ml-auto rounded-lg bg-gradient-to-r from-[#7ca0ff] to-[#c4a3ff] px-3 py-1.5 text-xs font-semibold text-[#0b1326] transition-opacity hover:opacity-90"
+          >
+            Panel de Marketing →
+          </Link>
         </div>
         <p className="mb-8 text-xs text-[#5a6b94]">
           Captación (GHL) · visitas web (GA4) · comunidad · launch funnel del
