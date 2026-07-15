@@ -12,7 +12,7 @@
 
 import { createSupabaseAdminClient } from '../supabase-server';
 import { decryptValue } from '../crypto';
-import type { TudorSnapshot, Task, Review } from './types';
+import type { TudorSnapshot, Task, Review, MarketingPub } from './types';
 
 // Config keys (category + item_key) the Tudor dashboard relies on.
 export const CONFIG_KEYS = {
@@ -98,7 +98,27 @@ function resolveSnapshot(cfg: Map<string, string>): TudorSnapshot {
     waCommunity: parseWaSnapshot(g('WA_SNAPSHOT')),
     tasks: parseTasks(g('TASKS')),
     reviews: parseReviews(g('REVIEWS')),
+    marketing: parseMarketing(g('MARKETING')),
   };
+}
+
+function parseMarketing(raw: string | undefined): MarketingPub[] {
+  if (!raw) return [];
+  try {
+    const arr = JSON.parse(raw);
+    if (!Array.isArray(arr)) return [];
+    return arr
+      .filter((p) => p && typeof p.title === 'string')
+      .map((p, i) => ({
+        id: String(p.id ?? i),
+        title: String(p.title),
+        status: String(p.status ?? ''),
+        url: p.url ? String(p.url) : undefined,
+        note: p.note ? String(p.note) : undefined,
+      }));
+  } catch {
+    return [];
+  }
 }
 
 function parseReviews(raw: string | undefined): Review[] {

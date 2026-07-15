@@ -76,6 +76,15 @@ export interface Review {
   approved: boolean;
 }
 
+// ── Marketing publications (launch phase 1 ads) — config key other:MARKETING ──
+export interface MarketingPub {
+  id: string;
+  title: string;
+  status: string; // e.g. 'Aprobado', 'En edición', 'Publicado'
+  url?: string;
+  note?: string;
+}
+
 export interface TudorSnapshot {
   whatsapp: { members: number; communities: number; capEach: number; target: number };
   skool: { total: number; paying: number; mrr: number; asOf: string };
@@ -83,6 +92,7 @@ export interface TudorSnapshot {
   waCommunity: WaCommunitySnapshot | null;
   tasks: Task[];
   reviews: Review[];
+  marketing: MarketingPub[];
 }
 
 // ── Ambassadors (clip-to-unlock program) — from the "Clippers" sheet + GHL ──
