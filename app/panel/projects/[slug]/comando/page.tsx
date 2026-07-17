@@ -1,9 +1,8 @@
 import { notFound } from 'next/navigation';
-import Link from 'next/link';
 import { requireSession } from '@/lib/panel/auth';
 import { getProject } from '@/lib/panel/queries';
-import { PanelHeader } from '@/components/panel/PanelHeader';
 import { StatusBadge } from '@/components/panel/ui';
+import { PanelShell } from '@/components/panel/tudor/PanelShell';
 import { CommandCenter } from '@/components/panel/tudor/CommandCenter';
 import { getTudorDashboard } from '@/lib/panel/tudor/dashboard';
 import { COMMAND_CENTER_SLUGS } from '@/lib/panel/tudor/slugs';
@@ -28,42 +27,23 @@ export default async function ComandoPage({
   if (!project) notFound();
 
   const data = await getTudorDashboard(slug);
-  const isAdmin = profile.role === 'admin';
 
   return (
-    <>
-      <PanelHeader profile={profile} active="dashboard" />
-      <main className="mx-auto max-w-6xl px-4 py-8">
-        {isAdmin && (
-          <Link
-            href={`/panel/projects/${slug}`}
-            className="text-sm text-[#8597c0] transition-colors hover:text-white"
-          >
-            ← Volver al proyecto
-          </Link>
-        )}
+    <PanelShell slug={slug} profile={profile} projectName={project.name}>
+      <div className="mb-2 flex flex-wrap items-center gap-3">
+        <h1 className="text-2xl font-bold text-white">Resumen</h1>
+        <StatusBadge status={project.status} />
+        <span className="rounded-full border border-[#2c3f6b] bg-[#16223f] px-2.5 py-0.5 text-xs font-medium text-[#9fc0ff]">
+          Command Center · solo lectura
+        </span>
+      </div>
+      <p className="mb-8 text-xs text-[#5a6b94]">
+        Captación (GHL) · visitas web (GA4) · comunidad · launch funnel del
+        modelo Ángel · actualizado{' '}
+        {new Date(data.generatedAt).toLocaleString('es-ES')}
+      </p>
 
-        <div className="mt-3 mb-2 flex flex-wrap items-center gap-3">
-          <h1 className="text-2xl font-bold text-white">{project.name}</h1>
-          <StatusBadge status={project.status} />
-          <span className="rounded-full border border-[#2c3f6b] bg-[#16223f] px-2.5 py-0.5 text-xs font-medium text-[#9fc0ff]">
-            Command Center · solo lectura
-          </span>
-          <Link
-            href={`/panel/projects/${slug}/marketing`}
-            className="ml-auto rounded-lg bg-gradient-to-r from-[#7ca0ff] to-[#c4a3ff] px-3 py-1.5 text-xs font-semibold text-[#0b1326] transition-opacity hover:opacity-90"
-          >
-            Panel de Marketing →
-          </Link>
-        </div>
-        <p className="mb-8 text-xs text-[#5a6b94]">
-          Captación (GHL) · visitas web (GA4) · comunidad · launch funnel del
-          modelo Ángel · actualizado{' '}
-          {new Date(data.generatedAt).toLocaleString('es-ES')}
-        </p>
-
-        <CommandCenter project={project} data={data} />
-      </main>
-    </>
+      <CommandCenter project={project} data={data} />
+    </PanelShell>
   );
 }

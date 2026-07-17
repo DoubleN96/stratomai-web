@@ -12,7 +12,7 @@
 
 import { createSupabaseAdminClient } from '../supabase-server';
 import { decryptValue } from '../crypto';
-import type { TudorSnapshot, Task, Review, MarketingPub } from './types';
+import type { TudorSnapshot, Task, Review, MarketingPub, MetaCampaignsSnapshot, MetaMetrics } from './types';
 
 // Config keys (category + item_key) the Tudor dashboard relies on.
 export const CONFIG_KEYS = {
@@ -96,10 +96,49 @@ function resolveSnapshot(cfg: Map<string, string>): TudorSnapshot {
       live: num(g('BENCH_LIVE'), 2000),
     },
     waCommunity: parseWaSnapshot(g('WA_SNAPSHOT')),
+    meta: parseMeta(g('META_CAMPAIGNS')),
     tasks: parseTasks(g('TASKS')),
     reviews: parseReviews(g('REVIEWS')),
     marketing: parseMarketing(g('MARKETING')),
   };
+}
+
+function parseMetrics(m: unknown): MetaMetrics {
+  const o = (m && typeof m === 'object' ? m : {}) as Record<string, unknown>;
+  const n = (v: unknown) => (Number.isFinite(Number(v)) ? Number(v) : 0);
+  return {
+    spend: n(o.spend), impressions: n(o.impressions), reach: n(o.reach),
+    clicks: n(o.clicks), ctr: n(o.ctr), cpm: n(o.cpm), leads: n(o.leads), cpl: n(o.cpl),
+  };
+}
+function parseMeta(raw: string | undefined): MetaCampaignsSnapshot | null {
+  if (!raw) return null;
+  try {
+    const o = JSON.parse(raw);
+    if (!o || typeof o !== 'object' || !o.campaign) return null;
+    return {
+      asOf: String(o.asOf ?? ''),
+      currency: String(o.currency ?? 'RON'),
+      campaign: {
+        name: String(o.campaign.name ?? ''),
+        status: String(o.campaign.status ?? ''),
+        dailyBudget: Number(o.campaign.dailyBudget) || 0,
+      },
+      today: parseMetrics(o.today),
+      total: parseMetrics(o.total),
+      adsets: Array.isArray(o.adsets)
+        ? o.adsets.map((a: Record<string, unknown>) => ({
+            name: String(a.name ?? ''),
+            status: String(a.status ?? ''),
+            dailyBudget: Number(a.dailyBudget) || 0,
+            platforms: Array.isArray(a.platforms) ? a.platforms.map(String) : [],
+            today: parseMetrics(a.today),
+          }))
+        : [],
+    };
+  } catch {
+    return null;
+  }
 }
 
 function parseMarketing(raw: string | undefined): MarketingPub[] {

@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { requireSession } from '@/lib/panel/auth';
 import { getProject } from '@/lib/panel/queries';
-import { PanelHeader } from '@/components/panel/PanelHeader';
+import { PanelShell } from '@/components/panel/tudor/PanelShell';
 import { StatusBadge } from '@/components/panel/ui';
 import { Metric } from '@/components/panel/tudor/charts';
 import { getTudorDashboard } from '@/lib/panel/tudor/dashboard';
@@ -64,8 +64,8 @@ export default async function MarketingPage({ params }: { params: Promise<{ slug
   const [data, cfg] = await Promise.all([getTudorDashboard(slug), resolveTudorConfig(slug)]);
   const leads = data.leads;
   const visits = data.visits;
-  const scripts = cfg.marketing ?? [];
-  const tasks = cfg.tasks ?? [];
+  const scripts = cfg.snapshot.marketing ?? [];
+  const tasks = cfg.snapshot.tasks ?? [];
   const nextSteps = tasks.filter((t) => !/done|hecho|complet/i.test(t.status || '')).slice(0, 8);
   const sessions = visits.ok ? visits.sessions : null;
   const regMasterclass = leads.ok
@@ -73,26 +73,20 @@ export default async function MarketingPage({ params }: { params: Promise<{ slug
     : 0;
 
   return (
-    <>
-      <PanelHeader profile={profile} active="dashboard" />
-      <main className="mx-auto max-w-6xl px-4 py-8">
-        <Link href={`/panel/projects/${slug}/comando`} className="text-sm text-[#8597c0] transition-colors hover:text-white">
-          ← Command Center
-        </Link>
+    <PanelShell slug={slug} profile={profile} projectName={project.name}>
+      <div className="mb-2 flex flex-wrap items-center gap-3">
+        <h1 className="text-2xl font-bold text-white">Marketing</h1>
+        <StatusBadge status={project.status} />
+        <span className="rounded-full border border-[#2c3f6b] bg-[#16223f] px-2.5 py-0.5 text-xs font-medium text-[#9fc0ff]">
+          Estrategia · funnel · KPIs · guiones
+        </span>
+      </div>
+      <p className="mb-8 text-xs text-[#5a6b94]">
+        KPIs en vivo (GHL + GA4) · guiones y próximos pasos enlazados al kanban · actualizado{' '}
+        {new Date(data.generatedAt).toLocaleString('es-ES')}
+      </p>
 
-        <div className="mt-3 mb-2 flex flex-wrap items-center gap-3">
-          <h1 className="text-2xl font-bold text-white">{project.name} · Marketing</h1>
-          <StatusBadge status={project.status} />
-          <span className="rounded-full border border-[#2c3f6b] bg-[#16223f] px-2.5 py-0.5 text-xs font-medium text-[#9fc0ff]">
-            Estrategia · funnel · KPIs · guiones
-          </span>
-        </div>
-        <p className="mb-8 text-xs text-[#5a6b94]">
-          KPIs en vivo (GHL + GA4) · guiones y próximos pasos enlazados al kanban · actualizado{' '}
-          {new Date(data.generatedAt).toLocaleString('es-ES')}
-        </p>
-
-        <div className="grid gap-5">
+      <div className="grid gap-5">
           <Card title="KPIs en vivo" tag="GHL + GA4">
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
               <Metric big value={leads.ok ? leads.total.toLocaleString('es-ES') : '—'} label="Leads /live (total)" />
@@ -160,8 +154,7 @@ export default async function MarketingPage({ params }: { params: Promise<{ slug
             )}
             <p className="mt-3 text-xs text-[#5a6b94]">Se edita en el kanban del <Link href={`/panel/projects/${slug}/comando`} className="text-[#5b8cff] hover:underline">Command Center</Link>.</p>
           </Card>
-        </div>
-      </main>
-    </>
+      </div>
+    </PanelShell>
   );
 }

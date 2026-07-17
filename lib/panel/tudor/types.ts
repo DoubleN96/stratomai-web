@@ -47,6 +47,33 @@ export interface WaCommunitySnapshot {
   byCampaign: Array<[string, number]>;
 }
 
+// ── Meta Ads (live campaign monitor) — config key other:META_CAMPAIGNS ──
+export interface MetaMetrics {
+  spend: number;
+  impressions: number;
+  reach: number;
+  clicks: number;
+  ctr: number;
+  cpm: number;
+  leads: number;
+  cpl: number;
+}
+export interface MetaAdset {
+  name: string;
+  status: string;
+  dailyBudget: number;
+  platforms: string[];
+  today: MetaMetrics;
+}
+export interface MetaCampaignsSnapshot {
+  asOf: string;
+  currency: string;
+  campaign: { name: string; status: string; dailyBudget: number };
+  today: MetaMetrics;
+  total: MetaMetrics;
+  adsets: MetaAdset[];
+}
+
 // ── Task board (kanban) — centralised task tracking in the panel ──
 export interface TaskLink {
   label: string;
@@ -90,6 +117,7 @@ export interface TudorSnapshot {
   skool: { total: number; paying: number; mrr: number; asOf: string };
   bench: { leads: number; whatsapp: number; live: number };
   waCommunity: WaCommunitySnapshot | null;
+  meta: MetaCampaignsSnapshot | null;
   tasks: Task[];
   reviews: Review[];
   marketing: MarketingPub[];

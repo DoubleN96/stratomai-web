@@ -419,6 +419,60 @@ export function CommandCenter({
         </Card>
       )}
 
+      {snapshot.meta && (
+        <Card
+          title="Meta Ads · monitor en vivo"
+          tag={`${snapshot.meta.campaign.status} · ${new Date(snapshot.meta.asOf).toLocaleString('es-ES', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}`}
+        >
+          <p className="mb-4 font-mono text-[11px] text-[#8a97b8]">
+            {snapshot.meta.campaign.name} · presupuesto {nfmt(snapshot.meta.campaign.dailyBudget)}{' '}
+            {snapshot.meta.currency}/día
+          </p>
+          <div className="mb-5 flex flex-wrap gap-8">
+            <Metric big value={`${nfmt(snapshot.meta.today.spend)} ${snapshot.meta.currency}`} label="gasto hoy" />
+            <Metric big value={nfmt(snapshot.meta.today.leads)} label="leads hoy" />
+            <Metric
+              big
+              value={snapshot.meta.today.leads > 0 ? `${nfmt(snapshot.meta.today.cpl)} ${snapshot.meta.currency}` : '—'}
+              label="coste / lead"
+            />
+            <Metric big value={`${snapshot.meta.today.ctr}%`} label="CTR hoy" />
+          </div>
+          <div className="mb-5 flex flex-wrap gap-8">
+            <Metric value={nfmt(snapshot.meta.today.impressions)} label="impresiones hoy" />
+            <Metric value={nfmt(snapshot.meta.today.reach)} label="alcance hoy" />
+            <Metric value={nfmt(snapshot.meta.today.clicks)} label="clicks hoy" />
+            <Metric value={`${nfmt(snapshot.meta.today.cpm)}`} label={`CPM (${snapshot.meta.currency})`} />
+          </div>
+          <div>
+            <p className="mb-2 font-mono text-[10px] uppercase tracking-widest text-[#5a6b94]">
+              Conjuntos de anuncios (hoy)
+            </p>
+            <div className="grid gap-2">
+              {snapshot.meta.adsets.map((a) => (
+                <div
+                  key={a.name}
+                  className="flex flex-wrap items-center justify-between gap-2 rounded-md border border-[#1e2740] bg-[#0d1426] px-3 py-2 font-mono text-[11px]"
+                >
+                  <span className="text-[#c3cde6]">
+                    <span className={a.status === 'ACTIVE' ? 'text-[#4ade80]' : 'text-[#f0a04b]'}>●</span>{' '}
+                    {a.name.replace('Tudor W1 · ', '')}
+                    <span className="ml-2 text-[#5a6b94]">{a.platforms.join('/') || '—'}</span>
+                  </span>
+                  <span className="text-[#8a97b8]">
+                    {nfmt(a.today.spend)} {snapshot.meta!.currency} · {nfmt(a.today.leads)} leads · {nfmt(a.today.impressions)} impr · {a.today.ctr}% CTR
+                  </span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 font-mono text-[10px] text-[#5a6b94]">
+              Acumulado campaña: {nfmt(snapshot.meta.total.spend)} {snapshot.meta.currency} ·{' '}
+              {nfmt(snapshot.meta.total.leads)} leads · CTR {snapshot.meta.total.ctr}%
+            </p>
+          </div>
+        </Card>
+      )}
+
     </div>
   );
 }
