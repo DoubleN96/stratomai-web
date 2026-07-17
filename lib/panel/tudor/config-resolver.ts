@@ -103,12 +103,19 @@ function resolveSnapshot(cfg: Map<string, string>): TudorSnapshot {
   };
 }
 
+// La cuenta de Meta factura en RON; el panel muestra euros. RON está cuasi-anclado
+// al EUR por el BNR en banda estrecha (~4,97 RON/€). Constante de calibración: si la
+// precisión importa, cambiar a tipo de cambio en vivo. ponytail: constante fija, FX vivo si hace falta.
+const RON_TO_EUR = 0.201;
+const eur = (v: unknown) => Math.round((Number.isFinite(Number(v)) ? Number(v) : 0) * RON_TO_EUR * 100) / 100;
+
 function parseMetrics(m: unknown): MetaMetrics {
   const o = (m && typeof m === 'object' ? m : {}) as Record<string, unknown>;
   const n = (v: unknown) => (Number.isFinite(Number(v)) ? Number(v) : 0);
+  // spend/cpm/cpl son dinero -> a euros; el resto (leads, impresiones, ctr…) no se toca.
   return {
-    spend: n(o.spend), impressions: n(o.impressions), reach: n(o.reach),
-    clicks: n(o.clicks), ctr: n(o.ctr), cpm: n(o.cpm), leads: n(o.leads), cpl: n(o.cpl),
+    spend: eur(o.spend), impressions: n(o.impressions), reach: n(o.reach),
+    clicks: n(o.clicks), ctr: n(o.ctr), cpm: eur(o.cpm), leads: n(o.leads), cpl: eur(o.cpl),
   };
 }
 function parseMeta(raw: string | undefined): MetaCampaignsSnapshot | null {
@@ -118,11 +125,11 @@ function parseMeta(raw: string | undefined): MetaCampaignsSnapshot | null {
     if (!o || typeof o !== 'object' || !o.campaign) return null;
     return {
       asOf: String(o.asOf ?? ''),
-      currency: String(o.currency ?? 'RON'),
+      currency: '€',
       campaign: {
         name: String(o.campaign.name ?? ''),
         status: String(o.campaign.status ?? ''),
-        dailyBudget: Number(o.campaign.dailyBudget) || 0,
+        dailyBudget: eur(o.campaign.dailyBudget),
       },
       today: parseMetrics(o.today),
       total: parseMetrics(o.total),
@@ -130,7 +137,7 @@ function parseMeta(raw: string | undefined): MetaCampaignsSnapshot | null {
         ? o.adsets.map((a: Record<string, unknown>) => ({
             name: String(a.name ?? ''),
             status: String(a.status ?? ''),
-            dailyBudget: Number(a.dailyBudget) || 0,
+            dailyBudget: eur(a.dailyBudget),
             platforms: Array.isArray(a.platforms) ? a.platforms.map(String) : [],
             today: parseMetrics(a.today),
           }))
