@@ -9,7 +9,7 @@ export const runtime = 'nodejs';
 
 // The live stream URL. Swap when Tudor's YouTube live link is ready (kept here so the
 // funnel ships now; update this one line, no other change needed).
-const LIVE_URL = process.env.MASTERCLASS_LIVE_URL || 'https://www.youtube.com/live/PcIUdSal3zw';
+const LIVE_URL = process.env.MASTERCLASS_LIVE_URL || 'https://www.youtube.com/live/6sv1wDodNdQ';
 const TAG = 'masterclass-19jul';
 
 function cors(res: NextResponse) {
