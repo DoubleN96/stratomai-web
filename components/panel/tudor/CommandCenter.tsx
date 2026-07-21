@@ -375,11 +375,15 @@ export function CommandCenter({
             <Metric
               big
               value={
-                snapshot.waCommunity.leads > 0
-                  ? `${Math.round((snapshot.waCommunity.joined / snapshot.waCommunity.leads) * 100)}%`
+                leads.ok && leads.total > 0
+                  ? `${Math.round((snapshot.waCommunity.count / leads.total) * 100)}%`
                   : '—'
               }
-              label={`lead → WhatsApp (${snapshot.waCommunity.joined}/${snapshot.waCommunity.leads})`}
+              label={
+                leads.ok
+                  ? `lead → WhatsApp (${nfmt(snapshot.waCommunity.count)}/${nfmt(leads.total)})`
+                  : 'lead → WhatsApp'
+              }
             />
           </div>
           <div className="grid gap-6 md:grid-cols-2">
