@@ -36,6 +36,7 @@ export function PanelShell({
         { label: 'Resumen', href: `${base}/comando`, icon: 'grid' },
         { label: 'Marketing', href: `${base}/marketing`, icon: 'megaphone' },
         { label: 'Anuncios · en vivo', href: `${base}/anuncios`, icon: 'chart' },
+        { label: 'Swipe · Lanzamiento pro', href: `${base}/funnel`, icon: 'doc' },
       ],
     },
     {
