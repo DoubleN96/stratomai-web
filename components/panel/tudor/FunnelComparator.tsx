@@ -69,13 +69,17 @@ function AutoTextarea({
   const ref = useRef<HTMLTextAreaElement | null>(null);
   const grow = () => {
     const el = ref.current;
-    if (el) {
-      el.style.height = 'auto';
-      el.style.height = `${el.scrollHeight}px`;
-    }
+    if (!el) return;
+    el.style.height = 'auto';
+    // Floor so short copies never collapse to an unclickable sliver.
+    el.style.height = `${Math.max(el.scrollHeight, 34)}px`;
   };
+  // Measure on mount AND after the next paint: inside the drawer the content is
+  // not always laid out on the first pass, which was collapsing short fields.
   useEffect(() => {
     grow();
+    const r = requestAnimationFrame(grow);
+    return () => cancelAnimationFrame(r);
   }, []);
   return (
     <textarea
