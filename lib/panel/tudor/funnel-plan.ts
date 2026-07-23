@@ -17,11 +17,17 @@ export type FunnelStatus = (typeof FUNNEL_STATUSES)[number];
 export interface FunnelPlanEntry {
   plan: string;
   status: FunnelStatus;
+  // Per-field text overrides so the team can edit ANY copy in place. Keyed by a
+  // stable field id: "ref:intro" / "ours:intro" / "ref:copy:2" / "ours:copy:0".
+  // Value = the edited text; absence means "use the seed copy from funnel-phases".
+  edits?: Record<string, string>;
 }
 export type FunnelPlan = Record<string, FunnelPlanEntry>;
 
 export const FUNNEL_PLAN_KEY = { category: 'other', key: 'FUNNEL_PLAN' } as const;
 const MAX_PLAN_LEN = 4000;
+const MAX_EDIT_LEN = 8000; // a single copy/message override
+const MAX_EDITS = 120; // fields per phase (both lanes' intros + copies)
 
 // Sensible default status derived from where our side of each phase stands.
 function defaultStatus(oursStatus: SideStatus): FunnelStatus {
@@ -50,6 +56,7 @@ export function mergeFunnelPlan(stored: FunnelPlan): FunnelPlan {
     out[p.id] = {
       plan: s?.plan ?? p.seedPlan ?? '',
       status: s?.status ?? defaultStatus(p.ours.status),
+      edits: s?.edits ?? {},
     };
   }
   return out;
@@ -67,7 +74,22 @@ export function sanitizeFunnelPlan(input: unknown): FunnelPlan | null {
     const o = raw as Record<string, unknown>;
     const plan = String(o.plan ?? '').slice(0, MAX_PLAN_LEN);
     const status = isStatus(o.status) ? o.status : 'adaptar';
-    out[id] = { plan, status };
+    out[id] = { plan, status, edits: sanitizeEdits(o.edits) };
+  }
+  return out;
+}
+
+// Coerce the per-field text overrides map. Keys capped to 64 chars, values to
+// MAX_EDIT_LEN, and the whole map to MAX_EDITS entries — never trust the payload.
+function sanitizeEdits(input: unknown): Record<string, string> {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) return {};
+  const out: Record<string, string> = {};
+  let n = 0;
+  for (const [k, v] of Object.entries(input as Record<string, unknown>)) {
+    if (n >= MAX_EDITS) break;
+    if (typeof k !== 'string' || k.length > 64 || typeof v !== 'string') continue;
+    out[k] = v.slice(0, MAX_EDIT_LEN);
+    n++;
   }
   return out;
 }

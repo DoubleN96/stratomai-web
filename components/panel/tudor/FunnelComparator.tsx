@@ -1,13 +1,12 @@
 'use client';
 
-// Two-lane funnel comparator (Celia Rubio reference vs. our Tudor funnel) with a
-// LIVING planning layer. Each phase node opens a drawer showing both sides'
-// verbatim copy; inside the drawer the team edits a free-text "next action" + a
-// status per phase. Edits are optimistic and persist to
+// Two-lane funnel comparator (Celia Rubio reference vs. our Tudor funnel) as a
+// FULLY EDITABLE living surface. Each phase node opens a drawer showing both
+// sides' copy; every copy, every intro and the per-phase plan is an editable
+// auto-growing field. Edits are optimistic and persist to
 // POST /api/panel/tudor/funnel-plan (member-guarded, same storage as the task
-// board). The persisted plan is loaded on the server so every member sees the
-// current state. Gaps (close sequence, closing web) are highlighted red and come
-// pre-seeded with the recommended next action.
+// board), so the whole team sees the current text. Gaps (close sequence,
+// closing web) are highlighted red and pre-seeded with the recommended action.
 
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import type { FunnelPhase, FunnelSide, FunnelCopy } from '@/lib/panel/tudor/funnel-phases';
@@ -35,7 +34,53 @@ const PLAN_STATUS_CLS: Record<FunnelStatus, string> = {
   descartado: 'text-[#5a6b94] bg-[#101a30] border-[#22304f]',
 };
 
+// Shared style for editable text fields — reads like text, clearly editable on
+// hover/focus, and auto-grows so nothing is hidden behind an inner scrollbar.
+const EDIT_BASE =
+  'w-full resize-none overflow-hidden rounded-md border border-transparent bg-transparent px-2 py-1.5 leading-relaxed text-[#c3d1ee] outline-none transition-colors hover:border-[#22304f] hover:bg-[#0c1526] focus:border-[#7ca0ff] focus:bg-[#0c1526]';
+
 type SaveState = 'idle' | 'saving' | 'saved' | 'error';
+type Edits = Record<string, string>;
+
+// Auto-growing, uncontrolled textarea. Uncontrolled (defaultValue) keeps the
+// caret stable while typing; it remounts fresh each time the drawer opens.
+function AutoTextarea({
+  value,
+  onChange,
+  ariaLabel,
+  className,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  ariaLabel?: string;
+  className?: string;
+}) {
+  const ref = useRef<HTMLTextAreaElement | null>(null);
+  const grow = () => {
+    const el = ref.current;
+    if (el) {
+      el.style.height = 'auto';
+      el.style.height = `${el.scrollHeight}px`;
+    }
+  };
+  useEffect(() => {
+    grow();
+  }, []);
+  return (
+    <textarea
+      ref={ref}
+      defaultValue={value}
+      aria-label={ariaLabel}
+      rows={1}
+      spellCheck={false}
+      onInput={(e) => {
+        grow();
+        onChange((e.target as HTMLTextAreaElement).value);
+      }}
+      className={className}
+    />
+  );
+}
 
 export function FunnelComparator({
   slug,
@@ -75,21 +120,42 @@ export function FunnelComparator({
     [slug]
   );
 
-  // Status changes persist immediately; free-text edits debounce (800ms idle).
+  const scheduleSave = useCallback(
+    (next: FunnelPlan, immediate: boolean) => {
+      if (debounceTimer.current) clearTimeout(debounceTimer.current);
+      if (immediate) void persist(next);
+      else debounceTimer.current = setTimeout(() => void persist(next), 800);
+    },
+    [persist]
+  );
+
+  // Plan text / status changes.
   const update = useCallback(
     (id: string, patch: Partial<FunnelPlan[string]>, immediate: boolean) => {
       setPlan((prev) => {
-        const next = { ...prev, [id]: { ...prev[id], ...patch } };
-        if (debounceTimer.current) clearTimeout(debounceTimer.current);
-        if (immediate) {
-          void persist(next);
-        } else {
-          debounceTimer.current = setTimeout(() => void persist(next), 800);
-        }
+        const cur = prev[id] ?? { plan: '', status: 'adaptar' as FunnelStatus, edits: {} };
+        const next = { ...prev, [id]: { ...cur, ...patch } };
+        scheduleSave(next, immediate);
         return next;
       });
     },
-    [persist]
+    [scheduleSave]
+  );
+
+  // Free-text override of any copy/intro field (debounced).
+  const editField = useCallback(
+    (id: string, key: string, value: string) => {
+      setPlan((prev) => {
+        const cur = prev[id] ?? { plan: '', status: 'adaptar' as FunnelStatus, edits: {} };
+        const next = {
+          ...prev,
+          [id]: { ...cur, edits: { ...(cur.edits ?? {}), [key]: value } },
+        };
+        scheduleSave(next, false);
+        return next;
+      });
+    },
+    [scheduleSave]
   );
 
   useEffect(() => {
@@ -137,35 +203,35 @@ export function FunnelComparator({
   return (
     <div>
       <div ref={boardRef}>
-      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap gap-2 text-[11px]">
-          <Legend color="#f5c24a" label="Referencia (Celia)" />
-          <Legend color="#5bdc3d" label="Nuestro (Tudor)" />
-          <Legend color="#ff8a8a" label="Gap" />
-        </div>
-        <SaveBadge state={save} onRetry={() => persist(plan)} />
-      </div>
-      <p className="mb-4 font-mono text-[11px] tracking-wide text-[#5a6b94]">
-        ▸ Toca un nodo para abrirlo y leer el copy dentro · el centro marca si lo tenemos (MATCH / PARCIAL / GAP) y el estado que fija el equipo
-      </p>
-
-      {/* Lane headers */}
-      <div className="sticky top-0 z-10 mb-1 grid grid-cols-[1fr_88px_1fr] gap-2 bg-[#0b1326]/85 py-2 backdrop-blur sm:grid-cols-[1fr_120px_1fr]">
-        <LaneHead who="Celia Rubio · Eleven Academy" role='Referencia — "el más pro"' accent="#f5c24a" />
-        <div />
-        <LaneHead who="Tudor × Stratoma" role="Lo nuestro — launch 9 Ago" accent="#5bdc3d" />
-      </div>
-
-      {/* Board */}
-      <div>
-        {phases.map((p, i) => (
-          <div key={p.id} className="my-2 grid grid-cols-[1fr_88px_1fr] items-stretch gap-2 sm:grid-cols-[1fr_120px_1fr]">
-            <Node phase={p} side="ref" onOpen={open} />
-            <Spine phase={p} status={plan[p.id]?.status} first={i === 0} last={i === phases.length - 1} />
-            <Node phase={p} side="ours" onOpen={open} />
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap gap-2 text-[11px]">
+            <Legend color="#f5c24a" label="Referencia (Celia)" />
+            <Legend color="#5bdc3d" label="Nuestro (Tudor)" />
+            <Legend color="#ff8a8a" label="Gap" />
           </div>
-        ))}
-      </div>
+          <SaveBadge state={save} onRetry={() => persist(plan)} />
+        </div>
+        <p className="mb-4 font-mono text-[11px] tracking-wide text-[#5a6b94]">
+          ▸ Toca un nodo para abrirlo. Todo el texto de dentro (copys, intros y el plan) es editable y se guarda solo.
+        </p>
+
+        {/* Lane headers */}
+        <div className="sticky top-0 z-10 mb-1 grid grid-cols-[1fr_88px_1fr] gap-2 bg-[#0b1326]/85 py-2 backdrop-blur sm:grid-cols-[1fr_120px_1fr]">
+          <LaneHead who="Celia Rubio · Eleven Academy" role='Referencia — "el más pro"' accent="#f5c24a" />
+          <div />
+          <LaneHead who="Tudor × Stratoma" role="Lo nuestro — launch 9 Ago" accent="#5bdc3d" />
+        </div>
+
+        {/* Board */}
+        <div>
+          {phases.map((p, i) => (
+            <div key={p.id} className="my-2 grid grid-cols-[1fr_88px_1fr] items-stretch gap-2 sm:grid-cols-[1fr_120px_1fr]">
+              <Node phase={p} side="ref" onOpen={open} />
+              <Spine phase={p} status={plan[p.id]?.status} first={i === 0} last={i === phases.length - 1} />
+              <Node phase={p} side="ours" onOpen={open} />
+            </div>
+          ))}
+        </div>
       </div>
 
       {openPhase && (
@@ -175,6 +241,7 @@ export function FunnelComparator({
           entry={plan[openPhase.id]}
           onPlan={(v) => update(openPhase.id, { plan: v }, false)}
           onStatus={(s) => update(openPhase.id, { status: s }, true)}
+          onEdit={(key, v) => editField(openPhase.id, key, v)}
           onClose={close}
           onRetry={() => persist(plan)}
           save={save}
@@ -223,7 +290,7 @@ function Node({ phase, side, onOpen }: { phase: FunnelPhase; side: 'ref' | 'ours
       </span>
       <span className="hidden text-[12px] leading-snug text-[#8597c0] sm:block">{d.desc}</span>
       <span className="mt-auto hidden font-mono text-[10px] tracking-wide text-[#5a6b94] group-hover:text-[#7ca0ff] sm:flex sm:items-center sm:gap-1">
-        ▸ abrir y ver dentro
+        ▸ abrir y editar dentro
       </span>
     </button>
   );
@@ -249,7 +316,20 @@ function Spine({ phase, status, first, last }: { phase: FunnelPhase; status?: Fu
   );
 }
 
-function CopyBlock({ c }: { c: FunnelCopy }) {
+function CopyBlock({
+  c,
+  side,
+  index,
+  edits,
+  onEdit,
+}: {
+  c: FunnelCopy;
+  side: 'ref' | 'ours';
+  index: number;
+  edits: Edits;
+  onEdit: (key: string, v: string) => void;
+}) {
+  const textKey = `${side}:copy:${index}`;
   return (
     <div className={`overflow-hidden rounded-lg border ${c.danger ? 'border-[#5a4a1f]' : 'border-[#1a2740]'} bg-[#101a30]`}>
       <div className={`flex flex-wrap items-center gap-2 border-b border-[#1a2740] px-3 py-2 ${c.danger ? 'bg-[#3a2f12]' : ''}`}>
@@ -261,7 +341,14 @@ function CopyBlock({ c }: { c: FunnelCopy }) {
         <span className="text-[12.5px] font-bold text-white">{c.name}</span>
         {c.src && <span className="ml-auto font-mono text-[10px] text-[#5a6b94]">{c.src}</span>}
       </div>
-      <div className="whitespace-pre-wrap px-3 py-2.5 text-[12.5px] leading-relaxed text-[#c3d1ee]">{c.text}</div>
+      <div className="px-1.5 py-1.5">
+        <AutoTextarea
+          value={edits[textKey] ?? c.text}
+          onChange={(v) => onEdit(textKey, v)}
+          ariaLabel={`Copy: ${c.name}`}
+          className={`${EDIT_BASE} whitespace-pre-wrap text-[12.5px]`}
+        />
+      </div>
       {c.why && (
         <div className="border-t border-dashed border-[#1a2740] px-3 py-2 text-[11.5px] text-[#8597c0]">
           <b className="font-semibold text-[#7ca0ff]">Por qué funciona:</b> {c.why}
@@ -271,10 +358,21 @@ function CopyBlock({ c }: { c: FunnelCopy }) {
   );
 }
 
-function SideBlock({ d, side }: { d: FunnelSide; side: 'ref' | 'ours' }) {
+function SideBlock({
+  d,
+  side,
+  edits,
+  onEdit,
+}: {
+  d: FunnelSide;
+  side: 'ref' | 'ours';
+  edits: Edits;
+  onEdit: (key: string, v: string) => void;
+}) {
   const accent = side === 'ref' ? '#f5c24a' : '#5bdc3d';
   const soft = side === 'ref' ? '#3a2f12' : '#123018';
   const role = side === 'ref' ? 'Referencia · Celia' : 'Nuestro · Tudor';
+  const introKey = `${side}:intro`;
   return (
     <div className="overflow-hidden rounded-xl border" style={{ borderColor: `${accent}55` }}>
       <div className="flex items-center justify-between gap-2 px-3.5 py-2.5" style={{ background: soft }}>
@@ -283,10 +381,15 @@ function SideBlock({ d, side }: { d: FunnelSide; side: 'ref' | 'ours' }) {
           {role}
         </span>
       </div>
-      <div className="flex flex-col gap-3 px-3.5 py-3">
-        <div className="text-[13px] text-[#c3d1ee]">{d.intro}</div>
+      <div className="flex flex-col gap-3 px-2 py-3">
+        <AutoTextarea
+          value={edits[introKey] ?? d.intro}
+          onChange={(v) => onEdit(introKey, v)}
+          ariaLabel={`Intro ${role}`}
+          className={`${EDIT_BASE} text-[13px]`}
+        />
         {d.copies.map((c, i) => (
-          <CopyBlock key={i} c={c} />
+          <CopyBlock key={i} c={c} side={side} index={i} edits={edits} onEdit={onEdit} />
         ))}
       </div>
     </div>
@@ -299,6 +402,7 @@ function Drawer({
   entry,
   onPlan,
   onStatus,
+  onEdit,
   onClose,
   onRetry,
   save,
@@ -308,6 +412,7 @@ function Drawer({
   entry?: FunnelPlan[string];
   onPlan: (v: string) => void;
   onStatus: (s: FunnelStatus) => void;
+  onEdit: (key: string, v: string) => void;
   onClose: () => void;
   onRetry: () => void;
   save: SaveState;
@@ -336,11 +441,10 @@ function Drawer({
     }
   };
 
+  const edits: Edits = entry?.edits ?? {};
   const order: ('ref' | 'ours')[] = firstSide === 'ours' ? ['ours', 'ref'] : ['ref', 'ours'];
   const noteCls =
-    phase.note.type === 'gap'
-      ? 'border-[#ff8a8a] bg-[#3a1620]'
-      : 'border-[#5a4a1f] bg-[#3a2f12]';
+    phase.note.type === 'gap' ? 'border-[#ff8a8a] bg-[#3a1620]' : 'border-[#5a4a1f] bg-[#3a2f12]';
 
   return (
     <>
@@ -371,7 +475,7 @@ function Drawer({
           </button>
         </div>
 
-        <div className="flex flex-col gap-4 overflow-y-auto px-5 pb-16 pt-4">
+        <div className="flex flex-1 flex-col gap-4 overflow-y-auto px-5 pb-16 pt-4">
           <div className={`rounded-lg border px-3.5 py-3 text-[12px] leading-relaxed text-white ${noteCls}`}>
             {phase.note.text}
           </div>
@@ -380,7 +484,7 @@ function Drawer({
           <PlanEditor entry={entry} isGap={phase.verdict === 'gap'} onPlan={onPlan} onStatus={onStatus} onRetry={onRetry} save={save} />
 
           {order.map((side) => (
-            <SideBlock key={side} d={phase[side]} side={side} />
+            <SideBlock key={side} d={phase[side]} side={side} edits={edits} onEdit={onEdit} />
           ))}
         </div>
       </aside>
@@ -413,13 +517,11 @@ function PlanEditor({
         </span>
         <SaveBadge state={save} onRetry={onRetry} />
       </div>
-      <textarea
-        defaultValue={entry?.plan ?? ''}
-        onChange={(e) => onPlan(e.target.value)}
-        rows={4}
-        aria-labelledby="fc-plan-label"
-        placeholder="Qué hacemos aquí, quién y para cuándo…"
-        className="w-full resize-y rounded-lg border border-[#22304f] bg-[#0c1526] px-3 py-2 text-[13px] text-white outline-none placeholder:text-[#5a6b94] focus:border-[#7ca0ff]"
+      <AutoTextarea
+        value={entry?.plan ?? ''}
+        onChange={onPlan}
+        ariaLabel="Nuestro plan / próxima acción"
+        className="w-full resize-none overflow-hidden rounded-lg border border-[#22304f] bg-[#0c1526] px-3 py-2 text-[13px] leading-relaxed text-white outline-none focus:border-[#7ca0ff]"
       />
       <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
         <span className="font-mono text-[10px] uppercase tracking-wide text-[#5a6b94]">Estado:</span>
