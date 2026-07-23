@@ -33,15 +33,15 @@ export default async function ComparadorPage({
       <div className="mb-2 flex flex-wrap items-center gap-3">
         <h1 className="text-2xl font-bold text-white">Funnel · comparador</h1>
         <span className="rounded-full border border-[#2c3f6b] bg-[#16223f] px-2.5 py-0.5 text-xs font-medium text-[#9fc0ff]">
-          Celia (ref) vs Tudor (nuestro)
+          Celia · Ángel · Tudor
         </span>
       </div>
       <p className="mb-8 max-w-3xl text-xs text-[#5a6b94]">
-        Comparación lado a lado, fase a fase: a la izquierda el lanzamiento de
-        referencia (Celia Rubio / Eleven Academy) y a la derecha nuestro funnel de
-        Tudor con los copys reales. Abre cualquier nodo para leer ambos copys
-        verbatim y fija ahí nuestro plan y estado por fase. Todo lo que edite el
-        equipo queda guardado y visible para el resto.
+        Comparación lado a lado, fase a fase: dos lanzamientos de referencia
+        (Celia Rubio / Eleven Academy y Ángel Aparicio / IA Masters) frente a
+        nuestro funnel de Tudor con los copys reales. Abre cualquier nodo para leer
+        los tres copys verbatim y fija ahí nuestro plan y estado por fase. Todo lo
+        que edite el equipo queda guardado y visible para el resto.
       </p>
 
       <FunnelComparator slug={slug} phases={FUNNEL_PHASES} initialPlan={plan} />

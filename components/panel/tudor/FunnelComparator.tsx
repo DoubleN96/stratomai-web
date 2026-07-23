@@ -34,6 +34,17 @@ const PLAN_STATUS_CLS: Record<FunnelStatus, string> = {
   descartado: 'text-[#5a6b94] bg-[#101a30] border-[#22304f]',
 };
 
+// Three lanes: Celia (amber ref) · Ángel (purple ref) · Tudor (green ours).
+type Side = 'ref' | 'angel' | 'ours';
+const ALL_SIDES: Side[] = ['ref', 'angel', 'ours'];
+const SIDE_ACCENT: Record<Side, string> = { ref: '#f5c24a', angel: '#c4a3ff', ours: '#5bdc3d' };
+const SIDE_SOFT: Record<Side, string> = { ref: '#3a2f12', angel: '#241a3a', ours: '#123018' };
+const SIDE_ROLE: Record<Side, string> = {
+  ref: 'Referencia · Celia',
+  angel: 'Referencia · Ángel',
+  ours: 'Nuestro · Tudor',
+};
+
 // Shared style for editable text fields — reads like text, clearly editable on
 // hover/focus, and auto-grows so nothing is hidden behind an inner scrollbar.
 const EDIT_BASE =
@@ -93,7 +104,7 @@ export function FunnelComparator({
 }) {
   const [plan, setPlan] = useState<FunnelPlan>(initialPlan);
   const [openId, setOpenId] = useState<string | null>(null);
-  const [firstSide, setFirstSide] = useState<'ref' | 'ours'>('ref');
+  const [firstSide, setFirstSide] = useState<Side>('ref');
   const [save, setSave] = useState<SaveState>('idle');
   const savedTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -165,7 +176,7 @@ export function FunnelComparator({
     };
   }, []);
 
-  const open = useCallback((id: string, side: 'ref' | 'ours') => {
+  const open = useCallback((id: string, side: Side) => {
     lastFocus.current = document.activeElement as HTMLElement;
     setFirstSide(side);
     setOpenId(id);
@@ -205,8 +216,9 @@ export function FunnelComparator({
       <div ref={boardRef}>
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap gap-2 text-[11px]">
-            <Legend color="#f5c24a" label="Referencia (Celia)" />
-            <Legend color="#5bdc3d" label="Nuestro (Tudor)" />
+            <Legend color="#f5c24a" label="Celia" />
+            <Legend color="#c4a3ff" label="Ángel" />
+            <Legend color="#5bdc3d" label="Tudor" />
             <Legend color="#ff8a8a" label="Gap" />
           </div>
           <SaveBadge state={save} onRetry={() => persist(plan)} />
@@ -216,19 +228,22 @@ export function FunnelComparator({
         </p>
 
         {/* Lane headers */}
-        <div className="sticky top-0 z-10 mb-1 grid grid-cols-[1fr_88px_1fr] gap-2 bg-[#0b1326]/85 py-2 backdrop-blur sm:grid-cols-[1fr_120px_1fr]">
+        <div className="sticky top-0 z-10 mb-1 grid grid-cols-3 gap-2 bg-[#0b1326]/85 py-2 backdrop-blur">
           <LaneHead who="Celia Rubio · Eleven Academy" role='Referencia — "el más pro"' accent="#f5c24a" />
-          <div />
+          <LaneHead who="Ángel Aparicio · IA Masters" role="Referencia — secuencia WhatsApp" accent="#c4a3ff" />
           <LaneHead who="Tudor × Stratoma" role="Lo nuestro — launch 9 Ago" accent="#5bdc3d" />
         </div>
 
-        {/* Board */}
+        {/* Board: full-width phase band, then three equal lanes */}
         <div>
-          {phases.map((p, i) => (
-            <div key={p.id} className="my-2 grid grid-cols-[1fr_88px_1fr] items-stretch gap-2 sm:grid-cols-[1fr_120px_1fr]">
-              <Node phase={p} side="ref" onOpen={open} />
-              <Spine phase={p} status={plan[p.id]?.status} first={i === 0} last={i === phases.length - 1} />
-              <Node phase={p} side="ours" onOpen={open} />
+          {phases.map((p) => (
+            <div key={p.id} className="my-2.5">
+              <PhaseBand phase={p} status={plan[p.id]?.status} />
+              <div className="grid grid-cols-3 items-stretch gap-2">
+                <Node phase={p} side="ref" onOpen={open} />
+                <Node phase={p} side="angel" onOpen={open} />
+                <Node phase={p} side="ours" onOpen={open} />
+              </div>
             </div>
           ))}
         </div>
@@ -271,20 +286,20 @@ function LaneHead({ who, role, accent }: { who: string; role: string; accent: st
   );
 }
 
-function Node({ phase, side, onOpen }: { phase: FunnelPhase; side: 'ref' | 'ours'; onOpen: (id: string, side: 'ref' | 'ours') => void }) {
+function Node({ phase, side, onOpen }: { phase: FunnelPhase; side: Side; onOpen: (id: string, side: Side) => void }) {
   const d: FunnelSide = phase[side];
-  const accent = side === 'ref' ? '#f5c24a' : '#5bdc3d';
+  const accent = SIDE_ACCENT[side];
   return (
     <button
       type="button"
       onClick={() => onOpen(phase.id, side)}
-      className="group flex flex-col gap-1.5 rounded-2xl border border-[#22304f] bg-[#101a30] p-3 text-left transition-all hover:-translate-y-0.5 hover:border-[#7ca0ff] hover:shadow-[0_8px_30px_rgba(0,0,0,0.28)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7ca0ff] sm:p-3.5"
+      className="group flex min-w-0 flex-col gap-1.5 rounded-2xl border border-[#22304f] bg-[#101a30] p-2.5 text-left transition-all hover:-translate-y-0.5 hover:border-[#7ca0ff] hover:shadow-[0_8px_30px_rgba(0,0,0,0.28)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7ca0ff] sm:p-3.5"
       style={{ borderLeft: `3px solid ${accent}` }}
     >
-      <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: accent }}>
+      <span className="font-mono text-[9px] uppercase tracking-widest sm:text-[10px]" style={{ color: accent }}>
         {d.tag}
       </span>
-      <span className="text-[13px] font-bold leading-tight text-white sm:text-[14.5px]">{d.title}</span>
+      <span className="text-[12px] font-bold leading-tight text-white sm:text-[14.5px]">{d.title}</span>
       <span className={`self-start rounded-md border px-1.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wide ${SIDE_STATUS_CLS[d.status]}`}>
         {SIDE_STATUS_LABEL[d.status]}
       </span>
@@ -296,22 +311,21 @@ function Node({ phase, side, onOpen }: { phase: FunnelPhase; side: 'ref' | 'ours
   );
 }
 
-function Spine({ phase, status, first, last }: { phase: FunnelPhase; status?: FunnelStatus; first: boolean; last: boolean }) {
+// Full-width band above each phase row: phase name + verdict + current plan status.
+function PhaseBand({ phase, status }: { phase: FunnelPhase; status?: FunnelStatus }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-1.5 px-0.5 text-center">
-      {!first && <div className="min-h-[10px] w-0.5 flex-1 bg-gradient-to-b from-[#1a2740] to-transparent" />}
-      <div className="font-mono text-[8.5px] font-semibold uppercase leading-tight tracking-wider text-white sm:text-[10px]">
+    <div className="mb-2 flex flex-wrap items-center gap-2 rounded-lg border border-[#1a2740] bg-[#0c1526] px-3 py-1.5">
+      <span className="font-mono text-[10px] font-semibold uppercase tracking-widest text-white sm:text-[11px]">
         {phase.ph}
-      </div>
-      <div className={`rounded-full border px-2 py-0.5 font-mono text-[8px] font-bold uppercase tracking-wide sm:text-[9px] ${VERDICT_CLS[phase.verdict]}`}>
+      </span>
+      <span className={`rounded-full border px-2 py-0.5 font-mono text-[8.5px] font-bold uppercase tracking-wide sm:text-[9px] ${VERDICT_CLS[phase.verdict]}`}>
         {phase.vlabel || VERDICT_LABEL[phase.verdict]}
-      </div>
+      </span>
       {status && (
-        <div className={`rounded-full border px-2 py-0.5 font-mono text-[8px] font-semibold uppercase tracking-wide sm:text-[9px] ${PLAN_STATUS_CLS[status]}`}>
+        <span className={`rounded-full border px-2 py-0.5 font-mono text-[8.5px] font-semibold uppercase tracking-wide sm:text-[9px] ${PLAN_STATUS_CLS[status]}`}>
           {status}
-        </div>
+        </span>
       )}
-      {!last && <div className="min-h-[10px] w-0.5 flex-1 bg-gradient-to-b from-[#1a2740] to-transparent" />}
     </div>
   );
 }
@@ -324,7 +338,7 @@ function CopyBlock({
   onEdit,
 }: {
   c: FunnelCopy;
-  side: 'ref' | 'ours';
+  side: Side;
   index: number;
   edits: Edits;
   onEdit: (key: string, v: string) => void;
@@ -365,13 +379,13 @@ function SideBlock({
   onEdit,
 }: {
   d: FunnelSide;
-  side: 'ref' | 'ours';
+  side: Side;
   edits: Edits;
   onEdit: (key: string, v: string) => void;
 }) {
-  const accent = side === 'ref' ? '#f5c24a' : '#5bdc3d';
-  const soft = side === 'ref' ? '#3a2f12' : '#123018';
-  const role = side === 'ref' ? 'Referencia · Celia' : 'Nuestro · Tudor';
+  const accent = SIDE_ACCENT[side];
+  const soft = SIDE_SOFT[side];
+  const role = SIDE_ROLE[side];
   const introKey = `${side}:intro`;
   return (
     <div className="overflow-hidden rounded-xl border" style={{ borderColor: `${accent}55` }}>
@@ -408,7 +422,7 @@ function Drawer({
   save,
 }: {
   phase: FunnelPhase;
-  firstSide: 'ref' | 'ours';
+  firstSide: Side;
   entry?: FunnelPlan[string];
   onPlan: (v: string) => void;
   onStatus: (s: FunnelStatus) => void;
@@ -442,7 +456,8 @@ function Drawer({
   };
 
   const edits: Edits = entry?.edits ?? {};
-  const order: ('ref' | 'ours')[] = firstSide === 'ours' ? ['ours', 'ref'] : ['ref', 'ours'];
+  // Show all three lanes, the tapped one first.
+  const order: Side[] = [firstSide, ...ALL_SIDES.filter((s) => s !== firstSide)];
   const noteCls =
     phase.note.type === 'gap' ? 'border-[#ff8a8a] bg-[#3a1620]' : 'border-[#5a4a1f] bg-[#3a2f12]';
 
@@ -461,7 +476,7 @@ function Drawer({
           <div>
             <div id="fc-drawer-phase" className="font-mono text-[10.5px] uppercase tracking-widest text-[#7ca0ff]">Fase · {phase.ph}</div>
             <h2 id="fc-drawer-title" className="mt-0.5 text-lg font-extrabold tracking-tight text-white">
-              Referencia vs. nuestro copy
+              Celia · Ángel · Tudor, lado a lado
             </h2>
           </div>
           <button

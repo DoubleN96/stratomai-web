@@ -31,6 +31,7 @@ export interface FunnelPhase {
   verdict: Verdict;
   vlabel: string;
   ref: FunnelSide;
+  angel: FunnelSide;
   ours: FunnelSide;
   note: { type: NoteType; text: string };
   // Pre-seeded "next action" for the editable planning layer (gaps carry the
@@ -56,6 +57,14 @@ export const FUNNEL_PHASES: FunnelPhase[] = [
         { name: 'Odio / Enemigo', text: 'El sistema fiscal, los bancos: "Elusión Fiscal" como bandera.' },
         { name: 'Oportunidad', text: 'Ventana única, precio de lanzamiento, "el momento es AHORA".' },
       ],
+    },
+    angel: {
+      tag: 'No compite en ads',
+      title: 'Sin ángulos de pago',
+      status: 'ref',
+      desc: 'Ángel no tira ads: su motor es la secuencia de WhatsApp.',
+      intro: 'Ángel no compite en ads; su fuerza es la secuencia de WhatsApp. No hemos capturado creatividades de pago suyas: su adquisición es orgánica (redes propias + masterclass gratis semanal), y toda la potencia está en el nurture y el cierre.',
+      copies: [],
     },
     ours: {
       tag: '4 ángulos + 5 scripts',
@@ -96,6 +105,20 @@ export const FUNNEL_PHASES: FunnelPhase[] = [
         { name: 'Paid', text: '12-15 anuncios sobre los 4 ángulos, todos al lead magnet.' },
       ],
     },
+    angel: {
+      tag: 'Orgánico + masterclass',
+      title: 'Redes propias → directo semanal',
+      status: 'ref',
+      desc: 'Tráfico orgánico que empuja a la masterclass gratis semanal.',
+      intro: 'Su adquisición es orgánica: contenido en redes propias que empuja a una masterclass en directo gratis cada semana. No hay ads capturados; el gancho de tráfico es la votación en IG que decide el tema del directo.',
+      copies: [
+        {
+          name: 'Vota en IG → profundizo en directo',
+          text: 'Os dejo una publicación con lo que hemos visto en la academia, para que votéis... y sobre lo más votado, vamos a profundizar al empezar la clase.',
+          why: 'Convierte el feed de IG en el gancho de tráfico: votar crea compromiso y el directo entrega justo lo más votado.',
+        },
+      ],
+    },
     ours: {
       tag: 'Meta + orgánico',
       title: 'Meta Ads + comment-to-DM',
@@ -124,6 +147,25 @@ export const FUNNEL_PHASES: FunnelPhase[] = [
         { name: 'Lead magnet', text: '"Curso Telegram Gratis" / Formación de Elusión Fiscal, gratis.' },
         { name: 'Home', text: 'Vídeo de presentación integrado en la home.' },
         { name: 'Captura', text: 'Email + Nombre para acceder al webinar.' },
+      ],
+    },
+    angel: {
+      tag: 'Masterclass + lista prioritaria',
+      title: 'Recursos en directo → WhatsApp prioritario',
+      status: 'ref',
+      desc: 'Recursos gratis solo para los en directo + lista prioritaria de WhatsApp.',
+      intro: 'El lead magnet es la propia masterclass: da todos los recursos gratis solo a quien está en directo, y de ahí capta a una lista prioritaria de WhatsApp SEPARADA del canal general, con condiciones especiales y su propio deadline.',
+      copies: [
+        {
+          name: 'Lista prioritaria abierta',
+          text: 'La lista prioritaria ya está abierta y os compartiré todo por ahí 👇 [WA link]. Si no sabes de qué te hablo, mira la repetición porque te interesa.',
+          why: 'Lista prioritaria separada del canal general, con deadline propio (cierra antes que el público) → capta a los más calientes con condiciones especiales.',
+        },
+        {
+          name: 'Grabación con deadline + prompt',
+          text: 'Tenéis disponible la grabación de la masterclass hasta las 23:59h de mañana. En la descripción os he dejado el prompt para las infografías.',
+          why: 'Replay con caducidad (24h) + un recurso concreto (el prompt) para que abrir el replay tenga premio inmediato.',
+        },
       ],
     },
     ours: {
@@ -155,6 +197,30 @@ export const FUNNEL_PHASES: FunnelPhase[] = [
         { name: 'Raíl B', text: 'Canal de Telegram "Crypto Spain Oficial".' },
       ],
     },
+    angel: {
+      tag: 'Masterclass semanal',
+      title: 'Directo gratis cada semana',
+      status: 'ref',
+      desc: 'Directo semanal con recursos solo para los presentes.',
+      intro: 'Su raíl de nurture es una masterclass en directo gratis cada semana por el canal de Avisos: recordatorio el día antes, enlace unos minutos antes, y todos los recursos regalados solo a quien está en directo. El tema lo decide la audiencia votando en IG.',
+      copies: [
+        {
+          name: 'Recordatorio masterclass',
+          text: 'Recordando: Mañana a las 19h de España tenemos masterclass en directo. Os voy a enseñar algo sencillo y muy potente... al final de la clase voy a dar todos los recursos solo para los que estén en directo. Como siempre os paso el enlace unos minutos antes.',
+          why: 'Recompensa la asistencia EN VIVO (recursos solo para presentes) y crea el hábito semanal. El "enlace unos minutos antes" maximiza la concurrencia.',
+        },
+        {
+          name: 'Vota el tema en IG',
+          text: 'Os dejo una publicación con lo que hemos visto en la academia, para que votéis... y sobre lo más votado, vamos a profundizar al empezar la clase.',
+          why: 'La audiencia elige el contenido → más relevancia percibida y un motivo extra para conectarse (a ver si sale su voto).',
+        },
+        {
+          name: 'Cuenta atrás al directo',
+          text: 'Nos vemos en 45 minutos. Os voy a enviar el enlace al directo por aquí 15 minutos antes.\nEnlace al directo: ...\nEMPEZAMOSSSSS!!!!',
+          why: 'Secuencia de 3 toques (45 min → 15 min → empezamos) que sube la energía y arrastra al directo en tiempo real.',
+        },
+      ],
+    },
     ours: {
       tag: 'WhatsApp + email',
       title: 'Comunidad WA + secuencia email',
@@ -184,6 +250,30 @@ export const FUNNEL_PHASES: FunnelPhase[] = [
       copies: [
         { name: 'Directo', text: 'Evento de lanzamiento en YouTube, ~4k en directo.' },
         { name: 'WhatsApp masivo', text: '#lainversionesparati, mín. 6 grupos × 1.000 = 8-10k personas. Máxima intimidad y apertura.' },
+      ],
+    },
+    angel: {
+      tag: 'Vídeo sin humo + escasez',
+      title: 'Transparencia total → puertas abiertas',
+      status: 'ref',
+      desc: 'Vídeo enseñando TODO + grupo que se llena + regalo el último día.',
+      intro: 'Antes de dar precio, enseña TODO lo de dentro en un vídeo "SIN HUMO" y usa escasez real: el grupo prioritario se llena y crea otro, lo anuncia. El último día regala una clase privada de alto valor para empujar la decisión.',
+      copies: [
+        {
+          name: 'Se llenó el grupo + vídeo sin humo',
+          text: 'Se ha llenado el grupo de lista prioritaria 🤯 os dejo otro que he creado... En un ratito enviaré un video con TODO lo que hay en la comunidad, para que tengáis toda la info SIN HUMO. Si quieres verlo y tener acceso mañana con condiciones especiales (que NUNCA MÁS se van a repetir) te veo dentro.',
+          why: 'Escasez real (el grupo se llena de verdad) + transparencia total antes del precio (vídeo "sin humo") desarma la desconfianza justo antes de abrir.',
+        },
+        {
+          name: 'Doble aviso: cierre lista + última clase',
+          text: '2 cosas: 1. Hoy a las 17h cerramos el acceso a la lista prioritaria. 2. Hoy última clase en directo (por un tiempo largo)... justo después vamos a ABRIR LA COMUNIDAD y los que vengáis tendréis condiciones que no se volverán a repetir, NUNCA.',
+          why: 'Encadena dos deadlines (cierre de lista + última clase) y ata la apertura de la comunidad al directo → asistencia y urgencia el mismo día.',
+        },
+        {
+          name: 'Regalo último día: clase privada',
+          text: 'Ya que hoy es el último día para entrar a la comunidad, os quiero regalar el acceso a una clase privada... EL CAFE CAMALEONICO. Vais a flipar con el valor.',
+          why: 'Regalo de valor real el último día (clase privada) que sube el valor percibido y da una razón noble para entrar HOY.',
+        },
       ],
     },
     ours: {
@@ -221,6 +311,20 @@ export const FUNNEL_PHASES: FunnelPhase[] = [
         { when: 'BONUS ⚠️', name: '"Un millón de disculpas" (DARK PATTERN)', danger: true, text: '¡Chicos un millón de disculpas! 🙏 Esto de los mensajes nos pilló desprevenidos (...) a modo de disculpa os doy los 2 bonus, disponibles hasta hoy. Las puertas cierran a las 23:59.', why: 'DARK PATTERN: "error técnico" fingido para reabrir/extender 24h. NO replicar en Tudor (riesgo brand deals): usar extensión honesta.' },
       ],
     },
+    angel: {
+      tag: 'Última llamada · misión',
+      title: 'Cierre 23:59 con misión',
+      status: 'ref',
+      desc: 'Cierre con framing de misión, no de vendedor.',
+      intro: 'El cierre no vende, "misiona": última llamada con deadline exacto (23:59) y un mensaje de propósito ("formaos en IA sí o sí, conmigo o sin mí") que baja la guardia y sube la gratitud.',
+      copies: [
+        {
+          name: 'Última llamada + misión',
+          text: '🚨 ULTIMA LLAMADA. Hoy a las 23:59 cerramos plazas de IA Masters Academy [link planes]. Gracias a todos los que habéis entrado. Y recordad... ya sea conmigo o sin mí, pero formaos en IA sí o sí, me lo agradeceréis!',
+          why: 'Cierre con misión, no de vendedor: el "conmigo o sin mí" quita presión comercial y deja la responsabilidad en el lector, con deadline duro a las 23:59.',
+        },
+      ],
+    },
     ours: {
       tag: 'Borrador (Swipe)',
       title: '5 mensajes 9 Ago · sin desplegar',
@@ -252,6 +356,45 @@ export const FUNNEL_PHASES: FunnelPhase[] = [
       copies: [
         { name: 'Estructura', text: 'Replay del evento (arriba) → checkout → testimonios.' },
         { name: 'Bloque objeción', text: '"Necesito resolver una duda antes de decidir" → esa duda enruta a cierre 1:1 por WhatsApp.' },
+      ],
+    },
+    angel: {
+      tag: 'Downsell $27 + encuesta',
+      title: 'Encuesta → downsell → doble deadline',
+      status: 'ref',
+      desc: 'Encuesta+sorteo a no-compradores → downsell $27 → upsell aclaratorio.',
+      intro: 'Su motor post-cierre es una máquina de recuperación: encuesta Tally con sorteo a NO-compradores para detectar la objeción (precio), downsell inmediato a $27 "porque me lo pedisteis", doble deadline de 3h "NUNCA MÁS", y un "mensaje aclaratorio" que es un upsell encubierto (qué NO incluye el plan barato).',
+      copies: [
+        {
+          name: 'Encuesta + sorteo (no compradores)',
+          text: '🎁 Sorteo un mes GRATIS en la comunidad. Habéis estado en mis clases y vuestra opinión me importa. Solo necesito que me digas qué te pareció, qué te sirvió y qué echaste en falta. Son 2 minutos. 👉 tally.so/r/Pd4Bkd. Todos los que la rellenen entran al sorteo. Respóndela hoy → mañana digo el ganador.',
+          why: 'La encuesta (con sorteo para que la rellenen) minea la objeción real de los que NO compraron. La respuesta mayoritaria — el precio — justifica el downsell siguiente.',
+        },
+        {
+          name: 'Recordatorio encuesta',
+          text: '🚨 RECORDATORIO. Rellena esta encuesta y gana 1 mes gratis. Mañana anuncio el ganador.',
+          why: 'Segundo toque con deadline ("mañana el ganador") para maximizar respuestas antes de lanzar el downsell.',
+        },
+        {
+          name: 'Downsell $27 · "me lo pedisteis"',
+          text: 'LO HE HECHO... 🤯 Tenéis acceso a la comunidad por 27$. Me lo pedisteis. Y yo escucho. Os pregunté por qué no entrabais y la barrera más grande fue UNA: EL PRECIO.',
+          why: 'Downsell presentado como respuesta a la audiencia ("me lo pedisteis"), no como rebaja desesperada → baja el precio sin quemar valor ni autoridad.',
+        },
+        {
+          name: 'Tarjeta $27 Standard',
+          text: '$27/month · Standard: Fundamentos IA + Vibe Coding, Claude Code, N8N +80 plantillas, IAmasters OS (+497$), Taller IA semanal, Soporte 24/7 chatbot. [JOIN STANDARD]',
+          why: 'Un plan barato acotado (Standard) que ancla contra los planes altos: entra mucha gente Y deja hueco para el upsell aclaratorio.',
+        },
+        {
+          name: 'Doble deadline · 3h "NUNCA MÁS"',
+          text: '🚨 ULTIMA LLAMADA. El precio especial se cierra en 3 horas. Y cerramos acceso a ese precio, y puedo aseguraros que ese precio sí que NUNCA MÁS volverá.',
+          why: 'Segundo deadline (3h) sobre el downsell, con promesa de irreversibilidad ("NUNCA MÁS") para forzar la decisión inmediata.',
+        },
+        {
+          name: 'Mensaje aclaratorio (upsell encubierto)',
+          text: '🚨 MENSAJE ACLARATORIO. La oferta activa ha creado confusión y quiero explicar las diferencias. ¿A qué tienes acceso por el plan standard que cierra hoy? [Fundamentos IA, Claude Code, Vibe coding, N8N, Taller 1 directo/sem]. ¿A qué NO tendrás acceso con esta oferta pero con los otros planes sí? [Primer cliente, entrega de servicio, gestión de negocios, 4 directos semanales = máximo valor, Sistemas Agénticos Hermes, grabaciones].',
+          why: 'Upsell encubierto: "aclarar" lo que el plan barato NO incluye siembra el deseo del plan caro justo cuando la atención está máxima.',
+        },
       ],
     },
     ours: {
