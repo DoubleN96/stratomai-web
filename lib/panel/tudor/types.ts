@@ -146,10 +146,25 @@ export interface AmbassadorStats {
   rows: Ambassador[];
 }
 
+// ── Launch activity log (registro de lanzamiento) — table panel_activity ──
+// Every outbound action (WhatsApp broadcast, email blast, Skool post, live,
+// system note) recorded with its exact copy, timestamp and status.
+export interface ActivityRow {
+  id: number;
+  ts: string;
+  channel: string | null;      // whatsapp | email | skool | live | system
+  action_type: string | null;  // broadcast | blast | post | pack | reminder | note
+  title: string | null;
+  copy: string | null;         // the exact message text sent
+  status: string | null;       // sent | scheduled | draft | test | failed
+  meta: Record<string, unknown> | null;
+}
+
 export interface TudorDashboard {
   leads: LeadStats;
   visits: VisitStats;
   capture: CaptureSummary;
+  activity: ActivityRow[];
   // Ambassador programme paused (Tudor vetoed — brand-deal risk). The Ambassador
   // types + resolver are kept dormant so the section can be restored quickly.
   snapshot: TudorSnapshot;
