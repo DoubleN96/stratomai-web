@@ -88,12 +88,7 @@ export function countryOfLead(c: {
     const byPhone = fromPhone(c.phone);
     if (byPhone) return byPhone;
   }
-  // GHL stamps the sub-account's default country (RO — SOCIETIESR is Romanian) on
-  // every phone-less lead, so that field is pure noise, not a real origin. Ignore
-  // the RO default and only honor an explicitly different country; otherwise the
-  // lead's origin is genuinely unknown. The phone prefix above is the only
-  // trustworthy signal (the old /lives form forced +40; the new one asks país).
   const iso = (c.country ?? '').trim().toUpperCase();
-  if (iso && iso !== 'RO') return ISO_NAMES[iso] ?? iso;
+  if (iso) return ISO_NAMES[iso] ?? iso;
   return 'Desconocido';
 }

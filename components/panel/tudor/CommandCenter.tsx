@@ -2,108 +2,15 @@
 // web visits (GA4), community (WhatsApp + Skool) and the launch funnel modeled
 // on the Ángel Aparicio benchmark. Read-only. Every section is fail-soft.
 
-import { GlassCard, Kpi, EmptyState } from '@/components/panel/ui';
+import { GlassCard, Kpi } from '@/components/panel/ui';
 import { MiniBars, FunnelRow, Metric } from '@/components/panel/tudor/charts';
 import { TudorTasksBoard } from '@/components/panel/tudor/TudorTasksBoard';
 import { TudorReviews } from '@/components/panel/tudor/TudorReviews';
-import type { ActivityRow, TudorDashboard } from '@/lib/panel/tudor/types';
+import type { TudorDashboard } from '@/lib/panel/tudor/types';
 import type { PanelProject } from '@/lib/panel/types';
 
 function nfmt(n: number): string {
   return n.toLocaleString('es-ES');
-}
-
-// ── Launch activity log (registro de lanzamiento) ──────────────────────────
-const CHANNEL_STYLE: Record<string, string> = {
-  whatsapp: 'bg-emerald-500/15 text-emerald-300 border-emerald-400/20',
-  email: 'bg-sky-500/15 text-sky-300 border-sky-400/20',
-  live: 'bg-violet-500/15 text-violet-300 border-violet-400/20',
-  skool: 'bg-amber-500/15 text-amber-300 border-amber-400/20',
-  instagram: 'bg-fuchsia-500/15 text-fuchsia-300 border-fuchsia-400/20',
-  system: 'bg-white/5 text-[#9fb0d8] border-white/10',
-};
-
-const STATUS_STYLE: Record<string, string> = {
-  sent: 'bg-emerald-500/15 text-emerald-300',
-  scheduled: 'bg-sky-500/15 text-sky-300',
-  draft: 'bg-amber-500/15 text-amber-300',
-  test: 'bg-violet-500/15 text-violet-300',
-  failed: 'bg-red-500/15 text-red-300',
-};
-
-const STATUS_LABEL: Record<string, string> = {
-  sent: 'enviado',
-  scheduled: 'programado',
-  draft: 'borrador',
-  test: 'test',
-  failed: 'fallido',
-};
-
-function fmtTs(ts: string): string {
-  return new Date(ts).toLocaleString('es-ES', {
-    timeZone: 'Europe/Madrid',
-    day: '2-digit',
-    month: 'short',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-}
-
-function ActivityItem({ row }: { row: ActivityRow }) {
-  const ch = row.channel ?? 'system';
-  const st = row.status ?? 'sent';
-  const meta = row.meta ?? {};
-  const recipients =
-    typeof meta.recipients === 'number' ? (meta.recipients as number) : null;
-  return (
-    <div className="flex gap-3 border-b border-white/5 py-3 last:border-0">
-      <div className="w-24 shrink-0 pt-0.5 font-mono text-[11px] tabular-nums text-[#5a6b94]">
-        {fmtTs(row.ts)}
-      </div>
-      <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center gap-2">
-          <span
-            className={`rounded border px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider ${
-              CHANNEL_STYLE[ch] ?? CHANNEL_STYLE.system
-            }`}
-          >
-            {ch}
-          </span>
-          <span className="text-sm font-semibold text-white">
-            {row.title ?? '(sin título)'}
-          </span>
-          <span
-            className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${
-              STATUS_STYLE[st] ?? STATUS_STYLE.sent
-            }`}
-          >
-            {STATUS_LABEL[st] ?? st}
-          </span>
-          {row.action_type && (
-            <span className="font-mono text-[10px] text-[#5a6b94]">
-              {row.action_type}
-            </span>
-          )}
-          {recipients !== null && (
-            <span className="font-mono text-[10px] text-[#8597c0]">
-              {nfmt(recipients)} destinatarios
-            </span>
-          )}
-        </div>
-        {row.copy && (
-          <details className="group mt-1.5">
-            <summary className="cursor-pointer list-none text-xs text-[#9fc0ff] hover:underline">
-              <span className="group-open:hidden">Ver copy enviado ▾</span>
-              <span className="hidden group-open:inline">Ocultar copy ▴</span>
-            </summary>
-            <pre className="mt-2 max-h-72 overflow-auto whitespace-pre-wrap break-words rounded-lg border border-white/10 bg-black/20 p-3 font-sans text-xs leading-relaxed text-[#c3cde6]">
-              {row.copy}
-            </pre>
-          </details>
-        )}
-      </div>
-    </div>
-  );
 }
 
 function Card({
@@ -134,55 +41,6 @@ function Note({ children }: { children: React.ReactNode }) {
   return <p className="text-sm text-[#8597c0]">{children}</p>;
 }
 
-// ── Instagram monitor (dedicated card) ──────────────────────────────────────
-// Thumbnails use a CSS background-image so an expired/blocked IG CDN URL degrades
-// to the placeholder gradient instead of a broken-image icon (no layout break).
-function InstagramItem({ row }: { row: ActivityRow }) {
-  const meta = row.meta ?? {};
-  const thumb = typeof meta.thumbnail === 'string' ? meta.thumbnail : null;
-  const url = typeof meta.url === 'string' ? meta.url : null;
-  const likes = typeof meta.likes === 'number' ? (meta.likes as number) : null;
-  const isLaunch = row.status === 'launch';
-  const isReel = row.action_type === 'reel';
-  return (
-    <a
-      href={url ?? '#'}
-      target="_blank"
-      rel="noreferrer"
-      className="group overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] transition hover:border-fuchsia-400/30 hover:bg-white/[0.05]"
-    >
-      <div
-        className="relative aspect-[4/5] w-full bg-gradient-to-br from-[#2a1830] to-[#141a2e] bg-cover bg-center"
-        style={thumb ? { backgroundImage: `url("${thumb}")` } : undefined}
-      >
-        <span
-          className={`absolute left-2 top-2 rounded-full px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide ${
-            isLaunch
-              ? 'bg-emerald-500/80 text-white'
-              : 'bg-black/50 text-[#c3cde6]'
-          }`}
-        >
-          {isLaunch ? 'lanzamiento' : 'off-topic'}
-        </span>
-        {isReel && (
-          <span className="absolute right-2 top-2 rounded bg-black/50 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-white">
-            reel
-          </span>
-        )}
-      </div>
-      <div className="p-3">
-        <p className="line-clamp-2 text-xs leading-snug text-[#c3cde6]">
-          {row.title ?? '(sin caption)'}
-        </p>
-        <div className="mt-2 flex items-center justify-between font-mono text-[10px] text-[#5a6b94]">
-          <span>{fmtTs(row.ts)}</span>
-          {likes !== null && <span>♥ {nfmt(likes)}</span>}
-        </div>
-      </div>
-    </a>
-  );
-}
-
 export function CommandCenter({
   project,
   data,
@@ -190,7 +48,7 @@ export function CommandCenter({
   project: PanelProject;
   data: TudorDashboard;
 }) {
-  const { leads, visits, capture, snapshot, activity, instagram } = data;
+  const { leads, visits, capture, snapshot } = data;
   const { whatsapp, skool, bench } = snapshot;
 
   const leadToWa =
@@ -221,49 +79,6 @@ export function CommandCenter({
       {/* TASKS KANBAN (interactive: add / drag / edit / link docs) */}
       <Card title="Tareas · semana de lanzamiento" tag="kanban · editable">
         <TudorTasksBoard slug={project.slug} initial={snapshot.tasks} />
-      </Card>
-
-      {/* REGISTRO DE LANZAMIENTO — timeline de acciones salientes (copy + hora + estado) */}
-      <Card title="Registro de lanzamiento" tag="actividad de envío">
-        <p className="mb-4 text-xs text-[#8597c0]">
-          Cada acción saliente (broadcast de WhatsApp, email, directo…) queda
-          registrada con su copy exacto, hora y estado. Despliega para revisar
-          qué se envió.
-        </p>
-        {activity.length > 0 ? (
-          <div className="flex flex-col">
-            {activity.map((row) => (
-              <ActivityItem key={row.id} row={row} />
-            ))}
-          </div>
-        ) : (
-          <EmptyState>
-            Aún no hay actividad registrada. Los envíos aparecerán aquí en cuanto
-            se disparen.
-          </EmptyState>
-        )}
-      </Card>
-
-      {/* INSTAGRAM MONITOR — últimos posts/reels de @tudormorari.ai, clasificados */}
-      <Card title="Instagram · Tudor" tag="@tudormorari.ai · monitor">
-        <p className="mb-4 text-xs text-[#8597c0]">
-          Últimos posts y reels de Tudor, clasificados como{' '}
-          <span className="font-semibold text-emerald-300">lanzamiento</span> u{' '}
-          off-topic según el caption. Se actualiza cada 2h. Click abre el post en
-          Instagram.
-        </p>
-        {instagram.length > 0 ? (
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {instagram.map((row) => (
-              <InstagramItem key={row.id} row={row} />
-            ))}
-          </div>
-        ) : (
-          <EmptyState>
-            Aún no hay actividad de Instagram registrada. Los posts aparecerán aquí
-            en cuanto el monitor los capture.
-          </EmptyState>
-        )}
       </Card>
 
       {/* MARKETING — publicaciones de la fase 1 del lanzamiento */}
@@ -560,15 +375,11 @@ export function CommandCenter({
             <Metric
               big
               value={
-                leads.ok && leads.total > 0
-                  ? `${Math.round((snapshot.waCommunity.count / leads.total) * 100)}%`
+                snapshot.waCommunity.leads > 0
+                  ? `${Math.round((snapshot.waCommunity.joined / snapshot.waCommunity.leads) * 100)}%`
                   : '—'
               }
-              label={
-                leads.ok
-                  ? `lead → WhatsApp (${nfmt(snapshot.waCommunity.count)}/${nfmt(leads.total)})`
-                  : 'lead → WhatsApp'
-              }
+              label={`lead → WhatsApp (${snapshot.waCommunity.joined}/${snapshot.waCommunity.leads})`}
             />
           </div>
           <div className="grid gap-6 md:grid-cols-2">

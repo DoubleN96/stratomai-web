@@ -7,9 +7,9 @@ import { resolveTudorConfig } from '@/lib/panel/tudor/config-resolver';
 
 export const runtime = 'nodejs';
 
-// The live stream URL. Swap when Tudor's YouTube live link is ready (kept here so the
-// funnel ships now; update this one line, no other change needed).
-const LIVE_URL = process.env.MASTERCLASS_LIVE_URL || 'https://www.youtube.com/live/PcIUdSal3zw';
+// Before the live starts, registrants go to the WhatsApp community instead of a video link.
+// Swap to the YouTube live URL (via MASTERCLASS_LIVE_URL) once the stream is actually live.
+const LIVE_URL = process.env.MASTERCLASS_LIVE_URL || 'https://chat.whatsapp.com/EdE9lfOp1YtGmMaiR5BaVV';
 
 // Normalize a UTM value into a safe GHL tag fragment.
 const cleanTag = (s?: string) =>

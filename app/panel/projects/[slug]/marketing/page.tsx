@@ -49,7 +49,7 @@ function FunnelStep({ n, title, desc, metric, href }: { n: number; title: string
 
 const STRATEGY: Array<[string, string]> = [
   ['Tesis', 'Llenar el directo gratis del domingo captando email, y convertir a comunidad Skool de pago. El cuello de botella es conversión/retención, no tráfico.'],
-  ['Oferta', 'Masterclass en directo gratis (dom 17:00 Madrid CEST) → acceso a la Academy (AI animations que no parecen IA) → membresía.'],
+  ['Oferta', 'Masterclass en directo gratis (dom 17:00 CET) → acceso a la Academy (AI animations que no parecen IA) → membresía.'],
   ['Ángulos ads', 'Speed (1 prompt, 10 min) · Tool (la herramienta exacta) · Mistake (por qué tu IA parece IA) · Reminder (día del directo) · Authority (millones de views).'],
   ['Canales', 'Meta Ads (broad + lookalike + retargeting) · orgánico IG/TikTok · bio IG → /live · WhatsApp comunidad · emails a compradores.'],
 ];
@@ -64,6 +64,7 @@ export default async function MarketingPage({ params }: { params: Promise<{ slug
   const [data, cfg] = await Promise.all([getTudorDashboard(slug), resolveTudorConfig(slug)]);
   const leads = data.leads;
   const visits = data.visits;
+  const scripts = cfg.snapshot.marketing ?? [];
   const tasks = cfg.snapshot.tasks ?? [];
   const nextSteps = tasks.filter((t) => !/done|hecho|complet/i.test(t.status || '')).slice(0, 8);
   const sessions = visits.ok ? visits.sessions : null;
@@ -100,7 +101,7 @@ export default async function MarketingPage({ params }: { params: Promise<{ slug
             <div className="grid gap-2">
               <FunnelStep n={1} title="Tráfico" desc="Meta Ads + orgánico IG/TikTok + bio IG" />
               <FunnelStep n={2} title="Captura de email · /live" desc="Registro al directo (email → GHL tag masterclass-19jul)" metric={leads.ok ? `${leads.total} leads` : undefined} href="https://tudormorari.ai/live" />
-              <FunnelStep n={3} title="Directo domingo 17:00 Madrid (CEST)" desc="Masterclass en vivo (YouTube) + Q&A" metric={regMasterclass ? `${regMasterclass} reg.` : undefined} />
+              <FunnelStep n={3} title="Directo domingo 17:00 CET" desc="Masterclass en vivo (YouTube) + Q&A" metric={regMasterclass ? `${regMasterclass} reg.` : undefined} />
               <FunnelStep n={4} title="Comunidad Skool" desc="Academy: AI animations que no parecen IA" href="https://www.skool.com/societiesrs-animation-academy-2407/about" />
               <FunnelStep n={5} title="Cliente de pago" desc="Membresía + value ladder" />
             </div>
@@ -115,6 +116,27 @@ export default async function MarketingPage({ params }: { params: Promise<{ slug
                 </div>
               ))}
             </div>
+          </Card>
+
+          <Card title="Content scripts (guiones para grabar)" tag="enlazado al kanban">
+            {scripts.length === 0 ? (
+              <p className="text-sm text-[#7d8db3]">Aún no hay guiones. Se añaden desde el kanban del Command Center (tareas con etiqueta de contenido) o aquí en la próxima iteración.</p>
+            ) : (
+              <div className="grid gap-2">
+                {scripts.map((p) => (
+                  <div key={p.id} className="flex items-center justify-between gap-3 rounded-xl border border-[#22304f] bg-[#0c1526] px-4 py-3">
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-semibold text-white">{p.title}</p>
+                      {p.note && <p className="truncate text-xs text-[#7d8db3]">{p.note}</p>}
+                    </div>
+                    <div className="flex flex-none items-center gap-2">
+                      <span className="rounded-full border border-[#2c3f6b] bg-[#16223f] px-2 py-0.5 text-[11px] text-[#9fc0ff]">{p.status}</span>
+                      {p.url && <a href={p.url} target="_blank" rel="noreferrer" className="text-xs text-[#5b8cff] hover:underline">abrir →</a>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </Card>
 
           <Card title="Próximos pasos" tag="kanban">
