@@ -19,6 +19,7 @@ const CHANNEL_STYLE: Record<string, string> = {
   email: 'bg-sky-500/15 text-sky-300 border-sky-400/20',
   live: 'bg-violet-500/15 text-violet-300 border-violet-400/20',
   skool: 'bg-amber-500/15 text-amber-300 border-amber-400/20',
+  instagram: 'bg-fuchsia-500/15 text-fuchsia-300 border-fuchsia-400/20',
   system: 'bg-white/5 text-[#9fb0d8] border-white/10',
 };
 
@@ -133,6 +134,55 @@ function Note({ children }: { children: React.ReactNode }) {
   return <p className="text-sm text-[#8597c0]">{children}</p>;
 }
 
+// ── Instagram monitor (dedicated card) ──────────────────────────────────────
+// Thumbnails use a CSS background-image so an expired/blocked IG CDN URL degrades
+// to the placeholder gradient instead of a broken-image icon (no layout break).
+function InstagramItem({ row }: { row: ActivityRow }) {
+  const meta = row.meta ?? {};
+  const thumb = typeof meta.thumbnail === 'string' ? meta.thumbnail : null;
+  const url = typeof meta.url === 'string' ? meta.url : null;
+  const likes = typeof meta.likes === 'number' ? (meta.likes as number) : null;
+  const isLaunch = row.status === 'launch';
+  const isReel = row.action_type === 'reel';
+  return (
+    <a
+      href={url ?? '#'}
+      target="_blank"
+      rel="noreferrer"
+      className="group overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] transition hover:border-fuchsia-400/30 hover:bg-white/[0.05]"
+    >
+      <div
+        className="relative aspect-[4/5] w-full bg-gradient-to-br from-[#2a1830] to-[#141a2e] bg-cover bg-center"
+        style={thumb ? { backgroundImage: `url("${thumb}")` } : undefined}
+      >
+        <span
+          className={`absolute left-2 top-2 rounded-full px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide ${
+            isLaunch
+              ? 'bg-emerald-500/80 text-white'
+              : 'bg-black/50 text-[#c3cde6]'
+          }`}
+        >
+          {isLaunch ? 'lanzamiento' : 'off-topic'}
+        </span>
+        {isReel && (
+          <span className="absolute right-2 top-2 rounded bg-black/50 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-white">
+            reel
+          </span>
+        )}
+      </div>
+      <div className="p-3">
+        <p className="line-clamp-2 text-xs leading-snug text-[#c3cde6]">
+          {row.title ?? '(sin caption)'}
+        </p>
+        <div className="mt-2 flex items-center justify-between font-mono text-[10px] text-[#5a6b94]">
+          <span>{fmtTs(row.ts)}</span>
+          {likes !== null && <span>♥ {nfmt(likes)}</span>}
+        </div>
+      </div>
+    </a>
+  );
+}
+
 export function CommandCenter({
   project,
   data,
@@ -140,7 +190,7 @@ export function CommandCenter({
   project: PanelProject;
   data: TudorDashboard;
 }) {
-  const { leads, visits, capture, snapshot, activity } = data;
+  const { leads, visits, capture, snapshot, activity, instagram } = data;
   const { whatsapp, skool, bench } = snapshot;
 
   const leadToWa =
@@ -190,6 +240,28 @@ export function CommandCenter({
           <EmptyState>
             Aún no hay actividad registrada. Los envíos aparecerán aquí en cuanto
             se disparen.
+          </EmptyState>
+        )}
+      </Card>
+
+      {/* INSTAGRAM MONITOR — últimos posts/reels de @tudormorari.ai, clasificados */}
+      <Card title="Instagram · Tudor" tag="@tudormorari.ai · monitor">
+        <p className="mb-4 text-xs text-[#8597c0]">
+          Últimos posts y reels de Tudor, clasificados como{' '}
+          <span className="font-semibold text-emerald-300">lanzamiento</span> u{' '}
+          off-topic según el caption. Se actualiza cada 2h. Click abre el post en
+          Instagram.
+        </p>
+        {instagram.length > 0 ? (
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+            {instagram.map((row) => (
+              <InstagramItem key={row.id} row={row} />
+            ))}
+          </div>
+        ) : (
+          <EmptyState>
+            Aún no hay actividad de Instagram registrada. Los posts aparecerán aquí
+            en cuanto el monitor los capture.
           </EmptyState>
         )}
       </Card>

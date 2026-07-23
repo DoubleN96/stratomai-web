@@ -165,6 +165,9 @@ export interface TudorDashboard {
   visits: VisitStats;
   capture: CaptureSummary;
   activity: ActivityRow[];
+  // Instagram monitor — latest @tudormorari.ai posts/reels (channel='instagram'),
+  // pulled by the host ig-launch-monitor cron and classified launch vs off-topic.
+  instagram: ActivityRow[];
   // Ambassador programme paused (Tudor vetoed — brand-deal risk). The Ambassador
   // types + resolver are kept dormant so the section can be restored quickly.
   snapshot: TudorSnapshot;

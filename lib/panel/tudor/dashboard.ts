@@ -29,14 +29,35 @@ async function loadActivity(slug: string): Promise<ActivityRow[]> {
   }
 }
 
+// Instagram monitor — latest posts/reels recorded by the host ig-launch-monitor
+// cron (channel='instagram'). Own query (limit 8) so IG items always fill the
+// dedicated card even when other channels dominate the 50-row activity feed.
+async function loadInstagram(slug: string): Promise<ActivityRow[]> {
+  try {
+    const admin = createSupabaseAdminClient();
+    const { data, error } = await admin
+      .from('panel_activity')
+      .select('id, ts, channel, action_type, title, copy, status, meta')
+      .eq('project_slug', slug)
+      .eq('channel', 'instagram')
+      .order('ts', { ascending: false })
+      .limit(8);
+    if (error) return [];
+    return (data ?? []) as ActivityRow[];
+  } catch {
+    return [];
+  }
+}
+
 export async function getTudorDashboard(slug: string): Promise<TudorDashboard> {
   const cfg = await resolveTudorConfig(slug);
 
-  const [leads, capture, visits, activity] = await Promise.all([
+  const [leads, capture, visits, activity, instagram] = await Promise.all([
     livesLeadStats(cfg.ghl),
     loadCaptureSummary(cfg.ghl),
     getVisits(cfg.ga, 7),
     loadActivity(slug),
+    loadInstagram(slug),
   ]);
 
   return {
@@ -44,6 +65,7 @@ export async function getTudorDashboard(slug: string): Promise<TudorDashboard> {
     capture,
     visits,
     activity,
+    instagram,
     snapshot: cfg.snapshot,
     gaConfigured: cfg.ga != null,
     ghlConfigured: cfg.ghl != null,
