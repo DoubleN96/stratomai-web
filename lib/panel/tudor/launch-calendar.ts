@@ -9,7 +9,8 @@
 //  - the price is announced in the WhatsApp group BEFORE it is public
 //  - no long dashes, Tudor reads them as an AI watermark
 //  - never promise that each person's work is reviewed on screen every week
-//  - the deadline is real. If we say 23:59 we close at 23:59.
+//  - the deadline is real. If we say 23:59 we close at 23:59. NO extension, and if one
+//    ever happens it gets announced plainly. Never Celia's fake "technical error".
 //  - the WhatsApp group is ANNOUNCEMENTS ONLY. Members cannot post, but they can
 //    react and vote, and they can reply to a message. So every ask is a tap or a
 //    reply, never "post it in the group".
@@ -629,14 +630,35 @@ Tudor`,
     cta: { label: 'Join now', href: 'https://tudormorari.ai/lives#offer' },
   },
   {
+    id: 'em-12ago-dos-tipos',
+    date: '2026-08-12', time: '21:00', channel: 'email', audience: 'No compradores',
+    note: 'Segmentacion por identidad de Celia, en la voz de Tudor y sin humor forzado. Va entre el de las 6 horas y el ultimo de WhatsApp: obliga a elegir bando en vez de repetir la oferta.',
+    subject: 'Two types of people got this email',
+    preview: 'Both of them are still reading',
+    body: `There are two people reading this.
+
+The first has been telling themselves for a year that they will start properly when they have time, a better laptop, a clearer idea. That person will read this, feel something, and close the tab. In January they will be exactly where they are tonight, and they will not remember this email at all.
+
+The second is tired of watching. Not sure it will work either, just done with the waiting part.
+
+I built this for the second one. Not because they are more talented, I have seen enough to know they are usually not, but because at some point they got bored of their own excuse.
+
+Three hours left at $49.99, locked for as long as you stay.
+
+Tudor`,
+    cta: { label: 'Join now', href: 'https://tudormorari.ai/lives#offer' },
+  },
+  {
     id: 'wa-12ago-ultimo',
     date: '2026-08-12', time: '22:00', channel: 'whatsapp', audience: 'Grupo WhatsApp',
     note: 'El "ultimo mensaje" de Celia. Corto, honesto, sin trucos. Y NO se alarga el plazo despues. Si dijimos 23:59, es 23:59. Un plazo que se mueve no vuelve a creerse nunca.',
-    body: `Two hours.
+    body: `Two hours, and this is the last message I send about it.
 
-I am not sending another one after this.
+If you are in, you are in at $49.99 and you keep it for as long as you stay.
 
-If you are in, you are in at $49.99 and you keep it. If not, no problem, you stay in the group and the free classes keep coming.`,
+And if you are not, I mean this: do it anyway. With me or without me, learn to make this stuff properly, because the people who can are not going to be the ones asking permission in a year. You stay in the group either way and the free classes keep coming.
+
+Either way, start.`,
     cta: { label: 'Join now', href: 'https://tudormorari.ai/lives#offer' },
   },
   {
