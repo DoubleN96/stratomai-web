@@ -95,7 +95,7 @@ function buildEmail(name: string, primary: string, youtube: string, igImage: str
     `<a href="${igImage || link}"><img src="${esc(topHero)}" alt="${safeName}" width="560" style="width:100%;max-width:560px;height:auto;border-radius:10px;display:block;margin:0 0 16px"></a>` +
     // 2) Download info + button + raw link + optional tutorial
     `<p>Hey,</p>` +
-    `<p>You're in. Here are your <strong>${safeName}</strong> prompts, exactly as promised. Grab them here:</p>` +
+    `<p>You are getting this because you asked for the <strong>${safeName}</strong> prompts at tudormorari.ai. Here they are:</p>` +
     `<p><a href="${link}" style="display:inline-block;background:#111;color:#fff;text-decoration:none;padding:13px 22px;border-radius:8px;font-weight:bold">Open the full prompt pack</a></p>` +
     `<p style="font-size:13px;color:#555;margin:8px 0 0;word-break:break-all">Or paste this link into your browser: <a href="${link}" style="color:#2b6cee">${link}</a></p>` +
     (youtube
@@ -108,7 +108,8 @@ function buildEmail(name: string, primary: string, youtube: string, igImage: str
       : '') +
     // 4) Join / Academy
     `<div style="border-top:1px solid #eee;margin:22px 0;font-size:0;line-height:0">&nbsp;</div>` +
-    `<p>Join my WhatsApp community. It's where I drop direct links to every new prompt and tool the moment they're out, so you never miss one:</p>` +
+    `<p><strong>Where this is going:</strong> on Sunday 9 August I open my community, and everything you are getting right now is the run up to it. The classes and the packs stay free either way.</p>` +
+    `<p>The WhatsApp group is where every new pack lands first, and where the link to each free class goes out:</p>` +
     `<p><a href="${WA_INVITE}" style="display:inline-block;background:#25D366;color:#fff;text-decoration:none;padding:13px 22px;border-radius:8px;font-weight:bold">Join the WhatsApp community</a></p>` +
     `<p style="margin-top:22px"><strong>What you get as part of the Academy:</strong></p>` +
     `<ul style="padding-left:18px;margin:8px 0">` +
