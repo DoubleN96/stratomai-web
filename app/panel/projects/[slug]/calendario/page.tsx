@@ -60,6 +60,20 @@ function WhatsPreview({ m }: { m: LaunchMessage }) {
         {m.cta && <div className="mt-2 break-all text-[13px] text-[#a7f3d0] underline">{m.cta.href}</div>}
         <div className="mt-1 text-right text-[10px] text-[#8fb3a8]">{m.time}</div>
       </div>
+      {m.poll && (
+        <div className="mt-2 max-w-[420px] rounded-xl rounded-tl-sm bg-[#005c4b] px-3.5 py-3 text-white">
+          <div className="text-[11px] uppercase tracking-wider text-[#8fb3a8]">Encuesta</div>
+          <div className="mt-1 text-[14px] font-medium">{m.poll.question}</div>
+          <div className="mt-2 space-y-1.5">
+            {m.poll.options.map((o) => (
+              <div key={o} className="flex items-center gap-2 rounded-lg bg-[#0b3b31] px-2.5 py-2 text-[13px]">
+                <span className="h-3.5 w-3.5 flex-none rounded-full border border-[#8fb3a8]" />
+                {o}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
