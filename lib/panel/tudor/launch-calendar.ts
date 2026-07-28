@@ -141,6 +141,8 @@ That is what I actually teach. Prompts are the easy part, anybody can copy a pro
 
 Sunday 2 August, 17:00 CET, free online class. I show you how that turns into a channel that pays.
 
+
+One more thing. The link to every class goes out in my WhatsApp group first, and so does every prompt pack. If you are not in there yet, this is the door: https://chat.whatsapp.com/EdE9lfOp1YtGmMaiR5BaVV
 Tudor`,
     cta: { label: '🔴 Save your seat', href: 'https://tudormorari.ai/lives?utm_campaign=2ago&utm_source=email' },
   },
@@ -166,6 +168,8 @@ Send me back what you get, I read the replies.
 
 On Sunday I take this all the way to the money: how a faceless channel gets monetised, and the automations behind it. 2 August, 17:00 CET, free.
 
+
+One more thing. The link to every class goes out in my WhatsApp group first, and so does every prompt pack. If you are not in there yet, this is the door: https://chat.whatsapp.com/EdE9lfOp1YtGmMaiR5BaVV
 Tudor`,
     asset: { type: 'video', url: 'https://tudormorari.ai/assets/viral/v-egypt-tt-1200k.mp4', caption: 'Clip de 1.2M views, ejemplo de movimiento lento con peso' },
     cta: { label: '🔴 Save your seat', href: 'https://tudormorari.ai/lives?utm_campaign=2ago&utm_source=email' },
@@ -205,6 +209,8 @@ On Sunday I break the whole thing down. How a faceless AI channel gets built and
 
 Sunday 2 August, 17:00 CET. Free, online, live from my screen, and you can ask me anything.
 
+
+One more thing. The link to every class goes out in my WhatsApp group first, and so does every prompt pack. If you are not in there yet, this is the door: https://chat.whatsapp.com/EdE9lfOp1YtGmMaiR5BaVV
 Tudor`,
     asset: { type: 'image', url: 'https://tudormorari.ai/assets/tudor-stage.png', caption: 'Foto de Tudor, cabecera del email' },
     cta: { label: '🔴 Save your seat', href: 'https://tudormorari.ai/lives?utm_campaign=2ago&utm_source=email' },
@@ -233,6 +239,8 @@ That is the whole letter. I could not send it, so I am sending it to you.
 
 Tomorrow at 17:00 CET I do the class I wish someone had done for me back then. How the channel gets built, how it earns, and the automations behind it. Free.
 
+
+One more thing. The link to every class goes out in my WhatsApp group first, and so does every prompt pack. If you are not in there yet, this is the door: https://chat.whatsapp.com/EdE9lfOp1YtGmMaiR5BaVV
 Tudor`,
     cta: { label: '🔴 Save your seat', href: 'https://tudormorari.ai/lives?utm_campaign=2ago&utm_source=email' },
   },
@@ -296,6 +304,8 @@ There will be a limited number of founding places, and my WhatsApp group hears t
 
 The 9th is the one to be at.
 
+
+One more thing. The link to every class goes out in my WhatsApp group first, and so does every prompt pack. If you are not in there yet, this is the door: https://chat.whatsapp.com/EdE9lfOp1YtGmMaiR5BaVV
 Tudor`,
     asset: { type: 'image', url: 'https://tudormorari.ai/assets/viral/p-egypt.jpg', caption: 'Fotograma del build, cabecera del email' },
     cta: { label: '▶ Watch the replay', href: 'https://tudormorari.ai/lives#lastlive' },
@@ -322,6 +332,8 @@ The people who own this in a year will not be the ones who started first. They w
 
 Sunday 9 August, 17:00 CET, I build one from nothing, live. Last free class of this run.
 
+
+One more thing. The link to every class goes out in my WhatsApp group first, and so does every prompt pack. If you are not in there yet, this is the door: https://chat.whatsapp.com/EdE9lfOp1YtGmMaiR5BaVV
 Tudor`,
     cta: { label: '🔴 Save your seat', href: 'https://tudormorari.ai/lives?utm_campaign=9ago&utm_source=email' },
   },
@@ -347,6 +359,8 @@ I will tell you exactly what it costs tomorrow. My WhatsApp group hears it tonig
 
 Sunday, 17:00 CET. Full build, live, and then the doors.
 
+
+One more thing. The link to every class goes out in my WhatsApp group first, and so does every prompt pack. If you are not in there yet, this is the door: https://chat.whatsapp.com/EdE9lfOp1YtGmMaiR5BaVV
 Tudor`,
     asset: { type: 'image', url: 'https://tudormorari.ai/assets/community/classroom-crop.png', caption: 'El classroom real, lo que hay dentro' },
     cta: { label: '🔴 Save your seat', href: 'https://tudormorari.ai/lives?utm_campaign=9ago&utm_source=email' },
@@ -388,6 +402,8 @@ This is only for the people who want to stop doing it alone.
 
 Sunday, 17:00 CET. I build one from nothing, live, and then the doors open.
 
+
+One more thing. The link to every class goes out in my WhatsApp group first, and so does every prompt pack. If you are not in there yet, this is the door: https://chat.whatsapp.com/EdE9lfOp1YtGmMaiR5BaVV
 Tudor`,
     cta: { label: '🔴 Save your seat', href: 'https://tudormorari.ai/lives?utm_campaign=9ago&utm_source=email' },
   },
@@ -411,6 +427,8 @@ On Sunday at 17:00 CET I build one from a blank page, live, every decision out l
 
 If you have been watching from the side for months, Sunday is a good day to stop.
 
+
+One more thing. The link to every class goes out in my WhatsApp group first, and so does every prompt pack. If you are not in there yet, this is the door: https://chat.whatsapp.com/EdE9lfOp1YtGmMaiR5BaVV
 Tudor`,
     asset: { type: 'video', url: 'https://tudormorari.ai/assets/reviews/review1.mp4', caption: 'Testimonio de Nika en video' },
     cta: { label: '🔴 Save your seat', href: 'https://tudormorari.ai/lives?utm_campaign=9ago&utm_source=email' },
@@ -443,6 +461,8 @@ If you have been waiting to see the whole thing done properly before you decide 
 
 Bring a question. I answer them live.
 
+
+One more thing. The link to every class goes out in my WhatsApp group first, and so does every prompt pack. If you are not in there yet, this is the door: https://chat.whatsapp.com/EdE9lfOp1YtGmMaiR5BaVV
 Tudor`,
     asset: { type: 'image', url: 'https://tudormorari.ai/assets/community/classroom-crop.png', caption: 'El classroom real, lo que hay dentro' },
     cta: { label: '🔴 Save your seat', href: 'https://tudormorari.ai/lives?utm_campaign=9ago&utm_source=email' },
