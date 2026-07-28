@@ -5,6 +5,7 @@
 
 import { NextResponse } from 'next/server';
 import { resolveTudorConfig } from '@/lib/panel/tudor/config-resolver';
+import { sendLeadToMeta } from '@/lib/meta-capi';
 
 export const dynamic = 'force-dynamic';
 
@@ -133,6 +134,15 @@ export async function POST(req: Request) {
   const email = STR(body.email, 200).toLowerCase();
   const name = STR(body.name, 120);
   const campaign = STR(body.campaign, 80) || 'lives';
+  // Everything below is for the server side Meta event. The browser pixel cannot be
+  // relied on: it only loads once the cookie banner is accepted, which measured at
+  // about 17% of arrivals, so Meta was both under-reporting and optimising blind.
+  const phone = STR(body.phone, 40);
+  const eventId = STR(body.eventId, 80);
+  const fbp = STR(body.fbp, 120);
+  const fbc = STR(body.fbc, 200);
+  const fbclid = STR(body.fbclid, 200);
+  const consent = body.consent === true || body.consent === 'true';
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     return cors(NextResponse.json({ ok: false, error: 'valid email required' }, { status: 400 }));
   }
@@ -177,5 +187,29 @@ export async function POST(req: Request) {
   } catch (e) {
     return cors(NextResponse.json({ ok: false, error: String((e as Error).message).slice(0, 160) }, { status: 502 }));
   }
-  return cors(NextResponse.json({ ok: true }));
+
+  // Server side Lead, deduplicated against the browser pixel by event_id. Awaited so
+  // the serverless invocation does not end before the request goes out, but never
+  // allowed to fail the delivery: the lead and its email already succeeded above.
+  let capi: Awaited<ReturnType<typeof sendLeadToMeta>> = { sent: false, reason: 'skipped' };
+  try {
+    const fwd = req.headers.get('x-forwarded-for') || '';
+    capi = await sendLeadToMeta({
+      email,
+      name,
+      phone,
+      campaign,
+      eventId,
+      fbp,
+      fbc,
+      fbclid,
+      consent,
+      ip: fwd.split(',')[0].trim() || undefined,
+      userAgent: req.headers.get('user-agent') || undefined,
+      sourceUrl: `https://tudormorari.ai/lives?utm_campaign=${encodeURIComponent(campaign)}`,
+    });
+  } catch {
+    /* never let measurement break delivery */
+  }
+  return cors(NextResponse.json({ ok: true, capi }));
 }
