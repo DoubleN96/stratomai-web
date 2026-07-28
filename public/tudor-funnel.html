@@ -17,12 +17,12 @@
   /* Tudor's own skin: the sky and the lime from his brand, so the proposal
      looks like the product it is about. Lime is a SURFACE colour, never text
      on white, where it measures about 1.5:1. On paper the accent is the sky. */
-  --paper:#FFFFFF; --paper-2:#E6EEF8; --card:#FFFFFF;
-  --ink:#0A0A0F; --ink-2:#2B3745; --mut:#46535F;
+  --paper:#F1F0EC; --paper-2:#EAE8E2; --card:#F7F6F2;
+  --ink:#0A0A0A; --ink-2:#3A3A3C; --mut:#6E6E72;
   --acc:#1F7CFF; --acc-2:#88C8FF;
   --lime:#C8FF00; --lime-deep:#4F7500;
   --warn:#C8412B;
-  --line:rgba(10,10,15,.12); --line-2:rgba(10,10,15,.20);
+  --line:rgba(10,10,10,.10); --line-2:rgba(10,10,10,.18);
   /* Dani prefers this typeface, kept on his call. Tudor's palette stays. */
   --dsp:"Sora",-apple-system,sans-serif; --bf:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;
   --mono:var(--bf);
@@ -34,17 +34,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--bf);line-height:
 .scroller{height:100vh;overflow-y:scroll;scroll-snap-type:y proximity}
 section{min-height:100vh;scroll-snap-align:start;display:flex;align-items:center;position:relative;padding:clamp(30px,7vh,84px) clamp(24px,7vw,110px)}
 section:nth-child(even){background:var(--paper-2)}
-/* Cover only: the vivid sky, same gradient and clouds as his site. */
-#cover{
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 90'%3E%3Cpath fill='%23ffffff' d='M40,60 Q20,60 20,40 Q20,20 45,25 Q50,5 75,15 Q90,5 105,18 Q130,8 140,30 Q165,30 165,50 Q180,55 175,70 Q165,80 145,75 L55,75 Q35,80 30,70 Q15,70 40,60 Z'/%3E%3C/svg%3E") no-repeat 90% 14% / 280px auto,
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 90'%3E%3Cpath fill='%23ffffff' fill-opacity='0.7' d='M40,60 Q20,60 20,40 Q20,20 45,25 Q50,5 75,15 Q90,5 105,18 Q130,8 140,30 Q165,30 165,50 Q180,55 175,70 Q165,80 145,75 L55,75 Q35,80 30,70 Q15,70 40,60 Z'/%3E%3C/svg%3E") no-repeat -4% 68% / 210px auto,
-    linear-gradient(180deg,#1F7CFF 0%,#3D93FF 40%,#6FB6FF 74%,#A7D6FB 100%);
-}
-#cover h1,#cover .eyebrow,#cover .stat div span{color:#fff}
-#cover h1 b{color:var(--lime);font-style:italic}
-#cover .stat div small{color:rgba(255,255,255,.82)}
-#cover p.lead{color:rgba(255,255,255,.95);max-width:64ch}
+/* Cover sits on the same paper as the rest, per Dani. */
 .wrap{max-width:1180px;margin-inline:auto;width:100%}
 .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:26px;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--ink);flex-wrap:wrap}
 .eyebrow .ln{width:34px;height:2px;background:var(--ink);display:inline-block}
@@ -151,7 +141,7 @@ ul.clean li:last-child{border-bottom:0}
 <div class="dots" id="dots"></div>
 <div class="scroller" id="sc">
 
-<section id="cover" data-name="Cover">
+<section data-name="Cover">
   <div class="wrap">
     <div class="eyebrow reveal"><span class="ln"></span><span>Tudor × Stratoma</span><span class="date">28 July 2026</span></div>
     <h1 class="reveal d1">Fixing the <b>funnel</b>.</h1>
