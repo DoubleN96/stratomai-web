@@ -4,22 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Tudor × Stratoma — Fixing the funnel</title>
-<meta name="description" content="Seven changes to the Tudor x Stratoma funnel, for the three of us to approve.">
+<meta name="description" content="Seven changes to the funnel, plus the roadmap and the content structure that hold them together.">
 <meta name="robots" content="noindex">
 <meta property="og:title" content="Tudor × Stratoma — Fixing the funnel">
 <meta property="og:description" content="Not a redesign. The steps are right, they are unexplained.">
 <meta name="theme-color" content="#F1F0EC">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F1F0EC; --paper-2:#EAE8E2; --card:#F7F6F2;
-  --ink:#0A0A0A; --ink-2:#3A3A3C; --mut:#6E6E72;
-  --acc:#6C7CFF; --acc-2:#9AA6FF;
-  --warn:#C8552F;
-  --line:rgba(10,10,10,.10); --line-2:rgba(10,10,10,.18);
-  --dsp:"Sora",-apple-system,sans-serif; --bf:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;
+  /* Tudor's own skin: the sky and the lime from his brand, so the proposal
+     looks like the product it is about. Lime is a SURFACE colour, never text
+     on white, where it measures about 1.5:1. On paper the accent is the sky. */
+  --paper:#FFFFFF; --paper-2:#E6EEF8; --card:#FFFFFF;
+  --ink:#0A0A0F; --ink-2:#2B3745; --mut:#46535F;
+  --acc:#1F7CFF; --acc-2:#88C8FF;
+  --lime:#C8FF00; --lime-deep:#4F7500;
+  --warn:#C8412B;
+  --line:rgba(10,10,15,.12); --line-2:rgba(10,10,15,.20);
+  --dsp:"Fraunces",Georgia,serif; --bf:"Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
   --ease:cubic-bezier(.16,1,.3,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -28,14 +33,28 @@ body{background:var(--paper);color:var(--ink);font-family:var(--bf);line-height:
 .scroller{height:100vh;overflow-y:scroll;scroll-snap-type:y proximity}
 section{min-height:100vh;scroll-snap-align:start;display:flex;align-items:center;position:relative;padding:clamp(30px,7vh,84px) clamp(24px,7vw,110px)}
 section:nth-child(even){background:var(--paper-2)}
+/* Cover only: the vivid sky, same gradient and clouds as his site. */
+#cover{
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 90'%3E%3Cpath fill='%23ffffff' d='M40,60 Q20,60 20,40 Q20,20 45,25 Q50,5 75,15 Q90,5 105,18 Q130,8 140,30 Q165,30 165,50 Q180,55 175,70 Q165,80 145,75 L55,75 Q35,80 30,70 Q15,70 40,60 Z'/%3E%3C/svg%3E") no-repeat 90% 14% / 280px auto,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 90'%3E%3Cpath fill='%23ffffff' fill-opacity='0.7' d='M40,60 Q20,60 20,40 Q20,20 45,25 Q50,5 75,15 Q90,5 105,18 Q130,8 140,30 Q165,30 165,50 Q180,55 175,70 Q165,80 145,75 L55,75 Q35,80 30,70 Q15,70 40,60 Z'/%3E%3C/svg%3E") no-repeat -4% 68% / 210px auto,
+    linear-gradient(180deg,#1F7CFF 0%,#3D93FF 40%,#6FB6FF 74%,#A7D6FB 100%);
+}
+#cover h1,#cover .eyebrow,#cover .stat div span{color:#fff}
+#cover h1 b{color:var(--lime);font-style:italic}
+#cover .stat div small{color:rgba(255,255,255,.82)}
+#cover p.lead{color:rgba(255,255,255,.95);max-width:64ch}
 .wrap{max-width:1180px;margin-inline:auto;width:100%}
-.eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:26px;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--ink);flex-wrap:wrap}
+.eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:26px;font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--ink);flex-wrap:wrap}
 .eyebrow .ln{width:34px;height:2px;background:var(--ink);display:inline-block}
-.eyebrow .num{color:var(--acc);font-weight:700}
-h1,h2{font-family:var(--dsp);font-weight:300;letter-spacing:-.02em;line-height:1.04;color:var(--ink)}
+.eyebrow .ln{display:none}
+.eyebrow .date{font-family:var(--mono);font-weight:500;opacity:.8;letter-spacing:.14em}
+.eyebrow .num{background:#0A0A0F;color:var(--lime);font-weight:700;border-radius:999px;
+  width:2.1em;height:2.1em;display:grid;place-items:center;font-size:.8rem;letter-spacing:0}
+h1,h2{font-family:var(--dsp);font-weight:800;font-variation-settings:'opsz' 96,'SOFT' 0,'WONK' 1;letter-spacing:-.02em;line-height:1.02;color:var(--ink)}
+h1 b,h2 b{font-weight:800;font-style:italic;color:var(--acc)}
 h1{font-size:clamp(2.6rem,7.6vw,5.4rem)}
 h2{font-size:clamp(2rem,5vw,3.5rem);margin-bottom:22px}
-h2 b,h1 b{font-weight:700}
 p.lead{font-size:clamp(1.02rem,1.5vw,1.18rem);color:var(--ink-2);max-width:62ch}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .reveal.in{opacity:1;transform:none}
@@ -44,13 +63,13 @@ p.lead{font-size:clamp(1.02rem,1.5vw,1.18rem);color:var(--ink-2);max-width:62ch}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,3.4vw,48px);align-items:start;margin-top:34px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 24px}
-.card h3{font-family:var(--dsp);font-size:1.18rem;font-weight:600;margin-bottom:10px}
+.card h3{font-family:var(--dsp);font-size:1.18rem;font-weight:800;margin-bottom:10px;letter-spacing:-.01em}
 .card p{color:var(--ink-2);font-size:.98rem}
-.k{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--acc);margin-bottom:10px;display:block}
+.k{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--lime-deep);margin-bottom:10px;display:block}
 
 .stat{display:flex;gap:clamp(26px,4vw,64px);flex-wrap:wrap;margin-top:36px}
 .stat div span{display:block;font-family:var(--dsp);font-weight:700;font-size:clamp(2rem,4.6vw,3.2rem);line-height:1;letter-spacing:-.02em}
-.stat div small{display:block;margin-top:8px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.stat div small{display:block;margin-top:8px;font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
 .drop span{color:var(--warn)}
 
 .steps{margin-top:30px;border-left:2px solid var(--line-2);padding-left:26px}
@@ -63,9 +82,9 @@ p.lead{font-size:clamp(1.02rem,1.5vw,1.18rem);color:var(--ink-2);max-width:62ch}
 .quote small{display:block;margin-top:12px;font-family:var(--bf);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-weight:600}
 
 .copybox{background:#101014;color:#F1F0EC;border-radius:14px;padding:22px 24px;margin-top:18px;font-size:.96rem;line-height:1.62}
-.copybox .k{color:var(--acc-2)}
+.copybox .k{color:var(--lime)}
 
-.tag{display:inline-block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:.42em .8em;border-radius:999px;background:var(--acc);color:#fff}
+.tag{display:inline-block;font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:.5em .9em;border-radius:999px;background:var(--lime);color:#0A0A0F}
 .tag.ghost{background:transparent;border:1px solid var(--line-2);color:var(--mut)}
 ul.clean{list-style:none;margin-top:20px}
 ul.clean li{padding:11px 0;border-bottom:1px solid var(--line);color:var(--ink-2)}
@@ -74,7 +93,7 @@ ul.clean li:last-child{border-bottom:0}
 
 .dots{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:30;display:flex;flex-direction:column;gap:11px}
 .dots a{width:8px;height:8px;border-radius:50%;background:var(--line-2);transition:.3s var(--ease)}
-.dots a.on{background:var(--acc);transform:scale(1.5)}
+.dots a.on{background:var(--lime-deep);transform:scale(1.5)}
 @media(max-width:880px){
   .grid2,.grid3{grid-template-columns:1fr}
   .dots{display:none}
@@ -85,14 +104,14 @@ ul.clean li:last-child{border-bottom:0}
 .jour{margin-top:34px}
 .jtabs{display:flex;gap:8px;flex-wrap:wrap;position:relative}
 .jtab{appearance:none;border:1px solid var(--line-2);background:var(--card);color:var(--mut);
-  font-family:var(--bf);font-size:.74rem;font-weight:600;letter-spacing:.04em;
+  font-family:var(--mono);font-size:.74rem;font-weight:600;letter-spacing:.04em;
   padding:.62em 1em;border-radius:999px;cursor:pointer;transition:.3s var(--ease);display:flex;gap:.55em;align-items:center}
 .jtab b{font-family:var(--dsp);color:var(--acc);font-weight:700}
 .jtab:hover{border-color:var(--acc);color:var(--ink)}
 .jtab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
-.jtab[aria-selected="true"] b{color:var(--acc-2)}
+.jtab[aria-selected="true"] b{color:var(--lime)}
 .jbar{height:3px;background:var(--line);border-radius:2px;margin:18px 0 0;overflow:hidden}
-.jbar i{display:block;height:100%;width:14%;background:var(--acc);border-radius:2px;transition:width .5s var(--ease)}
+.jbar i{display:block;height:100%;width:14%;background:var(--lime);border-radius:2px;transition:width .5s var(--ease)}
 .jpanel{display:grid;grid-template-columns:1fr .62fr;gap:clamp(20px,3vw,40px);margin-top:26px;align-items:start;min-height:330px}
 .jbody{opacity:1;transition:opacity .28s var(--ease),transform .28s var(--ease)}
 .jbody.out{opacity:0;transform:translateY(8px)}
@@ -117,7 +136,7 @@ ul.clean li:last-child{border-bottom:0}
 .crow .cv{font-family:var(--dsp);font-weight:700;font-size:.96rem;min-width:74px;text-align:right}
 .in .crow .ct i{width:var(--w)}
 .crow.bad .ct i{background:var(--warn)}
-.crow.good .ct i{background:#2E9E6B}
+.crow.good .ct i{background:var(--lime-deep)}
 .cnote{font-size:.82rem;color:var(--mut);margin-top:12px}
 @media(max-width:880px){
   .jpanel{grid-template-columns:1fr}
@@ -131,11 +150,11 @@ ul.clean li:last-child{border-bottom:0}
 <div class="dots" id="dots"></div>
 <div class="scroller" id="sc">
 
-<section data-name="Cover">
+<section id="cover" data-name="Cover">
   <div class="wrap">
-    <div class="eyebrow reveal"><span class="ln"></span><span>Tudor × Stratoma</span><span class="num">28 July 2026</span></div>
+    <div class="eyebrow reveal"><span class="ln"></span><span>Tudor × Stratoma</span><span class="date">28 July 2026</span></div>
     <h1 class="reveal d1">Fixing the <b>funnel</b>.</h1>
-    <p class="lead reveal d2" style="margin-top:26px">Seven changes, for the three of us to approve. This is not a redesign. Every step already exists and the sequence is right. What is missing is a stated reason for each one, a clear line between free and paid, and something for the person to actually do.</p>
+    <p class="lead reveal d2" style="margin-top:26px">Seven changes, plus the roadmap and the content structure that hold them together. For the three of us to approve. This is not a redesign. Every step already exists and the sequence is right. What is missing is a stated reason for each one, a clear line between free and paid, and something for the person to actually do.</p>
     <div class="stat reveal d3">
       <div><span>12</span><small>days to launch</small></div>
       <div><span>7</span><small>changes proposed</small></div>
@@ -379,7 +398,7 @@ ul.clean li:last-child{border-bottom:0}
     {n:'03', t:'The pack', h:'The file arrives, and so does a group invite',
      see:'A prompt pack by email, an invitation to a WhatsApp group, and a tutorial unlocks.',
      leak:'Why a WhatsApp group? Nobody asked for one. Getting the file ends the journey.',
-     fix:'The group is explained in one line, and the file itself carries the next step on its last page. Changes 1 and 7 of the leaks list.',
+     fix:'The group is explained in one line, and the file itself carries the next step on its last page. Change 1, plus the download leak named in One direction.',
      img:null, cap:null},
     {n:'04', t:'The group', h:'Packs start arriving in WhatsApp',
      see:'Each new prompt pack, announced with a link.',
