@@ -53,6 +53,10 @@ You are in this group, which means you get three things before anybody else:
 🎬 every prompt pack the day it drops
 💰 the price, and a founding one, announced in here first
 
+Next one is this Sunday, 2 August at 17:00 CET 🔴 free online class, live from my screen: how to grow a faceless AI channel on Instagram and actually get paid from it. Brand deals, and the automations we use to edit and run the whole channel.
+
+That is the second to last class of the run. The last one is Sunday 9 August, the day the doors open.
+
 Nothing changes for you if you never buy anything. The packs and the classes stay free either way.
 
 But you are early, and early is worth something in this one.`,
@@ -76,6 +80,27 @@ Thursday I break down whichever one wins.`,
         'The edit and the sound',
       ],
     },
+  },
+  {
+    id: 'em-28jul-frame',
+    date: '2026-07-28', time: '18:30', channel: 'email', audience: 'Lista completa',
+    note: 'Version email del mensaje de hoy, pedida por Marcelino. Mismo marco que el WhatsApp: contexto + el directo del domingo 2. PENDIENTE DE OK antes de enviar a la lista completa.',
+    subject: 'Sunday, and where all of this has been going',
+    preview: 'Free class this Sunday at 17:00 CET',
+    body: `Hey,
+
+For the last few weeks I have been sending you prompt packs and free classes and never told you where it was all going.
+
+So here it is. On Sunday 9 August I am opening my community, and everything you have been getting is the run up to it.
+
+Before that, this Sunday 2 August at 17:00 CET there is a free online class: how to grow a faceless AI channel on Instagram and actually get paid from it. Brand deals, and the automations we use to edit and run the whole channel.
+
+That is the second to last class of the run. The last one is Sunday 9 August, the day the doors open.
+
+The classes and the packs stay free either way.
+
+Tudor`,
+    cta: { label: '🔴 Save your seat', href: 'https://tudormorari.ai/lives?utm_campaign=2ago&utm_source=email' },
   },
   {
     id: 'wa-30jul',
