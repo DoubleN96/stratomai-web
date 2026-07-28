@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Tudor × Stratoma — Fixing the funnel</title>
+<meta name="description" content="Seven changes to the Tudor x Stratoma funnel, for the three of us to approve.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Tudor × Stratoma — Fixing the funnel">
+<meta property="og:description" content="Not a redesign. The steps are right, they are unexplained.">
+<meta name="theme-color" content="#F1F0EC">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F1F0EC; --paper-2:#EAE8E2; --card:#F7F6F2;
+  --ink:#0A0A0A; --ink-2:#3A3A3C; --mut:#6E6E72;
+  --acc:#6C7CFF; --acc-2:#9AA6FF;
+  --warn:#C8552F;
+  --line:rgba(10,10,10,.10); --line-2:rgba(10,10,10,.18);
+  --dsp:"Sora",-apple-system,sans-serif; --bf:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--bf);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.scroller{height:100vh;overflow-y:scroll;scroll-snap-type:y proximity}
+section{min-height:100vh;scroll-snap-align:start;display:flex;align-items:center;position:relative;padding:clamp(30px,7vh,84px) clamp(24px,7vw,110px)}
+section:nth-child(even){background:var(--paper-2)}
+.wrap{max-width:1180px;margin-inline:auto;width:100%}
+.eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:26px;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--ink);flex-wrap:wrap}
+.eyebrow .ln{width:34px;height:2px;background:var(--ink);display:inline-block}
+.eyebrow .num{color:var(--acc);font-weight:700}
+h1,h2{font-family:var(--dsp);font-weight:300;letter-spacing:-.02em;line-height:1.04;color:var(--ink)}
+h1{font-size:clamp(2.6rem,7.6vw,5.4rem)}
+h2{font-size:clamp(2rem,5vw,3.5rem);margin-bottom:22px}
+h2 b,h1 b{font-weight:700}
+p.lead{font-size:clamp(1.02rem,1.5vw,1.18rem);color:var(--ink-2);max-width:62ch}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,3.4vw,48px);align-items:start;margin-top:34px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 24px}
+.card h3{font-family:var(--dsp);font-size:1.18rem;font-weight:600;margin-bottom:10px}
+.card p{color:var(--ink-2);font-size:.98rem}
+.k{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--acc);margin-bottom:10px;display:block}
+
+.stat{display:flex;gap:clamp(26px,4vw,64px);flex-wrap:wrap;margin-top:36px}
+.stat div span{display:block;font-family:var(--dsp);font-weight:700;font-size:clamp(2rem,4.6vw,3.2rem);line-height:1;letter-spacing:-.02em}
+.stat div small{display:block;margin-top:8px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.drop span{color:var(--warn)}
+
+.steps{margin-top:30px;border-left:2px solid var(--line-2);padding-left:26px}
+.step{position:relative;padding:13px 0}
+.step::before{content:"";position:absolute;left:-33px;top:20px;width:11px;height:11px;border-radius:50%;background:var(--paper);border:2px solid var(--line-2)}
+.step b{font-family:var(--dsp);font-weight:600}
+.step i{font-style:normal;color:var(--warn);font-size:.86rem;display:block;margin-top:3px}
+
+.quote{border-left:3px solid var(--acc);padding:6px 0 6px 22px;margin-top:30px;font-family:var(--dsp);font-weight:300;font-size:clamp(1.15rem,2.4vw,1.7rem);line-height:1.35;color:var(--ink)}
+.quote small{display:block;margin-top:12px;font-family:var(--bf);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-weight:600}
+
+.copybox{background:#101014;color:#F1F0EC;border-radius:14px;padding:22px 24px;margin-top:18px;font-size:.96rem;line-height:1.62}
+.copybox .k{color:var(--acc-2)}
+
+.tag{display:inline-block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:.42em .8em;border-radius:999px;background:var(--acc);color:#fff}
+.tag.ghost{background:transparent;border:1px solid var(--line-2);color:var(--mut)}
+ul.clean{list-style:none;margin-top:20px}
+ul.clean li{padding:11px 0;border-bottom:1px solid var(--line);color:var(--ink-2)}
+ul.clean li b{color:var(--ink)}
+ul.clean li:last-child{border-bottom:0}
+
+.dots{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:30;display:flex;flex-direction:column;gap:11px}
+.dots a{width:8px;height:8px;border-radius:50%;background:var(--line-2);transition:.3s var(--ease)}
+.dots a.on{background:var(--acc);transform:scale(1.5)}
+@media(max-width:880px){
+  .grid2,.grid3{grid-template-columns:1fr}
+  .dots{display:none}
+  section{min-height:auto;padding-block:64px}
+}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<div class="dots" id="dots"></div>
+<div class="scroller" id="sc">
+
+<section data-name="Cover">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="ln"></span><span>Tudor × Stratoma</span><span class="num">28 July 2026</span></div>
+    <h1 class="reveal d1">Fixing the <b>funnel</b>.</h1>
+    <p class="lead reveal d2" style="margin-top:26px">Seven changes, for the three of us to approve. This is not a redesign. Every step already exists and the sequence is right. What is missing is a stated reason for each one, a clear line between free and paid, and something for the person to actually do.</p>
+    <div class="stat reveal d3">
+      <div><span>12</span><small>days to launch</small></div>
+      <div><span>7</span><small>changes proposed</small></div>
+      <div><span>0</span><small>steps removed</small></div>
+    </div>
+  </div>
+</section>
+
+<section data-name="The problem">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="ln"></span><span class="num">01</span><span>The problem</span></div>
+    <h2 class="reveal d1">Someone with no context <b>walked the whole thing</b>.</h2>
+    <p class="lead reveal d2">Tudor sat Deanna down and made her go through the journey end to end. She came back confused. Not because the steps are wrong, but because nothing tells her why she is taking them.</p>
+    <div class="quote reveal d3">"I don't think we are clear enough on why these steps are happening. It feels like a funnel. They cannot be proactive."
+      <small>Tudor, voice note, 27 July</small></div>
+    <div class="stat reveal d4 drop">
+      <div><span>1,076</span><small>link clicks</small></div>
+      <div><span>189</span><small>landing page views</small></div>
+      <div><span>108</span><small>leads</small></div>
+    </div>
+    <p class="lead reveal d4" style="margin-top:22px">The numbers say it from the other side. Most people never arrive, and the ones who do are handed a sequence nobody explained.</p>
+  </div>
+</section>
+
+<section data-name="Today">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="ln"></span><span class="num">02</span><span>The journey today</span></div>
+    <h2 class="reveal d1">Read it as a <b>stranger</b>.</h2>
+    <div class="steps reveal d2">
+      <div class="step"><b>An ad or an organic video</b> sends them to tudormorari.ai/lives</div>
+      <div class="step"><b>The page asks</b> for name, email, country and WhatsApp number</div>
+      <div class="step"><b>They get the pack</b>, an invite to a WhatsApp group and a tutorial<i>Why a WhatsApp group?</i></div>
+      <div class="step"><b>The group</b> sends every new prompt pack<i>Why am I also getting emails?</i></div>
+      <div class="step"><b>Emails</b> send live reminders and replays<i>What do these classes have to do with my pack?</i></div>
+      <div class="step"><b>A second page</b>, /live, registers them for Sunday<i>I already gave you my details</i></div>
+      <div class="step"><b>On 9 August</b> the doors open at $49.99<i>What exactly is being sold?</i></div>
+    </div>
+    <p class="lead reveal d3" style="margin-top:26px">Deanna is not confused because she is slow. She is confused because we never told her.</p>
+  </div>
+</section>
+
+<section data-name="Change 1 and 2">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="ln"></span><span class="num">03</span><span>Changes 1 and 2</span></div>
+    <h2 class="reveal d1">Say <b>why</b>. Then stop asking twice.</h2>
+    <div class="grid2">
+      <div class="reveal d2">
+        <span class="k">Change 1 · half a day · Stratoma</span>
+        <p class="lead">Every touchpoint opens by saying what it is and what comes next. The copy is already written, so nobody has to invent it later.</p>
+        <div class="copybox">
+          <span class="k">WhatsApp welcome</span>
+          This is the free group for Tudor's AI animation drops. Three things arrive here: new prompt packs, the link to each free Sunday class, and on August 9 the doors to the community with the founding price. That is all it is for.
+        </div>
+      </div>
+      <div class="reveal d3">
+        <span class="k">Change 2 · half a day · Stratoma</span>
+        <p class="lead">Today /lives captures a lead and /live captures a registration, so the same person fills two forms. One form, one capture, and the live link goes to everyone who already gave us their details.</p>
+        <div class="card" style="margin-top:18px">
+          <h3>Fewer steps, nothing removed</h3>
+          <p>This is the only change that shortens the journey, and it does it without taking a single thing away from it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-name="Change 3">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="ln"></span><span class="num">04</span><span>Change 3</span><span class="tag">The one worth fighting for</span></div>
+    <h2 class="reveal d1">Give them something <b>to do</b> in the first five minutes.</h2>
+    <p class="lead reveal d2">Today a new lead downloads a pack and then waits for us. That is exactly what Tudor means when he says they cannot be proactive.</p>
+    <div class="copybox reveal d3">
+      <span class="k">The message, on joining</span>
+      Make one 5 second shot with this prompt today and post it in the group. Tudor picks one every week and fixes it live on Sunday.
+    </div>
+    <div class="grid3 reveal d4">
+      <div class="card"><h3>Costs one message</h3><p>No new tool, no new spend, no design work.</p></div>
+      <div class="card"><h3>Fixes the dead group</h3><p>190 people and not a single member message. This is the cheapest way to start the conversation.</p></div>
+      <div class="card"><h3>Removes a dependency</h3><p>It works whether or not the 7 day challenge is recorded in time. That matters, because it is still not recorded.</p></div>
+    </div>
+  </div>
+</section>
+
+<section data-name="Changes 4 to 6">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="ln"></span><span class="num">05</span><span>Changes 4, 5 and 6</span></div>
+    <h2 class="reveal d1">Free, paid, and <b>what they are missing</b>.</h2>
+    <div class="grid3">
+      <div class="card reveal d2">
+        <span class="k">Change 4</span>
+        <h3>The same words everywhere</h3>
+        <p><b>Free:</b> the prompt packs, the Sunday classes, the WhatsApp group.<br><br><b>Paid:</b> the community. Guided challenge, your own work reviewed live every week, direct access to Tudor, the full process.</p>
+      </div>
+      <div class="card reveal d3">
+        <span class="k">Change 5</span>
+        <h3>FOMO on every free drop</h3>
+        <p>Every free thing ends with the contrast: "That is the free version. Inside the community this same workflow is taught end to end, and your version of it gets reviewed on screen."</p>
+      </div>
+      <div class="card reveal d4">
+        <span class="k">Change 6</span>
+        <h3>The discount lives in the group</h3>
+        <p>$49.99 is the founding price, for the first 200, and it is only announced in the free group before it goes public.</p>
+      </div>
+    </div>
+    <p class="lead reveal d4" style="margin-top:28px">Changes 4 and 6 are already live on the landing page. What is proposed here is repeating them, word for word, in the group description, the emails and the live registration page.</p>
+  </div>
+</section>
+
+<section data-name="Change 7">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="ln"></span><span class="num">06</span><span>Change 7</span></div>
+    <h2 class="reveal d1">Fix the leak <b>before</b> spending more.</h2>
+    <div class="stat reveal d2 drop">
+      <div><span>82%</span><small>lost between click and page</small></div>
+      <div><span>1 afternoon</span><small>to find out why</small></div>
+      <div><span>€0</span><small>what it costs to test</small></div>
+    </div>
+    <p class="lead reveal d3" style="margin-top:30px">1,076 clicks produced 189 landing page views. Either we lose four out of five people in the Instagram in-app browser, or the event is not being measured properly. We have not tested which, and until we know, we cannot read our cost per lead. It could be €5.90 or it could be far better.</p>
+    <p class="lead reveal d4" style="margin-top:18px"><b>This is the cheapest item on the list and the one with the largest financial consequence.</b> It should happen before any budget increase.</p>
+  </div>
+</section>
+
+<section data-name="Not changing">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="ln"></span><span class="num">07</span><span>What we are not changing</span></div>
+    <h2 class="reveal d1">The sequence is <b>sound</b>.</h2>
+    <p class="lead reveal d2">Worth stating, because Tudor was careful about it. He said explicitly that he is not questioning the approach.</p>
+    <ul class="clean reveal d3">
+      <li><b>No steps removed.</b> Every stage of the journey stays.</li>
+      <li><b>No rebuild.</b> This is copy and one merged form.</li>
+      <li><b>No change to the offer.</b> Same product, same price, same date.</li>
+    </ul>
+    <div class="quote reveal d4">It is unexplained, not wrong.</div>
+  </div>
+</section>
+
+<section data-name="Decisions">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="ln"></span><span class="num">08</span><span>What we decide</span></div>
+    <h2 class="reveal d1">Four <b>decisions</b>.</h2>
+    <ul class="clean reveal d2">
+      <li><b>D1.</b> Do we approve changes 1 to 7 as a block, or strike any of them?</li>
+      <li><b>D2.</b> Change 3 needs one line of content from Tudor, the weekly task. Yes or no, and who writes it.</li>
+      <li><b>D3.</b> Change 7 holds the ad budget flat for a few days while we test the leak. Everyone comfortable?</li>
+      <li><b>D4.</b> The 7 day challenge is still unrecorded, 12 days out. If it will not be ready for the 9th, change 3 carries onboarding on its own, and we should decide that now rather than on the 8th.</li>
+    </ul>
+    <p class="lead reveal d3" style="margin-top:30px">Nothing here needs new tools, new spend or a new design. It is copy, one merged form, and one weekly task.</p>
+    <p class="lead reveal d4" style="margin-top:16px"><span class="tag ghost">D4 first</span> &nbsp;It is the only one with a deadline that is not ours to move.</p>
+  </div>
+</section>
+
+</div>
+<script>
+  const sc = document.getElementById('sc');
+  const secs = [...document.querySelectorAll('section')];
+  const dots = document.getElementById('dots');
+  secs.forEach((s) => {
+    const a = document.createElement('a');
+    a.href = '#';
+    a.title = s.dataset.name;
+    a.onclick = e => { e.preventDefault(); s.scrollIntoView({ behavior: 'smooth' }); };
+    dots.appendChild(a);
+  });
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { root: sc, threshold: .15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  const nav = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) {
+      const i = secs.indexOf(e.target);
+      [...dots.children].forEach((d, j) => d.classList.toggle('on', i === j));
+    }
+  }), { root: sc, threshold: .5 });
+  secs.forEach(s => nav.observe(s));
+</script>
+</body>
+</html>
