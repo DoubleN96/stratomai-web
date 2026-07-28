@@ -152,6 +152,7 @@ export async function POST(req: Request) {
   const { pit, locationId } = cfg.ghl;
   const H = { Authorization: `Bearer ${pit}`, Version: '2021-07-28', 'Content-Type': 'application/json' };
 
+  let deliveryError = '';
   const pack = await loadPack(campaign);
   const livesLink = `https://tudormorari.ai/lives?utm_campaign=${encodeURIComponent(campaign)}`;
   const title = pack?.title || campaign;
@@ -185,7 +186,10 @@ export async function POST(req: Request) {
     });
     if (!send.ok) throw new Error(`send ${send.status}: ${(await send.text()).slice(0, 120)}`);
   } catch (e) {
-    return cors(NextResponse.json({ ok: false, error: String((e as Error).message).slice(0, 160) }, { status: 502 }));
+    // The contact upsert is what makes this a lead. If only the EMAIL failed, the lead
+    // still exists, so the Meta event must still go out: measurement cannot depend on
+    // email deliverability. Remember the failure and report it after sending.
+    deliveryError = String((e as Error).message).slice(0, 160);
   }
 
   // Server side Lead, deduplicated against the browser pixel by event_id. Awaited so
@@ -210,6 +214,9 @@ export async function POST(req: Request) {
     });
   } catch {
     /* never let measurement break delivery */
+  }
+  if (deliveryError) {
+    return cors(NextResponse.json({ ok: false, error: deliveryError, capi }, { status: 502 }));
   }
   return cors(NextResponse.json({ ok: true, capi }));
 }
