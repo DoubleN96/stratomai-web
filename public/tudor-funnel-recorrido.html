@@ -163,37 +163,46 @@ footer{padding:40px 0 64px;color:var(--ink-3);font-size:.86rem}
 </header>
 
 <section class="sec" style="background:color-mix(in srgb,var(--alarm) 8%,transparent);border-bottom:1px solid var(--alarm)">
-  <p class="kicker" style="color:var(--alarm)">Urgente · encontrado el 30-jul a las 03:50</p>
-  <h2>El anunciador de WhatsApp lleva caído desde el 28 de julio</h2>
-  <p class="lede" style="max-width:66ch">Intentando contar los miembros de la comunidad me he encontrado
-  con esto, y es más grave que el número que íbamos a contar.</p>
+  <p class="kicker" style="color:var(--alarm)">Corregido el 30-jul a las 06:10</p>
+  <h2>Aviso: aquí puse una alarma que era falsa</h2>
+  <p class="lede" style="max-width:68ch">La versión anterior de esta página decía que el WhatsApp llevaba
+  29 horas sin enviar nada a 1.761 personas. <strong>No era verdad.</strong> Dani lo desmintió, lo he
+  comprobado a fondo, y esto es lo que pasa de verdad.</p>
+
   <div class="figs" style="margin:24px 0">
-    <div class="fig bad"><b>28-jul 22:01</b><span>Última vez que la sesión de WhatsApp conectó bien</span></div>
-    <div class="fig bad"><b>14.645</b><span>Reintentos fallidos solo el 29-jul (error 405)</span></div>
-    <div class="fig bad"><b>~29 h</b><span>Sin publicar nada automático en el grupo</span></div>
+    <div class="fig"><b>06:00 hoy</b><span>Última vuelta del anunciador del grupo. Funcionando</span></div>
+    <div class="fig"><b>27-jul 13:30</b><span>Último envío real. Después no ha habido packs nuevos que anunciar</span></div>
+    <div class="fig bad"><b>cada 10 min</b><span>El monitor de Instagram sí está fallando, esto es real</span></div>
   </div>
-  <p>El proceso <code>tudor-channel-poster</code> figuraba como "online" en pm2 con 12 días de uptime, y
-  por eso nadie lo miró, pero por dentro llevaba desde el lunes por la noche en un bucle de reconexión.
-  <strong>Todo lo que debía anunciarse solo en el grupo desde entonces no ha salido.</strong></p>
-  <p><strong>Qué he hecho:</strong> lo he parado. Estaba lanzando unos 14.000 intentos de autenticación
-  fallidos al día contra WhatsApp, y eso es la mejor forma de que nos marquen el número justo antes del
-  lanzamiento. Prefiero tenerlo parado y avisando que corriendo y quemando el número.</p>
-  <p><strong>Qué hace falta:</strong> alguien con el teléfono de la marca tiene que volver a vincular el
-  dispositivo (escanear el QR). Hasta que eso pase, ningún aviso automático llega al grupo, y para el
-  directo del domingo hay que mandarlo a mano o por email.</p>
-  <div class="note" style="border-left-color:var(--alarm)"><b>Aviso honesto:</b> yo no lo tiré, ya estaba
-  así desde el 28 a las 22:01, casi 29 horas antes de que lo tocara. Pero tampoco lo detecté hasta que
-  Dani me hizo dudar del número de WhatsApp. Sin esa corrección suya, esto sigue caído hasta el domingo.</div>
+
+  <p><strong>Qué me confundió.</strong> Hay dos cosas distintas con nombres parecidos y miré solo una:</p>
+  <p>· El <b>anunciador del grupo</b> (<code>announcer/announce.mjs</code>) envía a través de OpenClaw,
+  corre cada 10 minutos y <strong>está perfectamente</strong>. Su última vuelta fue a las 06:00 de hoy.
+  Marca "sent=0" desde el 27-jul simplemente porque no ha habido packs nuevos que anunciar, que es su
+  comportamiento correcto, no un fallo. Por eso la gente sí ha estado recibiendo mensajes, como decía Dani.</p>
+  <p>· El <b>poster del canal</b> (<code>tudor-channel-poster</code>) sí está caído desde el 28-jul 22:01,
+  pero publica en un <em>canal de difusión</em> de WhatsApp, no en la comunidad, y su cola de salida está
+  vacía desde el 11 de julio. O sea: está roto, pero no estaba enviando nada de todas formas.
+  <strong>Impacto real de la caída hasta hoy: prácticamente cero.</strong></p>
+
+  <div class="leak" style="margin-top:18px"><b>Esto sí está roto</b><p>Buscando lo anterior encontré un
+  fallo de verdad: el <b>monitor de Instagram</b> revienta cada 10 minutos con un error de permisos de la
+  API de Meta (<code>Object with ID '17841419429068215' does not exist... missing permissions</code>).
+  Lleva así acumulando errores en el log. Eso hay que arreglarlo, y no tiene nada que ver con WhatsApp.</p></div>
+
+  <div class="note" style="border-left-color:var(--alarm)"><b>Lo que me llevo:</b> vi un proceso en bucle
+  de reconexión y salté a la conclusión de que el canal entero estaba mudo, sin comprobar por dónde salen
+  de verdad los mensajes del grupo. Dos correcciones de Dani en la misma noche, las dos por lo mismo:
+  afirmar antes de verificar.</div>
 </section>
 
 <section class="sec">
   <h2>Resumen en 30 segundos</h2>
   <p class="lede">Si solo lees esto, léelo. Todo lo demás es el desarrollo.</p>
   <ol class="tldr">
-    <li><b>Hay 1.761 personas en la comunidad de WhatsApp y llevan dos días sin recibir nada.</b> El
-    canal está caído desde el lunes por la noche y hay que volver a vincular el dispositivo. Ese es el
-    agujero número uno, y es peor de lo que parecía: no es que no tengamos audiencia ahí, es que la
-    tenemos y la estamos desatendiendo en plena semana de lanzamiento.</li>
+    <li><b>La comunidad de WhatsApp tiene 1.761 personas y el anunciador funciona.</b> Es el 35% de
+    los leads, y es de los pasos que mejor convierten del funnel. <em>(En una versión anterior dije que
+    llevaba dos días caído: era falso, ver el aviso de arriba.)</em></li>
     <li><b>Le pedimos el segundo favor antes de cumplir el primero.</b> Entra por los prompts, y lo
     primero que ve al registrarse es "únete al WhatsApp". Todavía no le hemos dado nada.</li>
     <li><b>Dos botones del mismo tamaño en el momento clave.</b> Descargar el pack y unirse al grupo
@@ -380,16 +389,15 @@ footer{padding:40px 0 64px;color:var(--ink-3);font-size:.86rem}
             <div><h4>Qué ve</h4><p>Una comunidad con varios grupos y <strong>1.761 personas dentro</strong>,
             donde deberían llegar los avisos, los packs nuevos y el link de cada directo. Desde el 28-jul
             por la noche no llega nada automático.</p></div>
-            <div class="feel"><h4>Qué siente</h4><p>"Me metí porque dijeron que aquí caía todo, y llevo
-            dos días sin ver nada. ¿Esto sigue vivo?" Justo en la semana en la que más tendría que estar
-            pasando.</p></div>
+            <div class="feel"><h4>Qué siente</h4><p>"Aquí es donde caen los packs y el link del
+            directo." Es el sitio donde la relación se vuelve continua en vez de un solo email.</p></div>
             <div><h4>A dónde le empujamos</h4><p>Es el canal donde hemos puesto el link del directo, los
             packs nuevos y el descuento de fundador. Es decir, lo más importante vive en el canal apagado.</p></div>
           </div>
-          <div class="leak"><b>Fuga · la grande</b><p>Este paso convierte bien: 35% de los leads entra en
-          la comunidad. El fallo no es traerlos, es que una vez dentro no reciben nada. Tenemos 1.761
-          personas que ya dijeron que sí dos veces, en silencio, a diez días de abrir puertas.
-          <strong>Hasta que se re-vincule el dispositivo, el canal real es el email.</strong></p></div>
+          <div class="leak"><b>Límite</b><p>Este paso convierte bien: 35% de los leads entra en la
+          comunidad, y los avisos les llegan. El techo está en que <strong>no podemos hacer envío masivo
+          por WhatsApp</strong> mientras Meta no verifique la empresa, así que el empujón del día del
+          cierre tendrá que ir por email.</p></div>
         </div>
       </article>
 
@@ -460,15 +468,14 @@ footer{padding:40px 0 64px;color:var(--ink-3);font-size:.86rem}
   <h2>Los seis agujeros, por orden de dinero</h2>
   <p class="lede">Ordenados por lo que cuestan, no por lo fáciles que son de arreglar.</p>
   <div class="holes">
-    <div class="hole"><span class="tag">Agujero 1 · crítico</span><h3>El canal de WhatsApp está caído, y encima no podemos medirlo</h3>
-      <p>Con el número real encima de la mesa esto pasa de ser un problema de captación a ser un problema
-      de abandono. <strong>1.761 personas</strong> se han metido en la comunidad, y desde el 28-jul a las
-      22:01 no les ha llegado ni un aviso automático. Son la audiencia más caliente que tenemos, la que
-      ya dijo que sí dos veces, y es justo a la que hemos dejado a oscuras diez días antes de abrir.</p>
-      <p>Encima el envío masivo por WhatsApp sigue bloqueado por Meta (número de pruebas, empresa sin
-      verificar), así que ni siquiera tenemos plan B dentro del propio canal. Lo urgente:
-      <strong>re-vincular el dispositivo</strong>, y mientras tanto duplicar por email todo lo que hoy
-      solo vive en WhatsApp.</p></div>
+    <div class="hole"><span class="tag">Agujero 1 · crítico</span><h3>El envío masivo por WhatsApp sigue bloqueado por Meta</h3>
+      <p>La comunidad tiene <strong>1.761 personas</strong>, el 35% de los leads, y el anunciador les
+      llega bien. El problema que queda es otro: <strong>el envío masivo por WhatsApp sigue bloqueado por
+      Meta</strong> (número de pruebas, empresa sin verificar). Podemos anunciar packs cuando salen, pero
+      no podemos hacer una campaña de cierre por WhatsApp a los 1.761 el día del lanzamiento.</p>
+      <p>Para el 9-ago eso significa que <strong>el email tiene que llevar el peso del cierre</strong>, y
+      que conviene verificar la empresa en Meta cuanto antes si queremos usar WhatsApp como canal de venta
+      y no solo de avisos.</p></div>
     <div class="hole"><span class="tag">Agujero 2 · crítico</span><h3>El orden de la pantalla de confirmación</h3>
       <p>Pedimos el segundo favor antes de cumplir el primero, con dos botones que compiten y un precio que
       llega demasiado pronto. Es un cambio de una tarde: pack primero y solo, grupo después de que haya
@@ -499,15 +506,14 @@ footer{padding:40px 0 64px;color:var(--ink-3);font-size:.86rem}
         <tr><td>Ven el reel</td><td class="num">millones</td><td class="num">—</td><td>Sano</td></tr>
         <tr><td>Rellenan el formulario</td><td class="num">5.024</td><td class="num">—</td><td>Sano</td></tr>
         <tr><td>Se registran a un directo</td><td class="num">2.503</td><td class="num">50%</td><td>Aceptable</td></tr>
-        <tr><td>Entran a la comunidad de WhatsApp</td><td class="num">1.761</td><td class="num">35%</td><td>Sano, pero mudo</td></tr>
+        <tr><td>Entran a la comunidad de WhatsApp</td><td class="num">1.761</td><td class="num">35%</td><td>Sano</td></tr>
         <tr><td>Pagan (9 de agosto)</td><td class="num">por ver</td><td class="num">—</td><td>Sin medir</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="note"><b>Cómo leerlo:</b> el embudo aguanta bien hasta el final. De cada 100 que rellenan
-  el formulario, 50 se apuntan a un directo y 35 entran en la comunidad. Eso no es un funnel roto, es un
-  funnel que funciona y al que se le ha apagado el altavoz justo antes de la venta. El trabajo no es
-  meter más gente arriba, es no desperdiciar a la que ya está dentro.</div>
+  <div class="note"><b>Cómo leerlo:</b> el embudo aguanta bien. De cada 100 que rellenan el formulario,
+  50 se apuntan a un directo y 35 entran en la comunidad. No es un problema de tráfico ni de captación: el
+  trabajo está en el tramo final, que es el único que todavía no sabemos medir.</div>
 </section>
 
 <footer class="sec" style="border-bottom:0">
