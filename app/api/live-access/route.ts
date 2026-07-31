@@ -9,7 +9,7 @@ export const runtime = 'nodejs';
 
 // Before the live starts, registrants go to the WhatsApp community instead of a video link.
 // Swap to the YouTube live URL (via MASTERCLASS_LIVE_URL) once the stream is actually live.
-const LIVE_URL = process.env.MASTERCLASS_LIVE_URL || 'https://chat.whatsapp.com/EdE9lfOp1YtGmMaiR5BaVV';
+const LIVE_URL = process.env.MASTERCLASS_LIVE_URL || 'https://chat.whatsapp.com/CuMwpaMQ8V227QFVm29MXU';
 
 // Normalize a UTM value into a safe GHL tag fragment.
 const cleanTag = (s?: string) =>

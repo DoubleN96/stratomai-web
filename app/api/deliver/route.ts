@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic';
 const ALLOW_ORIGIN = 'https://tudormorari.ai';
 const SHEET_ID = '1fmwbqU1qMAZMrTaNTHx-zzYRO5rxiFRUaIaERh6ukdY';
 const EMAIL_FROM = 'Tudor <info@lc.tudormorari.ai>';
-const WA_INVITE = 'https://chat.whatsapp.com/EdE9lfOp1YtGmMaiR5BaVV';
+const WA_INVITE = 'https://chat.whatsapp.com/CuMwpaMQ8V227QFVm29MXU';
 const FALLBACK_HERO = 'https://tudormorari.ai/og-banner.png';
 const STR = (v: unknown, max: number) => String(v ?? '').slice(0, max).trim();
 const esc = (s: string) =>
