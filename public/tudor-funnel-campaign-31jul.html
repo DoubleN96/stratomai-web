@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Funnel + Campaign Summary · 31 Jul — Tudor × Stratoma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F1F0EC;--ink:#0A0A0A;--ink-soft:#3a3a38;--line:#dedcd4;
+  --blue:#6C7CFF;--blue-ink:#3a49d6;--ember:#E8622C;--ember-ink:#b8471a;
+  --mono:'Inter',sans-serif;--display:'Sora',sans-serif;--body:'Inter',sans-serif;
+  --sec:clamp(4rem,3rem+5vw,8rem);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blue-ink);font-weight:600}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.05;letter-spacing:-.02em}
+h1{font-size:clamp(2.8rem,1.5rem+6vw,6rem)}
+h2{font-size:clamp(2rem,1.2rem+3vw,3.3rem);margin-bottom:.4em}
+h3{font-size:1.1rem;font-weight:700}
+section{padding-block:var(--sec);position:relative;border-top:1px solid var(--line)}
+.lead{font-size:clamp(1.05rem,.95rem+.6vw,1.3rem);color:var(--ink-soft);max-width:56ch}
+.hero{min-height:90vh;display:flex;flex-direction:column;justify-content:center;border-top:none;position:relative}
+.hero .num{position:absolute;right:-2vw;top:8vh;font-family:var(--display);font-weight:800;font-size:min(42vw,560px);color:var(--blue);opacity:.09;line-height:.8;z-index:0;pointer-events:none}
+.hero .inner{position:relative;z-index:1}
+.hero h1 em{font-style:normal;color:var(--blue-ink)}
+.hero .lead{margin-top:1.4rem}
+.dots{margin-top:2.6rem;display:flex;gap:10px 22px;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);flex-wrap:wrap}
+.dots span{display:inline-flex;align-items:center;gap:7px}
+.dots span::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--blue)}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rv.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+.sec-head{margin-bottom:2.4rem;max-width:60ch}
+.tag{display:inline-block;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-ink);border:1px solid var(--blue);border-radius:100px;padding:5px 12px;margin-bottom:1rem}
+.tag.ember{color:var(--ember-ink);border-color:var(--ember)}
+.btn{display:inline-flex;align-items:center;gap:.5em;background:var(--ink);color:var(--paper);text-decoration:none;font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;padding:14px 22px;border-radius:100px;transition:transform .3s,background .3s;margin-top:.4rem}
+.btn:hover{background:var(--blue-ink);transform:translateY(-2px)}
+.kpis{display:grid;flex-wrap:wrap;gap:14px;margin-top:1.8rem;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.bchip{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.bchip .v{font-family:var(--display);font-weight:800;font-size:1.5rem;color:var(--ink)}
+.bchip .k{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}
+.kpi .v{font-family:var(--display);font-weight:800;font-size:1.15rem;color:var(--blue-ink)}
+.kpi .k{font-size:.9rem;color:var(--ink-soft);margin-top:4px;line-height:1.45}
+.note{font-family:var(--mono);font-size:.72rem;letter-spacing:.02em;color:var(--ink-soft);margin-top:1.6rem;border-left:2px solid var(--blue);padding-left:14px;line-height:1.6}
+.steps{display:grid;gap:0;margin-top:2rem}
+.step{display:grid;grid-template-columns:56px 1fr;gap:20px;align-items:start;padding:20px 0;border-bottom:1px solid var(--line)}
+.step:last-child{border-bottom:none}
+.step .n{font-family:var(--display);font-weight:800;font-size:1.4rem;color:var(--blue);line-height:1.2}
+.step .t{font-size:1rem;color:var(--ink-soft)}
+.step .t b{color:var(--ink)}
+.stepnote{margin-top:1.6rem;font-size:1.02rem;color:var(--ink-soft);max-width:70ch;line-height:1.6;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.cards{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));margin-top:1.4rem}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;transition:transform .35s,box-shadow .35s}
+.card:hover{transform:translateY(-4px);box-shadow:0 24px 50px -30px rgba(60,73,214,.3)}
+.card h3{margin-bottom:.5rem}
+.card p{font-size:.95rem;color:var(--ink-soft);line-height:1.55}
+.status{display:inline-block;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;margin-top:.9rem;padding:4px 10px;border-radius:100px;background:#f3f2ec;color:var(--ink-soft)}
+.status.done{background:#e7f5ea;color:#1e7a3a}
+.status.pending{background:#fdeee5;color:var(--ember-ink)}
+.watl{display:grid;gap:0;margin-top:2rem}
+.wrow{display:grid;grid-template-columns:180px 1fr;gap:18px;align-items:start;padding:15px 0;border-bottom:1px solid var(--line)}
+.wrow .when{font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--blue-ink);font-weight:600;padding-top:2px}
+.wrow .what{color:var(--ink-soft);font-size:.95rem;line-height:1.5}
+.wrow .what b{color:var(--ink)}
+@media(max-width:560px){.wrow{grid-template-columns:1fr;gap:3px}.step{grid-template-columns:40px 1fr}}
+.roadwrap{overflow-x:auto;margin-top:1.4rem;border:1px solid var(--line);border-radius:16px;background:#fff}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.92rem}
+th,td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;background:#faf9f6}
+td b{color:var(--blue-ink)}
+tr:last-child td{border-bottom:none}
+.rec-row td{background:#fdeee5}
+.checklist{display:grid;gap:14px;margin-top:1.8rem}
+.check{display:grid;grid-template-columns:26px 1fr;gap:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;align-items:start}
+.check .box{width:20px;height:20px;border:2px solid var(--ember);border-radius:6px;margin-top:2px}
+.check p{font-size:.96rem;color:var(--ink-soft);line-height:1.5}
+.check p b{color:var(--ink)}
+footer{padding:56px 0;border-top:1px solid var(--line);text-align:center}
+footer .m{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap inner">
+    <div class="num">31J</div>
+    <div class="eyebrow rv">Tudor × Stratoma · Prepared for the 31 July meeting</div>
+    <h1 class="rv">Funnel + <em>Campaign</em><br>Summary</h1>
+    <p class="lead rv">Where the funnel stands, what the 30 July call changed, and how week 1 of paid ads actually performed. Built to make sense with what Tudor asked for in that call, not just repeat the raw numbers.</p>
+    <div class="dots rv">
+      <span>5,024 leads on /lives</span>
+      <span>1,761 in the WhatsApp community</span>
+      <span>27× organic over paid</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag">The funnel · How it works</span>
+      <h2>Five steps, one ladder</h2>
+      <p class="lead">Every number in this report is a measurement of how well people move through these five steps, not five separate metrics.</p>
+    </div>
+    <div class="steps">
+      <div class="step rv"><div class="n">01</div><div class="t">Someone sees Tudor's content, <b>mostly organic, sometimes a paid ad</b>, and lands on tudormorari.ai/lives.</div></div>
+      <div class="step rv"><div class="n">02</div><div class="t">They fill the form: <b>name, email, WhatsApp</b>. That's the lead.</div></div>
+      <div class="step rv"><div class="n">03</div><div class="t">They get the <b>free prompt packs</b> and can register for the <b>free Sunday live class</b>.</div></div>
+      <div class="step rv"><div class="n">04</div><div class="t">They join the <b>WhatsApp community</b>, where every future pack, replay, and the eventual price announcement land.</div></div>
+      <div class="step rv"><div class="n">05</div><div class="t">On <b>9 August</b>, the paid community opens, and the same people are invited to convert into paying members at the founding price.</div></div>
+    </div>
+    <p class="stepnote rv">This is the ladder the whole report below is built around: organic or paid traffic feeds a free funnel of prompts and live classes, the free funnel feeds a WhatsApp community, and that community is where the sale actually happens once the doors open on 9 August.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag">1 · Where the funnel stands today</span>
+      <h2>The numbers right now</h2>
+      <p class="lead">5,024 people have filled the /lives form since it went live. That form-to-community conversion, 35%, is healthy for this stage, more than a third of everyone who leaves an email actually joins the ongoing conversation, not just a one-time download.</p>
+    </div>
+    <div class="kpis rv">
+      <div class="bchip"><div class="v">5,024</div><div class="k">Form fills</div></div>
+      <div class="bchip"><div class="v">2,503</div><div class="k">Live registrations</div></div>
+      <div class="bchip"><div class="v">1,761</div><div class="k">WhatsApp community</div></div>
+      <div class="bchip"><div class="v">35%</div><div class="k">Form → community</div></div>
+    </div>
+    <div class="kpis rv" style="margin-top:14px">
+      <div class="kpi"><div class="v">2,204 leads (44%)</div><div class="k">Came from one organic reel that went viral with no ad spend behind it.</div></div>
+      <div class="kpi"><div class="v">81 leads</div><div class="k">Produced by paid ads, across the whole campaign so far.</div></div>
+      <div class="kpi"><div class="v">27×</div><div class="k">Organic is outperforming paid. Week 1 had nothing on sale yet, this isn't paid "failing".</div></div>
+    </div>
+    <p class="note rv">Full walkthrough with screenshots: stratomai.com/tudor-funnel-recorrido.html</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag ember">2 · What today's meeting changed</span>
+      <h2>Six decisions from the call</h2>
+      <p class="lead">Made on the 30 July call, in progress or waiting on confirmation.</p>
+    </div>
+    <div class="cards">
+      <div class="card rv"><h3>WhatsApp opt-in becomes optional</h3><p>The /lives form stops requiring a WhatsApp number so the lead (name + email) is captured earlier, before the extra field causes drop-off.</p><span class="status pending">Not yet implemented</span></div>
+      <div class="card rv"><h3>3-step process moves into the hero</h3><p>The free packs / free lives / paid community ladder moves above the fold, visible without scrolling, instead of sitting below the testimonials.</p><span class="status done">Partially done overnight</span></div>
+      <div class="card rv"><h3>Launch goal: 200 members</h3><p>At $49.99/mo that's ~$10k/month recurring, which funds roughly $5k/month of ad budget for the bigger launch a month later. This cohort pays for its own growth.</p><span class="status">Target set</span></div>
+      <div class="card rv"><h3>Post-launch ad strategy changes</h3><p>After 9 August, ads stop pointing at the free funnel and go straight at the paid community, with new angles modeled on Angel's avatar approach ("If you are like Paco...").</p><span class="status">Scheduled for 9 Aug</span></div>
+      <div class="card rv"><h3>WhatsApp operations</h3><p>A second WhatsApp group splits the growing member count. GoHighLevel sends templated, personalized WhatsApp messages to anyone who opted in.</p><span class="status pending">In progress</span></div>
+      <div class="card rv"><h3>Tudor's task</h3><p>Record a 30-40 second video promoting the Sunday live and the paid community, in his own voice, for email/WhatsApp/social.</p><span class="status done">Delivered 30 Jul</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag">3 · Campaign week 1</span>
+      <h2>20–27 July, paid ads</h2>
+      <p class="lead">The paid community was not on sale yet, this was list building, not a sales campaign. Judge it by cost per lead and list quality, not revenue.</p>
+    </div>
+    <div class="kpis rv">
+      <div class="bchip"><div class="v">3,189 RON</div><div class="k">Spend (~638 EUR)</div></div>
+      <div class="bchip"><div class="v">108</div><div class="k">Leads</div></div>
+      <div class="bchip"><div class="v">29.5 RON</div><div class="k">Cost per lead (~5.90 EUR)</div></div>
+      <div class="bchip"><div class="v">61%</div><div class="k">Leads from one creative</div></div>
+    </div>
+
+    <h3 class="rv" style="margin:2.6rem 0 .4rem">Three audiences, one-sided result</h3>
+    <div class="roadwrap rv">
+      <table>
+        <thead><tr><th>Audience</th><th>Leads</th><th>Cost / lead</th><th>Read</th></tr></thead>
+        <tbody>
+          <tr class="rec-row"><td><b>Cold broad</b></td><td>91</td><td>25.7 RON</td><td>Wins clearly, no targeting beyond basic interest signals.</td></tr>
+          <tr><td>Retargeting</td><td>12</td><td>35.2 RON</td><td>Middle of the pack.</td></tr>
+          <tr><td>Buyer lookalike</td><td>5</td><td>86.2 RON</td><td>3-4× worse than cold, despite targeting past-buyer lookalikes.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note rv">At this stage of the funnel, broad cheap reach is outperforming precision targeting. Unusual, but worth taking seriously rather than assuming the lookalike just needs more time.</p>
+
+    <div class="watl" style="margin-top:2.6rem">
+      <div class="wrow rv"><div class="when">One creative carries it</div><div class="what">The Rasputin angle, the same historical hook that already went viral organically, produced <b>66 of 108 leads (61%)</b> at the second-best cost per lead in the account. This account's performance right now is the performance of one proven creative, not the campaign structure.</div></div>
+      <div class="wrow rv"><div class="when">The open question</div><div class="what">We lose <b>82%</b> of clicks between ad and landing page (1,076 link clicks, 189 page views). Either real drop-off inside Instagram's in-app browser, or a measurement gap. Until tested, we don't know if the real CPL is 5.90 EUR or meaningfully better. Highest-leverage thing to figure out before spending more.</div></div>
+    </div>
+
+    <h3 class="rv" style="margin:2.6rem 0 .4rem">Recommendation, in order</h3>
+    <div class="checklist">
+      <div class="check rv"><div class="box"></div><p><b>Fix or diagnose the click-to-page leak</b> before raising budget at all, spending into a leaking funnel just wastes more money at the same leak point.</p></div>
+      <div class="check rv"><div class="box"></div><p><b>Pause the buyer lookalike</b>, it isn't earning its cost at 3-4× the price of cold broad.</p></div>
+      <div class="check rv"><div class="box"></div><p><b>Make more Rasputin variations</b> rather than untested new angles, it's the one creative already proven to convert.</p></div>
+      <div class="check rv"><div class="box"></div><p><b>Hold off scaling spend</b> until the week of 2-9 August, the first week there's actually something to sell.</p></div>
+    </div>
+    <p class="note rv">Full data: "Tudor — Resultados campaña Meta Ads, semana 1" (internal) and "Meta Ads brief for external review" (EN, safe to forward).</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag ember">4 · Open items for tomorrow</span>
+      <h2>Before the meeting</h2>
+    </div>
+    <div class="checklist">
+      <div class="check rv"><div class="box"></div><p><b>Confirm and implement</b> the WhatsApp opt-in going optional on /lives, the change with the most direct effect on lead volume.</p></div>
+      <div class="check rv"><div class="box"></div><p><b>Decide</b> whether the external Meta Ads brief has already been sent to anyone, before it gets archived or reused.</p></div>
+      <div class="check rv"><div class="box"></div><p><b>Test</b> whether the click-to-landing-page gap is real drop-off or a measurement problem, before raising ad budget.</p></div>
+      <div class="check rv"><div class="box"></div><p><b>Confirm</b> the second WhatsApp group and GoHighLevel templates are still on track for before 9 August.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="text-align:center">
+  <div class="wrap">
+    <span class="tag rv">Next step</span>
+    <h2 class="rv">Track everything in the dashboard</h2>
+    <p class="lead rv" style="margin:0 auto 1.8rem">The tasks and the metrics live in the Stratoma panel.</p>
+    <a class="btn rv" href="https://stratomai.com/panel/projects/tudor/comando" target="_blank" rel="noopener">Open the tasks dashboard →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><div class="m">Tudor × Stratoma · Funnel + Campaign Summary · 31 July 2026</div></div>
+</footer>
+
+<script>
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}})},{threshold:.1,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i%6,5)*55)+'ms';io.observe(el);});
+</script>
+</body>
+</html>
