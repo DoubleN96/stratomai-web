@@ -41,15 +41,22 @@ section{padding-block:var(--sec);position:relative;border-top:1px solid var(--li
 .tag.today{color:#fff;background:var(--ember-ink);border-color:var(--ember-ink)}
 .btn{display:inline-flex;align-items:center;gap:.5em;background:var(--ink);color:var(--paper);text-decoration:none;font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;padding:14px 22px;border-radius:100px;transition:transform .3s,background .3s;margin-top:.4rem}
 .btn:hover{background:var(--blue-ink);transform:translateY(-2px)}
-.daychan{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:1.4rem}
-.chan{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px;transition:transform .3s,box-shadow .3s}
-.chan:hover{transform:translateY(-3px);box-shadow:0 20px 44px -28px rgba(60,73,214,.3)}
+.daychan{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:1.4rem;align-items:start}
+.chan{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px}
 .chan .clabel{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-ink);font-weight:700;margin-bottom:.6rem}
 .chan .ctime{font-family:var(--mono);font-size:.66rem;letter-spacing:.04em;color:var(--ink-soft);margin-bottom:.4rem}
 .chan p{font-size:.94rem;color:var(--ink-soft);line-height:1.5}
 .chan p b{color:var(--ink)}
 .chan.hot{border-color:var(--ember);background:#fdf6f2}
 .chan.hot .clabel{color:var(--ember-ink)}
+.why{margin-top:.7rem;padding-top:.7rem;border-top:1px dashed var(--line);font-size:.86rem;color:var(--ink-soft);font-style:italic}
+.why b{font-style:normal;color:var(--ink);font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;font-style:normal;display:block;margin-bottom:3px}
+details{margin-top:.8rem}
+summary{cursor:pointer;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-ink);font-weight:600;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+ ";color:var(--blue)}
+details[open] summary::before{content:"– "}
+.copy{white-space:pre-wrap;font-family:var(--body);font-size:.86rem;color:var(--ink-soft);line-height:1.55;background:#faf9f6;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-top:.6rem}
 .dayobj{font-size:.94rem;color:var(--ink-soft);max-width:64ch;margin-top:.3rem}
 .launchbar{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 22px;margin-top:1.2rem;display:flex;gap:12px 26px;flex-wrap:wrap;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
 .launchbar b{color:var(--ember-ink)}
@@ -65,7 +72,7 @@ footer a{color:var(--blue-ink)}
     <div class="num">W1</div>
     <div class="eyebrow rv">Tudor × Stratoma · Launch week</div>
     <h1 class="rv">Mon 3 <em>→</em> Sun 9 August</h1>
-    <p class="lead rv">Everything going out this week across Email, IG Stories and the WhatsApp community, day by day, channel by channel.</p>
+    <p class="lead rv">Everything going out this week across Email, IG Stories and the WhatsApp community — what it says, why it's there, and the full copy behind every summary.</p>
     <div class="objective rv"><b>Objective of the week:</b> get people to join the free WhatsApp community and show up to Sunday's 17:00 CET live, where the doors open and the founding price ($49.99/mo, first 200) is sold.</div>
   </div>
 </header>
@@ -73,11 +80,47 @@ footer a{color:var(--blue-ink)}
 <section>
   <div class="wrap">
     <span class="tag rv">Monday 3 Aug</span>
-    <p class="dayobj rv">Reactivate with social proof, first soft mention of limited spots.</p>
+    <p class="dayobj rv">Reactivate with a direct community mention, keep the group warm with real value.</p>
     <div class="daychan">
-      <div class="chan rv"><div class="clabel">Email</div><div class="ctime">11:00</div><p><b>"The replay, and the thing I said at the end"</b> — Sunday's replay + first mention of limited founding spots, no price yet.</p></div>
-      <div class="chan rv"><div class="clabel">IG Story</div><p><b>Direct community mention.</b> "This week I'm opening spots to my community, where I teach how to monetize by creating videos like the ones I make. Priority access + reduced price, join the free WhatsApp community, link in bio."</p></div>
-      <div class="chan rv"><div class="clabel">Community / WhatsApp</div><p><b>Selfie video: editing trick.</b> "Cut on movement, not stillness" — a real, honest tip, invites reactions with 🔥. No price talk today.</p></div>
+      <div class="chan rv">
+        <div class="clabel">Email</div><div class="ctime">11:00</div>
+        <p><b>"The replay, and the thing I said at the end"</b></p>
+        <div class="why"><b>Why</b>Replay email plus the first serious hint that something happens on the 9th. Plants the idea of limited spots without giving a price, the price stays the group's secret until day 6.</div>
+        <details><summary>Read full email</summary><pre class="copy">Hey,
+
+The replay from yesterday is up, and so is every file we used.
+
+If you only have ten minutes, watch the part where I open the automations. Half the messages I got last night were about that, and most of them said the same thing: I thought this took a team.
+
+It does not. It takes a system, and the system is boring, which is exactly why almost nobody builds it.
+
+One more thing before you go.
+
+Sunday 9 August, same time, is the last free class of this run. A full build from a blank page to a finished animation, live, including the parts I get wrong. At the end of it I open my community.
+
+There will be a limited number of founding places, and my WhatsApp group hears the price first. That is the deal I made with them.
+
+The 9th is the one to be at.
+
+One more thing. The link to every class goes out in my WhatsApp group first, and so does every prompt pack. If you are not in there yet, this is the door: https://chat.whatsapp.com/CuMwpaMQ8V227QFVm29MXU
+Tudor
+
+CTA: ▶ Watch the replay → tudormorari.ai/lives#lastlive</pre></details>
+      </div>
+      <div class="chan rv">
+        <div class="clabel">IG Story</div>
+        <p><b>Direct community mention</b> (new approach from today)</p>
+        <div class="why"><b>Why</b>This resets the tone from the subtler build-up we ran before: straight to what the community actually teaches (monetization), because that's what this audience cares about, plus a clear reason to join WhatsApp today, not just watch.</div>
+        <details><summary>Read full script</summary><pre class="copy">"Hey, quick one. As some of you know, this week I'm opening spots to my community, where I teach, among other things, how to actually monetize by creating videos like the ones I make. If you want priority access at a reduced price, join the free WhatsApp community, link in bio, so you don't miss anything. See you inside."</pre></details>
+      </div>
+      <div class="chan rv">
+        <div class="clabel">Community / WhatsApp</div>
+        <p><b>Selfie video: real editing trick</b>, no price talk</p>
+        <div class="why"><b>Why</b>A day of pure value keeps the group from feeling like it only hears sales pitches. A verifiable, honest tip Tudor can actually demonstrate, versus a claim we can't back up.</div>
+        <details><summary>Read full script</summary><pre class="copy">Video: "Quick editing trick nobody talks about. Always cut on movement, not on stillness. If you cut between two clips while something's actually moving, the motion hides the jump and it feels seamless. Cut on a still frame and your eye catches it instantly."
+
+Text underneath: "Cut on movement, not stillness. Try it on your next edit and drop a 🔥 if you can feel the difference."</pre></details>
+      </div>
     </div>
   </div>
 </section>
@@ -87,9 +130,47 @@ footer a{color:var(--blue-ink)}
     <span class="tag rv">Tuesday 4 Aug</span>
     <p class="dayobj rv">Pure value day, plus a poll to measure real audience interest before Sunday.</p>
     <div class="daychan">
-      <div class="chan rv"><div class="clabel">Email</div><div class="ctime">10:00</div><p><b>"You are not late"</b> — kills the "everyone's already doing AI" objection.</p></div>
-      <div class="chan rv"><div class="clabel">IG Story</div><p><b>Poll sticker.</b> "What do you want me to cover Sunday?" → New tools / Animated video creation / Monetizing with AI / Growing a faceless AI account. Result decides Wednesday's story.</p></div>
-      <div class="chan rv"><div class="clabel">Community / WhatsApp</div><p><b>Selfie video: quick tip.</b> "Stop doing three camera moves in one shot, pick one, slow it down." No selling.</p></div>
+      <div class="chan rv">
+        <div class="clabel">Email</div><div class="ctime">10:00</div>
+        <p><b>"You are not late"</b></p>
+        <div class="why"><b>Why</b>Objection email, six days before there's anything to buy. Kills "everyone's already doing AI, I'm late", the single objection that kills conversion most later in the sequence.</div>
+        <details><summary>Read full email</summary><pre class="copy">Hey,
+
+The message I get most often is a version of the same fear.
+
+Everyone is doing AI now. I missed it.
+
+Here is what I see from where I sit. There is more AI video being posted than ever, and the amount of it that is actually good has barely moved. Feeds are full of clips that look like clips. Same glide, same plastic light, same music, no reason for any of it to exist.
+
+Being early was never about the date. It is about being one of the few whose work looks like it cost something.
+
+That is still wide open. It is more open than it was two years ago, because the audience has now been trained to scroll past the lazy version, which means yours stops them harder.
+
+The people who own this in a year will not be the ones who started first. They will be the ones who got good on purpose while everyone else was posting defaults.
+
+Sunday 9 August, 17:00 CET, I build one from nothing, live. Last free class of this run.
+
+One more thing. The link to every class goes out in my WhatsApp group first, and so does every prompt pack. If you are not in there yet, this is the door: https://chat.whatsapp.com/CuMwpaMQ8V227QFVm29MXU
+Tudor
+
+CTA: 🔴 Save your seat</pre></details>
+      </div>
+      <div class="chan rv">
+        <div class="clabel">IG Story</div>
+        <p><b>Poll sticker</b>, decides Wednesday's topic</p>
+        <div class="why"><b>Why</b>This isn't just content, it's the only real signal of intent we get before Sunday. Whatever wins tells us what to actually cover live, and gives Wednesday's story a real reason to exist instead of another generic hook.</div>
+        <details><summary>Read full script</summary><pre class="copy">"Quick poll before Sunday's free live. I want it to actually be useful to you, so tell me, what do you want me to cover?"
+
+Poll options: New tools / Animated video creation / Monetizing with AI / Growing a faceless AI account</pre></details>
+      </div>
+      <div class="chan rv">
+        <div class="clabel">Community / WhatsApp</div>
+        <p><b>Selfie video: 30 second tip</b>, no selling</p>
+        <div class="why"><b>Why</b>Second value day in a row, keeps the "not just a sales channel" pattern before Wednesday's price reveal changes the tone.</div>
+        <details><summary>Read full script</summary><pre class="copy">Video: "Thirty second tip. Stop doing three camera moves in one shot, pick one, slow it down, hold it a beat longer than feels right. Try it today."
+
+Text underneath: "Tip of the day: pick ONE camera move per shot, not three. Slow it down more than feels natural, hold it a beat longer. Try it on your next generation and reply with what you get, I'll take a look."</pre></details>
+      </div>
     </div>
   </div>
 </section>
@@ -97,11 +178,47 @@ footer a{color:var(--blue-ink)}
 <section>
   <div class="wrap">
     <span class="tag today rv">Wednesday 5 Aug · INSIDER DAY</span>
-    <p class="dayobj rv">The price lands in WhatsApp first tonight, before anywhere else. That's the deal.</p>
+    <p class="dayobj rv">The price lands in WhatsApp first tonight, before anywhere else. That's the deal made with the group on day one.</p>
     <div class="daychan">
-      <div class="chan rv"><div class="clabel">Email</div><div class="ctime">10:00</div><p><b>"The part nobody warns you about"</b> — sells the room, not the product. No price.</p></div>
-      <div class="chan rv"><div class="clabel">IG Story</div><p>References the poll winner. "That's exactly what I'm covering Sunday. My WhatsApp group hears something big tonight, before anyone else." No price.</p></div>
-      <div class="chan hot rv"><div class="clabel">Community / WhatsApp</div><div class="ctime">18:00 · THE key message of the week</div><p><b>$49.99/mo, first 200, price locked for as long as you stay.</b> Announced here first. Morning video teases it without saying the number.</p></div>
+      <div class="chan rv">
+        <div class="clabel">Email</div><div class="ctime">10:00</div>
+        <p><b>"The part nobody warns you about"</b></p>
+        <div class="why"><b>Why</b>No price on purpose, the price still belongs to the group until tomorrow. This email sells the room, not the product — it's the emotional argument the whole offer rests on: what actually breaks people is doing this alone.</div>
+        <details><summary>Read full email</summary><pre class="copy">Hey,
+
+The hardest part of this was never the software.
+
+It was the second week. You have a video that is almost right and nobody in your life can tell you why it is not. Your friends say it looks amazing. Your family asks if it is a real job. And you sit there at midnight deciding, alone, whether the problem is the lighting, the pacing, or you.
+
+Talent is not what gets people through that. Company is.
+
+Every person I know who made this work had somewhere to take the half finished thing. A room where you can say I do not know what is wrong with this, and get a real answer the same day from somebody who was stuck on it last month.
+
+That is what I have been quietly building, and on Sunday 9 August I open it.
+
+I will tell you exactly what it costs tomorrow. My WhatsApp group hears it tonight, because that is the deal I made with them and I keep those.
+
+Sunday, 17:00 CET. Full build, live, and then the doors.
+
+One more thing. The link to every class goes out in my WhatsApp group first, and so does every prompt pack. If you are not in there yet, this is the door: https://chat.whatsapp.com/CuMwpaMQ8V227QFVm29MXU
+Tudor
+
+Image: the real classroom. CTA: 🔴 Save your seat</pre></details>
+      </div>
+      <div class="chan rv">
+        <div class="clabel">IG Story</div>
+        <p><b>References the poll winner</b>, still no price</p>
+        <div class="why"><b>Why</b>Closes the loop on Tuesday's poll (proves the vote mattered) and warms up tonight's announcement without leaking it — the price has to feel like it belongs to the group first.</div>
+        <details><summary>Read full script</summary><pre class="copy">"You voted, and [WINNING OPTION] won by a mile. That's exactly what I'm covering Sunday. Also, my WhatsApp group hears something important tonight before anyone else. If you're not in there, this is the moment to join, link in bio."</pre></details>
+      </div>
+      <div class="chan hot rv">
+        <div class="clabel">Community / WhatsApp</div><div class="ctime">18:00 · the key message of the week</div>
+        <p><b>$49.99/mo, first 200, price locked for as long as they stay</b></p>
+        <div class="why"><b>Why</b>The price is announced here first, before it's public and before email. This is what makes being in the group worth something, and day one already told them this moment was coming.</div>
+        <details><summary>Read full scripts</summary><pre class="copy">Morning video (before the price message): "Been getting the same question in my DMs all week, how do I actually make one of these. Answer's coming tonight, in this group first, before anywhere else. Keep your notifications on."
+
+18:00 text (already scheduled): "Told you the price would land here first. Sunday I open the community. The first 200 people get it at $49.99 a month and keep that price for as long as they stay. After the first 200 it goes up. The group stays free. The classes stay free. The packs stay free. The community is where the full process lives, the live sessions, and direct access to me. Sunday, 17:00 CET. Doors open on the call."</pre></details>
+      </div>
     </div>
   </div>
 </section>
@@ -111,9 +228,45 @@ footer a{color:var(--blue-ink)}
     <span class="tag rv">Thursday 6 Aug</span>
     <p class="dayobj rv">Price goes public, real urgency starts.</p>
     <div class="daychan">
-      <div class="chan rv"><div class="clabel">Email</div><div class="ctime">10:00</div><p><b>"What it costs"</b> — public price, 16h after the WhatsApp group heard it.</p></div>
-      <div class="chan rv"><div class="clabel">IG Story</div><p>"One week out" — countdown starts, still no price on IG.</p></div>
-      <div class="chan rv"><div class="clabel">Community / WhatsApp</div><p>Light touch: "One week today, see you Sunday" video + short text reminder.</p></div>
+      <div class="chan rv">
+        <div class="clabel">Email</div><div class="ctime">10:00</div>
+        <p><b>"What it costs"</b></p>
+        <div class="why"><b>Why</b>Public price, 16 hours after the group. The number gets said early and plainly, the anchor is the future price, never a fake struck-through number.</div>
+        <details><summary>Read full email</summary><pre class="copy">Hey,
+
+I told my WhatsApp group last night, so now you get it too.
+
+The community opens on Sunday 9 August, inside the live class. The first 200 people in pay $49.99 a month and keep that price for as long as they stay. After those 200 it goes up, and the ones who came in early keep paying what they locked.
+
+Here is what that buys.
+
+The full process, module by module, from the blank page to a finished animation. The live sessions, where you bring the thing that is not working and leave knowing what to change. Every new model and prompt tested before it reaches you. And the room itself, which is the part I could not put in a course even if I tried.
+
+The group stays free. The Sunday classes stay free. The packs stay free. Nothing you already have gets taken away and put behind a wall.
+
+This is only for the people who want to stop doing it alone.
+
+Sunday, 17:00 CET. I build one from nothing, live, and then the doors open.
+
+One more thing. The link to every class goes out in my WhatsApp group first, and so does every prompt pack. If you are not in there yet, this is the door: https://chat.whatsapp.com/CuMwpaMQ8V227QFVm29MXU
+Tudor
+
+CTA: 🔴 Save your seat</pre></details>
+      </div>
+      <div class="chan rv">
+        <div class="clabel">IG Story</div>
+        <p><b>"One week out"</b>, still no price on IG</p>
+        <div class="why"><b>Why</b>IG only gets the countdown once the price is already public, so the WhatsApp group keeps its edge of having known first, and IG doesn't accidentally scoop the group.</div>
+        <details><summary>Read full script</summary><pre class="copy">"One week out. What I'm building is a room where I walk you through this stuff live, not just prompts, the whole process. More very soon."</pre></details>
+      </div>
+      <div class="chan rv">
+        <div class="clabel">Community / WhatsApp</div>
+        <p><b>Light touch</b>, doesn't repeat the price</p>
+        <div class="why"><b>Why</b>The group already got the big message yesterday, today is just presence, not another sales push.</div>
+        <details><summary>Read full script</summary><pre class="copy">Video: "One week today. If you already know the price, this is just me saying, the room's actually going to be worth it, I've been building this for months. See you Sunday."
+
+Text: "One week to go. Doors open Sunday 17:00 CET. If you locked the founding price yesterday, see you inside."</pre></details>
+      </div>
     </div>
   </div>
 </section>
@@ -123,9 +276,43 @@ footer a{color:var(--blue-ink)}
     <span class="tag rv">Friday 7 Aug</span>
     <p class="dayobj rv">Strong social proof, last days before the live.</p>
     <div class="daychan">
-      <div class="chan rv"><div class="clabel">Email</div><div class="ctime">10:00</div><p><b>"Nika did it in three weeks"</b> — real member testimonial, video attached.</p></div>
-      <div class="chan rv"><div class="clabel">IG Story</div><p>"Getting more DMs than ever" — social urgency.</p></div>
-      <div class="chan rv"><div class="clabel">Community / WhatsApp</div><div class="ctime">18:00</div><p>Nika's video testimonial (already scheduled) + Tudor's own video right before it announcing the live build.</p></div>
+      <div class="chan rv">
+        <div class="clabel">Email</div><div class="ctime">10:00</div>
+        <p><b>"Nika did it in three weeks"</b></p>
+        <div class="why"><b>Why</b>Social proof two days out. One real person told in detail converts more than ten logos. No promised outcomes, just what she actually did.</div>
+        <details><summary>Read full email</summary><pre class="copy">Hey,
+
+Two days out, so let me tell you about Nika instead of telling you about me.
+
+Three weeks ago she had an empty account and a folder of clips she was embarrassed by. She had been watching, reading, saving posts. Not posting.
+
+What changed was not a tool. She stopped trying to make one perfect video and started finishing imperfect ones on a schedule, with somebody checking her work between attempts. Three weeks later she is past twelve thousand followers and she messages me about brand replies, not about prompts.
+
+Her clips are not magic. They are finished, and they look like a person made them. That is the entire gap.
+
+On Sunday at 17:00 CET I build one from a blank page, live, every decision out loud including the ones I get wrong. Then I open the community, and the first 200 lock $49.99 a month for as long as they stay.
+
+If you have been watching from the side for months, Sunday is a good day to stop.
+
+One more thing. The link to every class goes out in my WhatsApp group first, and so does every prompt pack. If you are not in there yet, this is the door: https://chat.whatsapp.com/CuMwpaMQ8V227QFVm29MXU
+Tudor
+
+Video: Nika's testimonial. CTA: 🔴 Save your seat</pre></details>
+      </div>
+      <div class="chan rv">
+        <div class="clabel">IG Story</div>
+        <p><b>"Getting more DMs than ever"</b></p>
+        <div class="why"><b>Why</b>Social urgency without a hard sell, DM volume is a real signal we can point to honestly.</div>
+        <details><summary>Read full script</summary><pre class="copy">"Getting more DMs about this than anything I've posted in months. It opens in a few days."</pre></details>
+      </div>
+      <div class="chan rv">
+        <div class="clabel">Community / WhatsApp</div><div class="ctime">18:00</div>
+        <p><b>Nika's video testimonial</b> + Tudor's own video before it</p>
+        <div class="why"><b>Why</b>Same proof point as the email, different format, so people who skim emails still see it. Tudor's video goes first to build anticipation for the actual live build.</div>
+        <details><summary>Read full script</summary><pre class="copy">Tudor's video (before Nika's testimonial): "Two days. I'm going to build a full animation from a blank page on Sunday, live, mistakes and all. Then the doors open. If you've been on the fence, this is the one to watch."
+
+18:00 text (already scheduled, with Nika's video attached): "Two days. Sunday I build one animation from nothing, live, and you watch every decision including the ones I get wrong. Then the doors open and the first 200 lock $49.99."</pre></details>
+      </div>
     </div>
   </div>
 </section>
@@ -135,9 +322,41 @@ footer a{color:var(--blue-ink)}
     <span class="tag rv">Saturday 8 Aug</span>
     <p class="dayobj rv">Sell attendance to the live, not the purchase yet.</p>
     <div class="daychan">
-      <div class="chan rv"><div class="clabel">Email</div><div class="ctime">11:00</div><p><b>"Tomorrow I build one from nothing"</b> — eve of launch.</p></div>
-      <div class="chan rv"><div class="clabel">IG Story</div><p>First time the price is said plainly on IG, link sticker.</p></div>
-      <div class="chan rv"><div class="clabel">Community / WhatsApp</div><p>Last reminder before the live, video + text.</p></div>
+      <div class="chan rv">
+        <div class="clabel">Email</div><div class="ctime">11:00</div>
+        <p><b>"Tomorrow I build one from nothing"</b></p>
+        <div class="why"><b>Why</b>Eve of launch. The play is getting people to actually watch the live, whoever shows up buys far more than whoever doesn't.</div>
+        <details><summary>Read full email</summary><pre class="copy">Hey,
+
+Tomorrow at 17:00 CET I sit down with a blank page and build a complete animation, live, in front of everyone.
+
+No finished timeline waiting off screen. If a shot comes out wrong you will watch me notice it and fix it, and that part is the actual lesson. Everybody can show you a finished piece. Almost nobody shows you the twenty minutes where it was not working.
+
+At the end I open the community, and the first 200 people in lock $49.99 a month for as long as they stay.
+
+If you have been waiting to see the whole thing done properly before you decide anything, tomorrow is that.
+
+Bring a question. I answer them live.
+
+One more thing. The link to every class goes out in my WhatsApp group first, and so does every prompt pack. If you are not in there yet, this is the door: https://chat.whatsapp.com/CuMwpaMQ8V227QFVm29MXU
+Tudor
+
+CTA: 🔴 Save your seat</pre></details>
+      </div>
+      <div class="chan rv">
+        <div class="clabel">IG Story</div>
+        <p><b>First plain price on IG</b>, link sticker</p>
+        <div class="why"><b>Why</b>First time IG says the mechanics outright, this late it doesn't undercut the group's earlier exclusive.</div>
+        <details><summary>Read full script</summary><pre class="copy">"Tomorrow, 17:00 CET, live. The community opens right after, first 200 people get the founding price. That's the whole announcement."</pre></details>
+      </div>
+      <div class="chan rv">
+        <div class="clabel">Community / WhatsApp</div>
+        <p><b>Last reminder before the live</b></p>
+        <div class="why"><b>Why</b>Final nudge before the event itself, no new argument needed at this point, just presence.</div>
+        <details><summary>Read full script</summary><pre class="copy">Video: "Tomorrow, 17:00 CET. I build one from nothing, live, then the doors open. First 200 lock the price. See you there."
+
+Text: "Tomorrow 17:00 CET, full build live, then doors open. First 200 lock $49.99. This is the last reminder before it happens."</pre></details>
+      </div>
     </div>
   </div>
 </section>
@@ -147,9 +366,54 @@ footer a{color:var(--blue-ink)}
     <span class="tag today rv">Sunday 9 Aug · LAUNCH DAY</span>
     <p class="dayobj rv">Maximum live attendance, then conversion the moment the doors open.</p>
     <div class="daychan">
-      <div class="chan rv"><div class="clabel">Email</div><div class="ctime">09:30 · 19:00 · 21:00</div><p>Morning reminder → open to full list at 19:00 → separate email only to live attendees at 21:00.</p></div>
-      <div class="chan rv"><div class="clabel">IG Story</div><p>Morning: "Today's the day." Full build live at 17:00 CET.</p></div>
-      <div class="chan hot rv"><div class="clabel">Community / WhatsApp</div><div class="ctime">09:00 · 16:45 · 18:15</div><p>Morning reminder → "live in 15" → <b>18:15 doors open, live, in real time.</b> This is where the sale actually happens.</p></div>
+      <div class="chan rv">
+        <div class="clabel">Email</div><div class="ctime">09:30 · 19:00 · 21:00</div>
+        <p><b>Three emails, three jobs</b></p>
+        <div class="why"><b>Why</b>Morning is just the link at decision time. 19:00 opens to everyone. 21:00 goes only to people who actually watched, they already saw the proof, they don't need convincing again.</div>
+        <details><summary>Read all three</summary><pre class="copy">09:30 — "Today"
+Today at 17:00 CET.
+A full build from a blank page, live, and then I open the doors.
+It is the last free class of this run. See you there.
+Tudor
+CTA: Join the class
+
+---
+
+19:00 (full list) — "The doors are open"
+Hey,
+The community is open.
+Inside: the full process from the idea to the finished animation, the live sessions where you bring what you are building, and direct access to me.
+The first 200 people get $49.99 a month and keep that price for as long as they stay. After that it goes up.
+If you have read every one of these emails this week and felt something move each time, this is the part where you find out whether that was interest or intent.
+Tudor
+CTA: Join now
+
+---
+
+21:00 (attendees only) — "You watched me build it. Now you do it."
+You saw the whole thing tonight, start to finish, including the part where it was not working.
+So you know now that it is not magic. It is a sequence, and a sequence can be learned.
+The community is where you run that sequence yourself, with the process written down and me in the room when you get stuck.
+First 200 at $49.99, locked for as long as you stay.
+Tudor
+CTA: Join now</pre></details>
+      </div>
+      <div class="chan rv">
+        <div class="clabel">IG Story</div>
+        <p><b>Morning: "Today's the day"</b></p>
+        <div class="why"><b>Why</b>Last touch on IG before the live, keeps it simple, the work is done by the previous six days.</div>
+        <details><summary>Read full script</summary><pre class="copy">"Today's the day. 17:00 CET, live, full build from a blank page, then I open the doors. Last free class of this run, and the last day to grab the founding price. See you inside."</pre></details>
+      </div>
+      <div class="chan hot rv">
+        <div class="clabel">Community / WhatsApp</div><div class="ctime">09:00 · 16:45 · 18:15</div>
+        <p><b>18:15 doors open, sent live during the stream</b></p>
+        <div class="why"><b>Why</b>This is the actual moment of the sale, sent the instant Tudor opens the doors on stream, not scheduled ahead. Everything else this week exists to get people watching at this exact minute.</div>
+        <details><summary>Read all three</summary><pre class="copy">09:00 — "Today. 17:00 CET. Full build from nothing, then the doors open."
+
+16:45 — "Live in 15 minutes. Here is the link."
+
+18:15 (sent live, the moment the doors open on stream) — "Doors are open. $49.99 a month for the first 200, locked for as long as you stay."</pre></details>
+      </div>
     </div>
     <div class="launchbar rv">Doors open <b>Sunday 17:00 CET</b> · $49.99/mo · first 200, locked for as long as they stay</div>
   </div>
@@ -157,9 +421,9 @@ footer a{color:var(--blue-ink)}
 
 <section style="text-align:center">
   <div class="wrap">
-    <span class="tag rv">Full detail</span>
-    <h2 class="rv">Word-for-word scripts live in the Sheet</h2>
-    <p class="lead rv" style="margin:0 auto 1.8rem">This page is the overview. Every email, every IG story script and every WhatsApp video/text, word for word, ready to record and send, is in the working sheet.</p>
+    <span class="tag rv">Working copy</span>
+    <h2 class="rv">Everything also lives in the Sheet</h2>
+    <p class="lead rv" style="margin:0 auto 1.8rem">Same content, spreadsheet format, easier to edit line by line before recording or sending.</p>
     <a class="btn rv" href="https://docs.google.com/spreadsheets/d/134v_2PSJ-a0yxZDqlQTq4RwupYeoRXHi-uZXWLQQth8/edit" target="_blank" rel="noopener">Open the calendar sheet →</a>
   </div>
 </section>
