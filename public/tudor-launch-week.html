@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Launch Week · 3-9 Aug — Tudor × Stratoma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F1F0EC;--ink:#0A0A0A;--ink-soft:#3a3a38;--line:#dedcd4;
+  --blue:#6C7CFF;--blue-ink:#3a49d6;--ember:#E8622C;--ember-ink:#b8471a;
+  --mono:'Inter',sans-serif;--display:'Sora',sans-serif;--body:'Inter',sans-serif;
+  --sec:clamp(3rem,2.2rem+3.5vw,6rem);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blue-ink);font-weight:600}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.05;letter-spacing:-.02em}
+h1{font-size:clamp(2.4rem,1.4rem+5vw,5rem)}
+h2{font-size:clamp(1.7rem,1.1rem+2.4vw,2.6rem);margin-bottom:.4em}
+h3{font-size:1.05rem;font-weight:700}
+section{padding-block:var(--sec);position:relative;border-top:1px solid var(--line)}
+.lead{font-size:clamp(1.02rem,.94rem+.5vw,1.2rem);color:var(--ink-soft);max-width:64ch}
+.hero{min-height:70vh;display:flex;flex-direction:column;justify-content:center;border-top:none;position:relative}
+.hero .num{position:absolute;right:-2vw;top:6vh;font-family:var(--display);font-weight:800;font-size:min(38vw,480px);color:var(--blue);opacity:.09;line-height:.8;z-index:0;pointer-events:none}
+.hero .inner{position:relative;z-index:1}
+.hero h1 em{font-style:normal;color:var(--blue-ink)}
+.hero .lead{margin-top:1.2rem}
+.objective{margin-top:1.6rem;background:#fff;border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:14px;padding:20px 24px;font-size:1.02rem;color:var(--ink-soft);max-width:70ch}
+.objective b{color:var(--ink)}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rv.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+.sec-head{margin-bottom:1.8rem;max-width:64ch}
+.tag{display:inline-block;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-ink);border:1px solid var(--blue);border-radius:100px;padding:5px 12px;margin-bottom:1rem}
+.tag.ember{color:var(--ember-ink);border-color:var(--ember)}
+.tag.today{color:#fff;background:var(--ember-ink);border-color:var(--ember-ink)}
+.btn{display:inline-flex;align-items:center;gap:.5em;background:var(--ink);color:var(--paper);text-decoration:none;font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;padding:14px 22px;border-radius:100px;transition:transform .3s,background .3s;margin-top:.4rem}
+.btn:hover{background:var(--blue-ink);transform:translateY(-2px)}
+.daychan{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:1.4rem}
+.chan{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px;transition:transform .3s,box-shadow .3s}
+.chan:hover{transform:translateY(-3px);box-shadow:0 20px 44px -28px rgba(60,73,214,.3)}
+.chan .clabel{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-ink);font-weight:700;margin-bottom:.6rem}
+.chan .ctime{font-family:var(--mono);font-size:.66rem;letter-spacing:.04em;color:var(--ink-soft);margin-bottom:.4rem}
+.chan p{font-size:.94rem;color:var(--ink-soft);line-height:1.5}
+.chan p b{color:var(--ink)}
+.chan.hot{border-color:var(--ember);background:#fdf6f2}
+.chan.hot .clabel{color:var(--ember-ink)}
+.dayobj{font-size:.94rem;color:var(--ink-soft);max-width:64ch;margin-top:.3rem}
+.launchbar{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 22px;margin-top:1.2rem;display:flex;gap:12px 26px;flex-wrap:wrap;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.launchbar b{color:var(--ember-ink)}
+footer{padding:48px 0;border-top:1px solid var(--line);text-align:center}
+footer .m{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+footer a{color:var(--blue-ink)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap inner">
+    <div class="num">W1</div>
+    <div class="eyebrow rv">Tudor × Stratoma · Launch week</div>
+    <h1 class="rv">Mon 3 <em>→</em> Sun 9 August</h1>
+    <p class="lead rv">Everything going out this week across Email, IG Stories and the WhatsApp community, day by day, channel by channel.</p>
+    <div class="objective rv"><b>Objective of the week:</b> get people to join the free WhatsApp community and show up to Sunday's 17:00 CET live, where the doors open and the founding price ($49.99/mo, first 200) is sold.</div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv">Monday 3 Aug</span>
+    <p class="dayobj rv">Reactivate with social proof, first soft mention of limited spots.</p>
+    <div class="daychan">
+      <div class="chan rv"><div class="clabel">Email</div><div class="ctime">11:00</div><p><b>"The replay, and the thing I said at the end"</b> — Sunday's replay + first mention of limited founding spots, no price yet.</p></div>
+      <div class="chan rv"><div class="clabel">IG Story</div><p><b>Direct community mention.</b> "This week I'm opening spots to my community, where I teach how to monetize by creating videos like the ones I make. Priority access + reduced price, join the free WhatsApp community, link in bio."</p></div>
+      <div class="chan rv"><div class="clabel">Community / WhatsApp</div><p><b>Selfie video: editing trick.</b> "Cut on movement, not stillness" — a real, honest tip, invites reactions with 🔥. No price talk today.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv">Tuesday 4 Aug</span>
+    <p class="dayobj rv">Pure value day, plus a poll to measure real audience interest before Sunday.</p>
+    <div class="daychan">
+      <div class="chan rv"><div class="clabel">Email</div><div class="ctime">10:00</div><p><b>"You are not late"</b> — kills the "everyone's already doing AI" objection.</p></div>
+      <div class="chan rv"><div class="clabel">IG Story</div><p><b>Poll sticker.</b> "What do you want me to cover Sunday?" → New tools / Animated video creation / Monetizing with AI / Growing a faceless AI account. Result decides Wednesday's story.</p></div>
+      <div class="chan rv"><div class="clabel">Community / WhatsApp</div><p><b>Selfie video: quick tip.</b> "Stop doing three camera moves in one shot, pick one, slow it down." No selling.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag today rv">Wednesday 5 Aug · INSIDER DAY</span>
+    <p class="dayobj rv">The price lands in WhatsApp first tonight, before anywhere else. That's the deal.</p>
+    <div class="daychan">
+      <div class="chan rv"><div class="clabel">Email</div><div class="ctime">10:00</div><p><b>"The part nobody warns you about"</b> — sells the room, not the product. No price.</p></div>
+      <div class="chan rv"><div class="clabel">IG Story</div><p>References the poll winner. "That's exactly what I'm covering Sunday. My WhatsApp group hears something big tonight, before anyone else." No price.</p></div>
+      <div class="chan hot rv"><div class="clabel">Community / WhatsApp</div><div class="ctime">18:00 · THE key message of the week</div><p><b>$49.99/mo, first 200, price locked for as long as you stay.</b> Announced here first. Morning video teases it without saying the number.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv">Thursday 6 Aug</span>
+    <p class="dayobj rv">Price goes public, real urgency starts.</p>
+    <div class="daychan">
+      <div class="chan rv"><div class="clabel">Email</div><div class="ctime">10:00</div><p><b>"What it costs"</b> — public price, 16h after the WhatsApp group heard it.</p></div>
+      <div class="chan rv"><div class="clabel">IG Story</div><p>"One week out" — countdown starts, still no price on IG.</p></div>
+      <div class="chan rv"><div class="clabel">Community / WhatsApp</div><p>Light touch: "One week today, see you Sunday" video + short text reminder.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv">Friday 7 Aug</span>
+    <p class="dayobj rv">Strong social proof, last days before the live.</p>
+    <div class="daychan">
+      <div class="chan rv"><div class="clabel">Email</div><div class="ctime">10:00</div><p><b>"Nika did it in three weeks"</b> — real member testimonial, video attached.</p></div>
+      <div class="chan rv"><div class="clabel">IG Story</div><p>"Getting more DMs than ever" — social urgency.</p></div>
+      <div class="chan rv"><div class="clabel">Community / WhatsApp</div><div class="ctime">18:00</div><p>Nika's video testimonial (already scheduled) + Tudor's own video right before it announcing the live build.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv">Saturday 8 Aug</span>
+    <p class="dayobj rv">Sell attendance to the live, not the purchase yet.</p>
+    <div class="daychan">
+      <div class="chan rv"><div class="clabel">Email</div><div class="ctime">11:00</div><p><b>"Tomorrow I build one from nothing"</b> — eve of launch.</p></div>
+      <div class="chan rv"><div class="clabel">IG Story</div><p>First time the price is said plainly on IG, link sticker.</p></div>
+      <div class="chan rv"><div class="clabel">Community / WhatsApp</div><p>Last reminder before the live, video + text.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <span class="tag today rv">Sunday 9 Aug · LAUNCH DAY</span>
+    <p class="dayobj rv">Maximum live attendance, then conversion the moment the doors open.</p>
+    <div class="daychan">
+      <div class="chan rv"><div class="clabel">Email</div><div class="ctime">09:30 · 19:00 · 21:00</div><p>Morning reminder → open to full list at 19:00 → separate email only to live attendees at 21:00.</p></div>
+      <div class="chan rv"><div class="clabel">IG Story</div><p>Morning: "Today's the day." Full build live at 17:00 CET.</p></div>
+      <div class="chan hot rv"><div class="clabel">Community / WhatsApp</div><div class="ctime">09:00 · 16:45 · 18:15</div><p>Morning reminder → "live in 15" → <b>18:15 doors open, live, in real time.</b> This is where the sale actually happens.</p></div>
+    </div>
+    <div class="launchbar rv">Doors open <b>Sunday 17:00 CET</b> · $49.99/mo · first 200, locked for as long as they stay</div>
+  </div>
+</section>
+
+<section style="text-align:center">
+  <div class="wrap">
+    <span class="tag rv">Full detail</span>
+    <h2 class="rv">Word-for-word scripts live in the Sheet</h2>
+    <p class="lead rv" style="margin:0 auto 1.8rem">This page is the overview. Every email, every IG story script and every WhatsApp video/text, word for word, ready to record and send, is in the working sheet.</p>
+    <a class="btn rv" href="https://docs.google.com/spreadsheets/d/134v_2PSJ-a0yxZDqlQTq4RwupYeoRXHi-uZXWLQQth8/edit" target="_blank" rel="noopener">Open the calendar sheet →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><div class="m">Tudor × Stratoma · Launch Week 3-9 Aug 2026</div></div>
+</footer>
+
+<script>
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}})},{threshold:.1,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i%6,5)*55)+'ms';io.observe(el);});
+</script>
+</body>
+</html>
