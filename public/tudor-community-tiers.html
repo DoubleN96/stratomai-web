@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Comunidad Tudor · Escalera de valor + Evergreen — Tudor × Stratoma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F1F0EC;--ink:#0A0A0A;--ink-soft:#3a3a38;--line:#dedcd4;
+  --blue:#6C7CFF;--blue-ink:#3a49d6;--ember:#E8622C;--ember-ink:#b8471a;
+  --lime:#C8FF00;--lime-ink:#4F7500;
+  --mono:'Inter',sans-serif;--display:'Sora',sans-serif;--body:'Inter',sans-serif;
+  --sec:clamp(3rem,2.2rem+3.5vw,6rem);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blue-ink);font-weight:600}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.05;letter-spacing:-.02em}
+h1{font-size:clamp(2.2rem,1.3rem+4.5vw,4.6rem)}
+h2{font-size:clamp(1.6rem,1.05rem+2.2vw,2.4rem);margin-bottom:.5em}
+h3{font-size:1.1rem;font-weight:700;margin-bottom:.3em}
+section{padding-block:var(--sec);position:relative;border-top:1px solid var(--line)}
+.lead{font-size:clamp(1.02rem,.94rem+.5vw,1.2rem);color:var(--ink-soft);max-width:64ch}
+.hero{min-height:66vh;display:flex;flex-direction:column;justify-content:center;border-top:none;position:relative}
+.hero .num{position:absolute;right:-2vw;top:4vh;font-family:var(--display);font-weight:800;font-size:min(32vw,420px);color:var(--blue);opacity:.09;line-height:.8;z-index:0;pointer-events:none}
+.hero .inner{position:relative;z-index:1}
+.hero h1 em{font-style:normal;color:var(--blue-ink)}
+.hero .lead{margin-top:1.2rem}
+.langbar{position:fixed;top:18px;right:22px;z-index:50;display:flex;gap:6px;background:#fff;border:1px solid var(--line);border-radius:100px;padding:4px;box-shadow:0 4px 18px rgba(0,0,0,.06)}
+.langbar button{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;font-weight:700;border:none;background:none;padding:7px 13px;border-radius:100px;cursor:pointer;color:var(--ink-soft)}
+.langbar button.on{background:var(--ink);color:var(--paper)}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rv.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+.tag{display:inline-block;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-ink);border:1px solid var(--blue);border-radius:100px;padding:5px 12px;margin-bottom:1rem}
+.tag.ember{color:var(--ember-ink);border-color:var(--ember)}
+.tag.pending{color:var(--ember-ink);border-color:var(--ember);background:#fdf6f2}
+.grid3{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:1.6rem}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 24px}
+.card.hi{border-color:var(--blue);box-shadow:0 6px 24px rgba(108,124,255,.1)}
+.card .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-ink);font-weight:700;margin-bottom:.5rem}
+.card .price{font-family:var(--display);font-weight:800;font-size:1.5rem;margin-bottom:.5rem}
+.card ul{margin:.6rem 0 0 1.1rem;font-size:.92rem;color:var(--ink-soft)}
+.card ul li{margin-bottom:.35rem}
+ul.plain{margin:1.2rem 0 0 1.1rem}
+ul.plain li{margin-bottom:.6rem;font-size:1rem;color:var(--ink-soft)}
+ul.plain li b{color:var(--ink)}
+.flow{margin-top:1.6rem;display:flex;flex-direction:column;gap:6px}
+.flow .step{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:.95rem;color:var(--ink-soft)}
+.flow .step b{color:var(--ink)}
+.flow .arrow{font-family:var(--mono);color:var(--blue-ink);font-size:.8rem;padding-left:6px}
+.week{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:1.6rem}
+.week .d{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.week .d .day{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-ink);font-weight:700;margin-bottom:.4rem}
+.week .d p{font-size:.9rem;color:var(--ink-soft)}
+.objective{margin-top:1.6rem;background:#fff;border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:14px;padding:20px 24px;font-size:1.02rem;color:var(--ink-soft);max-width:70ch}
+.objective b{color:var(--ink)}
+.warn{margin-top:1.6rem;background:#fdf6f2;border:1px solid var(--ember);border-left:4px solid var(--ember);border-radius:14px;padding:20px 24px;font-size:1rem;color:var(--ink-soft);max-width:72ch}
+.warn b{color:var(--ember-ink)}
+.phases{counter-reset:ph;margin-top:1.6rem;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.phases .ph{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px;position:relative}
+.phases .ph::before{counter-increment:ph;content:counter(ph);position:absolute;top:-14px;left:18px;background:var(--ink);color:var(--paper);font-family:var(--display);font-weight:800;font-size:.9rem;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.phases .ph p{font-size:.92rem;color:var(--ink-soft);margin-top:.4rem}
+.daychan{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:1.2rem}
+.chan{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.chan.hot{border-color:var(--ember);background:#fdf6f2}
+.chan .clabel{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-ink);font-weight:700;margin-bottom:.4rem}
+.chan.hot .clabel{color:var(--ember-ink)}
+.chan p{font-size:.9rem;color:var(--ink-soft)}
+.btn{display:inline-flex;align-items:center;gap:.5em;background:var(--ink);color:var(--paper);text-decoration:none;font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;padding:14px 22px;border-radius:100px;transition:transform .3s,background .3s;margin-top:.4rem;margin-right:10px}
+.btn:hover{background:var(--blue-ink);transform:translateY(-2px)}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+footer{padding:48px 0;border-top:1px solid var(--line);text-align:center}
+footer .m{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+footer a{color:var(--blue-ink)}
+</style>
+</head>
+<body>
+
+<div class="langbar">
+  <button id="btn-es" class="on" onclick="setLang('es')">ES</button>
+  <button id="btn-en" onclick="setLang('en')">EN</button>
+</div>
+
+<header class="hero">
+  <div class="wrap inner">
+    <div class="num">3</div>
+    <div class="eyebrow rv">Tudor × Stratoma</div>
+    <h1 class="rv" data-es="Comunidad: escalera de valor <em>+</em> evergreen" data-en="Community: value ladder <em>+</em> evergreen">Comunidad: escalera de valor <em>+</em> evergreen</h1>
+    <p class="lead rv" data-es="Producto, técnica y comunicación en un solo sitio: los 3 escalones, cómo se construyen de verdad, cómo se cobra, cómo se gestiona el día a día, y lo que sale esta semana." data-en="Product, technical build, and communication in one place: the 3 tiers, how they actually get built, how money moves, how the community runs day to day, and what's going out this week.">Producto, técnica y comunicación en un solo sitio: los 3 escalones, cómo se construyen de verdad, cómo se cobra, cómo se gestiona el día a día, y lo que sale esta semana.</p>
+    <div class="objective rv">
+      <b data-es="Estado hoy, 5-ago:" data-en="Status today, Aug 5:">Estado hoy, 5-ago:</b>
+      <span data-es=" free y low ticket ya existen y ya cobran ($49,99/mes). High ticket sin fecha. Esta noche a las 18:00 el precio se anuncia por primera vez en el grupo de WhatsApp." data-en=" free and low ticket already exist and already charge ($49.99/month). High ticket has no date yet. Tonight at 18:00 the price gets announced for the first time in the WhatsApp group."> free y low ticket ya existen y ya cobran ($49,99/mes). High ticket sin fecha. Esta noche a las 18:00 el precio se anuncia por primera vez en el grupo de WhatsApp.</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv" data-es="El problema" data-en="The problem">El problema</span>
+    <h2 class="rv" data-es="Por qué esto hace falta" data-en="Why this is needed">Por qué esto hace falta</h2>
+    <ul class="plain rv">
+      <li data-es="<b>814 miembros</b> en Skool, solo <b>13 pagan</b> ($370 MRR)" data-en="<b>814 members</b> on Skool, only <b>13 pay</b> ($370 MRR)"><b>814 miembros</b> en Skool, solo <b>13 pagan</b> ($370 MRR)</li>
+      <li data-es="Feed casi sin actividad: <b>7 posts</b> en todo el histórico" data-en="Feed is almost inactive: <b>7 posts</b> in the entire history">Feed casi sin actividad: <b>7 posts</b> en todo el histórico</li>
+      <li data-es="Salto demasiado grande entre &quot;contenido gratis en redes&quot; y &quot;cómprate la comunidad&quot;, sin escalón intermedio" data-en="Too big a jump between &quot;free content on social&quot; and &quot;buy the community&quot;, no middle step">Salto demasiado grande entre "contenido gratis en redes" y "cómprate la comunidad", sin escalón intermedio</li>
+      <li data-es="No enseñamos a monetizar de forma explícita: el módulo &quot;Monetise&quot; existe pero está escondido" data-en="We don't explicitly teach monetization: the &quot;Monetise&quot; module exists but is hidden">No enseñamos a monetizar de forma explícita: el módulo "Monetise" existe pero está escondido</li>
+      <li data-es="Tudor está infra-monetizado frente a competidores más pequeños con más escalones de precio" data-en="Tudor is under-monetized compared to smaller competitors with more price tiers">Tudor está infra-monetizado frente a competidores más pequeños con más escalones de precio</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv" data-es="La escalera" data-en="The ladder">La escalera</span>
+    <h2 class="rv" data-es="3 escalones, 3 preguntas distintas" data-en="3 tiers, 3 different questions">3 escalones, 3 preguntas distintas</h2>
+    <p class="lead rv" data-es="Cada paso responde una pregunta y deja con ganas del siguiente. Nadie compra el de arriba sin creer primero que puede hacer el de abajo." data-en="Each step answers a question and leaves you wanting the next one. Nobody buys the top tier without first believing they can do the one below it.">Cada paso responde una pregunta y deja con ganas del siguiente. Nadie compra el de arriba sin creer primero que puede hacer el de abajo.</p>
+    <div class="grid3">
+      <div class="card rv">
+        <div class="k" data-es="Escalón 1 · ¿Puedo hacerlo?" data-en="Tier 1 · Can I do this?">Escalón 1 · ¿Puedo hacerlo?</div>
+        <div class="price">FREE</div>
+        <ul>
+          <li data-es="Comunidad gratuita de Skool (ya existe)" data-en="Free Skool community (already exists)">Comunidad gratuita de Skool (ya existe)</li>
+          <li data-es="Reto de 7 días, primer resultado real" data-en="7-day challenge, real first result">Reto de 7 días, primer resultado real</li>
+          <li data-es="Prompts de gancho, NO los reales de Tudor" data-en="Hook prompts, NOT Tudor's real ones">Prompts de gancho, NO los reales de Tudor</li>
+        </ul>
+      </div>
+      <div class="card hi rv">
+        <div class="k" data-es="Escalón 2 · ¿Puedo hacerlo bien?" data-en="Tier 2 · Can I do it well?">Escalón 2 · ¿Puedo hacerlo bien?</div>
+        <div class="price">LOW TICKET</div>
+        <ul>
+          <li data-es="$49,99/mes · ya construido y cobrando" data-en="$49.99/month · already built and charging">$49,99/mes · ya construido y cobrando</li>
+          <li data-es="Classroom completo + prompts y engines reales" data-en="Full Classroom + real prompts and engines">Classroom completo + prompts y engines reales</li>
+          <li data-es="Directos semanales + retos con premio y feedback" data-en="Weekly live sessions + challenges with prize and feedback">Directos semanales + retos con premio y feedback</li>
+          <li data-es="Primeros 200, precio fijo mientras sigan dentro" data-en="First 200, price locked as long as they stay">Primeros 200, precio fijo mientras sigan dentro</li>
+        </ul>
+      </div>
+      <div class="card rv">
+        <div class="k" data-es="Escalón 3 · ¿Puedo ganar dinero?" data-en="Tier 3 · Can I make money?">Escalón 3 · ¿Puedo ganar dinero?</div>
+        <div class="price">HIGH TICKET</div>
+        <ul>
+          <li data-es="Curso de captación de clientes de agencia (ya grabado)" data-en="Agency client-acquisition course (already recorded)">Curso de captación de clientes de agencia (ya grabado)</li>
+          <li data-es="Mentorías 1:many en vivo + revisión de casos individual" data-en="Live 1:many mentorship + individual case review">Mentorías 1:many en vivo + revisión de casos individual</li>
+          <li data-es="$97-147/mes o 300-400€ (dos cifras sobre la mesa)" data-en="$97-147/month or 300-400€ (two figures on the table)">$97-147/mes o 300-400€ (dos cifras sobre la mesa)</li>
+          <li data-es="Sin fecha de apertura, decisión de Dani (3-ago)" data-en="No opening date, Dani's decision (Aug 3)">Sin fecha de apertura, decisión de Dani (3-ago)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv" data-es="Monetización" data-en="Monetization">Monetización</span>
+    <h2 class="rv" data-es="Eje central, no un módulo escondido" data-en="The central axis, not a hidden module">Eje central, no un módulo escondido</h2>
+    <ul class="plain rv">
+      <li data-es="Desde el low ticket, un módulo corto con 2-3 caminos reales para ganar dinero" data-en="From low ticket onward, a short module with 2-3 real ways to make money">Desde el low ticket, un módulo corto con 2-3 caminos reales para ganar dinero</li>
+      <li data-es="Prueba social constante: casos reales de dinero, no solo &quot;qué vídeo tan chulo&quot;" data-en="Constant social proof: real money cases, not just &quot;look at this cool video&quot;">Prueba social constante: casos reales de dinero, no solo "qué vídeo tan chulo"</li>
+      <li data-es="Sigue el giro de los ads: de &quot;make money&quot; a &quot;crecimiento + monetización&quot;" data-en="Follows the ads shift: from &quot;make money&quot; to &quot;growth + monetization&quot;">Sigue el giro de los ads: de "make money" a "crecimiento + monetización"</li>
+      <li data-es="La gente no deja de pagar por falta de contenido, deja de pagar cuando no le sirve para algo concreto" data-en="People don't stop paying for lack of content, they stop when it's not clearly useful">La gente no deja de pagar por falta de contenido, deja de pagar cuando no le sirve para algo concreto</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv" data-es="El funnel" data-en="The funnel">El funnel</span>
+    <h2 class="rv" data-es="El nuevo recorrido del CTA" data-en="The new CTA journey">El nuevo recorrido del CTA</h2>
+    <div class="flow rv">
+      <div class="step" data-es="Contenido en redes (stories, posts, reels)" data-en="Content on social (stories, posts, reels)">Contenido en redes (stories, posts, reels)</div>
+      <div class="arrow" data-es="↓ CTA: &quot;únete gratis&quot; / comment-to-DM vía ManyChat" data-en="↓ CTA: &quot;join for free&quot; / comment-to-DM via ManyChat">↓ CTA: "únete gratis" / comment-to-DM vía ManyChat</div>
+      <div class="step" data-es="Comunidad Skool GRATIS → reto de 7 días → primer resultado real" data-en="FREE Skool community → 7-day challenge → real first result">Comunidad Skool GRATIS → reto de 7 días → primer resultado real</div>
+      <div class="arrow" data-es="↓ &quot;esto es solo el principio, en la comunidad completa tienes...&quot;" data-en="↓ &quot;this is just the beginning, the full community gives you...&quot;">↓ "esto es solo el principio, en la comunidad completa tienes..."</div>
+      <div class="step" data-es="Comunidad de pago (low ticket) → módulo intro de monetización" data-en="Paid community (low ticket) → monetization intro module">Comunidad de pago (low ticket) → módulo intro de monetización</div>
+      <div class="arrow">↓</div>
+      <div class="step" data-es="High ticket (monetización a fondo)" data-en="High ticket (monetization in depth)">High ticket (monetización a fondo)</div>
+    </div>
+    <p class="lead rv" style="margin-top:1.2rem" data-es="El CTA va al gratis, no al pago directo: el tráfico orgánico necesita un paso intermedio, a diferencia del tráfico de ads ya calificado." data-en="The CTA goes to free, not straight to paid: organic traffic needs a middle step, unlike already-qualified ad traffic.">El CTA va al gratis, no al pago directo: el tráfico orgánico necesita un paso intermedio, a diferencia del tráfico de ads ya calificado.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv" data-es="Motor evergreen" data-en="Evergreen engine">Motor evergreen</span>
+    <h2 class="rv" data-es="Contenido semanal, se repite siempre" data-en="Weekly content, repeats forever">Contenido semanal, se repite siempre</h2>
+    <div class="week rv">
+      <div class="d"><div class="day" data-es="Lunes" data-en="Monday">Lunes</div><p data-es="Prueba social: resultado de un miembro o de Tudor" data-en="Social proof: a member's or Tudor's result">Prueba social: resultado de un miembro o de Tudor</p></div>
+      <div class="d"><div class="day" data-es="Martes" data-en="Tuesday">Martes</div><p data-es="Detrás de cámaras, sin CTA" data-en="Behind the scenes, no CTA">Detrás de cámaras, sin CTA</p></div>
+      <div class="d"><div class="day" data-es="Miércoles" data-en="Wednesday">Miércoles</div><p data-es="Reto de 7 días: mini-tutorial + CTA directo" data-en="7-day challenge: mini-tutorial + direct CTA">Reto de 7 días: mini-tutorial + CTA directo</p></div>
+      <div class="d"><div class="day" data-es="Jueves" data-en="Thursday">Jueves</div><p data-es="Monetización: historia real de alguien ganando dinero" data-en="Monetization: a real story of someone making money">Monetización: historia real de alguien ganando dinero</p></div>
+      <div class="d"><div class="day" data-es="Viernes" data-en="Friday">Viernes</div><p data-es="Interacción: pregunta/encuesta, comment-to-DM" data-en="Engagement: poll/question, comment-to-DM">Interacción: pregunta/encuesta, comment-to-DM</p></div>
+      <div class="d"><div class="day" data-es="Sábado" data-en="Saturday">Sábado</div><p data-es="Recap semanal + CTA directo" data-en="Weekly recap + direct CTA">Recap semanal + CTA directo</p></div>
+      <div class="d"><div class="day" data-es="Domingo" data-en="Sunday">Domingo</div><p data-es="Directo o contenido libre" data-en="Live session or free-form content">Directo o contenido libre</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv" data-es="Técnico" data-en="Technical">Técnico</span>
+    <h2 class="rv" data-es="Cómo se crean los tiers, de verdad" data-en="How the tiers actually get built">Cómo se crean los tiers, de verdad</h2>
+    <ul class="plain rv">
+      <li data-es="FREE y LOW TICKET ya existen y ya cobran ($49,99/mes)" data-en="FREE and LOW TICKET already exist and already charge ($49.99/month)">FREE y LOW TICKET ya existen y ya cobran ($49,99/mes)</li>
+      <li data-es="Stratoma = admin de Skool, sin pestaña de precios ni cobros. Solo Tudor, como owner, crea planes nuevos" data-en="Stratoma = Skool admin, no pricing or billing tab. Only Tudor, as owner, can create new plans">Stratoma = admin de Skool, sin pestaña de precios ni cobros. Solo Tudor, como owner, crea planes nuevos</li>
+      <li data-es="Pregunta pendiente: ¿Skool permite varios planes en la misma comunidad? Solo Tudor puede comprobarlo" data-en="Open question: does Skool allow multiple plans in one community? Only Tudor can check">Pregunta pendiente: ¿Skool permite varios planes en la misma comunidad? Solo Tudor puede comprobarlo</li>
+      <li data-es="<b>Camino A</b> (si sí): segundo plan dentro de Skool + curso gated por nivel" data-en="<b>Path A</b> (if yes): a second plan inside Skool + a course gated by level"><b>Camino A</b> (si sí): segundo plan dentro de Skool + curso gated por nivel</li>
+      <li data-es="<b>Camino B</b> (si no): checkout aparte con GHL + contacto humano fuera de Skool" data-en="<b>Path B</b> (if no): a separate checkout with GHL + human contact outside Skool"><b>Camino B</b> (si no): checkout aparte con GHL + contacto humano fuera de Skool</li>
+    </ul>
+    <div class="warn rv">
+      <b data-es="Cómo se cobra y reparte:" data-en="How money is charged and split:">Cómo se cobra y reparte:</b>
+      <span data-es=" Skool cobra a la cuenta de Tudor, sin Stripe Connect automático. Tudor paga a Stratoma su 50% manualmente, ya decidido." data-en=" Skool charges Tudor's account, no automatic Stripe Connect. Tudor pays Stratoma's 50% manually, already decided."> Skool cobra a la cuenta de Tudor, sin Stripe Connect automático. Tudor paga a Stratoma su 50% manualmente, ya decidido.</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv" data-es="Operación" data-en="Operations">Operación</span>
+    <h2 class="rv" data-es="Manejo de la comunidad, semana a semana" data-en="Running the community, week by week">Manejo de la comunidad, semana a semana</h2>
+    <ul class="plain rv">
+      <li data-es="Likes y comentarios diarios del equipo: única forma real de subir de nivel" data-en="Daily likes and comments from the team: the only real way to level up">Likes y comentarios diarios del equipo: única forma real de subir de nivel</li>
+      <li data-es="Retos con fecha fija, feedback solo a quien paga, premio al cierre" data-en="Challenges with a fixed date, feedback only for paying members, prize at close">Retos con fecha fija, feedback solo a quien paga, premio al cierre</li>
+      <li data-es="Moderación diaria del feed: spam, preguntas sin responder" data-en="Daily feed moderation: spam, unanswered questions">Moderación diaria del feed: spam, preguntas sin responder</li>
+      <li data-es="Roles: <b>Tudor reactivo</b> (graba/aporta), <b>Stratoma proactivo</b> (opera el día a día)" data-en="Roles: <b>Tudor reactive</b> (records/contributes), <b>Stratoma proactive</b> (runs day to day)">Roles: <b>Tudor reactivo</b> (graba/aporta), <b>Stratoma proactivo</b> (opera el día a día)</li>
+    </ul>
+    <h3 style="margin-top:2.2rem" class="rv" data-es="Sistema de casos de éxito" data-en="Success-case system">Sistema de casos de éxito</h3>
+    <div class="phases rv">
+      <div class="ph"><h3 data-es="Capturar" data-en="Capture">Capturar</h3><p data-es="Retos con premio, mentorías, canal fijo &quot;Wins&quot; — siempre con número y permiso" data-en="Prize challenges, mentorship, a fixed &quot;Wins&quot; channel — always with a number and permission">Retos con premio, mentorías, canal fijo "Wins" — siempre con número y permiso</p></div>
+      <div class="ph"><h3 data-es="Empaquetar" data-en="Package">Empaquetar</h3><p data-es="Cada caso en 3 formatos: tarjeta, clip 30-60s, línea de copy" data-en="Each case in 3 formats: card, 30-60s clip, copy line">Cada caso en 3 formatos: tarjeta, clip 30-60s, línea de copy</p></div>
+      <div class="ph"><h3 data-es="Distribuir" data-en="Distribute">Distribuir</h3><p data-es="Free tier (jueves), redes, ads/retargeting de high ticket" data-en="Free tier (Thursday), social, high-ticket ads/retargeting">Free tier (jueves), redes, ads/retargeting de high ticket</p></div>
+      <div class="ph"><h3 data-es="Cerrar el círculo" data-en="Close the loop">Cerrar el círculo</h3><p data-es="El mejor caso, guardado como &quot;caso bandera&quot; del high ticket" data-en="The best case, kept as the &quot;flagship case&quot; for high ticket">El mejor caso, guardado como "caso bandera" del high ticket</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv" data-es="Esta semana" data-en="This week">Esta semana</span>
+    <h2 class="rv" data-es="Calendario de comunicación" data-en="Communication calendar">Calendario de comunicación</h2>
+    <p class="lead rv" data-es="21 mensajes ya escritos entre WhatsApp y email, sin ningún hueco por rellenar hasta el cierre." data-en="21 messages already written across WhatsApp and email, no gaps left to fill through close.">21 mensajes ya escritos entre WhatsApp y email, sin ningún hueco por rellenar hasta el cierre.</p>
+    <div class="daychan rv">
+      <div class="chan hot"><div class="clabel">5-ago · 18:00</div><p data-es="El precio $49,99 se anuncia PRIMERO en el grupo de WhatsApp" data-en="The $49.99 price gets announced FIRST in the WhatsApp group">El precio $49,99 se anuncia PRIMERO en el grupo de WhatsApp</p></div>
+      <div class="chan"><div class="clabel">6-ago</div><p data-es="Precio público por email, 16h después del grupo" data-en="Price goes public by email, 16h after the group">Precio público por email, 16h después del grupo</p></div>
+      <div class="chan"><div class="clabel">7-ago</div><p data-es="Prueba social: testimonio de Nika" data-en="Social proof: Nika's testimonial">Prueba social: testimonio de Nika</p></div>
+      <div class="chan hot"><div class="clabel">9-ago</div><p data-es="Directo final en vivo, apertura de puertas" data-en="Final live session, doors open">Directo final en vivo, apertura de puertas</p></div>
+      <div class="chan"><div class="clabel">10-12 ago</div><p data-es="Ventana de cierre: objeciones, prueba social, deadline real 23:59" data-en="Closing window: objections, social proof, real 23:59 deadline">Ventana de cierre: objeciones, prueba social, deadline real 23:59</p></div>
+      <div class="chan"><div class="clabel">13-ago</div><p data-es="Cierre del ciclo, sin regalar el precio de founding otra vez" data-en="Closes the loop, without giving away the founding price again">Cierre del ciclo, sin regalar el precio de founding otra vez</p></div>
+    </div>
+    <a class="btn ghost rv" href="/tudor-launch-week.html" data-es="Ver el calendario completo con copy →" data-en="See the full calendar with copy →">Ver el calendario completo con copy →</a>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag pending rv" data-es="Brainstorm, sin decidir" data-en="Brainstorm, undecided">Brainstorm, sin decidir</span>
+    <h2 class="rv" data-es="Nuevo: tier a $9,99/mes" data-en="New: a $9.99/month tier">Nuevo: tier a $9,99/mes</h2>
+    <p class="lead rv" data-es="Idea de Dani (5-ago): un escalón intermedio entre free y low ticket." data-en="Dani's idea (Aug 5): a middle tier between free and low ticket.">Idea de Dani (5-ago): un escalón intermedio entre free y low ticket.</p>
+    <ul class="plain rv">
+      <li data-es="Da los prompts REALES de Tudor, para leads con menos presupuesto (ej. India)" data-en="Gives Tudor's REAL prompts, for leads with lower budgets (e.g. India)">Da los prompts REALES de Tudor, para leads con menos presupuesto (ej. India)</li>
+      <li data-es="El low ticket actual pasaría a centrarse en monetización, no en prompts" data-en="The current low ticket would shift to focus on monetization instead of prompts">El low ticket actual pasaría a centrarse en monetización, no en prompts</li>
+      <li data-es="Se engancha al reto de 7 días con un descuento como premio por completarlo" data-en="Hooks into the 7-day challenge with a discount as a completion prize">Se engancha al reto de 7 días con un descuento como premio por completarlo</li>
+      <li data-es="Los créditos de InVideo irían aquí, para los primeros 200-300" data-en="InVideo credits would go here, for the first 200-300 sign-ups">Los créditos de InVideo irían aquí, para los primeros 200-300</li>
+    </ul>
+    <div class="warn rv">
+      <b data-es="No se toca esta semana:" data-en="Not touched this week:">No se toca esta semana:</b>
+      <span data-es=" el $49,99 se anuncia hoy mismo en el grupo. Encaja como pieza del evergreen, después del 12-ago." data-en=" the $49.99 price gets announced tonight. Fits as an evergreen piece, after Aug 12."> el $49,99 se anuncia hoy mismo en el grupo. Encaja como pieza del evergreen, después del 12-ago.</span>
+    </div>
+  </div>
+</section>
+
+<section style="text-align:center">
+  <div class="wrap">
+    <span class="tag rv" data-es="Próximos pasos" data-en="Next steps">Próximos pasos</span>
+    <h2 class="rv" data-es="Qué falta por cerrar" data-en="What's left to close">Qué falta por cerrar</h2>
+    <ul class="plain rv" style="text-align:left;max-width:64ch;margin-inline:auto">
+      <li data-es="Cerrar el lanzamiento actual (hasta 12-ago), sin tocar pricing nuevo" data-en="Close out the current launch (through Aug 12), no new pricing touched">Cerrar el lanzamiento actual (hasta 12-ago), sin tocar pricing nuevo</li>
+      <li data-es="Tudor comprueba, como owner, las opciones reales de planes en Skool" data-en="Tudor checks, as owner, the real plan options inside Skool">Tudor comprueba, como owner, las opciones reales de planes en Skool</li>
+      <li data-es="Empezar a recopilar casos reales de monetización YA" data-en="Start collecting real monetization cases NOW">Empezar a recopilar casos reales de monetización YA</li>
+      <li data-es="A partir del 13-ago: activar el CTA al free tier + arrancar el motor evergreen" data-en="From Aug 13 on: activate the free-tier CTA + start the evergreen engine">A partir del 13-ago: activar el CTA al free tier + arrancar el motor evergreen</li>
+    </ul>
+    <div style="margin-top:2rem">
+      <a class="btn rv" href="https://docs.google.com/document/d/1Vzo119m-Z6rzTXa2-sH8Wfp1wZSgb8ebfLKeaIkrWWc/edit" target="_blank" rel="noopener" data-es="Abrir el doc completo →" data-en="Open the full doc →">Abrir el doc completo →</a>
+      <a class="btn ghost rv" href="https://docs.google.com/presentation/d/1TK_OiaWTpK7WvRtt5qYd7t3B6xYOo1ndeplhWNNaECo/edit" target="_blank" rel="noopener" data-es="Ver el Slides (ES) →" data-en="View the Slides (ES) →">Ver el Slides (ES) →</a>
+      <a class="btn ghost rv" href="https://docs.google.com/presentation/d/1JztfrVIxcZhxYiEeEzBm0q-B1vtwZ2_w8LDlje7AKjU/edit" target="_blank" rel="noopener" data-es="Ver el Slides (EN) →" data-en="View the Slides (EN) →">Ver el Slides (EN) →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><div class="m">Tudor × Stratoma · Community proposal · 5 Aug 2026</div></div>
+</footer>
+
+<script>
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}})},{threshold:.1,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i%6,5)*55)+'ms';io.observe(el);});
+
+function setLang(l){
+  document.querySelectorAll('[data-es]').forEach(el=>{
+    el.innerHTML = l==='en' ? el.getAttribute('data-en') : el.getAttribute('data-es');
+  });
+  document.getElementById('btn-es').classList.toggle('on', l==='es');
+  document.getElementById('btn-en').classList.toggle('on', l==='en');
+  document.documentElement.lang = l;
+  localStorage.setItem('tudor-lang', l);
+}
+const saved = localStorage.getItem('tudor-lang');
+if(saved==='en') setLang('en');
+</script>
+</body>
+</html>
