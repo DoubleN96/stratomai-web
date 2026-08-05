@@ -367,6 +367,16 @@ Tudor`,
     cta: { label: '🔴 Save your seat', href: 'https://tudormorari.ai/lives?utm_campaign=9ago&utm_source=email' },
   },
   {
+    id: 'wa-5ago-valueprop',
+    date: '2026-08-05', time: '17:30', channel: 'whatsapp', audience: 'Grupo WhatsApp',
+    note: 'NUEVO 05-ago, pedido por Dani: faltaba un video que explique la propuesta de valor real antes de anunciar precio, solo habia teasers. Va justo antes del mensaje de precio de las 18:00.',
+    body: `Before I tell you the price tonight, I want you to actually know what you would be getting.
+
+Inside: the full process, from a blank page to a finished animation, module by module. Live sessions every week where you bring the thing that is not working and leave knowing what to change. Every new model and prompt I find, tested before it reaches you. And direct access to me, not a support ticket.
+
+That is what opens Sunday.`,
+  },
+  {
     id: 'wa-5ago-precio',
     date: '2026-08-05', time: '18:00', channel: 'whatsapp', audience: 'Grupo WhatsApp',
     note: 'CLAVE. El precio se anuncia AQUI primero, antes que en publico y antes que en email (el email publico va el dia 6). Es lo que hace que estar en el grupo valga algo, y el dia 28 ya les dijimos que esto iba a pasar.',
