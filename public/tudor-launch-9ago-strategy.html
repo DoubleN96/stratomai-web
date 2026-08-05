@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Lanzamiento 9 de agosto — Estrategia de venta completa — Tudor × Stratoma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F1F0EC;--ink:#0A0A0A;--ink-soft:#3a3a38;--line:#dedcd4;
+  --blue:#6C7CFF;--blue-ink:#3a49d6;--ember:#E8622C;--ember-ink:#b8471a;
+  --mono:'Inter',sans-serif;--display:'Sora',sans-serif;--body:'Inter',sans-serif;
+  --sec:clamp(3rem,2.2rem+3.5vw,6rem);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blue-ink);font-weight:600}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.05;letter-spacing:-.02em}
+h1{font-size:clamp(2.2rem,1.3rem+4.5vw,4.6rem)}
+h2{font-size:clamp(1.6rem,1.05rem+2.2vw,2.4rem);margin-bottom:.5em}
+h3{font-size:1.05rem;font-weight:700;margin-bottom:.3em}
+section{padding-block:var(--sec);position:relative;border-top:1px solid var(--line)}
+.lead{font-size:clamp(1.02rem,.94rem+.5vw,1.2rem);color:var(--ink-soft);max-width:64ch}
+.hero{min-height:66vh;display:flex;flex-direction:column;justify-content:center;border-top:none;position:relative}
+.hero .num{position:absolute;right:-2vw;top:4vh;font-family:var(--display);font-weight:800;font-size:min(32vw,420px);color:var(--ember);opacity:.09;line-height:.8;z-index:0;pointer-events:none}
+.hero .inner{position:relative;z-index:1}
+.hero .lead{margin-top:1.2rem}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rv.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+.tag{display:inline-block;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-ink);border:1px solid var(--blue);border-radius:100px;padding:5px 12px;margin-bottom:1rem}
+.tag.warn{color:var(--ember-ink);border-color:var(--ember);background:#fdf6f2}
+ul.plain{margin:1.2rem 0 0 1.1rem}
+ul.plain li{margin-bottom:.6rem;font-size:1rem;color:var(--ink-soft)}
+ul.plain li b{color:var(--ink)}
+.objective{margin-top:1.6rem;background:#fff;border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:14px;padding:20px 24px;font-size:1.02rem;color:var(--ink-soft);max-width:74ch}
+.objective b{color:var(--ink)}
+.warnbox{margin-top:1.6rem;background:#fdf6f2;border:1px solid var(--ember);border-left:4px solid var(--ember);border-radius:14px;padding:20px 24px;font-size:1rem;color:var(--ink-soft);max-width:74ch}
+.warnbox b{color:var(--ember-ink)}
+.grid3{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:1.6rem}
+.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+.stat .n{font-family:var(--display);font-weight:800;font-size:2rem;color:var(--blue-ink)}
+.stat .l{font-size:.85rem;color:var(--ink-soft);margin-top:.2rem}
+.checklist{margin-top:1.6rem;display:flex;flex-direction:column;gap:10px}
+.checklist .item{background:#fff;border:1px solid var(--ember);border-radius:12px;padding:14px 18px;font-size:.95rem;color:var(--ink-soft);display:flex;gap:10px;align-items:flex-start}
+.checklist .item .box{flex:0 0 auto;width:20px;height:20px;border:2px solid var(--ember-ink);border-radius:5px;margin-top:2px}
+.checklist .item b{color:var(--ink)}
+.flow{margin-top:1.6rem;display:flex;flex-direction:column;gap:6px}
+.flow .step{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:.95rem;color:var(--ink-soft)}
+.flow .step b{color:var(--ink)}
+.daychan{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:1.2rem}
+.chan{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.chan.hot{border-color:var(--ember);background:#fdf6f2}
+.chan.dead{opacity:.55}
+.chan .clabel{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-ink);font-weight:700;margin-bottom:.4rem}
+.chan.hot .clabel{color:var(--ember-ink)}
+.chan p{font-size:.9rem;color:var(--ink-soft)}
+.btn{display:inline-flex;align-items:center;gap:.5em;background:var(--ink);color:var(--paper);text-decoration:none;font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;padding:14px 22px;border-radius:100px;transition:transform .3s,background .3s;margin-top:.4rem;margin-right:10px}
+.btn:hover{background:var(--blue-ink);transform:translateY(-2px)}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+footer{padding:48px 0;border-top:1px solid var(--line);text-align:center}
+footer .m{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap inner">
+    <div class="num">9</div>
+    <div class="eyebrow rv">Tudor × Stratoma</div>
+    <h1 class="rv">Lanzamiento 9 de agosto</h1>
+    <p class="lead rv">Estrategia de venta completa — que no salga mal. Todo lo que pasa desde hoy hasta el cierre del 12 de agosto, en un solo sitio.</p>
+    <div class="objective rv"><b>Resumen:</b> domingo 17:00 CET, último directo gratis de la serie, Tudor construye una animación completa en vivo. Al terminar, se abren las puertas: primeros 200 miembros a $49,99/mes, precio fijo mientras sigan dentro. Cierre real: miércoles 12-ago 23:59, sin ampliación.</div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv">La oferta</span>
+    <h2 class="rv">Qué se vende exactamente</h2>
+    <ul class="plain rv">
+      <li><b>$49,99/mes</b> para los primeros 200 en entrar, precio fijo mientras sigan dentro de la comunidad</li>
+      <li>Después de los primeros 200, el precio sube</li>
+      <li>El grupo de WhatsApp, los directos del domingo y los prompt packs se quedan gratis para siempre</li>
+      <li>Dentro: proceso completo módulo a módulo, sesiones en vivo semanales, acceso directo a Tudor</li>
+      <li>Nunca se promete revisión 1:1 semanal garantizada — no prometer algo que no se puede sostener</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv">Los números hasta hoy</span>
+    <h2 class="rv">De dónde viene la gente</h2>
+    <div class="grid3 rv">
+      <div class="stat"><div class="n">5.024</div><div class="l">formularios en /lives desde que arrancó el funnel</div></div>
+      <div class="stat"><div class="n">2.503</div><div class="l">registros al directo</div></div>
+      <div class="stat"><div class="n">1.761</div><div class="l">miembros en WhatsApp — 35% de conversión (no 4%, cifra corregida)</div></div>
+      <div class="stat"><div class="n">81 / 2.204</div><div class="l">leads de ads pagados frente a orgánicos — el grueso es orgánico</div></div>
+    </div>
+    <div class="warnbox rv"><b>Sin verificar:</b> no hay confirmación reciente de que el evento Purchase server-side de Meta esté conectado — la última info (hace 3 semanas) decía que no. Sin eso, Meta optimiza a Lead, no a compra real. Verificar antes de escalar ads.</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv">Stack técnico</span>
+    <h2 class="rv">Cómo está montado</h2>
+    <ul class="plain rv">
+      <li><b>Captura:</b> tudormorari.ai/lives → formulario → GHL pipeline "Lanzamiento Tudor — Captación" (6 etapas)</li>
+      <li><b>Directo:</b> tudormorari.ai/live como capa de indirección — nunca linkar el ID de YouTube directo en comunicaciones ya enviadas</li>
+      <li><b>Email:</b> dominio dedicado lc.tudormorari.ai (Mailgun), remitente Tudor &lt;info@lc.tudormorari.ai&gt;</li>
+      <li><b>WhatsApp:</b> grupo solo-anuncios, miembros reaccionan/responden pero no publican</li>
+      <li><b>Checkout:</b> Skool, $49,99/mes — probar con una compra de prueba real antes del domingo, no asumir que funciona</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv">Domingo, minuto a minuto</span>
+    <h2 class="rv">El directo</h2>
+    <div class="flow rv">
+      <div class="step"><b>17:00 CET</b> — arranca el build en vivo desde una página en blanco, decisiones en voz alta, incluidos los errores</div>
+      <div class="step"><b>Durante el build</b> — responde preguntas de la audiencia, el momento que más se valora según ediciones anteriores</div>
+      <div class="step"><b>Al terminar</b> — apertura de puertas EN DIRECTO, mensaje de WhatsApp "Doors are open" se manda en el momento exacto</div>
+      <div class="step"><b>19:00</b> — email de apertura a toda la lista</div>
+      <div class="step"><b>21:00</b> — email SOLO a quien asistió al directo, mensaje distinto porque ya vio todo el proceso</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv">Reglas fijas</span>
+    <h2 class="rv">Aplican a todo lo que sale</h2>
+    <ul class="plain rv">
+      <li>Un único CTA por mensaje, nunca dos</li>
+      <li>El precio se anuncia en el grupo de WhatsApp ANTES que en cualquier otro sitio</li>
+      <li>Sin guiones largos — Tudor los lee como marca de IA</li>
+      <li>El deadline es real: si se dice 23:59, es 23:59 — nunca un "error técnico" falso</li>
+      <li>El grupo de WhatsApp es solo-anuncios: cada petición a la audiencia es un toque o una respuesta, nunca "postéalo en el grupo"</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv">Esta semana</span>
+    <h2 class="rv">Calendario de comunicación, hoy a hoy</h2>
+    <div class="daychan rv">
+      <div class="chan dead"><div class="clabel">3-4 ago</div><p>NO se posteó nada en vídeo — día perdido, no se recupera</p></div>
+      <div class="chan hot"><div class="clabel">HOY 5-ago</div><p>Vídeo de propuesta de valor nuevo + precio en WhatsApp 18:00</p></div>
+      <div class="chan"><div class="clabel">6-ago</div><p>Precio público por email + WhatsApp</p></div>
+      <div class="chan"><div class="clabel">7-ago</div><p>Prueba social (testimonio de Nika)</p></div>
+      <div class="chan"><div class="clabel">8-ago</div><p>Víspera, vender asistencia al directo, no la compra</p></div>
+      <div class="chan hot"><div class="clabel">9-ago</div><p>Directo + apertura de puertas</p></div>
+    </div>
+    <a class="btn ghost rv" href="/tudor-launch-week.html">Ver el calendario completo con guiones →</a>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv">10 al 12 de agosto</span>
+    <h2 class="rv">La ventana de cierre</h2>
+    <ul class="plain rv">
+      <li><b>Día 1 (10-ago):</b> prueba social de las primeras 24h, sin presión</li>
+      <li><b>Día 2 (11-ago):</b> se responden las dos objeciones más repetidas — "soy principiante" y "no tengo tiempo" — sin repetir la oferta</li>
+      <li><b>Día 3 (12-ago):</b> "seis horas", después "dos tipos de persona", último mensaje de WhatsApp a las 22:00</li>
+      <li>El precio NO se amplía después de las 23:59 del 12-ago — si alguna vez se ampliara, se anuncia claramente, nunca en silencio</li>
+      <li><b>13-ago:</b> email de cierre a quien no entró — el grupo y las clases gratis siguen, sin regalar el precio de founding otra vez</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag warn rv">Que no salga mal</span>
+    <h2 class="rv">Checklist pre-lanzamiento</h2>
+    <p class="lead rv">Sin verificar todavía — esto es una lista de qué comprobar, no una confirmación de que ya está hecho.</p>
+    <div class="checklist rv">
+      <div class="item"><div class="box"></div><div><b>Directo dentro del broadcast programado:</b> que no arranque uno nuevo el mismo domingo, así no cambia el ID a mitad (ya pasó una vez en julio).</div></div>
+      <div class="item"><div class="box"></div><div><b>/live redirige al link correcto:</b> probarlo el mismo sábado.</div></div>
+      <div class="item"><div class="box"></div><div><b>Checkout de Skool probado</b> con una compra de prueba real, no solo revisado visualmente.</div></div>
+      <div class="item"><div class="box"></div><div><b>Precio de $49,99 coherente</b> en checkout, emails ya enviados y mensajes de WhatsApp programados.</div></div>
+      <div class="item"><div class="box"></div><div><b>Grupo de WhatsApp en modo solo-anuncios</b> — evitar repetir la crisis de spam del 1-ago.</div></div>
+      <div class="item"><div class="box"></div><div><b>Plan B</b> definido si el simulcast falla a mitad del directo.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="tag rv">El día del directo</span>
+    <h2 class="rv">Roles</h2>
+    <ul class="plain rv">
+      <li><b>Tudor:</b> presenta y construye en vivo, responde preguntas al cierre</li>
+      <li><b>Equipo Stratoma:</b> monitorea el chat/comentarios, envía el mensaje de apertura EN el momento exacto</li>
+      <li><b>Equipo Stratoma:</b> soporte técnico en paralelo — stream, checkout, enlaces — listo para reaccionar si algo falla</li>
+      <li>Nadie del equipo debe estar solo gestionando comunicación Y técnica al mismo tiempo</li>
+    </ul>
+  </div>
+</section>
+
+<section style="text-align:center">
+  <div class="wrap">
+    <span class="tag rv">Próximos pasos</span>
+    <h2 class="rv">Qué hacer ahora</h2>
+    <ul class="plain rv" style="text-align:left;max-width:64ch;margin-inline:auto">
+      <li>Hoy: grabar y postear el vídeo de propuesta de valor antes de las 18:00</li>
+      <li>Antes del sábado: pasar el checklist técnico completo, no dejarlo para el mismo domingo</li>
+      <li>Domingo: seguir el minuto a minuto de esta propuesta, sin decisiones improvisadas de última hora</li>
+      <li>10 al 12-ago: ejecutar la ventana de cierre tal cual está escrita, sin inventar descuentos ni ampliar el plazo</li>
+    </ul>
+    <div style="margin-top:2rem">
+      <a class="btn rv" href="https://docs.google.com/presentation/d/1w6KncId2rJi8UqEvtCIHqBu2tvVvzJDpTbTmLv77ILk/edit" target="_blank" rel="noopener">Ver el Slides →</a>
+      <a class="btn ghost rv" href="https://docs.google.com/spreadsheets/d/134v_2PSJ-a0yxZDqlQTq4RwupYeoRXHi-uZXWLQQth8/edit" target="_blank" rel="noopener">Ver el Sheet semanal →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><div class="m">Tudor × Stratoma · Lanzamiento 9 de agosto</div></div>
+</footer>
+
+<script>
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}})},{threshold:.1,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i%6,5)*55)+'ms';io.observe(el);});
+</script>
+</body>
+</html>
