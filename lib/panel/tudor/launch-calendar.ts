@@ -447,7 +447,10 @@ Tudor`,
   {
     id: 'wa-7ago',
     date: '2026-08-07', time: '18:00', channel: 'whatsapp', audience: 'Grupo WhatsApp',
-    body: `Two days 🎬
+    note: 'ACTUALIZADO 05-ago (Dani): abre con la cita real de Nika en vez de la version parafraseada, mas fuerte y mas especifica.',
+    body: `"I grew to around 12,000 followers in about 3 weeks. Each video averaged 70 to 100k views, and 3 of them hit 500k."
+
+That is Nika, three weeks in. Two days left before the doors open 🎬
 
 Sunday I build one animation from nothing, live, and you watch every decision including the ones I get wrong.
 
