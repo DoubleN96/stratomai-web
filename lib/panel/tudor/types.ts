@@ -114,7 +114,7 @@ export interface MarketingPub {
 
 export interface TudorSnapshot {
   whatsapp: { members: number; communities: number; capEach: number; target: number };
-  skool: { total: number; paying: number; mrr: number; asOf: string };
+  skool: { total: number; paying: number; mrr: number; mrrBefore: number | null; asOf: string };
   bench: { leads: number; whatsapp: number; live: number };
   waCommunity: WaCommunitySnapshot | null;
   meta: MetaCampaignsSnapshot | null;

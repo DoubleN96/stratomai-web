@@ -355,7 +355,11 @@ export function CommandCenter({
               </span>
             </p>
             <p className="mt-1 text-xs text-[#8597c0]">
-              ${skool.mrr} MRR · dato manual {skool.asOf} (Skool sin API)
+              ${skool.mrr} MRR
+              {skool.mrrBefore != null && (
+                <> · antes del lanzamiento: ${skool.mrrBefore}</>
+              )}{' '}
+              · dato manual {skool.asOf} (Skool sin API)
             </p>
           </div>
         </div>

@@ -88,6 +88,7 @@ function resolveSnapshot(cfg: Map<string, string>): TudorSnapshot {
       total: num(g('SKOOL_TOTAL'), 814),
       paying: num(g('SKOOL_PAYING'), 13),
       mrr: num(g('SKOOL_MRR'), 370),
+      mrrBefore: g('SKOOL_MRR_BEFORE') != null ? num(g('SKOOL_MRR_BEFORE'), 0) : null,
       asOf: g('SKOOL_ASOF') ?? '08 jul 2026',
     },
     bench: {
