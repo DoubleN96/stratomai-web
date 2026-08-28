@@ -4,7 +4,7 @@ import Script from 'next/script';
 import './globals.css';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 
-const GTM_ID = 'GTM-WW7CNFQN';
+const GTM_ID = 'GTM-TZVF22ZW';
 const GTM_GATEWAY_PATH = '/y44s';
 
 const inter = Inter({
