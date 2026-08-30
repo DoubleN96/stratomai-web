@@ -1088,17 +1088,14 @@ export default function StackIaLlaveEnManoPage() {
               </table>
             </div>
 
-            <p className="mb-12 rounded-xl border-2 border-yellow-400 bg-yellow-100 p-6 leading-relaxed text-gray-800">
-              <strong>
-                Te lo digo antes de que lo veas al abrir el repositorio:
-              </strong>{" "}
-              el <Code>docker-compose.yml</Code> público levanta nueve
-              servicios, no seis, porque incluye también Paperclip y OpenClaw
-              (y el script de comprobación de salud sigue preguntando por
-              Paperclip). Esas dos piezas <strong>no van en la entrega</strong>:
-              el canal de Telegram lo sirve Claude Code por su cuenta y de
-              WhatsApp se encarga Baileys. Por eso lo que te queda montado son
-              estas cinco piezas y seis contenedores.
+            <p className="mb-12 rounded-xl border-2 border-green-500 bg-green-50 p-6 leading-relaxed text-gray-800">
+              <strong>Puedes contarlos tú.</strong> El{" "}
+              <Code>docker-compose.yml</Code> del repositorio público levanta{" "}
+              <strong>seis contenedores</strong>, que son exactamente los que
+              te quedan corriendo: n8n con su base de datos, y los cuatro de
+              Supabase. Claude Code y Baileys no salen ahí porque se instalan
+              en la máquina, no en un contenedor. Lo que vendo y lo que puedes
+              ir a leer son la misma cosa.
             </p>
 
             <h3 className="mb-6 text-2xl font-bold">Lo que se monta encima</h3>
