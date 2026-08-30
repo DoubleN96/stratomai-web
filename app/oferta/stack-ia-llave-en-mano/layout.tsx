@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     "agentes de IA en tu propio servidor",
     "automatizar negocio con IA y Telegram",
     "implantación stack IA self-hosted",
-    "n8n Supabase Paperclip autoalojado",
+    "n8n Supabase autoalojado",
     "automatización con IA para pymes España",
     "bot de Telegram que gestiona tu empresa",
     "IA sin lock-in servidor propio",
