@@ -3,9 +3,14 @@ import { Inter, JetBrains_Mono } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+import ConsentBanner from '@/components/shared/ConsentBanner';
 
-const GTM_ID = 'GTM-TZVF22ZW';
+const GTM_ID = 'GTM-WW7CNFQN';
 const GTM_GATEWAY_PATH = '/y44s';
+// Keep in sync with CONSENT_KEY in components/shared/ConsentBanner.tsx. Not
+// imported: that module is 'use client', and a value pulled from a client
+// module into a Server Component is a client reference, not the string.
+const CONSENT_KEY = 'stratomai_consent';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -128,9 +133,23 @@ export default function RootLayout({
               url: "https://stratomai.com",
               description: "Automatización empresarial con Inteligencia Artificial en Madrid",
               address: { "@type": "PostalAddress", addressLocality: "Madrid", addressCountry: "ES" },
-              contactPoint: { "@type": "ContactPoint", telephone: "+34-610-095-844", contactType: "sales" },
+              contactPoint: { "@type": "ContactPoint", telephone: "+34611031947", contactType: "sales" },
               sameAs: ["https://linkedin.com/company/stratomai", "https://x.com/stratomai"],
             }),
+          }}
+        />
+        {/*
+          Google Consent Mode defaults. A raw inline script on purpose: it is in
+          the server HTML and runs during parse, so it is guaranteed to land
+          before the afterInteractive GTM tag below. It also re-applies a stored
+          acceptance, so a returning visitor is not denied for the first 500 ms.
+          The banner (components/shared/ConsentBanner.tsx) only ever lifts this.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=gtag;
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',personalization_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
+try{if(localStorage.getItem('${CONSENT_KEY}')==='granted'){gtag('consent','update',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted',personalization_storage:'granted'})}}catch(e){}`,
           }}
         />
         <Script id="gtm-init" strategy="afterInteractive">
@@ -142,14 +161,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </Script>
       </head>
       <body className={`${inter.variable} ${jetbrains.variable} antialiased`}>
-        <noscript>
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
-            height="0"
-            width="0"
-            style={{ display: 'none', visibility: 'hidden' }}
-          />
-        </noscript>
         {children}
         {/* Stratoma Branding */}
         <div className="fixed bottom-5 left-5 z-[100]">
@@ -160,6 +171,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </div>
         </div>
         <FloatingWhatsApp />
+        <ConsentBanner />
       </body>
     </html>
   );

@@ -95,7 +95,14 @@ export function LoginForm({ next }: { next: string }) {
         </div>
 
         <form action={linkAction} className="space-y-3">
+          {/* Same hidden field as the password form: without it the magic link
+              drops `next` and a buyer sent to /panel/onboarding lands on /panel. */}
+          <input type="hidden" name="next" value={next} />
+          <label htmlFor="magic-email" className="sr-only">
+            Email para enlace mágico
+          </label>
           <input
+            id="magic-email"
             name="email"
             type="email"
             autoComplete="email"

@@ -1,5 +1,6 @@
 'use server';
 
+import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createSupabaseServerClient } from '@/lib/panel/supabase-server';
 import { requireEmail, requireString } from '@/lib/panel/validate';
@@ -7,6 +8,24 @@ import { requireEmail, requireString } from '@/lib/panel/validate';
 export interface LoginState {
   error?: string;
   info?: string;
+}
+
+/** Only ever a path on this site: `//evil.com` does not start with `/panel`. */
+function safeNext(value: FormDataEntryValue | null): string {
+  return typeof value === 'string' && value.startsWith('/panel')
+    ? value
+    : '/panel';
+}
+
+/** This deployment's origin, so a magic link in dev does not point at prod. */
+async function siteOrigin(): Promise<string> {
+  const h = await headers();
+  const host = h.get('x-forwarded-host') ?? h.get('host');
+  if (host) return `${h.get('x-forwarded-proto') ?? 'https'}://${host}`;
+  return (process.env.NEXT_PUBLIC_BASE_URL || 'https://stratomai.com').replace(
+    /\/+$/,
+    ''
+  );
 }
 
 // Email + password sign-in.
@@ -18,10 +37,7 @@ export async function signInWithPassword(
   try {
     const email = requireEmail(formData.get('email'));
     const password = requireString(formData.get('password'), 'Contraseña', { max: 200 });
-    const candidateNext = formData.get('next');
-    if (typeof candidateNext === 'string' && candidateNext.startsWith('/panel')) {
-      nextPath = candidateNext;
-    }
+    nextPath = safeNext(formData.get('next'));
 
     const supabase = await createSupabaseServerClient();
     const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -41,7 +57,19 @@ export async function sendMagicLink(
   try {
     const email = requireEmail(formData.get('email'));
     const supabase = await createSupabaseServerClient();
-    const { error } = await supabase.auth.signInWithOtp({ email });
+    // emailRedirectTo — sin esto el enlace mágico ignora `next` y todo el mundo
+    // aterriza en /panel, incluido el comprador al que su correo de bienvenida
+    // manda a /panel/onboarding. La ruta de callback vuelve a validar el `next`.
+    const emailRedirectTo = `${await siteOrigin()}/panel/auth/callback?next=${encodeURIComponent(
+      safeNext(formData.get('next'))
+    )}`;
+    // shouldCreateUser:false — el panel es por invitación. Sin esto, pedir un
+    // enlace mágico da de alta al desconocido, y como la clave anónima es
+    // pública cualquiera podía crearse una cuenta contra la API de Supabase.
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: { shouldCreateUser: false, emailRedirectTo },
+    });
     if (error) return { error: error.message };
     return { info: `Te enviamos un enlace de acceso a ${email}` };
   } catch (e) {

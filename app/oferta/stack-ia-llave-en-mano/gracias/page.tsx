@@ -113,8 +113,9 @@ const pasosPrevios: Paso[] = [
             lo único que tienes que abrir tú en este paso es una cuenta: tu
             suscripción de claude.ai
           </strong>
-          . No hace falta ninguna clave de API para que funcione el agente con
-          el que hablas por Telegram.
+          . No hace falta ninguna clave de API: ni para el agente con el que
+          hablas por Telegram, ni para nada más de lo que se instala. Ningún
+          servicio del stack pide una.
         </p>
         <p>
           Ve a{" "}
@@ -133,37 +134,20 @@ const pasosPrevios: Paso[] = [
           guardar ni que pasarme: te autenticas tú, desde dentro de la sesión.
         </p>
         <p className="rounded-xl border-2 border-green-500 bg-green-50 p-5 text-gray-800">
-          <strong>El trabajo diario del agente no se paga por uso.</strong> Va
-          contra tu plan, no contra un contador de tokens. El mes que le des
-          caña te cuesta lo mismo que el mes tranquilo.
+          <strong>Aquí no se paga nada por uso.</strong> El agente va contra tu
+          plan, no contra un contador de tokens, y ninguna otra pieza del stack
+          consume IA por su cuenta. El mes que le des caña te cuesta lo mismo
+          que el mes tranquilo.
         </p>
         <p className="rounded-xl border-2 border-yellow-400 bg-yellow-100 p-5 text-gray-800">
           <strong>
             La suscripción es un coste tuyo que la cuota de 500 €/mes NO cubre.
           </strong>{" "}
-          El despliegue lo hago con mi cuenta para no tenerte esperando, y en el
-          paso 8 la sustituyes por la tuya. A partir de ahí, el cerebro del
-          sistema es tuyo.
-        </p>
-        <p className="rounded-xl border-2 border-gray-300 bg-gray-50 p-5 text-gray-800">
-          <strong>¿Y la clave de API de Anthropic?</strong> Esa es otra cosa y
-          sí hace falta para el despliegue: el instalador la exige como variable
-          para arrancar, y el panel de agentes y la pasarela de bots —los dos
-          únicos servicios del <Code>docker-compose</Code> que la piden— se
-          levantan de serie con el resto del stack. No forma parte del camino
-          que usas desde Telegram, y no genera gasto por consumo hasta que
-          configuremos los agentes de esos dos servicios con acceso a modelo por
-          API; eso lo decidimos juntos antes de encender nada. La creamos a tu
-          nombre en{" "}
-          <a
-            href="https://console.anthropic.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={LINK}
-          >
-            console.anthropic.com
-          </a>{" "}
-          durante el despliegue, contigo delante.
+          Junto al servidor del paso 1 es el único otro coste de terceros que
+          tiene esto: dos facturas, las dos a tu nombre y las dos de tarifa
+          conocida. El despliegue lo hago con mi cuenta para no tenerte
+          esperando, y en el paso 8 la sustituyes por la tuya. A partir de ahí,
+          el cerebro del sistema es tuyo.
         </p>
       </>
     ),
@@ -385,7 +369,8 @@ const pasosTraspaso: Paso[] = [
         </ol>
         <p className="rounded-xl border-2 border-green-500 bg-green-50 p-5 text-gray-800">
           <strong>Cómo sabes que ha salido bien:</strong> el banner de la sesión
-          muestra tu plan, y tu bot de Telegram te contesta cuando le escribes.
+          muestra tu plan, y tu bot de Telegram te contesta cuando le escribes —
+          el bot cuelga de esa misma sesión, no hay ninguna pasarela por medio.
           A partir de ese momento el sistema corre con tu cuenta y mi acceso
           deja de ser necesario para que funcione.
         </p>
@@ -432,7 +417,7 @@ export default function GraciasPage() {
             </span>
           </Link>
           <a
-            href="https://wa.me/34611031947?text=Ya%20he%20pagado%20la%20implantaci%C3%B3n%2C%20tengo%20una%20duda%20con%20el%20checklist"
+            href="https://t.me/Cordenbalibot?text=Ya%20he%20pagado%20la%20implantaci%C3%B3n%20del%20stack%20y%20quiero%20que%20me%20ayudes%20con%20el%20despliegue"
             target="_blank"
             rel="noopener noreferrer"
             className={`rounded-lg bg-gradient-to-r from-blue-700 to-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:shadow-lg sm:px-6 sm:text-base ${FOCUS}`}
@@ -517,6 +502,163 @@ export default function GraciasPage() {
           </Container>
         </Section>
 
+        <Section background="white" aria-labelledby="inventario-heading">
+          <Container maxWidth="lg">
+            <h2
+              id="inventario-heading"
+              className="mb-4 text-3xl font-bold lg:text-4xl"
+            >
+              Qué queda instalado en tu servidor
+            </h2>
+            <p className="mb-8 text-lg text-gray-600">
+              Para que sepas exactamente qué has comprado. Todo corre en tu
+              máquina, a tu nombre, y puedes apagar o borrar cualquier pieza
+              cuando quieras.
+            </p>
+
+            <div
+              className="overflow-x-auto"
+              tabIndex={0}
+              role="region"
+              aria-labelledby="inventario-heading"
+            >
+              <table className="w-full min-w-[36rem] border-collapse text-left">
+                <thead>
+                  <tr className="border-b border-gray-200 text-sm uppercase tracking-wide text-gray-500">
+                    <th scope="col" className="py-3 pr-4">Pieza</th>
+                    <th scope="col" className="py-3">Para qué sirve</th>
+                  </tr>
+                </thead>
+                <tbody className="text-gray-600">
+                  {[
+                    ["Claude Code", "El agente con el que hablas por Telegram: despliega, escribe código y opera el servidor. El canal de Telegram lo sirve él mismo, sin ninguna pasarela por medio."],
+                    ["n8n", "Automatizaciones sin programar: correo, webhooks, CRM. Con su propia base de datos."],
+                    ["Supabase (autoalojado)", "Tu base de datos con sistema de usuarios y API REST. En tu servidor, no en la nube de nadie."],
+                    ["Baileys", "La librería de WhatsApp: con ella se crean las comunidades y los grupos de anuncios."],
+                    ["Docker + Docker Compose", "Lo que mantiene los servicios corriendo y aislados entre sí."],
+                  ].map(([pieza, para]) => (
+                    <tr key={pieza} className="border-b border-gray-100 align-top">
+                      <td className="py-3 pr-4 font-semibold text-gray-900">{pieza}</td>
+                      <td className="py-3">{para}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <p className="mt-8 text-lg leading-relaxed text-gray-600">
+              Además te dejo <strong>tus repositorios en GitHub</strong> (por eso
+              el token del paso 4): uno por proyecto, a tu nombre, con el
+              historial desde el primer día. Y los{" "}
+              <strong>plugins y skills</strong> que uso yo a diario — los
+              manuales que el agente sabe seguir para tareas concretas — junto
+              con los <strong>MCP</strong> ya conectados a GitHub, a tu panel de
+              despliegues y a tu base de datos.
+            </p>
+          </Container>
+        </Section>
+
+        <Section background="gray" aria-labelledby="accesos-heading">
+          <Container maxWidth="lg">
+            <h2
+              id="accesos-heading"
+              className="mb-4 text-3xl font-bold lg:text-4xl"
+            >
+              Los accesos que recibes, y por qué son dos
+            </h2>
+            <div className="space-y-6 text-lg leading-relaxed text-gray-600">
+              <p>
+                Cuando el despliegue esté hecho te entrego{" "}
+                <strong>dos usuarios distintos</strong> de tu servidor. No es
+                burocracia: es lo que evita que un error del agente sea
+                irreparable.
+              </p>
+
+              <div className="rounded-xl border border-gray-200 bg-white p-6">
+                <p className="mb-2 flex items-center gap-2 font-bold text-gray-900">
+                  <Lock className="h-5 w-5 text-gray-700" aria-hidden="true" />
+                  <span>
+                    1. El usuario <Code>root</Code> — tuyo, y solo tuyo
+                  </span>
+                </p>
+                <p>
+                  Mando absoluto sobre la máquina. Te doy su contraseña porque el
+                  servidor es tuyo y nadie debe poder dejarte fuera de tu propia
+                  infraestructura, yo incluido.{" "}
+                  <strong>El agente no lo usa nunca.</strong> Guárdala en un
+                  gestor de contraseñas y no la escribas en ningún chat.
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-gray-200 bg-white p-6">
+                <p className="mb-2 flex items-center gap-2 font-bold text-gray-900">
+                  <Shield className="h-5 w-5 text-gray-700" aria-hidden="true" />
+                  <span>2. Un usuario normal — bajo el que corre Claude</span>
+                </p>
+                <p>
+                  Es el que usas tú desde Termius y bajo el que trabaja el
+                  agente. Corre con los permisos saltados (
+                  <Code>--dangerously-skip-permissions</Code>), que es lo que le
+                  permite trabajar seguido sin pararse a pedirte confirmación en
+                  cada comando — que es justo lo que lo hace útil desde el móvil.
+                </p>
+                <p className="mt-3">
+                  Ese ajuste es también la razón de que{" "}
+                  <strong>
+                    no corra como <Code>root</Code>
+                  </strong>
+                  . Un agente sin frenos y con mando absoluto convierte
+                  cualquier equivocación suya en algo que no se deshace. Como
+                  usuario normal, lo que pueda romper está acotado y se recupera.
+                </p>
+              </div>
+
+              <p>
+                Cuando el despliegue termine te los entrego así:{" "}
+                <strong>el usuario normal, con tu clave SSH</strong> (paso 7: me
+                mandas la pública, la privada no sale de tu equipo), y{" "}
+                <strong>
+                  la contraseña de <Code>root</Code>, por enlace de un solo uso
+                </strong>{" "}
+                — el mismo mecanismo que te propongo a ti más abajo para tus
+                tokens:{" "}
+                <a
+                  href="https://onetimesecret.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={LINK}
+                >
+                  onetimesecret.com
+                </a>{" "}
+                o{" "}
+                <a
+                  href="https://send.bitwarden.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={LINK}
+                >
+                  Bitwarden Send
+                </a>
+                . Te llega un enlace, lo abres, copias la contraseña a tu gestor
+                y el contenido se destruye ahí mismo.{" "}
+                <strong>
+                  La contraseña en sí no viaja nunca por un chat ni por correo, y
+                  no queda guardada en esta web
+                </strong>{" "}
+                — el enlace sí, la contraseña no. El host y el nombre de usuario
+                no son secretos, así que esos te los digo por donde te venga
+                bien.
+              </p>
+              <p>
+                Y en la llamada de traspaso cambias tú la contraseña de{" "}
+                <Code>root</Code> delante de mí. A partir de ese momento solo la
+                tienes tú: ni yo puedo recuperarla, que es exactamente como debe
+                ser.
+              </p>
+            </div>
+          </Container>
+        </Section>
+
         <Section background="white" aria-labelledby="credenciales-heading">
           <Container maxWidth="lg">
             <h2
@@ -535,16 +677,38 @@ export default function GraciasPage() {
                 conectas tú desde dentro de la sesión con <Code>/login</Code>, y
                 nunca me la pasas.
               </p>
-              <p className="rounded-2xl border-2 border-blue-600 bg-blue-50 p-6 text-gray-800">
-                <strong>
-                  No hay ningún formulario ni área privada en esta web donde
-                  subirlos.
-                </strong>{" "}
-                No existe, y prefiero decírtelo a montarte a medias un buzón
-                para guardar tus llaves. Se hace así:
-              </p>
+              <div className="rounded-2xl border-2 border-blue-600 bg-blue-50 p-6 text-gray-800">
+                <p>
+                  <strong>
+                    Se hace desde tu apartado privado de esta web.
+                  </strong>{" "}
+                  Entras con tu correo, abres <strong>Puesta en marcha</strong> y
+                  pegas cada token en su casilla. Cada uno se cifra en el
+                  servidor antes de tocar la base de datos y{" "}
+                  <strong>no se vuelve a mostrar</strong>: ni a ti ni a mí desde
+                  esa pantalla. Lo que sí ves es cuáles llevas hechos y cuáles
+                  te faltan, así que no tienes que mandármelos todos de una vez
+                  ni acordarte de por dónde ibas.
+                </p>
+                <p className="mt-4">
+                  Y <strong>puedes sustituir cualquiera cuando quieras</strong>:
+                  si rotas un token, entras, pegas el nuevo encima y ya está.
+                </p>
+                <p className="mt-5">
+                  <Link
+                    href="/panel/login?next=/panel/onboarding"
+                    className={`inline-flex items-center gap-2 rounded-xl bg-blue-700 px-6 py-4 text-base font-bold text-white transition-colors hover:bg-blue-800 ${FOCUS}`}
+                  >
+                    Abrir mi apartado privado
+                    <ArrowRight className="h-5 w-5" aria-hidden="true" />
+                  </Link>
+                </p>
+              </div>
               <p>
-                <strong>Uno por uno, por enlace de un solo uso.</strong> Usa{" "}
+                <strong>
+                  Si prefieres no entrar en el panel, hay una alternativa:
+                </strong>{" "}
+                uno por uno, por enlace de un solo uso. Usa{" "}
                 <a
                   href="https://onetimesecret.com"
                   target="_blank"
@@ -568,21 +732,6 @@ export default function GraciasPage() {
                 caduca. Si te llega el aviso de que ya estaba abierto cuando yo
                 entro, es que lo ha visto alguien más: dímelo, revócalo y
                 generamos otro.
-              </p>
-              <p>
-                <strong>
-                  Por qué ese canal sí y un chat no, si justo debajo te digo que
-                  no pegues tokens en chats:
-                </strong>{" "}
-                porque por el chat va el <strong>enlace</strong>, nunca el
-                token. Y no es que el enlace viaje más cifrado: lo que cambia es
-                que <strong>caduca</strong>. Un token pegado en WhatsApp, en un
-                correo o en un grupo se queda ahí para siempre —en tu copia, en
-                la mía, en el servidor del proveedor y en cualquier copia de
-                seguridad de ese chat— y lo lee cualquiera que entre en
-                cualquiera de esas cuentas, hoy o dentro de dos años. El enlace
-                de un solo uso deja de existir al abrirse: lo que queda en el
-                chat es una URL muerta.
               </p>
               <p>
                 <strong>
@@ -653,9 +802,9 @@ export default function GraciasPage() {
                         Cuando tenga tus accesos, empieza el reloj:
                       </strong>{" "}
                       objetivo 24-48 h para dejarlo montado y verificado — stack
-                      corriendo, nueve agentes, 35 habilidades, cuatro
-                      herramientas MCP, tu bot respondiendo y la comprobación de
-                      salud en verde.
+                      corriendo, las habilidades del agente instaladas, sus tres
+                      MCP conectados, tu bot respondiendo y n8n y Supabase
+                      contestando a la comprobación de salud.
                     </>
                   ),
                 },
@@ -665,9 +814,9 @@ export default function GraciasPage() {
                     <>
                       <strong>Te aviso para los pasos 7 y 8</strong> y hacemos
                       la sesión de traspaso: aprendes a pedirle cosas, damos de
-                      alta a tu equipo, rellenamos las fichas de los agentes con
-                      tu información real y te paso accesos, tokens y
-                      documentación.
+                      alta a tu equipo, llenamos la memoria del agente con tu
+                      información real —procedimientos, tono de voz y dónde vive
+                      cada cosa— y te paso accesos, tokens y documentación.
                     </>
                   ),
                 },
@@ -717,20 +866,56 @@ export default function GraciasPage() {
               >
                 ¿Te has atascado en algún paso?
               </h2>
-              <p className="mb-10 text-lg text-blue-100">
-                Escríbeme y lo resolvemos en el momento, o lo hacemos juntos por
-                videollamada. Ninguno de estos pasos merece que pierdas una
-                tarde.
+              <p className="mb-4 text-lg text-blue-100">
+                Escríbeme por Telegram y lo resolvemos en el momento, o lo
+                hacemos juntos por videollamada. Ninguno de estos pasos merece
+                que pierdas una tarde.
               </p>
+              <div className="mx-auto mb-10 max-w-2xl space-y-4 rounded-xl bg-blue-800/60 p-5 text-left text-base text-blue-50">
+                <p>
+                  <strong>
+                    La primera vez te va a contestar con un código
+                  </strong>{" "}
+                  de seis caracteres y no con una respuesta. Es normal y no has
+                  hecho nada mal: el bot no acepta mensajes de gente que no
+                  conoce. Pega ese código en{" "}
+                  <Link
+                    href="/panel/onboarding"
+                    className={`font-semibold text-white underline underline-offset-2 ${FOCUS}`}
+                  >
+                    Puesta en marcha
+                  </Link>
+                  , dentro de tu apartado privado, y te doy paso; a partir de
+                  ahí hablas con él con normalidad.
+                </p>
+                <p>
+                  <strong>Ese código dura una hora.</strong> Si se te pasa el
+                  rato sin que yo te haya dado paso, deja de valer: escríbele
+                  otra vez, te manda uno nuevo y pegas el nuevo encima del
+                  viejo. No se rompe nada por repetirlo.
+                </p>
+                <p>
+                  <strong>¿Y si no contesta nada?</strong> Contesta como mucho
+                  dos veces seguidas y después se calla, y hay ratos en que lo
+                  tengo parado yo. No insistas por ahí: escríbeme a{" "}
+                  <a
+                    href="mailto:info@stratomai.com?subject=El%20bot%20de%20Telegram%20no%20me%20contesta"
+                    className={`font-semibold text-white underline underline-offset-2 ${FOCUS}`}
+                  >
+                    info@stratomai.com
+                  </a>{" "}
+                  con tu usuario de Telegram y te doy paso a mano, sin código.
+                </p>
+              </div>
               <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <a
-                  href="https://wa.me/34611031947?text=Ya%20he%20pagado%20la%20implantaci%C3%B3n%2C%20tengo%20una%20duda%20con%20el%20checklist"
+                  href="https://t.me/Cordenbalibot?text=Ya%20he%20pagado%20la%20implantaci%C3%B3n%20del%20stack%20y%20quiero%20que%20me%20ayudes%20con%20el%20despliegue"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`inline-flex items-center justify-center gap-3 rounded-xl bg-white px-8 py-5 text-lg font-bold text-blue-700 transition-all hover:shadow-2xl ${FOCUS}`}
                 >
                   <MessageCircle className="h-6 w-6" aria-hidden="true" />
-                  Escribirme por WhatsApp
+                  Escribirme por Telegram
                   <ArrowRight className="h-5 w-5" aria-hidden="true" />
                 </a>
                 <a

@@ -86,8 +86,8 @@ const escenas: { titulo: string; antes: string; despues: string }[] = [
 
 const piezas: { nombre: string; que: string }[] = [
   {
-    nombre: "Paperclip",
-    que: "El panel donde viven tus «empleados de IA»: cada uno con su rol, sus tareas y su historial.",
+    nombre: "Claude Code",
+    que: "El agente con el que hablas por Telegram: despliega, escribe código y opera el servidor. El canal de Telegram lo sirve él mismo, sin ninguna pasarela por medio.",
   },
   {
     nombre: "n8n",
@@ -98,8 +98,12 @@ const piezas: { nombre: string; que: string }[] = [
     que: "Tu base de datos con sistema de usuarios y API REST, en tu máquina y no en la nube de otro.",
   },
   {
-    nombre: "OpenClaw",
-    que: "La pasarela que deja que un bot de Telegram o de WhatsApp hable con tus agentes.",
+    nombre: "Baileys",
+    que: "La librería de WhatsApp: con ella se crean las comunidades y los grupos de anuncios.",
+  },
+  {
+    nombre: "Docker + Docker Compose",
+    que: "Lo que mantiene los servicios corriendo y aislados entre sí en tu máquina.",
   },
 ];
 
@@ -108,6 +112,12 @@ const piezas: { nombre: string; que: string }[] = [
 // contra https://github.com/DoubleN96/stratoma-ai-stack (README, docker-compose,
 // scripts/, modos de fichero) ANTES de cada despliegue: el repo se corrige y
 // una viñeta obsoleta convierte la prueba de honestidad en un error demostrable.
+// Paperclip y OpenClaw quedaron fuera de la entrega: sus huecos (el
+// openclaw.json de la pasarela y el binario ruflo) ya no aplican y se han
+// retirado de esta lista. El repo SÍ los sigue trayendo (9 servicios en el
+// compose, health-check.sh consulta Paperclip); esa divergencia se declara en
+// la sección «Qué queda instalado». Si algún día se recortan del repo, hay que
+// retirar también ese aviso.
 // Última verificación: 30 de agosto de 2026.
 const huecos: ReactNode[] = [
   <>
@@ -119,23 +129,10 @@ const huecos: ReactNode[] = [
   </>,
   <>
     <strong>
-      Falta <Code>openclaw/openclaw.json</Code>.
-    </strong>{" "}
-    El repo solo trae la plantilla. Sin copiarlo y rellenarlo, la pasarela de
-    bots no arranca.
-  </>,
-  <>
-    <strong>
       Las claves <Code>anon</Code> y <Code>service_role</Code> de Supabase no se
       generan solas.
     </strong>{" "}
     El propio instalador imprime un aviso diciéndote que las hagas a mano.
-  </>,
-  <>
-    <strong>
-      El binario <Code>ruflo</Code> que declara la configuración MCP no lo
-      instala nada del repositorio.
-    </strong>
   </>,
   <>
     <strong>Los 13 flujos de n8n que sí vienen llevan valores de ejemplo</strong>
@@ -194,38 +191,10 @@ const costes: { concepto: ReactNode; quien: string; coste: ReactNode }[] = [
     ),
   },
   {
-    concepto: (
-      <>
-        Clave de API de Anthropic (<Code>console.anthropic.com</Code>) —{" "}
-        <strong>variable obligatoria del instalador</strong>: <Code>setup.sh</Code>{" "}
-        se para si no está, y el panel de agentes y la pasarela de bots —los dos
-        únicos servicios del <Code>docker-compose</Code> que la piden— se
-        despliegan de serie en la entrega. El agente con el que hablas por
-        Telegram no la toca: ese va contra tu suscripción
-      </>
-    ),
-    quien: "Anthropic, tu cuenta",
-    coste: (
-      <>
-        Por consumo, con saldo prepago tuyo.{" "}
-        <strong>
-          El cargo solo empieza cuando configuramos los agentes de esos dos
-          servicios con acceso a modelo por API
-        </strong>
-        , y eso lo decidimos juntos antes de encender nada
-      </>
-    ),
-  },
-  {
     concepto: "Dominio + DNS",
     quien: "Tu registrador / Cloudflare",
     coste:
       "El dominio, según registrador; el plan gratis de Cloudflare cubre lo que pide el playbook",
-  },
-  {
-    concepto: "OpenRouter (motor alternativo que usan varios flujos)",
-    quien: "OpenRouter",
-    coste: "Por uso, aparte de Claude",
   },
   {
     concepto: "CRM externo, si lo usas",
@@ -299,14 +268,12 @@ const faqs: { q: string; a: ReactNode }[] = [
         <p>
           Lo que pagas es lo que el repo no te da. <strong>Uno:</strong> tal
           cual, no arranca. Falta el <Code>kong.yml</Code> que monta el
-          contenedor de la API de Supabase, falta el <Code>openclaw.json</Code>{" "}
-          de la pasarela de bots, las claves <Code>anon</Code> y{" "}
+          contenedor de la API de Supabase, las claves <Code>anon</Code> y{" "}
           <Code>service_role</Code> te las tienes que generar tú —el instalador
-          literalmente imprime el aviso—, el binario <Code>ruflo</Code> que
-          declara la configuración MCP no lo instala nada, y los 13 flujos de
-          n8n que sí vienen llevan dentro cuentas de correo, identificadores de
-          CRM y chats de Telegram de otra vertical que hay que sustituir uno a
-          uno. <strong>Dos:</strong> cuando algo de
+          literalmente imprime el aviso— y los 13 flujos de n8n que sí vienen
+          llevan dentro cuentas de correo, identificadores de CRM y chats de
+          Telegram de otra vertical que hay que sustituir uno a uno.{" "}
+          <strong>Dos:</strong> cuando algo de
           eso falle a las once de la noche, la diferencia entre veinte minutos y
           dos días es haberlo roto antes; yo ya lo he roto.{" "}
           <strong>Tres:</strong> la cuota mensual no es por el software, es
@@ -404,9 +371,9 @@ const faqs: { q: string; a: ReactNode }[] = [
       <>
         <p>
           Te lo dejo <strong>montado y verificado</strong>: stack corriendo,
-          nueve agentes creados, 35 habilidades instaladas, cuatro herramientas
-          MCP conectadas, tu bot respondiéndote y la comprobación de salud en
-          verde. Eso lo ves o no lo ves, no hay interpretación.
+          las habilidades del agente instaladas, sus tres herramientas MCP
+          conectadas, tu bot respondiéndote y n8n y Supabase contestando a la
+          comprobación de salud. Eso lo ves o no lo ves, no hay interpretación.
         </p>
         <p>
           Lo que no te puedo dejar el día uno es tu negocio automatizado, porque
@@ -469,17 +436,11 @@ const faqs: { q: string; a: ReactNode }[] = [
         <p>
           Lo digo así de claro porque es la confusión más habitual:{" "}
           <strong>
-            no necesitas una clave de <Code>console.anthropic.com</Code> para
-            hablar con tu agente por Telegram
+            no necesitas ninguna clave de <Code>console.anthropic.com</Code>
           </strong>
-          . Esa clave es otra cosa: sí es una variable obligatoria del
-          instalador —<Code>setup.sh</Code> se para si falta— y el panel de
-          agentes y la pasarela de bots, los dos únicos servicios del{" "}
-          <Code>docker-compose</Code> que la piden, se levantan de serie con el
-          resto del stack. Lo que no se dispara solo es el gasto: solo pagas por
-          consumo cuando configuramos los agentes de esos dos servicios con
-          acceso a modelo por API, y eso lo decidimos juntos antes de encender
-          nada.
+          . Ni para hablar con tu agente por Telegram, ni para nada más de lo
+          que se instala: ningún servicio del stack pide una. No hay saldo
+          prepago que recargar ni contador de tokens que vigilar.
         </p>
         <p>
           Durante el despliegue uso mi cuenta para no tenerte esperando. En el
@@ -494,24 +455,20 @@ const faqs: { q: string; a: ReactNode }[] = [
       <>
         <p>
           Unos 20 € de servidor + tu plan de <Code>claude.ai</Code> + mis 500 €.
-          Tres facturas, y dos de ellas no me las llevo yo. Todos los precios que
-          te doy son sin IVA; en España se le suma el 21 %.
+          Tres facturas, dos de ellas no me las llevo yo, y{" "}
+          <strong>no hay una cuarta</strong>. Todos los precios que te doy son
+          sin IVA; en España se le suma el 21 %.
         </p>
         <p>
-          La parte que casi nadie cuenta y que aquí te digo la primera: el uso
-          diario del agente{" "}
-          <strong>no se factura por consumo</strong>. Corre contra tu
-          suscripción, que es tarifa plana, así que el mes que le des caña te
-          cuesta lo mismo que el mes que apenas lo toques. No hay una factura
-          sorpresa esperándote en el segundo mes.
-        </p>
-        <p>
-          El panel de agentes y la pasarela de bots sí se despliegan de serie, y
-          el instalador exige una clave de API de Anthropic para arrancar. Pero
-          el pago por consumo de esa clave solo aparece cuando configuramos los
-          agentes de esos dos servicios con acceso a modelo por API —igual que
-          si conectas motores alternativos tipo OpenRouter—. Es una decisión que
-          tomamos juntos y la dimensionamos antes de encender nada.
+          La parte que casi nadie cuenta y que aquí te digo la primera:{" "}
+          <strong>
+            nada de lo que se instala se factura por consumo de IA
+          </strong>
+          . No hace falta clave de API de Anthropic, no hay saldo prepago y no
+          hay contador de tokens en ninguna pieza del stack. El agente corre
+          contra tu suscripción, que es tarifa plana, así que el mes que le des
+          caña te cuesta lo mismo que el mes que apenas lo toques. No hay una
+          factura sorpresa esperándote en el segundo mes.
         </p>
         <p>
           Si a eso le sumas SaaS externos (CRM, correo profesional, WhatsApp
@@ -666,9 +623,7 @@ const faqs: { q: string; a: ReactNode }[] = [
         <p>
           Te afecta a ti directamente, porque la cuenta es tuya, y ese es el
           precio de no tener lock-in. Lo que hago yo es adaptarte: el sistema
-          puede apuntar a otro motor —hay una clave de proveedor alternativo
-          prevista de fábrica y varios flujos ya la usan como motor o como
-          respaldo— y eso entra dentro del mantenimiento.
+          puede apuntar a otro motor, y eso entra dentro del mantenimiento.
         </p>
         <p>
           Nadie puede garantizarte el precio de un tercero. Lo que sí puedo
@@ -687,8 +642,8 @@ const faqs: { q: string; a: ReactNode }[] = [
         </p>
         <p>
           Lo que sí es comprobable es la entrega: en 24-48 h desde tus accesos,
-          le escribes a tu bot y te contesta, con los agentes montados, las
-          habilidades instaladas, los flujos importados y la medición puesta.
+          le escribes a tu bot y te contesta, con las habilidades instaladas,
+          los MCP conectados, los flujos importados y la medición puesta.
           Eso o lo ves o no lo ves. El retorno depende de para qué lo uses, y en
           el traspaso trabajamos justo en eso.
         </p>
@@ -773,15 +728,15 @@ export default function StackIaLlaveEnManoPage() {
               </h1>
               <p className="mx-auto mb-8 max-w-3xl text-lg leading-relaxed text-gray-600 lg:text-xl">
                 En 24-48 h desde que me pasas tus accesos: el stack corriendo en
-                TU servidor, nueve agentes, 35 habilidades y tu bot
-                contestándote desde el móvil. Convertir tus procesos —tu web,
+                TU servidor, tu agente con sus habilidades y sus herramientas
+                conectadas, y tu bot contestándote desde el móvil. Convertir tus procesos —tu web,
                 tus correos, tu WhatsApp, tu CRM— en flujos que funcionen de
                 verdad es el trabajo del mes a mes, no del día uno; te lo digo
                 aquí y no después. Todo a TU nombre, y el código está publicado
                 en GitHub: puedes leerlo entero antes de darme un euro.
-                Implantación 990 € + 500 €/mes, IVA aparte. El servidor y la IA
-                los pagas tú directamente al proveedor: yo no revendo
-                infraestructura.
+                Implantación 990 € + 500 €/mes, IVA aparte. El servidor y tu
+                plan de Claude los pagas tú directamente al proveedor —son tus
+                dos únicos costes de terceros—: yo no revendo infraestructura.
               </p>
               <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <StripeCTA>
@@ -904,9 +859,9 @@ export default function StackIaLlaveEnManoPage() {
                   <Github className="h-4 w-4" aria-hidden="true" />
                   github.com/DoubleN96/stratoma-ai-stack
                 </a>
-                . El <Code>docker-compose.yml</Code>, los scripts de alta de
-                cliente, la plantilla de agentes, el catálogo de habilidades,
-                los flujos de n8n exportados y los manuales de operación. Todo.
+                . El <Code>docker-compose.yml</Code>, el catálogo de
+                habilidades, los flujos de n8n exportados y los manuales de
+                operación. Todo.
               </p>
             </div>
 
@@ -1007,8 +962,8 @@ export default function StackIaLlaveEnManoPage() {
             </h2>
             <div className="space-y-6 text-lg leading-relaxed text-gray-600">
               <p>
-                Es un servidor tuyo, pequeño, con cuatro servicios corriendo en
-                Docker y agentes de IA viviendo dentro, a los que escribes desde
+                Es un servidor tuyo, pequeño, con seis contenedores corriendo en
+                Docker y tu agente de IA viviendo dentro, al que escribes desde
                 Telegram como le escribirías a un empleado.
               </p>
               <p>
@@ -1031,13 +986,13 @@ export default function StackIaLlaveEnManoPage() {
                 {[
                   <>
                     <strong>El agente opera la máquina</strong>, no solo
-                    responde. Tiene terminal, GitHub, el panel de despliegues y
-                    n8n conectados de fábrica.
+                    responde. Tiene terminal, y GitHub, el panel de despliegues
+                    y tu base de datos conectados desde el primer día.
                   </>,
                   <>
                     <strong>Está pensado para varios proyectos a la vez</strong>
-                    : un agente por proyecto, cada uno con su usuario del
-                    sistema y su propio bot de chat.
+                    : una sesión del agente por proyecto, cada una con su
+                    usuario del sistema y su propio bot de Telegram.
                   </>,
                   <>
                     <strong>
@@ -1090,8 +1045,8 @@ export default function StackIaLlaveEnManoPage() {
               Qué queda instalado en tu servidor, pieza por pieza
             </h2>
             <p className="mb-10 text-center text-xl text-gray-600">
-              Las cuatro piezas base, con un solo <Code>docker compose up</Code>
-              .
+              Cinco piezas: tu agente, los servicios que levanta un solo{" "}
+              <Code>docker compose up</Code> y la librería de WhatsApp.
             </p>
 
             <div
@@ -1133,33 +1088,33 @@ export default function StackIaLlaveEnManoPage() {
               </table>
             </div>
 
+            <p className="mb-12 rounded-xl border-2 border-yellow-400 bg-yellow-100 p-6 leading-relaxed text-gray-800">
+              <strong>
+                Te lo digo antes de que lo veas al abrir el repositorio:
+              </strong>{" "}
+              el <Code>docker-compose.yml</Code> público levanta nueve
+              servicios, no seis, porque incluye también Paperclip y OpenClaw
+              (y el script de comprobación de salud sigue preguntando por
+              Paperclip). Esas dos piezas <strong>no van en la entrega</strong>:
+              el canal de Telegram lo sirve Claude Code por su cuenta y de
+              WhatsApp se encarga Baileys. Por eso lo que te queda montado son
+              estas cinco piezas y seis contenedores.
+            </p>
+
             <h3 className="mb-6 text-2xl font-bold">Lo que se monta encima</h3>
             <ul className="grid grid-cols-1 gap-5 lg:grid-cols-2">
               {[
                 <>
-                  <strong>Alta de tu empresa en un comando.</strong>{" "}
-                  <Code>create-company.sh</Code> crea la empresa, le instala el
-                  catálogo de habilidades y le levanta los nueve agentes de
-                  plantilla.
+                  <strong>El catálogo de habilidades del agente instalado</strong>
+                  : Google Workspace, n8n, marketing y SEO, Next.js, Supabase,
+                  Word y PDF. Son los manuales que sabe seguir para tareas
+                  concretas, y si mañana quieres uno más se le añade sin tocar
+                  el resto.
                 </>,
                 <>
-                  <strong>Nueve agentes con roles definidos</strong>, listos:
-                  dirección, ingeniería, marketing/SEO, dos de ventas,
-                  calificación de leads, seguimiento, actualización de CRM y
-                  administración. Cada uno con sus habilidades ya asignadas.
-                </>,
-                <>
-                  <strong>Catálogo reproducible de 35 habilidades</strong>:
-                  Google Workspace, n8n, marketing y SEO, Next.js, Supabase,
-                  Word y PDF. Si mañana quieres una más, un comando la instala
-                  sin tocar nada más.
-                </>,
-                <>
-                  <strong>
-                    Cuatro herramientas MCP conectadas a todos los agentes
-                  </strong>{" "}
-                  desde el primer día: GitHub, n8n, el panel de despliegues y el
-                  orquestador.
+                  <strong>Tres herramientas MCP conectadas al agente</strong>{" "}
+                  desde el primer día: GitHub, el panel de despliegues y tu base
+                  de datos.
                 </>,
                 <>
                   <strong>13 flujos de n8n exportados y documentados</strong>:
@@ -1173,8 +1128,8 @@ export default function StackIaLlaveEnManoPage() {
                 </>,
                 <>
                   <strong>Comprobación de salud en un comando</strong>:{" "}
-                  <Code>health-check.sh</Code> te dice si las piezas principales
-                  están vivas y qué contenedores corren.
+                  <Code>health-check.sh</Code> te dice si n8n y Supabase
+                  responden y qué contenedores corren.
                 </>,
                 <>
                   <strong>Medición de tu web</strong>: instalación del
@@ -1201,9 +1156,8 @@ export default function StackIaLlaveEnManoPage() {
                   <strong>Documentación que se queda contigo</strong>: tutorial
                   de cero a servidor controlado desde Telegram, manual de
                   operación diaria (permisos, memoria, herramientas, seguridad y
-                  qué NUNCA se pega por el chat), arquitectura multiagente,
-                  método de autoconservación de la flota y guía para montar tu
-                  base de conocimiento interna.
+                  qué NUNCA se pega por el chat), método de autoconservación de
+                  la flota y guía para montar tu base de conocimiento interna.
                 </>,
               ].map((item, i) => (
                 <li
@@ -1408,7 +1362,8 @@ export default function StackIaLlaveEnManoPage() {
                       </strong>{" "}
                       con plan de pago. Es la que autentica al agente en tu
                       servidor y contra la que corre su trabajo diario: tarifa
-                      plana, sin clave de API ni pago por tokens. Yo despliego
+                      plana, sin clave de API ni pago por tokens en ninguna
+                      parte del sistema. Yo despliego
                       con la mía para no bloquearte el arranque, y en el traspaso
                       conectamos la tuya con <Code>/login</Code>.
                     </span>
@@ -1441,9 +1396,9 @@ export default function StackIaLlaveEnManoPage() {
                 <p className="mb-4 leading-relaxed text-gray-600">
                   Compro con tu token la máquina que hayas elegido, levanto el
                   stack, genero las claves que faltan, escribo lo que el repo no
-                  trae, doy de alta tu empresa con los nueve agentes y las 35
-                  habilidades, conecto tu bot, dejo la medición puesta si tienes
-                  web y verifico que todo responde. El hito de este paso es
+                  trae, le instalo al agente sus habilidades y le conecto sus
+                  herramientas MCP, conecto tu bot, dejo la medición puesta si
+                  tienes web y verifico que todo responde. El hito de este paso es
                   concreto:{" "}
                   <strong>
                     le escribes a tu bot desde el móvil y te contesta tu
@@ -1467,9 +1422,9 @@ export default function StackIaLlaveEnManoPage() {
                 <p className="mb-4 leading-relaxed text-gray-600">
                   Una videollamada tranquila contigo (y con quien quieras de tu
                   equipo) donde aprendes a pedirle cosas, ves qué recuerda y qué
-                  no, damos de alta a tus compañeros con aprobación, rellenamos
-                  las fichas de cada agente con tu información real
-                  —credenciales, procedimientos, tono de voz—,{" "}
+                  no, damos de alta a tus compañeros con aprobación, llenamos la
+                  memoria del agente con tu información real —procedimientos,
+                  tono de voz y dónde vive cada cosa—,{" "}
                   <strong>sustituimos mi cuenta de Claude por la tuya</strong> y
                   te paso accesos, tokens, contraseñas y documentación.
                 </p>
@@ -1521,8 +1476,9 @@ export default function StackIaLlaveEnManoPage() {
                 <strong className="text-gray-900">Los 990 € cubren:</strong> la
                 compra y configuración de tu servidor con tu token, el
                 despliegue completo del stack, tapar todo lo que el repo no trae
-                montado, el alta de tu empresa con los nueve agentes y las 35
-                habilidades, la conexión de tu bot de Telegram, la medición
+                montado, las habilidades del agente instaladas y sus
+                herramientas MCP conectadas, la conexión de tu bot de Telegram,
+                la medición
                 instalada si tienes web, la verificación de que todo responde,
                 la documentación y la sesión de traspaso con todo transferido a
                 tu nombre.
@@ -1646,22 +1602,27 @@ export default function StackIaLlaveEnManoPage() {
                 <strong className="text-gray-900">
                   Sobre el consumo de IA, sin maquillaje:
                 </strong>{" "}
-                el agente con el que trabajas todos los días{" "}
-                <strong>no se paga por uso</strong>. Corre contra tu suscripción
-                de claude.ai, que es tarifa plana, así que el mes que le des caña
-                te cuesta exactamente lo mismo que el mes tranquilo. La partida
-                que sí se factura por consumo es la clave de API de Anthropic:
-                el instalador la exige para arrancar y el panel de agentes y la
-                pasarela de bots se despliegan de serie, pero no empieza a
-                cobrarte hasta que configuramos los agentes de esos dos
-                servicios con acceso a modelo por API —igual que un motor
-                alternativo tipo OpenRouter—. Eso lo decidimos juntos antes de
-                encenderlo.
+                aquí no hay consumo que contar.{" "}
+                <strong>
+                  Nada de lo que se instala se factura por uso de IA
+                </strong>
+                : ni clave de API de Anthropic, ni saldo prepago, ni contador de
+                tokens en ninguna pieza del stack. El agente corre contra tu
+                suscripción de claude.ai, que es tarifa plana, así que el mes que
+                le des caña te cuesta exactamente lo mismo que el mes tranquilo.
+              </p>
+              <p>
+                Dicho de otra forma: el servidor y tu suscripción de claude.ai
+                son los{" "}
+                <strong>dos únicos costes de terceros</strong> que el sistema
+                necesita para funcionar. Todo lo demás de esta tabla son SaaS que
+                ya usas o que decides conectar tú, y ninguno hace falta para que
+                esto arranque.
               </p>
               <p className="font-semibold text-gray-900">
                 El suelo realista: servidor (≈ 20 €) + tu plan de claude.ai + mis
-                500 € + IVA. Tres facturas distintas, y dos de ellas no me las
-                llevo yo.
+                500 € + IVA. Tres facturas distintas, dos de ellas no me las
+                llevo yo, y no hay una cuarta.
               </p>
             </div>
           </Container>
@@ -1762,10 +1723,10 @@ export default function StackIaLlaveEnManoPage() {
                       Está en la lista de deseos del repo, no en la caja.
                     </>,
                     <>
-                      Las fichas de cada agente (credenciales, procedimientos,
-                      tono de voz){" "}
-                      <strong>no vienen escritas de fábrica</strong>: se
-                      rellenan con tu información en el traspaso.
+                      La memoria del agente (procedimientos, tono de voz, dónde
+                      vive cada cosa){" "}
+                      <strong>no viene escrita de fábrica</strong>: se rellena
+                      con tu información en el traspaso.
                     </>,
                   ],
                 },
