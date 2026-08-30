@@ -27,7 +27,12 @@ export default function TermsOfService() {
             <p>El código y los diseños generados pertenecen al usuario, reservándose Stratoma AI el derecho a procesar los datos para la optimización técnica del servicio.</p>
           </section>
 
-          <p className="pt-10 border-t border-gray-100 text-sm text-gray-400 text-center">© 2026 Stratoma Consulting Group - Madrid, España.</p>
+          <p className="pt-10 border-t border-gray-100 text-sm text-gray-400 text-center">
+            Titular: RIBON REAL ESTATE SERVICES, SLU (CIF B10904365), Calle Bravo Murillo
+            n.º 37 - I, 2-2, 28015 Madrid, España — marca comercial Stratoma AI.
+            Identificación completa y condiciones de contratación en el{' '}
+            <a href="/aviso-legal" className="underline">aviso legal</a>.
+          </p>
         </div>
       </div>
     </div>

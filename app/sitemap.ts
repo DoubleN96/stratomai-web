@@ -52,6 +52,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
+    // Ofertas. Son páginas comerciales, así que van con prioridad alta.
+    // La de /gracias queda fuera a propósito: es post-pago y lleva noindex.
+    {
+      url: `${baseUrl}/oferta/stack-ia-llave-en-mano`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/oferta/sprint-automatizacion`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/oferta/web-express-24h`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
   ];
 
   // Blog post pages

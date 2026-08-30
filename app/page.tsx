@@ -536,6 +536,7 @@ export default function StratomaAIHomePage() {
           <div>
             <h4 className="text-white font-bold text-xs uppercase tracking-widest mb-6">Legal</h4>
             <ul className="space-y-4">
+              <li><Link href="/aviso-legal" className="text-slate-500 hover:text-blue-400 transition-colors text-sm uppercase tracking-widest">Aviso legal</Link></li>
               <li><Link href="/privacy" className="text-slate-500 hover:text-blue-400 transition-colors text-sm uppercase tracking-widest">Privacidad</Link></li>
               <li><Link href="/terms" className="text-slate-500 hover:text-blue-400 transition-colors text-sm uppercase tracking-widest">Términos</Link></li>
             </ul>
