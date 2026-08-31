@@ -220,6 +220,41 @@ async function handleCheckoutCompleted(
   if (!sent) {
     console.error('[stripe] alta OK pero el email de bienvenida NO salió para', email);
   }
+
+  // AVISO INMEDIATO AL OPERADOR (31/08/2026). Hasta hoy solo se avisaba cuando el
+  // comprador entregaba las CUATRO credenciales (owner_notified_at). Un comprador que
+  // paga y se atasca en el paso 1 — lo normal — era invisible: el 31/08 un cobro
+  // estuvo 6 horas sin que nadie lo supiera. El aviso del final se queda; este cubre
+  // el hueco entre "ha pagado" y "ha terminado".
+  await alertOwner(
+    `💰 Nueva compra del Stack IA\n\n${email}\n` +
+      `sesión: ${idOf(session.id) ?? '?'}\n\n` +
+      'Todavía no ha entregado credenciales. Si en unas horas sigue igual, conviene escribirle.'
+  );
+}
+
+/**
+ * Ping a Telegram al operador. Best-effort y silencioso: un aviso perdido no debe
+ * tumbar el webhook ni provocar que Stripe reintente un alta ya hecha.
+ */
+async function alertOwner(text: string): Promise<void> {
+  const token = process.env.TELEGRAM_ALERT_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_ALERT_CHAT_ID;
+  if (!token || !chatId) {
+    console.warn('[stripe] sin TELEGRAM_ALERT_*: no aviso de la compra');
+    return;
+  }
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: chatId, text }),
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) console.error('[stripe] Telegram devolvió', res.status);
+  } catch (e) {
+    console.error('[stripe] no se pudo avisar por Telegram:', (e as Error).message);
+  }
 }
 
 async function handleSubscriptionDeleted(
