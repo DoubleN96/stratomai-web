@@ -45,6 +45,15 @@ const TOLERANCE_SECONDS = 300;
 const MAX_BODY_BYTES = 1_000_000;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Payment links (plink_...) que SÍ son una compra del Stack IA, separados por comas.
+// La cuenta de Stripe está COMPARTIDA con Tripath, así que sin esta lista el webhook
+// daba de alta como compradores a los clientes de Tripath. El id sale del panel de
+// Stripe: Payment links -> la oferta -> empieza por plink_.
+const STACK_IA_PAYMENT_LINKS = (process.env.STACK_IA_PAYMENT_LINKS ?? '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+
 function timingSafeEqualHex(a: string, b: string): boolean {
   if (a.length !== b.length) return false;
   try {
@@ -110,12 +119,49 @@ function emailOf(session: Record<string, unknown>): string | null {
   return EMAIL_RE.test(email) && email.length <= 254 ? email : null;
 }
 
+/**
+ * ¿Esta sesión de checkout corresponde a la oferta del Stack IA?
+ *
+ * FALLA EN SEGURO: si la lista no está configurada devuelve false y no se da de alta a
+ * nadie. Es deliberado — inscribir a quien no ha comprado (correo de bienvenida de un
+ * producto ajeno, cuenta en el panel sin pedirla) hace más daño que perder un alta
+ * automática, que siempre se puede rehacer a mano desde la sesión de Stripe.
+ */
+function isStackIaPurchase(session: Record<string, unknown>): boolean {
+  const link = idOf(session.payment_link);
+  if (STACK_IA_PAYMENT_LINKS.length === 0) {
+    console.error(
+      '[stripe] STACK_IA_PAYMENT_LINKS sin configurar: ignoro el pago por seguridad ' +
+        `(session=${idOf(session.id) ?? '?'}, payment_link=${link ?? 'ninguno'}). ` +
+        'Configura la variable con el plink_ de la oferta y rehaz el alta a mano.'
+    );
+    return false;
+  }
+  return link !== null && STACK_IA_PAYMENT_LINKS.includes(link);
+}
+
 // --- handlers ---------------------------------------------------------------
 
 async function handleCheckoutCompleted(
   eventId: string,
   session: Record<string, unknown>
 ): Promise<void> {
+  // GUARD DE PRODUCTO (31/08/2026). La cuenta de Stripe está compartida con Tripath y
+  // este handler aceptaba CUALQUIER checkout.session.completed de esa cuenta. Ese día
+  // una inquilina de Tripath pagó 1.575 EUR de lo suyo (sin payment_link) y quedó
+  // inscrita como compradora del Stack IA, con cuenta en el panel y correo de
+  // bienvenida a un producto que nunca compró. Tripath desplegó el filtro simétrico
+  // el mismo día para que nuestros pagos no entraran en su contabilidad.
+  //
+  // Va lo PRIMERO: un pago ajeno no debe crear usuario ni disparar correo.
+  if (!isStackIaPurchase(session)) {
+    console.warn(
+      `[stripe] pago ajeno al Stack IA ignorado (session=${idOf(session.id) ?? '?'}, ` +
+        `payment_link=${idOf(session.payment_link) ?? 'ninguno'})`
+    );
+    return;
+  }
+
   // Async payment methods fire this event before the money lands.
   const paymentStatus = session.payment_status;
   if (paymentStatus !== 'paid' && paymentStatus !== 'no_payment_required') {
