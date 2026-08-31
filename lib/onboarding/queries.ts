@@ -503,6 +503,8 @@ export interface BuyerInput {
   stripeCustomerId: string | null;
   stripeSubscriptionId: string | null;
   checkoutSessionId: string | null;
+  /** client_reference_id de Stripe: quien refirio a este comprador. Ver migracion 013. */
+  referredBy: string | null;
 }
 
 /**
@@ -558,6 +560,9 @@ export async function upsertBuyer(
     ...(input.checkoutSessionId
       ? { stripe_checkout_session_id: input.checkoutSessionId }
       : {}),
+    // Igual que el resto: si viene null NO se escribe. Un reintento de Stripe sin el
+    // campo no debe borrar la atribucion que ya guardo el primer intento.
+    ...(input.referredBy ? { referred_by: input.referredBy } : {}),
   };
 
   if (existing) {

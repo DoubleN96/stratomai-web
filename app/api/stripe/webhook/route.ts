@@ -211,6 +211,13 @@ async function handleCheckoutCompleted(
     stripeCustomerId: idOf(session.customer),
     stripeSubscriptionId: idOf(session.subscription),
     checkoutSessionId: typeof session.id === 'string' ? session.id : null,
+    // Atribucion de referidos SIN cookies: el enlace de pago se comparte como
+    // ...?client_reference_id=<quien-refiere> y Stripe lo devuelve aqui intacto.
+    // Funciona aunque el comprador vea la landing en el movil y pague en el ordenador.
+    referredBy:
+      typeof session.client_reference_id === 'string' && session.client_reference_id
+        ? session.client_reference_id.slice(0, 200)
+        : null,
   });
   await linkStripeEvent(eventId, id);
 
