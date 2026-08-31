@@ -505,6 +505,8 @@ export interface BuyerInput {
   checkoutSessionId: string | null;
   /** client_reference_id de Stripe: quien refirio a este comprador. Ver migracion 013. */
   referredBy: string | null;
+  /** @usuario de Telegram, del custom_field del checkout. Ver migracion 014. */
+  telegramUsername: string | null;
 }
 
 /**
@@ -563,6 +565,7 @@ export async function upsertBuyer(
     // Igual que el resto: si viene null NO se escribe. Un reintento de Stripe sin el
     // campo no debe borrar la atribucion que ya guardo el primer intento.
     ...(input.referredBy ? { referred_by: input.referredBy } : {}),
+    ...(input.telegramUsername ? { telegram_username: input.telegramUsername } : {}),
   };
 
   if (existing) {

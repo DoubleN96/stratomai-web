@@ -140,6 +140,33 @@ function isStackIaPurchase(session: Record<string, unknown>): boolean {
   return link !== null && STACK_IA_PAYMENT_LINKS.includes(link);
 }
 
+
+/**
+ * El @usuario de Telegram que el comprador escribio en el checkout.
+ *
+ * Se recoge con `custom_fields` del payment link (clave "telegram") y NO con un formulario en
+ * la web: asi se pide en el momento del pago, es obligatorio de verdad, y no hay estado que
+ * mantener entre la landing y el cobro — un formulario aparte se pierde si el comprador ve la
+ * pagina en el movil y paga en el ordenador.
+ *
+ * Sin este dato el bot del cliente no puede reconocerle: un bot de Telegram no puede escribir
+ * primero, asi que su chat_id tiene que estar en la lista de acceso ANTES de que pulse Start.
+ */
+function telegramOf(session: Record<string, unknown>): string | null {
+  const fields = session.custom_fields;
+  if (!Array.isArray(fields)) return null;
+  for (const f of fields) {
+    const field = f as { key?: unknown; text?: { value?: unknown } };
+    if (field.key !== 'telegram') continue;
+    const raw = field.text?.value;
+    if (typeof raw !== 'string') return null;
+    // Normalizado: sin espacios y sin la arroba, que la gente pone a veces y a veces no.
+    const clean = raw.trim().replace(/^@+/, '');
+    return /^[A-Za-z0-9_]{3,64}$/.test(clean) ? clean : null;
+  }
+  return null;
+}
+
 // --- handlers ---------------------------------------------------------------
 
 async function handleCheckoutCompleted(
@@ -218,6 +245,7 @@ async function handleCheckoutCompleted(
       typeof session.client_reference_id === 'string' && session.client_reference_id
         ? session.client_reference_id.slice(0, 200)
         : null,
+    telegramUsername: telegramOf(session),
   });
   await linkStripeEvent(eventId, id);
 
