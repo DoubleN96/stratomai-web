@@ -25,14 +25,14 @@ const LINK = `font-semibold text-blue-700 underline underline-offset-2 hover:tex
 
 const STRIPE_DONE_FOR_YOU = "https://buy.stripe.com/8x2fZh966aQoapIcY43wQ0i";
 const STRIPE_GUIADA = "https://buy.stripe.com/8x27sL4PQ3nWdBU5vC3wQ0j";
-const STRIPE_COLEGAS = "https://buy.stripe.com/aFa3cvdmmf6E69sf6c3wQ0k";
 const HETZNER_URL = "https://hetzner.cloud/?ref=lbEMCsnlJ2EP";
 const WHATSAPP_URL =
   "https://wa.me/34611031947?text=Hola%2C%20estoy%20eligiendo%20modalidad%20del%20stack%20de%20IA%20y%20tengo%20una%20duda";
 
 // El código no es una medida de seguridad: es una puerta blanda para que la
 // modalidad Colegas no salga a la vista de cualquiera que abra la página.
-const CODIGO_COLEGAS = "MARCELINO";
+// El codigo y la URL de Colegas YA NO viven aqui: este fichero es "use client" y todo lo
+// que contiene viaja al navegador. Ahora los comprueba /api/colegas en el servidor.
 
 // Un `ref` solo se acepta si es pegable en una URL sin romperla: letras,
 // números, guiones y guiones bajos, hasta 60 caracteres. Lo demás se ignora.
@@ -141,7 +141,8 @@ const COLEGAS: Modalidad = {
     <>Que alguien te haya dado el código.</>,
   ],
   cta: "Entrar por 9,26 €/mes",
-  url: STRIPE_COLEGAS,
+  // La URL la entrega /api/colegas al validar el codigo; aqui iria a parar al bundle.
+  url: "",
   icon: KeyRound,
 };
 
@@ -247,11 +248,36 @@ type EstadoCodigo = "vacio" | "aceptado" | "rechazado";
 function PuertaColegas({ refCliente }: { refCliente: string | null }) {
   const [codigo, setCodigo] = useState("");
   const [estado, setEstado] = useState<EstadoCodigo>("vacio");
+  const [urlColegas, setUrlColegas] = useState<string | null>(null);
+  const [comprobando, setComprobando] = useState(false);
 
-  function comprobar(evento: FormEvent<HTMLFormElement>) {
+  async function comprobar(evento: FormEvent<HTMLFormElement>) {
     evento.preventDefault();
-    const limpio = codigo.trim().toUpperCase();
-    setEstado(limpio === CODIGO_COLEGAS ? "aceptado" : "rechazado");
+    setComprobando(true);
+    try {
+      const params = new URLSearchParams({ codigo: codigo.trim() });
+      if (refCliente) params.set("ref", refCliente);
+      const res = await fetch(`/api/colegas?${params.toString()}`);
+      if (!res.ok) {
+        setEstado("rechazado");
+        setUrlColegas(null);
+        return;
+      }
+      const datos = (await res.json()) as { ok?: boolean; url?: string };
+      if (datos.ok && typeof datos.url === "string") {
+        setUrlColegas(datos.url);
+        setEstado("aceptado");
+      } else {
+        setEstado("rechazado");
+        setUrlColegas(null);
+      }
+    } catch {
+      // Un fallo de red no es un codigo malo: se distingue para no acusar al visitante.
+      setEstado("rechazado");
+      setUrlColegas(null);
+    } finally {
+      setComprobando(false);
+    }
   }
 
   return (
@@ -288,9 +314,10 @@ function PuertaColegas({ refCliente }: { refCliente: string | null }) {
           />
           <button
             type="submit"
-            className={`shrink-0 rounded-xl bg-gray-900 px-6 py-3 font-semibold text-white transition-colors hover:bg-gray-800 ${FOCUS}`}
+            disabled={comprobando}
+            className={`shrink-0 rounded-xl bg-gray-900 px-6 py-3 font-semibold text-white transition-colors hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-60 ${FOCUS}`}
           >
-            Comprobar
+            {comprobando ? "Comprobando…" : "Comprobar"}
           </button>
         </div>
         <p
@@ -319,7 +346,10 @@ function PuertaColegas({ refCliente }: { refCliente: string | null }) {
             La modalidad Colegas solo se llega a ver introduciendo el código, así
             que la atribución es siempre de quien lo reparte: `marcelino`.
           */}
-          <TarjetaModalidad modalidad={COLEGAS} refCliente="marcelino" />
+          <TarjetaModalidad
+            modalidad={{ ...COLEGAS, url: urlColegas ?? "" }}
+            refCliente={null}
+          />
           {refCliente && (
             <p className="mt-4 text-center text-sm text-gray-500">
               Has llegado con el enlace de <strong>{refCliente}</strong>, pero
