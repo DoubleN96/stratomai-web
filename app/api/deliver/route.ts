@@ -78,6 +78,30 @@ async function loadPack(campaign: string): Promise<Pack | null> {
   return null;
 }
 
+const CHALLENGE_CAMPAIGN = 'challenge30';
+const CHALLENGE_HERO = 'https://tudormorari.ai/assets/tudor-profile-crop.jpg';
+
+// Tudor (voice, 04-sep): not a prompt pack, no "challenge30" in the copy. Just a
+// welcome + a self-intro + the actual claim he's proving over the 30 days.
+function buildChallengeWelcomeEmail(name: string) {
+  const clean = name.replace(/\s+/g, ' ').trim();
+  const firstName = clean.split(' ')[0] || 'there';
+  const subject = `Welcome to the 30-Day Challenge`;
+  const html =
+    `<div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.55;color:#111;max-width:560px">` +
+    `<img src="${esc(CHALLENGE_HERO)}" alt="Tudor Morari" width="120" style="width:120px;height:120px;border-radius:50%;display:block;margin:0 0 20px;object-fit:cover">` +
+    `<p>Hey ${esc(firstName)},</p>` +
+    `<p>Welcome to the 30-Day Challenge.</p>` +
+    `<p>I'm Tudor. I want to prove that you can post every single day for 30 days and create high-quality AI animation content on Instagram, with less than 1 hour of work per day and a $100 budget for the whole month, for everything.</p>` +
+    `<p>I'm going to show you exactly how I did it, one day at a time.</p>` +
+    `<p>Save this email. Day one lands next.</p>` +
+    `<p>Tudor</p>` +
+    `<div style="border-top:1px solid #eee;margin:20px 0;font-size:0;line-height:0">&nbsp;</div>` +
+    `<p style="font-size:12px;color:#888">You're getting this because you joined the 30-Day Challenge at tudormorari.ai/challenge. Reply to this email to opt out.</p>` +
+    `</div>`;
+  return { subject, html };
+}
+
 function buildEmail(name: string, primary: string, youtube: string, igImage: string) {
   const clean = name.replace(/\s+/g, ' ').trim();
   const safeName = esc(clean);
@@ -154,11 +178,16 @@ export async function POST(req: Request) {
   const H = { Authorization: `Bearer ${pit}`, Version: '2021-07-28', 'Content-Type': 'application/json' };
 
   let deliveryError = '';
-  const pack = await loadPack(campaign);
-  const livesLink = `https://tudormorari.ai/lives?utm_campaign=${encodeURIComponent(campaign)}`;
-  const title = pack?.title || campaign;
-  const primary = pack?.drive || pack?.full || livesLink;
-  const { subject, html } = buildEmail(title, primary, pack?.youtube || '', pack?.igImage || '');
+  let subject: string, html: string;
+  if (campaign === CHALLENGE_CAMPAIGN) {
+    ({ subject, html } = buildChallengeWelcomeEmail(name));
+  } else {
+    const pack = await loadPack(campaign);
+    const livesLink = `https://tudormorari.ai/lives?utm_campaign=${encodeURIComponent(campaign)}`;
+    const title = pack?.title || campaign;
+    const primary = pack?.drive || pack?.full || livesLink;
+    ({ subject, html } = buildEmail(title, primary, pack?.youtube || '', pack?.igImage || ''));
+  }
 
   // Upsert to get a contactId (idempotent), then email via Conversations API.
   try {
