@@ -34,6 +34,7 @@ export function PanelShell({
       label: 'Panel',
       items: [
         { label: 'Resumen', href: `${base}/comando`, icon: 'grid' },
+        { label: 'Reto 30 días · emails', href: `${base}/reto`, icon: 'doc' },
         { label: 'Marketing', href: `${base}/marketing`, icon: 'megaphone' },
         { label: 'Anuncios · en vivo', href: `${base}/anuncios`, icon: 'chart' },
         { label: 'Swipe · Lanzamiento pro', href: `${base}/funnel`, icon: 'doc' },
