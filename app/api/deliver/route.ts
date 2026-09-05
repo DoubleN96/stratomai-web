@@ -11,6 +11,9 @@ export const dynamic = 'force-dynamic';
 
 const ALLOW_ORIGIN = 'https://tudormorari.ai';
 const SHEET_ID = '1fmwbqU1qMAZMrTaNTHx-zzYRO5rxiFRUaIaERh6ukdY';
+// Second sheet, for the 30-day challenge: one row per video Tudor posts, with the
+// prompt of that video. Same column headers, so loadPack reads it unchanged.
+const CHALLENGE_SHEET_ID = '1R7J79g8FipLgWOs8U1WTlxBAlPGmkjFVQiozY26aQZQ';
 const EMAIL_FROM = 'Tudor <info@lc.tudormorari.ai>';
 const WA_INVITE = 'https://chat.whatsapp.com/CuMwpaMQ8V227QFVm29MXU';
 const FALLBACK_HERO = 'https://tudormorari.ai/og-banner.png';
@@ -37,8 +40,8 @@ interface Pack {
 }
 
 // campaign(UPPER) -> pack, columns resolved BY HEADER (sheet gets reordered).
-async function loadPack(campaign: string): Promise<Pack | null> {
-  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=1&sheet=UTM`;
+async function loadPack(campaign: string, sheetId: string = SHEET_ID): Promise<Pack | null> {
+  const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&headers=1&sheet=UTM`;
   const res = await fetch(url, { cache: 'no-store' });
   if (!res.ok) return null;
   const raw = await res.text();
@@ -86,7 +89,11 @@ const BUSINESS_ADDRESS = 'Societiesr S.R.L. &middot; Bulevardul Alexandru Obregi
 // Tudor (voice, 05-sep): no photo, no links (plain-text URLs get auto-linkified
 // by mail clients anyway), and a real unsubscribe line + postal address for
 // CAN-SPAM/GDPR compliance instead of just "reply to opt out".
-function buildChallengeWelcomeEmail(name: string) {
+// `pack` is set when the visitor arrived from a specific video (utm_campaign of that
+// row). Marcelino, 05-sep: whoever fills the form must also get the prompt they came
+// for. It goes in as a plain line with the raw URL, not a button, to keep Tudor's
+// rule that this email stays text only.
+function buildChallengeWelcomeEmail(name: string, pack?: Pack | null) {
   const clean = name.replace(/\s+/g, ' ').trim();
   const firstName = clean.split(' ')[0] || 'there';
   const subject = `Welcome to the 30-Day Challenge`;
@@ -96,6 +103,9 @@ function buildChallengeWelcomeEmail(name: string) {
     `<p>Welcome to the 30-Day Challenge.</p>` +
     `<p>I'm Tudor. I want to prove that you can post every single day for 30 days and create high-quality AI animation content on Instagram, with less than 1 hour of work per day and a $100 budget for the whole month, for everything.</p>` +
     `<p>I'm going to show you exactly how I did it, one day at a time.</p>` +
+    (pack && pack.drive
+      ? `<p>And here is the prompt you asked for, ${esc(pack.title)}:<br>${esc(pack.drive)}</p>`
+      : '') +
     `<p>Save this email. Day one lands next.</p>` +
     `<p>Tudor</p>` +
     `<div style="border-top:1px solid #eee;margin:20px 0;font-size:0;line-height:0">&nbsp;</div>` +
@@ -182,7 +192,9 @@ export async function POST(req: Request) {
   let deliveryError = '';
   let subject: string, html: string;
   if (campaign === CHALLENGE_CAMPAIGN) {
-    ({ subject, html } = buildChallengeWelcomeEmail(name));
+    const promptUtm = STR(body.promptUtm, 80);
+    const dayPack = promptUtm ? await loadPack(promptUtm, CHALLENGE_SHEET_ID) : null;
+    ({ subject, html } = buildChallengeWelcomeEmail(name, dayPack));
   } else {
     const pack = await loadPack(campaign);
     const livesLink = `https://tudormorari.ai/lives?utm_campaign=${encodeURIComponent(campaign)}`;
