@@ -189,10 +189,13 @@ export async function POST(req: Request) {
   const { pit, locationId } = cfg.ghl;
   const H = { Authorization: `Bearer ${pit}`, Version: '2021-07-28', 'Content-Type': 'application/json' };
 
+  // The video someone came from. It never replaces the campaign tag, it is added on
+  // top of it (Marcelino, 05-sep): challenge30 is what puts them in the sequence,
+  // this one says which video brought them.
+  const promptUtm = STR(body.promptUtm, 80);
   let deliveryError = '';
   let subject: string, html: string;
   if (campaign === CHALLENGE_CAMPAIGN) {
-    const promptUtm = STR(body.promptUtm, 80);
     const dayPack = promptUtm ? await loadPack(promptUtm, CHALLENGE_SHEET_ID) : null;
     ({ subject, html } = buildChallengeWelcomeEmail(name, dayPack));
   } else {
@@ -221,7 +224,11 @@ export async function POST(req: Request) {
     await fetch(`https://services.leadconnectorhq.com/contacts/${cid}/tags`, {
       method: 'POST',
       headers: H,
-      body: JSON.stringify({ tags: ['lives-page', `utm:${campaign}`] }),
+      body: JSON.stringify({
+        tags: promptUtm && promptUtm !== campaign
+          ? ['lives-page', `utm:${campaign}`, `utm:${promptUtm}`]
+          : ['lives-page', `utm:${campaign}`],
+      }),
     }).catch(() => {});
     const send = await fetch('https://services.leadconnectorhq.com/conversations/messages', {
       method: 'POST',
