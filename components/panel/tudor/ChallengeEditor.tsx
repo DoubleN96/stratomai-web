@@ -51,6 +51,8 @@ const GHL_STEPS_AUTO = [
   `Una sola vez, para los que YA están apuntados (el trigger no es retroactivo): Contacts → Smart Lists → filtro Tag = ${CHALLENGE_GHL_TAG} → "Select all" (todas las páginas) → "Trigger automation" → el workflow publicado.`,
 ];
 
+const PREVIEW_W = 620; // 600px email + a little air
+const PREVIEW_H = 1000;
 const AI_POLL_MS = 3000;
 const AI_TIMEOUT_MS = 6 * 60 * 1000;
 
@@ -94,6 +96,10 @@ export function ChallengeEditor({ slug, initial }: { slug: string; initial: Chal
   const [ai, setAi] = useState<AiState>({ phase: 'idle', day: 0 });
   const [tick, setTick] = useState(0);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // The email is 600px wide by design (that is what inboxes render). The preview
+  // column is narrower, so scale it down to fit instead of clipping the headline.
+  const previewRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
   const pending = useRef<ChallengeDays | null>(null);
   const daysRef = useRef(days);
   daysRef.current = days;
@@ -142,6 +148,16 @@ export function ChallengeEditor({ slug, initial }: { slug: string; initial: Chal
     },
     []
   );
+
+  useEffect(() => {
+    const el = previewRef.current;
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const fit = () => setScale(Math.min(1, el.clientWidth / PREVIEW_W));
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   // Elapsed-seconds ticker while the terminal is writing.
   useEffect(() => {
@@ -364,18 +380,26 @@ export function ChallengeEditor({ slug, initial }: { slug: string; initial: Chal
           ))}
         </div>
 
-        <div className="overflow-hidden rounded-xl border border-[#e2e5ea] bg-white text-[#111]">
+        <div ref={previewRef} className="overflow-hidden rounded-xl border border-[#e2e5ea] bg-white text-[#111]">
           <div className="border-b border-[#e2e5ea] bg-[#f6f7f9] px-4 py-3">
             <div className="text-[13px] font-semibold">{email.subject}</div>
             <div className="mt-1 text-[11px] text-[#9aa1ab]">{CHALLENGE_FROM}</div>
           </div>
           {canSend ? (
-            <iframe
-              title="preview"
-              srcDoc={`<body style="margin:0;background:#F4F8FC">${email.html}</body>`}
-              className="h-[620px] w-full border-0"
-              sandbox=""
-            />
+            <div className="overflow-hidden" style={{ height: PREVIEW_H * scale }}>
+              <iframe
+                title="preview"
+                srcDoc={`<body style="margin:0;background:#F4F8FC">${email.html}</body>`}
+                className="border-0"
+                style={{
+                  width: PREVIEW_W,
+                  height: PREVIEW_H,
+                  transform: `scale(${scale})`,
+                  transformOrigin: '0 0',
+                }}
+                sandbox=""
+              />
+            </div>
           ) : (
             <div className="px-5 py-10 text-center text-sm text-[#9aa1ab]">
               Escribe el texto del día y el email aparece aquí.
