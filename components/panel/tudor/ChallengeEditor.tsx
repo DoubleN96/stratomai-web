@@ -1,10 +1,14 @@
 'use client';
 
 // 30-Day Challenge editor. Left: the 30 days with their status. Middle: the form
-// for the selected day (date, subject, text, prompt). Right: the email exactly as
-// it lands in an inbox, generated live from the text, plus copy buttons and the
-// click-by-click GHL send guide. Every change persists (debounced) via the
-// member-guarded POST /api/panel/tudor/challenge.
+// for the selected day (date, subject, text, prompt) plus "Redactar con IA".
+// Right: the email exactly as it lands in an inbox, generated live from the
+// text, plus copy buttons and the click-by-click GHL send guide. Every change
+// persists (debounced) via the member-guarded POST /api/panel/tudor/challenge.
+//
+// "Redactar con IA" does not call an LLM API: it enqueues the notes in
+// panel_ai_requests (POST /api/panel/tudor/ai) and the Stratoma Claude Code
+// terminal answers; we poll GET until the row is done and fill the fields.
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -25,18 +29,53 @@ const STATUS_STYLE: Record<ChallengeStatus, string> = {
   enviado: 'border-[#C8FF00] bg-[#C8FF00] text-[#0A0A0F]',
 };
 
-const GHL_STEPS = [
-  'Marketing → Emails → Campaigns → "+ Create Campaign".',
-  'Elige "Blank template" y en el builder cambia a "Code editor" (icono </> arriba). Borra lo que haya y pega el HTML copiado con el botón "Copiar HTML".',
-  'Si prefieres el editor visual: arrastra un bloque "Text" y pega el "Copiar texto". Sin imágenes, sin botones.',
-  `Arriba a la derecha: "Send / Schedule". Subject = el asunto copiado. From = ${CHALLENGE_FROM}.`,
-  `Recipients → "Send to" → Smart list o filtro por Tag = ${CHALLENGE_GHL_TAG}. Comprueba el número de contactos antes de seguir.`,
-  'Envía una prueba a tu email ("Send test"), ábrela en el móvil, y luego "Send now" o programa la hora.',
+// Verified against GHL docs (design/research pass, 05-sep). Two routes: the
+// per-day send anyone can do, and the one-time automation that enrols new
+// subscribers on its own.
+const GHL_STEPS_DAY = [
+  'Marketing → Emails → Templates → "+ New" → "Blank" → arriba cambia al editor de código (icono </>). NO uses el editor visual: reescribe los estilos y se pierde la marca.',
+  'Borra lo que haya dentro y pega lo que copies con "Copiar HTML". Guarda la plantilla con el nombre "Reto Día N".',
+  `En la secuencia o campaña, el email de ese día: "Select Template" → "Reto Día N". Subject = el asunto copiado. From = ${CHALLENGE_FROM}.`,
+  'Deja "Sync Edits to Template" apagado, así el paso guarda su propia copia y no toca la plantilla maestra.',
+  '"Send test" a tu email, ábrelo en el móvil, y entonces envía o programa.',
   'Vuelve aquí y marca el día como "enviado".',
 ];
 
+const GHL_STEPS_AUTO = [
+  'Automation → Workflows → "+ Create Workflow" → "Start from Scratch".',
+  `"Add New Trigger" → "Contact Tag" → filtro "Added" → tag ${CHALLENGE_GHL_TAG} → "Save Trigger".`,
+  '"+" → acción "Wait" → "A specific date and time" → fecha y hora del Día 1 → en "If this date has already passed" elige "Skip all outbound communication actions till next wait". Esto es lo que evita que quien entre tarde reciba todos los días anteriores de golpe.',
+  '"+" → "Send Email" → "Select Template" → la plantilla del Día 1 → asunto y remitente → guardar.',
+  'Repite Wait (fecha del Día N) + Send Email (plantilla del Día N) hasta el 30. No uses "Wait: a set period of time", ese cuenta desde que entra el contacto, no por calendario.',
+  'Pestaña "Settings": "Allow Re-Entry" apagado y "Stop on Response" apagado (si no, quien conteste un email sale del reto). Luego "Save" y cambia "Draft" a "Publish".',
+  `Una sola vez, para los que YA están apuntados (el trigger no es retroactivo): Contacts → Smart Lists → filtro Tag = ${CHALLENGE_GHL_TAG} → "Select all" (todas las páginas) → "Trigger automation" → el workflow publicado.`,
+];
+
+const AI_POLL_MS = 3000;
+const AI_TIMEOUT_MS = 6 * 60 * 1000;
+
+type AiState = { phase: 'idle' | 'queued' | 'working' | 'done' | 'error'; day: number; msg?: string; since?: number };
+
 function today(): string {
   return new Date().toISOString().slice(0, 10);
+}
+
+function Steps({ title, steps }: { title: string; steps: string[] }) {
+  return (
+    <div>
+      <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-[#7c8aa5]">{title}</p>
+      <ol className="space-y-2 text-[13px] leading-relaxed text-[#dae2fd]">
+        {steps.map((s, i) => (
+          <li key={i} className="flex gap-2">
+            <span className="flex h-5 w-5 flex-none items-center justify-center rounded-full bg-[#16223f] text-[11px] font-bold text-[#9fc0ff]">
+              {i + 1}
+            </span>
+            <span>{s}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
 }
 
 function firstOpenDay(days: ChallengeDays): number {
@@ -52,8 +91,12 @@ export function ChallengeEditor({ slug, initial }: { slug: string; initial: Chal
   const [save, setSave] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [copied, setCopied] = useState<string | null>(null);
   const [showGuide, setShowGuide] = useState(false);
+  const [ai, setAi] = useState<AiState>({ phase: 'idle', day: 0 });
+  const [tick, setTick] = useState(0);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pending = useRef<ChallengeDays | null>(null);
+  const daysRef = useRef(days);
+  daysRef.current = days;
 
   const cur: ChallengeDay = days[String(sel)] ?? emptyDay(sel);
   const email = useMemo(() => buildChallengeDayEmail(cur), [cur]);
@@ -77,15 +120,21 @@ export function ChallengeEditor({ slug, initial }: { slug: string; initial: Chal
   );
 
   // Debounce: type freely, save 700ms after the last keystroke.
-  const update = (patch: Partial<ChallengeDay>) => {
-    const next = { ...days, [String(sel)]: { ...cur, ...patch } };
-    setDays(next);
-    pending.current = next;
-    if (timer.current) clearTimeout(timer.current);
-    timer.current = setTimeout(() => {
-      if (pending.current) void persist(pending.current);
-    }, 700);
-  };
+  const updateDay = useCallback(
+    (day: number, patch: Partial<ChallengeDay>) => {
+      const base = daysRef.current[String(day)] ?? emptyDay(day);
+      const next = { ...daysRef.current, [String(day)]: { ...base, ...patch } };
+      daysRef.current = next;
+      setDays(next);
+      pending.current = next;
+      if (timer.current) clearTimeout(timer.current);
+      timer.current = setTimeout(() => {
+        if (pending.current) void persist(pending.current);
+      }, 700);
+    },
+    [persist]
+  );
+  const update = (patch: Partial<ChallengeDay>) => updateDay(sel, patch);
 
   useEffect(
     () => () => {
@@ -93,6 +142,64 @@ export function ChallengeEditor({ slug, initial }: { slug: string; initial: Chal
     },
     []
   );
+
+  // Elapsed-seconds ticker while the terminal is writing.
+  useEffect(() => {
+    if (ai.phase !== 'queued' && ai.phase !== 'working') return;
+    const t = setInterval(() => setTick((v) => v + 1), 1000);
+    return () => clearInterval(t);
+  }, [ai.phase]);
+
+  const askAi = async () => {
+    const day = sel;
+    const d = daysRef.current[String(day)] ?? emptyDay(day);
+    if (!d.body.trim()) return;
+    setAi({ phase: 'queued', day, since: Date.now() });
+    let id = '';
+    try {
+      const res = await fetch('/api/panel/tudor/ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug, day, date: d.date, subject: d.subject, notes: d.body, prompt: d.prompt }),
+      });
+      const j = (await res.json()) as { ok: boolean; id?: string; error?: string };
+      if (!res.ok || !j.ok || !j.id) throw new Error(j.error || String(res.status));
+      id = j.id;
+    } catch (e) {
+      setAi({ phase: 'error', day, msg: `No se pudo enviar la petición (${(e as Error).message}).` });
+      return;
+    }
+    const started = Date.now();
+    for (;;) {
+      await new Promise((r) => setTimeout(r, AI_POLL_MS));
+      if (Date.now() - started > AI_TIMEOUT_MS) {
+        setAi({ phase: 'error', day, msg: 'La terminal no ha contestado en 6 minutos. Puede estar apagada: avisa a Marcelino.' });
+        return;
+      }
+      try {
+        const res = await fetch(`/api/panel/tudor/ai?slug=${encodeURIComponent(slug)}&id=${id}`);
+        const j = (await res.json()) as { ok: boolean; status?: string; output?: { subject?: string; body?: string; prompt?: string }; error?: string };
+        if (!res.ok || !j.ok) continue;
+        if (j.status === 'working') setAi((a) => (a.phase === 'queued' ? { ...a, phase: 'working' } : a));
+        if (j.status === 'done' && j.output) {
+          const o = j.output;
+          updateDay(day, {
+            subject: o.subject?.trim() || d.subject,
+            body: o.body ?? d.body,
+            prompt: o.prompt?.trim() ? o.prompt : d.prompt,
+          });
+          setAi({ phase: 'done', day });
+          return;
+        }
+        if (j.status === 'error') {
+          setAi({ phase: 'error', day, msg: j.error || 'La terminal devolvió un error.' });
+          return;
+        }
+      } catch {
+        /* transient; keep polling */
+      }
+    }
+  };
 
   const copy = async (what: string, value: string) => {
     try {
@@ -107,6 +214,9 @@ export function ChallengeEditor({ slug, initial }: { slug: string; initial: Chal
   const sent = Object.values(days).filter((d) => d.status === 'enviado').length;
   const ready = Object.values(days).filter((d) => d.status === 'listo').length;
   const canSend = cur.body.trim().length > 0;
+  const aiBusy = ai.phase === 'queued' || ai.phase === 'working';
+  const aiSecs = ai.since ? Math.floor((Date.now() - ai.since) / 1000) : 0;
+  void tick;
 
   return (
     <div className="grid gap-5 xl:grid-cols-[180px_minmax(0,1fr)_minmax(0,1fr)]">
@@ -187,16 +297,38 @@ export function ChallengeEditor({ slug, initial }: { slug: string; initial: Chal
         <label className="mt-4 block text-[11px] uppercase tracking-wider text-[#7c8aa5]">
           Texto del día{' '}
           <span className="normal-case text-[#4f5d7d]">
-            (lo que has publicado hoy y cómo lo hiciste; línea en blanco = párrafo nuevo)
+            (lo que has publicado hoy y cómo lo hiciste; línea en blanco = párrafo nuevo. Vale con notas sueltas si luego pulsas Redactar con IA)
           </span>
         </label>
         <textarea
           value={cur.body}
           onChange={(e) => update({ body: e.target.value })}
           rows={12}
+          disabled={aiBusy && ai.day === sel}
           placeholder={'Hey,\n\nToday I made...\n\nHere is how:'}
-          className="mt-1 w-full resize-y rounded-lg border border-[#22304f] bg-[#0c1526] px-3 py-2 text-sm leading-relaxed text-white placeholder:text-[#4f5d7d]"
+          className="mt-1 w-full resize-y rounded-lg border border-[#22304f] bg-[#0c1526] px-3 py-2 text-sm leading-relaxed text-white placeholder:text-[#4f5d7d] disabled:opacity-60"
         />
+
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          <button
+            onClick={askAi}
+            disabled={!canSend || aiBusy}
+            className="rounded-lg bg-gradient-to-r from-[#7ca0ff] to-[#c4a3ff] px-3 py-1.5 text-xs font-semibold text-[#0b1326] hover:opacity-90 disabled:opacity-40"
+          >
+            {aiBusy && ai.day === sel ? `Redactando… ${aiSecs}s` : '✨ Redactar con IA'}
+          </button>
+          <span className="text-[11px] leading-snug text-[#7c8aa5]">
+            {aiBusy && ai.day === sel
+              ? ai.phase === 'working'
+                ? 'La terminal de Stratoma está escribiendo el email.'
+                : 'Petición enviada a la terminal de Stratoma. Suele tardar 1 o 2 minutos.'
+              : ai.phase === 'done' && ai.day === sel
+                ? 'Redactado por Claude desde la terminal de Stratoma. Revisa y edita lo que quieras.'
+                : ai.phase === 'error' && ai.day === sel
+                  ? ai.msg
+                  : 'Escribe notas sueltas y la terminal las convierte en el email del día, en tu voz.'}
+          </span>
+        </div>
 
         <label className="mt-4 block text-[11px] uppercase tracking-wider text-[#7c8aa5]">
           Prompt del día <span className="normal-case text-[#4f5d7d]">(va tal cual en una caja, opcional)</span>
@@ -240,8 +372,8 @@ export function ChallengeEditor({ slug, initial }: { slug: string; initial: Chal
           {canSend ? (
             <iframe
               title="preview"
-              srcDoc={`<body style="margin:20px">${email.html}</body>`}
-              className="h-[520px] w-full border-0"
+              srcDoc={`<body style="margin:0;background:#F4F8FC">${email.html}</body>`}
+              className="h-[620px] w-full border-0"
               sandbox=""
             />
           ) : (
@@ -255,19 +387,13 @@ export function ChallengeEditor({ slug, initial }: { slug: string; initial: Chal
           onClick={() => setShowGuide((v) => !v)}
           className="mt-4 w-full rounded-xl border border-[#22304f] bg-[#101a30] px-4 py-3 text-left text-sm font-semibold text-white"
         >
-          {showGuide ? '▾' : '▸'} Cómo enviarlo desde GHL (clic a clic, 2 minutos)
+          {showGuide ? '▾' : '▸'} Cómo enviarlo desde GHL (clic a clic)
         </button>
         {showGuide && (
-          <ol className="mt-2 space-y-2 rounded-xl border border-[#22304f] bg-[#0c1526] p-4 text-[13px] leading-relaxed text-[#dae2fd]">
-            {GHL_STEPS.map((s, i) => (
-              <li key={i} className="flex gap-2">
-                <span className="flex h-5 w-5 flex-none items-center justify-center rounded-full bg-[#16223f] text-[11px] font-bold text-[#9fc0ff]">
-                  {i + 1}
-                </span>
-                <span>{s}</span>
-              </li>
-            ))}
-          </ol>
+          <div className="mt-2 space-y-4 rounded-xl border border-[#22304f] bg-[#0c1526] p-4">
+            <Steps title="Cada día: pegar este email en GHL" steps={GHL_STEPS_DAY} />
+            <Steps title="Una sola vez: que la secuencia salga sola a los que se apunten" steps={GHL_STEPS_AUTO} />
+          </div>
         )}
       </section>
     </div>
