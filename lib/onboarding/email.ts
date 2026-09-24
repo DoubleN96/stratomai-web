@@ -117,7 +117,11 @@ export async function sendWelcomeEmail(
 
   const login = `${baseUrl()}/panel/login?next=/panel/onboarding`;
   const onboarding = `${baseUrl()}/panel/onboarding`;
-  const guia = `${baseUrl()}/oferta/stack-ia-llave-en-mano/gracias`;
+  // A un colega NO se le manda a /gracias: esa página abre con "Pagado. Ahora te toca…" y él no
+  // ha pagado nada. Va a la guía pública, que cuenta lo mismo sin darle por hecho una compra.
+  const guia = colega
+    ? `${baseUrl()}/stack-ia/como-funciona`
+    : `${baseUrl()}/oferta/stack-ia-llave-en-mano/gracias`;
 
   const text = [
     tituloTexto,
