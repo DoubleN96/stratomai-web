@@ -181,11 +181,43 @@ async function handleCheckoutCompleted(
   // el mismo día para que nuestros pagos no entraran en su contabilidad.
   //
   // Va lo PRIMERO: un pago ajeno no debe crear usuario ni disparar correo.
+  // LAS TRES SALIDAS DE AQUÍ ABAJO AVISAN ANTES DE IRSE (24/09/2026).
+  //
+  // Antes las tres hacían `return` en silencio y el webhook contestaba 200, así que Stripe
+  // tampoco reintentaba: el comprador se quedaba en su pantalla de gracias y en Stratoma no
+  // se enteraba nadie, nunca. `panel_stripe_events` llevaba 4 eventos procesados y
+  // `panel_client_onboarding` 0 filas, y no había ni un log que mirar.
   if (!isStackIaPurchase(session)) {
+    const link = idOf(session.payment_link);
     console.warn(
       `[stripe] pago ajeno al Stack IA ignorado (session=${idOf(session.id) ?? '?'}, ` +
-        `payment_link=${idOf(session.payment_link) ?? 'ninguno'})`
+        `payment_link=${link ?? 'ninguno'})`
     );
+    // Se avisa de los dos casos que son culpa NUESTRA, no de los pagos de Tripath.
+    //
+    // La cuenta de Stripe está compartida y las ventas de Tripath entran por aquí a diario: si
+    // avisáramos de todas, el aviso se volvería ruido y dejaría de leerse, que es otra forma de
+    // no avisar. El pago de Tripath del 31/08 llegó SIN payment_link y los nuestros siempre
+    // llevan uno. Así que: sin enlace = ajeno, se calla; con un enlace que no conocemos = o es
+    // uno nuestro nuevo o uno regenerado, y eso hay que saberlo el mismo día.
+    if (STACK_IA_PAYMENT_LINKS.length === 0) {
+      await alertOwner(
+        '🔴 STACK_IA_PAYMENT_LINKS está vacía en producción\n\n' +
+          `He descartado un pago por seguridad: ${idOf(session.id) ?? '?'}\n` +
+          `enlace: ${link ?? 'ninguno'}\n\n` +
+          'Mientras la variable siga vacía NINGÚN comprador se dará de alta solo. Rellénala en ' +
+          'Coolify con los plink_ de la oferta y rehaz este alta a mano desde la sesión de Stripe.'
+      );
+    } else if (link) {
+      await alertOwner(
+        '🟠 Pago con un enlace de Stripe que no reconozco\n\n' +
+          `sesión: ${idOf(session.id) ?? '?'}\n` +
+          `enlace: ${link}\n` +
+          `correo: ${emailOf(session) ?? 'sin correo'}\n\n` +
+          'Si es un enlace nuestro (nuevo, regenerado o de una promoción), añádelo a ' +
+          'STACK_IA_PAYMENT_LINKS y rehaz el alta a mano. Si es de Tripath, ignóralo.'
+      );
+    }
     return;
   }
 
@@ -193,12 +225,29 @@ async function handleCheckoutCompleted(
   const paymentStatus = session.payment_status;
   if (paymentStatus !== 'paid' && paymentStatus !== 'no_payment_required') {
     console.warn('[stripe] checkout.session.completed sin pago confirmado, ignorado');
+    // Este SÍ es un comprador nuestro: el enlace ya está validado. Es SEPA o transferencia, que
+    // confirman horas o días después. Hoy no escuchamos el evento de ese segundo momento, así
+    // que sin este aviso el alta se pierde entera.
+    await alertOwner(
+      '🟠 Compra del Stack IA con el pago aún sin confirmar\n\n' +
+        `sesión: ${idOf(session.id) ?? '?'}\n` +
+        `correo: ${emailOf(session) ?? 'sin correo'}\n` +
+        `estado: ${typeof paymentStatus === 'string' ? paymentStatus : '?'}\n\n` +
+        'Suele ser SEPA o transferencia. Cuando el dinero entre, Stripe manda otro evento que ' +
+        'hoy NO escuchamos: hay que dar de alta a esta persona a mano.'
+    );
     return;
   }
 
   const email = emailOf(session);
   if (!email) {
     console.error('[stripe] checkout.session.completed sin email utilizable, ignorado');
+    await alertOwner(
+      '🔴 Compra del Stack IA sin correo utilizable\n\n' +
+        `sesión: ${idOf(session.id) ?? '?'}\n\n` +
+        'Sin correo no puedo crear la cuenta. Sácalo de la sesión de Stripe y da de alta a esta ' +
+        'persona a mano.'
+    );
     return;
   }
 

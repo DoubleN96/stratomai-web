@@ -4,9 +4,16 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: 'standalone',
 
-  // Remove console logs in production
+  // Quita los console.log en producción, pero NUNCA error ni warn.
+  //
+  // Por qué la excepción: `removeConsole: true` los borraba todos, así que los tres avisos del
+  // webhook de Stripe que explican por qué se descarta un pago se compilaban a nada. El 24/09/2026
+  // se comprobó sobre el build: los literales "pago ajeno" y "sin configurar: ignoro el pago" no
+  // existían en .next/server/.../webhook/route.js, y los logs del contenedor no tenían una sola
+  // línea [stripe]. Cuatro pagos se perdieron sin un rastro que mirar.
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+    removeConsole:
+      process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
   },
 
   // Enable compression
