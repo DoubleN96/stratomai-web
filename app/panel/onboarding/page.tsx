@@ -29,6 +29,10 @@ import {
   Smartphone,
 } from 'lucide-react';
 import { requireSession } from '@/lib/panel/auth';
+import {
+  PASOS_PREVIOS_TEXTO,
+  PASOS_TRASPASO_TEXTO,
+} from '@/lib/onboarding/pasos';
 import { PanelHeader } from '@/components/panel/PanelHeader';
 import { EmptyState, GlassCard, Kpi } from '@/components/panel/ui';
 import {
@@ -136,71 +140,21 @@ type Paso = {
   field?: CredentialState['field'];
 };
 
-const PASOS_PREVIOS: Paso[] = [
-  {
-    n: 1,
-    titulo: 'Cuenta de Hetzner y token del proyecto',
-    icon: Server,
-    detalle:
-      'Security → API tokens, permisos Read & Write. La máquina se factura a tu tarjeta y queda a tu nombre: unos 19,49 €/mes en el equipo recomendado. Yo no revendo infraestructura.',
-    field: 'hetzner',
-  },
-  {
-    n: 2,
-    titulo: 'Suscripción de pago en claude.ai',
-    icon: Cpu,
-    detalle:
-      'A tu nombre y de pago; el plan gratuito no sirve. Esta no me la pasas ni aparece abajo: la conectas tú con /login desde dentro de tu sesión, en el paso 8.',
-  },
-  {
-    n: 3,
-    titulo: 'Bot de Telegram',
-    icon: MessageCircle,
-    detalle:
-      'Habla con @BotFather, escribe /newbot y copia el token que te devuelve.',
-    field: 'telegram',
-  },
-  {
-    n: 4,
-    titulo: 'Cuenta de GitHub y token de acceso',
-    icon: Github,
-    detalle:
-      'Fine-grained, con Contents (lectura/escritura), Administration (lectura/escritura) y Metadata (lectura).',
-    field: 'github',
-  },
-  {
-    n: 5,
-    titulo: 'Cuenta de Cloudflare y token de DNS',
-    icon: Globe,
-    detalle:
-      'Plantilla "Edit zone DNS", acotada a tu dominio. Solo toca DNS, nada más.',
-    field: 'cloudflare',
-  },
-  {
-    n: 6,
-    titulo: 'Tu dominio apuntando a Cloudflare',
-    icon: KeyRound,
-    detalle:
-      'Cambia los nameservers en tu registrador. Si aún no tienes dominio, arrancamos con un subdominio mío de stratomai.com y lo movemos después.',
-  },
-];
+const ICONOS: Record<number, Paso['icon']> = {
+  1: Server,
+  2: Cpu,
+  3: MessageCircle,
+  4: Github,
+  5: Globe,
+  6: KeyRound,
+  7: Smartphone,
+  8: Cpu,
+};
 
-const PASOS_TRASPASO: Paso[] = [
-  {
-    n: 7,
-    titulo: 'Termius en el ordenador y en el móvil',
-    icon: Smartphone,
-    detalle:
-      'Misma cuenta en los dos. Genera un par de claves SSH y mándame solo la pública. La privada no sale de tu equipo nunca.',
-  },
-  {
-    n: 8,
-    titulo: 'Conecta tu Claude dentro de la sesión',
-    icon: Cpu,
-    detalle:
-      'Escribe /login, abre la URL que imprime, autoriza con tu cuenta y pega el código de vuelta. Ahí el agente pasa a ser tuyo.',
-  },
-];
+// El texto vive en lib/onboarding/pasos.ts, compartido con la guia publica.
+const PASOS_PREVIOS: Paso[] = PASOS_PREVIOS_TEXTO.map((p) => ({ ...p, icon: ICONOS[p.n] }));
+const PASOS_TRASPASO: Paso[] = PASOS_TRASPASO_TEXTO.map((p) => ({ ...p, icon: ICONOS[p.n] }));
+
 
 function PasoRow({ paso, cred }: { paso: Paso; cred?: CredentialState }) {
   const Icon = paso.icon;

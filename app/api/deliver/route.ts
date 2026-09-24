@@ -161,7 +161,27 @@ function buildEmail(name: string, primary: string, youtube: string, igImage: str
   return { subject, html };
 }
 
+// Cualquiera podia hacer POST aqui y mandar correo desde el dominio de Tudor a la direccion que
+// quisiera: no habia ni origen validado en servidor ni limite. La cabecera CORS solo la respeta un
+// navegador; curl se la salta. Dos frenos, ambos en servidor (auditoria 18/09/2026):
+//   1. El origen tiene que ser el de la web. Sin origen (curl, scripts) tambien se rechaza.
+//   2. Mismo correo, una vez cada 10 minutos. Evita que se use como altavoz contra un tercero.
+const ESPERA_MS = 10 * 60 * 1000;
+const ultimoEnvio = new Map<string, number>();
+
+function origenValido(req: Request) {
+  const origen = req.headers.get('origin');
+  if (origen) return origen === ALLOW_ORIGIN;
+  // Sin cabecera Origin: se acepta solo si el Referer viene de la propia web (algunos
+  // navegadores no mandan Origin en formularios del mismo sitio).
+  const ref = req.headers.get('referer') || '';
+  return ref.startsWith(ALLOW_ORIGIN + '/') || ref === ALLOW_ORIGIN;
+}
+
 export async function POST(req: Request) {
+  if (!origenValido(req)) {
+    return cors(NextResponse.json({ ok: false, error: 'forbidden' }, { status: 403 }));
+  }
   let body: Record<string, unknown>;
   try {
     body = (await req.json()) as Record<string, unknown>;
@@ -183,6 +203,16 @@ export async function POST(req: Request) {
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     return cors(NextResponse.json({ ok: false, error: 'valid email required' }, { status: 400 }));
   }
+  // Un envio por correo cada 10 minutos. El mapa se limpia solo para no crecer sin fin.
+  const ahora = Date.now();
+  const previo = ultimoEnvio.get(email);
+  if (previo && ahora - previo < ESPERA_MS) {
+    return cors(NextResponse.json({ ok: false, error: 'too many requests' }, { status: 429 }));
+  }
+  if (ultimoEnvio.size > 5000) {
+    Array.from(ultimoEnvio).forEach(([k, t]) => { if (ahora - t > ESPERA_MS) ultimoEnvio.delete(k); });
+  }
+  ultimoEnvio.set(email, ahora);
 
   const cfg = await resolveTudorConfig('tudor');
   if (!cfg.ghl) return cors(NextResponse.json({ ok: false, error: 'ghl not configured' }, { status: 500 }));
