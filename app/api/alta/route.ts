@@ -42,7 +42,7 @@ const REF_RE = /^[A-Za-z0-9_-]{1,60}$/;
 // ponytail: contador por proceso; con varias réplicas detrás de Cloudflare esto solo frena a
 // quien caiga en la misma instancia — el tope de verdad para eso es una regla de Cloudflare.
 const VENTANA_MS = 60 * 60 * 1000;
-const MAX_POR_IP = 3;
+const MAX_POR_IP = 8;
 const MAX_GLOBAL = 40;
 const PORIP = new Map<string, { n: number; desde: number }>();
 let GLOBAL = { n: 0, desde: 0 };
@@ -84,13 +84,6 @@ export async function POST(req: Request): Promise<NextResponse> {
   if (!origenValido(req)) {
     return NextResponse.json({ ok: false, error: 'forbidden' }, { status: 403 });
   }
-  if (demasiados(ipDe(req))) {
-    return NextResponse.json(
-      { ok: false, error: 'Demasiados intentos. Prueba dentro de un rato.' },
-      { status: 429 }
-    );
-  }
-
   let cuerpo: Record<string, unknown>;
   try {
     cuerpo = (await req.json()) as Record<string, unknown>;
@@ -116,6 +109,19 @@ export async function POST(req: Request): Promise<NextResponse> {
   }
   const refBruto = texto(cuerpo.ref, 60);
   const ref = REF_RE.test(refBruto) ? refBruto : 'web';
+
+  // El tope va AQUI, después de validar, y no antes.
+  //
+  // Puesto antes contaba también los correos mal escritos: en la prueba de producción, dos
+  // typos seguidos y un alta buena agotaban la cuota, así que alguien que se equivoca al
+  // teclear se quedaba fuera una hora. Lo que hay que limitar es el trabajo real —crear cuenta
+  // y mandar correo—, no que alguien teclee mal. Un payload inválido no toca la base.
+  if (demasiados(ipDe(req))) {
+    return NextResponse.json(
+      { ok: false, error: 'Demasiados intentos desde aquí. Prueba dentro de un rato.' },
+      { status: 429 }
+    );
+  }
 
   try {
     const admin = createSupabaseAdminClient();
