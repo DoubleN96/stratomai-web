@@ -37,7 +37,31 @@ function Paso({ paso }: { paso: PasoTexto }) {
   );
 }
 
-export default function ComoFunciona() {
+// El `?ref=` tiene que sobrevivir el salto a la pagina de modalidades (24/09/2026).
+//
+// Sin esto la guia era un callejon para el referido: Marcelino manda
+// /stack-ia/como-funciona?ref=marcelino, el amigo pulsa "Ver las modalidades" y el codigo se
+// perdia por el camino, asi que el pago llegaba a Stripe sin `client_reference_id` y la fila del
+// comprador se guardaba sin `referred_by`. El enlace de abajo lo arrastra.
+//
+// Mismo filtro que la pagina de modalidades: solo lo pegable en una URL sin romperla.
+const REF_VALIDO = /^[A-Za-z0-9_-]{1,60}$/;
+
+function limpiarRef(valor: string | string[] | undefined): string | null {
+  const ref = (Array.isArray(valor) ? valor[0] : valor)?.trim();
+  return ref && REF_VALIDO.test(ref) ? ref : null;
+}
+
+export default async function ComoFunciona({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const ref = limpiarRef((await searchParams).ref);
+  const urlModalidades = ref
+    ? `/oferta/stack-ia-llave-en-mano/elegir?ref=${encodeURIComponent(ref)}`
+    : '/oferta/stack-ia-llave-en-mano/elegir';
+
   return (
     // Fondo blanco propio, a petición de Marcelino (24/09/2026).
     //
@@ -107,7 +131,7 @@ export default function ComoFunciona() {
             Elige la modalidad y empezamos. Si dudas entre dos, pregunta antes de pagar.
           </p>
           <Link
-            href="/oferta/stack-ia-llave-en-mano/elegir"
+            href={urlModalidades}
             className="mt-4 inline-block rounded-lg bg-gradient-to-r from-blue-700 to-blue-600 px-6 py-3 text-sm font-semibold text-white transition-all hover:shadow-lg"
           >
             Ver las modalidades
