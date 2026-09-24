@@ -82,16 +82,47 @@ const BTN = (href: string, label: string) =>
 // 1. Buyer welcome — what they bought, how to get in, what to prepare
 // ---------------------------------------------------------------------------
 
-export async function sendWelcomeEmail(email: string): Promise<boolean> {
+/**
+ * Correo de bienvenida.
+ *
+ * `colega: true` cambia solo la cabecera: un amigo dado de alta sin pagar no puede recibir un
+ * "Pago recibido" con 990 € + 500 €/mes. El resto —cómo entrar y los seis preparativos— es
+ * idéntico, y se queda en una sola copia a propósito.
+ */
+export async function sendWelcomeEmail(
+  email: string,
+  opciones: { colega?: boolean } = {}
+): Promise<boolean> {
+  const colega = opciones.colega === true;
+  const tituloTexto = colega
+    ? 'Ya tienes acceso.'
+    : 'Pago recibido. Ya tienes acceso.';
+  const entradillaTexto = colega
+    ? [
+        'Te ha invitado Marcelino, así que no pagas nada por la implantación: el stack se te',
+        'monta igual. Lo único que sale de tu bolsillo son tus propias cuentas — el servidor',
+        '(una CX33, 8,49 €/mes con IVA, a tu tarjeta) y tu suscripción de claude.ai.',
+      ]
+    : [
+        'Has contratado la implantación del stack de IA llave en mano: 990 € de puesta en',
+        'marcha y 500 €/mes de mantenimiento (más el 21 % de IVA, que Stripe añade solo).',
+      ];
+  const entradillaHtml = colega
+    ? `Te ha invitado Marcelino, así que <strong>no pagas nada</strong> por la implantación.
+       Lo único que sale de tu bolsillo son tus propias cuentas: el servidor (una CX33,
+       <strong>8,49 €/mes</strong> con IVA, a tu tarjeta) y tu suscripción de claude.ai.`
+    : `Has contratado la implantación del stack de IA llave en mano: <strong>990 €</strong>
+      de puesta en marcha y <strong>500 €/mes</strong> de mantenimiento (más el 21 % de
+      IVA, que Stripe añade solo).`;
+
   const login = `${baseUrl()}/panel/login?next=/panel/onboarding`;
   const onboarding = `${baseUrl()}/panel/onboarding`;
   const guia = `${baseUrl()}/oferta/stack-ia-llave-en-mano/gracias`;
 
   const text = [
-    'Pago recibido. Ya tienes acceso.',
+    tituloTexto,
     '',
-    'Has contratado la implantación del stack de IA llave en mano: 990 € de puesta en',
-    'marcha y 500 €/mes de mantenimiento (más el 21 % de IVA, que Stripe añade solo).',
+    ...entradillaTexto,
     '',
     'CÓMO ENTRAR',
     `1. Abre ${login}`,
@@ -129,12 +160,8 @@ export async function sendWelcomeEmail(email: string): Promise<boolean> {
   }).join('\n');
 
   const html = WRAP(`
-    <h1 style="margin:0 0 8px;font-size:24px;">Pago recibido. Ya tienes acceso.</h1>
-    <p style="color:#4b5563;margin-top:0;">
-      Has contratado la implantación del stack de IA llave en mano: <strong>990 €</strong>
-      de puesta en marcha y <strong>500 €/mes</strong> de mantenimiento (más el 21 % de
-      IVA, que Stripe añade solo).
-    </p>
+    <h1 style="margin:0 0 8px;font-size:24px;">${esc(tituloTexto)}</h1>
+    <p style="color:#4b5563;margin-top:0;">${entradillaHtml}</p>
 
     <h2 style="font-size:17px;margin:28px 0 8px;">Cómo entrar</h2>
     <ol style="padding-left:20px;color:#4b5563;">

@@ -12,6 +12,7 @@
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import FormularioAlta from './FormularioAlta';
 import { PASOS_PREVIOS_TEXTO, PASOS_TRASPASO_TEXTO, type PasoTexto } from '@/lib/onboarding/pasos';
 
 export const metadata: Metadata = {
@@ -96,6 +97,10 @@ export default async function ComoFunciona({
           trabaja: te lleva webs, automatizaciones y lo que le pidas. Esto es todo lo que hace falta,
           en orden.
         </p>
+
+        <div className="mt-8">
+          <FormularioAlta codigo={ref} />
+        </div>
 
         <div className="mt-8 rounded-2xl border border-gray-200 bg-gray-50 p-5">
           <p className="text-sm leading-relaxed text-gray-700">
