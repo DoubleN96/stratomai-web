@@ -13,6 +13,7 @@
 // and a send failure is logged and swallowed rather than failing the caller.
 
 import { Resend } from 'resend';
+import { PASOS_PREVIOS_TEXTO } from './pasos';
 
 function baseUrl(): string {
   return (process.env.NEXT_PUBLIC_BASE_URL || 'https://stratomai.com').replace(/\/+$/, '');
@@ -35,35 +36,15 @@ function esc(s: string): string {
 // The six things the client prepares before the deploy. Steps 7-8 (Termius and
 // /login) come later, by email, once the server exists — no point front-loading
 // them here.
-const PREPARATIVOS: readonly { titulo: string; detalle: string }[] = [
-  {
-    titulo: 'Cuenta de Hetzner y token del proyecto',
-    detalle:
-      'Security → API tokens, permisos Read & Write. El servidor va a tu tarjeta y a tu nombre: ronda los 19,49 €/mes en el equipo recomendado. Yo no revendo infraestructura.',
-  },
-  {
-    titulo: 'Suscripción de pago en claude.ai',
-    detalle:
-      'A tu nombre, plan de pago (el gratuito no sirve). Esta NO me la pasas: la conectas tú desde dentro de la sesión, y por eso no aparece en el formulario.',
-  },
-  {
-    titulo: 'Bot de Telegram',
-    detalle: 'Habla con @BotFather, /newbot, y copia el token que te da.',
-  },
-  {
-    titulo: 'Cuenta de GitHub y un token fine-grained',
-    detalle: 'Permisos Contents (R/W), Administration (R/W) y Metadata (lectura).',
-  },
-  {
-    titulo: 'Cuenta de Cloudflare y un token de DNS',
-    detalle: 'Plantilla "Edit zone DNS", acotada a tu dominio.',
-  },
-  {
-    titulo: 'Tu dominio',
-    detalle:
-      'Apunta los nameservers a Cloudflare. Si aún no tienes dominio, arrancamos con un subdominio mío de stratomai.com y lo cambiamos después.',
-  },
-];
+// Los seis preparativos salen de lib/onboarding/pasos.ts, que es la fuente compartida con las
+// dos páginas que los enseñan.
+//
+// Antes había aquí una TERCERA copia a mano, y se había quedado desfasada del peor modo posible:
+// le decía al comprador que el servidor ronda los 19,49 €/mes cuando el script monta una CX33 por
+// 8,49 €. Es exactamente la deriva que el módulo compartido existe para evitar. El correo es el
+// sitio donde más duele, porque es lo primero que lee alguien que acaba de pagar.
+const PREPARATIVOS: readonly { titulo: string; detalle: string; url?: string }[] =
+  PASOS_PREVIOS_TEXTO.map((p) => ({ titulo: p.titulo, detalle: p.detalle, url: p.url }));
 
 async function send(payload: {
   to: string;
@@ -123,7 +104,10 @@ export async function sendWelcomeEmail(email: string): Promise<boolean> {
     'quieras: son tuyas y las revocas cuando te dé la gana.',
     '',
     'LO QUE TIENES QUE PREPARAR (seis cosas)',
-    ...PREPARATIVOS.map((p, i) => `${i + 1}. ${p.titulo}\n   ${p.detalle}`),
+    ...PREPARATIVOS.map(
+      (p, i) =>
+        `${i + 1}. ${p.titulo}\n   ${p.detalle}` + (p.url ? `\n   ${p.url}` : '')
+    ),
     '',
     'IMPORTANTE: tu cuenta de Claude no me la pasas nunca. No hay ningún campo para',
     'ella. La conectas tú con /login dentro de tu propia sesión.',
@@ -136,11 +120,13 @@ export async function sendWelcomeEmail(email: string): Promise<boolean> {
     'Marcelino — Stratoma AI',
   ].join('\n');
 
-  const pasos = PREPARATIVOS.map(
-    (p) =>
-      `<li style="margin-bottom:14px;"><strong>${esc(p.titulo)}</strong><br>
-        <span style="color:#4b5563;">${esc(p.detalle)}</span></li>`
-  ).join('\n');
+  const pasos = PREPARATIVOS.map((p) => {
+    const titulo = p.url
+      ? `<a href="${esc(p.url)}" style="color:#1d4ed8;">${esc(p.titulo)}</a>`
+      : esc(p.titulo);
+    return `<li style="margin-bottom:14px;"><strong>${titulo}</strong><br>
+        <span style="color:#4b5563;">${esc(p.detalle)}</span></li>`;
+  }).join('\n');
 
   const html = WRAP(`
     <h1 style="margin:0 0 8px;font-size:24px;">Pago recibido. Ya tienes acceso.</h1>

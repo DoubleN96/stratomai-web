@@ -136,6 +136,8 @@ type Paso = {
   titulo: string;
   icon: typeof Server;
   detalle: string;
+  /** Adónde va el cliente a hacer este paso, si hay un sitio concreto. */
+  url?: string;
   /** Credential this step produces, if any. */
   field?: CredentialState['field'];
 };
@@ -177,7 +179,18 @@ function PasoRow({ paso, cred }: { paso: Paso; cred?: CredentialState }) {
           <span className="mr-2 font-mono text-xs text-[#5a6b94]">
             {paso.n}
           </span>
-          {paso.titulo}
+          {paso.url ? (
+            <a
+              href={paso.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#7ca0ff] underline decoration-[#7ca0ff]/40 underline-offset-2 hover:decoration-[#7ca0ff]"
+            >
+              {paso.titulo}
+            </a>
+          ) : (
+            paso.titulo
+          )}
           {cred && (
             <span
               className={`ml-2 inline-flex items-center rounded-full border px-2 py-0.5 align-middle text-[10px] font-medium ${

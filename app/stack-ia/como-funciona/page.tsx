@@ -30,7 +30,20 @@ function Paso({ paso }: { paso: PasoTexto }) {
         {paso.n}
       </span>
       <div>
-        <h3 className="font-semibold text-gray-900">{paso.titulo}</h3>
+        <h3 className="font-semibold text-gray-900">
+          {paso.url ? (
+            <a
+              href={paso.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-700 underline decoration-blue-300 underline-offset-2 hover:decoration-blue-700"
+            >
+              {paso.titulo}
+            </a>
+          ) : (
+            paso.titulo
+          )}
+        </h3>
         <p className="mt-1 text-sm leading-relaxed text-gray-600">{paso.detalle}</p>
       </div>
     </li>
@@ -103,6 +116,59 @@ export default async function ComoFunciona({
               <Paso key={p.n} paso={p} />
             ))}
           </ul>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="text-xl font-semibold text-gray-900">Cómo me pasas todo eso</h2>
+          <p className="mt-1 text-sm text-gray-500">
+            No tienes que registrarte en ningún sitio ni inventarte una contraseña.
+          </p>
+          <ol className="mt-4">
+            <li className="flex gap-4 border-b border-gray-200 pb-4 last:border-0">
+              <span
+                aria-hidden
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-gray-300 text-sm font-semibold text-gray-600"
+              >
+                A
+              </span>
+              <p className="text-sm leading-relaxed text-gray-600">
+                <strong className="text-gray-900">Tu cuenta se crea sola al pagar.</strong> En
+                cuanto entra el pago te llega un correo con un enlace de acceso a tu panel. Sin
+                contraseña: el enlace te mete dentro y punto.
+              </p>
+            </li>
+            <li className="flex gap-4 border-b border-gray-200 pb-4 last:border-0">
+              <span
+                aria-hidden
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-gray-300 text-sm font-semibold text-gray-600"
+              >
+                B
+              </span>
+              <p className="text-sm leading-relaxed text-gray-600">
+                <strong className="text-gray-900">
+                  Los cuatro tokens los pegas tú en tu panel
+                </strong>
+                , cuando los tengas y en el orden que quieras. No hace falta hacerlo de una
+                sentada: lo que dejas guardado se queda guardado y ves en cada momento qué falta.
+                Se guardan cifrados. La de Claude es la única que no me pasas nunca — esa la
+                conectas tú desde dentro de tu propia sesión.
+              </p>
+            </li>
+            <li className="flex gap-4 border-b border-gray-200 pb-4 last:border-0">
+              <span
+                aria-hidden
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-gray-300 text-sm font-semibold text-gray-600"
+              >
+                C
+              </span>
+              <p className="text-sm leading-relaxed text-gray-600">
+                <strong className="text-gray-900">Emparejas tu Telegram con tu bot.</strong> Un
+                bot no puede escribirte primero, así que la primera vez le escribes tú. Te
+                contesta con un código de seis caracteres, lo pegas en el panel y te doy paso. Ese
+                código caduca en una hora.
+              </p>
+            </li>
+          </ol>
         </section>
 
         <section className="mt-10">

@@ -18,6 +18,7 @@ import {
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { Badge } from "@/components/ui/Badge";
+import { CLAUDE_URL } from "@/lib/onboarding/pasos";
 
 const FOCUS =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-600";
@@ -453,7 +454,7 @@ function Contenido({ refCliente }: { refCliente: string | null }) {
               <p>
                 En las tres modalidades, tu{" "}
                 <a
-                  href="https://claude.ai"
+                  href={CLAUDE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={LINK}

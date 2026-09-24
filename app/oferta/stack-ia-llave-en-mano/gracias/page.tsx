@@ -20,6 +20,7 @@ import {
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { Badge } from "@/components/ui/Badge";
+import { CLAUDE_URL } from "@/lib/onboarding/pasos";
 
 export const metadata: Metadata = {
   title: { absolute: "Ya está pagado. Estos son tus 8 pasos | Stratoma AI" },
@@ -120,7 +121,7 @@ const pasosPrevios: Paso[] = [
         <p>
           Ve a{" "}
           <a
-            href="https://claude.ai"
+            href={CLAUDE_URL}
             target="_blank"
             rel="noopener noreferrer"
             className={LINK}

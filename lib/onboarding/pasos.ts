@@ -9,10 +9,24 @@
 // Aquí va solo el TEXTO. Los iconos y los formularios se quedan en cada página, porque la pública
 // no tiene formularios y no debe arrastrar nada que dependa de una sesión.
 
+/**
+ * Enlace de invitación de Marcelino a claude.ai (24/09/2026).
+ *
+ * Vive aquí, junto a los pasos, porque el paso 2 ES la suscripción de Claude y las dos páginas
+ * que pintan los pasos ya importan este módulo. El de Hetzner está repetido a mano en tres
+ * ficheros; este no se repite en ninguno.
+ *
+ * Se le quitó el `?s=android` con el que llegó: es la marca de "compartido desde el móvil", no
+ * forma parte del código de invitación.
+ */
+export const CLAUDE_URL = 'https://claude.ai/referral/n83DOCnDqg';
+
 export type PasoTexto = {
   n: number;
   titulo: string;
   detalle: string;
+  /** Adónde va el cliente a hacer este paso, si hay un sitio concreto. */
+  url?: string;
   /** La credencial que produce este paso, si produce alguna. */
   field?: 'hetzner' | 'telegram' | 'github' | 'cloudflare';
 };
@@ -31,6 +45,7 @@ export const PASOS_PREVIOS_TEXTO: PasoTexto[] = [
     titulo: 'Suscripción de pago en claude.ai',
     detalle:
       'A tu nombre y de pago; el plan gratuito no sirve. Esta no me la pasas: la conectas tú con /login desde dentro de tu sesión, en el paso 8.',
+    url: CLAUDE_URL,
   },
   {
     n: 3,
