@@ -9,6 +9,8 @@
 // Aquí va solo el TEXTO. Los iconos y los formularios se quedan en cada página, porque la pública
 // no tiene formularios y no debe arrastrar nada que dependa de una sesión.
 
+import type { Modalidad } from './modalidad';
+
 /**
  * Enlace de invitación de Marcelino a claude.ai (24/09/2026).
  *
@@ -89,3 +91,52 @@ export const PASOS_TRASPASO_TEXTO: PasoTexto[] = [
       'Escribe /login, abre la URL que imprime, autoriza con tu cuenta y pega el código de vuelta. Ahí el agente pasa a ser tuyo.',
   },
 ];
+
+// --- Qué le toca a cada modalidad (ronda 2 del circuito de alta, 27/09/2026) ------------------
+//
+// Los ocho pasos de arriba son el alta de antes de la 017 y se le enseñaban a TODO el mundo: al
+// de Done for you (que tiene prometido "no abres cuenta en ningún proveedor") le pedían Hetzner,
+// y a todos les pedían bot, GitHub, Cloudflare, dominio y Termius, que el aprovisionador no usa:
+// solo lee `hetzner_token_enc`, y el bot, el subdominio y el acceso los pone él.
+
+const CLAUDE_SUSCRIPCION: PasoTexto = {
+  ...PASOS_PREVIOS_TEXTO[1],
+  detalle:
+    'A tu nombre y de pago; el plan gratuito no sirve. Esta no me la pasas: la conectas tú en el último paso.',
+};
+
+const CLAUDE_CONECTAR: PasoTexto = {
+  n: 8,
+  titulo: 'Conecta tu cuenta de Claude',
+  detalle:
+    'Cuando tu servidor esté listo te escribo por Telegram con un enlace. Lo abres, entras con tu cuenta de claude.ai (de pago) y me mandas el código que te da. Ahí el agente pasa a ser tuyo.',
+};
+
+/**
+ * Los pasos que le tocan al cliente según lo que compró. NULL (fila anterior a la 017) = los
+ * ocho de siempre, sin tocar.
+ */
+export function pasosDe(modalidad: Modalidad | null): {
+  previos: PasoTexto[];
+  traspaso: PasoTexto[];
+} {
+  switch (modalidad) {
+    case 'done_for_you':
+      return { previos: [], traspaso: [CLAUDE_CONECTAR] };
+    case 'colegas':
+      return { previos: [CLAUDE_SUSCRIPCION], traspaso: [CLAUDE_CONECTAR] };
+    case 'guiada':
+    case 'colega_sin_pago':
+      return {
+        previos: [PASOS_PREVIOS_TEXTO[0], CLAUDE_SUSCRIPCION],
+        traspaso: [CLAUDE_CONECTAR],
+      };
+    default:
+      return { previos: PASOS_PREVIOS_TEXTO, traspaso: PASOS_TRASPASO_TEXTO };
+  }
+}
+
+/** Las credenciales que el panel le pide: solo las que salen de sus pasos. */
+export function camposDe(modalidad: Modalidad | null): NonNullable<PasoTexto['field']>[] {
+  return pasosDe(modalidad).previos.flatMap((p) => (p.field ? [p.field] : []));
+}

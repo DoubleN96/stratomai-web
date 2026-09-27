@@ -29,10 +29,7 @@ import {
   Smartphone,
 } from 'lucide-react';
 import { requireSession } from '@/lib/panel/auth';
-import {
-  PASOS_PREVIOS_TEXTO,
-  PASOS_TRASPASO_TEXTO,
-} from '@/lib/onboarding/pasos';
+import { pasosDe, type PasoTexto } from '@/lib/onboarding/pasos';
 import { PanelHeader } from '@/components/panel/PanelHeader';
 import { EmptyState, GlassCard, Kpi } from '@/components/panel/ui';
 import {
@@ -53,7 +50,12 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const GUIA = '/oferta/stack-ia-llave-en-mano/gracias';
+/** La guía larga de cada modalidad. La de antes de la 017 es la pública, con los ocho pasos. */
+function guiaDe(modalidad: string | null): string | null {
+  if (!modalidad) return '/stack-ia/como-funciona';
+  if (modalidad === 'colega_sin_pago') return null; // /gracias abre con "Pagado" y él no paga
+  return `/oferta/stack-ia-llave-en-mano/gracias?m=${modalidad}`;
+}
 
 const inputClass =
   'w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 font-mono text-sm text-white outline-none transition-colors placeholder:font-sans placeholder:text-[#5a6b94] focus:border-[#7ca0ff]/60 focus:bg-white/[0.06]';
@@ -153,12 +155,19 @@ const ICONOS: Record<number, Paso['icon']> = {
   8: Cpu,
 };
 
-// El texto vive en lib/onboarding/pasos.ts, compartido con la guia publica.
-const PASOS_PREVIOS: Paso[] = PASOS_PREVIOS_TEXTO.map((p) => ({ ...p, icon: ICONOS[p.n] }));
-const PASOS_TRASPASO: Paso[] = PASOS_TRASPASO_TEXTO.map((p) => ({ ...p, icon: ICONOS[p.n] }));
+// El texto vive en lib/onboarding/pasos.ts, compartido con la guia publica. `n` dice QUÉ paso es
+// (y su icono); el número que se enseña es su posición, porque cada modalidad se salta distintos.
+const conIcono = (p: PasoTexto): Paso => ({ ...p, icon: ICONOS[p.n] });
 
-
-function PasoRow({ paso, cred }: { paso: Paso; cred?: CredentialState }) {
+function PasoRow({
+  paso,
+  num,
+  cred,
+}: {
+  paso: Paso;
+  num: number;
+  cred?: CredentialState;
+}) {
   const Icon = paso.icon;
   const done = cred?.isSet ?? false;
   return (
@@ -177,7 +186,7 @@ function PasoRow({ paso, cred }: { paso: Paso; cred?: CredentialState }) {
       <div className="min-w-0">
         <p className="text-sm font-semibold text-white">
           <span className="mr-2 font-mono text-xs text-[#5a6b94]">
-            {paso.n}
+            {num}
           </span>
           {paso.url ? (
             <a
@@ -468,7 +477,11 @@ export default async function OnboardingPage({
     );
   }
 
-  const { credentials, readyCount, status } = onboarding;
+  const { credentials, readyCount, status, modalidad } = onboarding;
+  const pasos = pasosDe(modalidad);
+  const previos = pasos.previos.map(conIcono);
+  const traspaso = pasos.traspaso.map(conIcono);
+  const guia = guiaDe(modalidad);
   const saved = first(sp.saved);
   const savedCred = saved
     ? credentials.find((c) => c.field === saved)
@@ -494,9 +507,11 @@ export default async function OnboardingPage({
         <div className="mt-4 mb-6">
           <h1 className="text-2xl font-bold text-white">Puesta en marcha</h1>
           <p className="mt-1 max-w-2xl text-sm text-[#8597c0]">
-            Ocho pasos y cuatro credenciales. No es un examen: haz los que
-            puedas, deja los que no, y si te trabas en cualquiera escríbeme y lo
-            vemos. Puedes volver aquí y cambiar cualquier token cuando quieras.
+            {!modalidad
+              ? 'Ocho pasos y cuatro credenciales. No es un examen: haz los que puedas, deja los que no, y si te trabas en cualquiera escríbeme y lo vemos. Puedes volver aquí y cambiar cualquier token cuando quieras.'
+              : previos.length === 0
+                ? 'No tienes que preparar nada: el servidor lo compramos y lo montamos nosotros. Tu único paso llega cuando esté en marcha: conectar tu cuenta de Claude con un enlace y un código.'
+                : 'Esto es todo lo que te toca a ti. Si te trabas en cualquier paso, escríbeme y lo vemos.'}
           </p>
         </div>
 
@@ -518,11 +533,13 @@ export default async function OnboardingPage({
         {errorText && <Banner ok={false}>{errorText}</Banner>}
 
         <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
-          <Kpi
-            label="Credenciales guardadas"
-            value={`${readyCount}/${total}`}
-            accent={readyCount === total ? 'green' : 'blue'}
-          />
+          {total > 0 && (
+            <Kpi
+              label="Credenciales guardadas"
+              value={`${readyCount}/${total}`}
+              accent={readyCount === total ? 'green' : 'blue'}
+            />
+          )}
           <Kpi
             label="Estado"
             value={STATUS_COPY[status] ?? status}
@@ -533,61 +550,78 @@ export default async function OnboardingPage({
 
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           {/* Checklist */}
-          <section aria-labelledby="checklist-heading">
+          <section
+            aria-labelledby={
+              previos.length > 0 ? 'checklist-heading' : 'traspaso-heading'
+            }
+          >
+            {previos.length > 0 && (
+              <>
+                <h2
+                  id="checklist-heading"
+                  className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#7f90b8]"
+                >
+                  Antes del despliegue
+                </h2>
+                <GlassCard className="mb-6">
+                  <ul>
+                    {previos.map((p, i) => (
+                      <PasoRow
+                        key={p.n}
+                        paso={p}
+                        num={i + 1}
+                        cred={credentials.find((c) => c.field === p.field)}
+                      />
+                    ))}
+                  </ul>
+                </GlassCard>
+              </>
+            )}
+
             <h2
-              id="checklist-heading"
+              id="traspaso-heading"
               className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#7f90b8]"
             >
-              Antes del despliegue
-            </h2>
-            <GlassCard>
-              <ul>
-                {PASOS_PREVIOS.map((p) => (
-                  <PasoRow
-                    key={p.n}
-                    paso={p}
-                    cred={credentials.find((c) => c.field === p.field)}
-                  />
-                ))}
-              </ul>
-            </GlassCard>
-
-            <h2 className="mt-6 mb-3 text-sm font-semibold uppercase tracking-wide text-[#7f90b8]">
               Cuando el servidor esté en pie
             </h2>
             <GlassCard>
               <ul>
-                {PASOS_TRASPASO.map((p) => (
-                  <PasoRow key={p.n} paso={p} />
+                {traspaso.map((p, i) => (
+                  <PasoRow key={p.n} paso={p} num={previos.length + i + 1} />
                 ))}
               </ul>
             </GlassCard>
 
-            <p className="mt-4 text-sm text-[#8597c0]">
-              Los accesos al servidor no salen de esta página, porque aquí no se
-              guardan. El usuario normal entra con{' '}
-              <strong className="text-white">tu clave SSH</strong> (paso 7: me
-              mandas la pública y ya está), y la contraseña de{' '}
-              <code className="rounded bg-black/30 px-1 py-0.5 font-mono text-xs">
-                root
-              </code>{' '}
-              te llega por{' '}
-              <strong className="text-white">enlace de un solo uso</strong>, que
-              se destruye en cuanto lo abres. En el traspaso la cambias tú
-              delante de mí: a partir de ahí solo la tienes tú, y no queda copia
-              en ningún sitio.
-            </p>
+            {/* Termius, SSH y root: solo el alta de antes de la 017 los tiene. */}
+            {!modalidad && (
+              <p className="mt-4 text-sm text-[#8597c0]">
+                Los accesos al servidor no salen de esta página, porque aquí no se
+                guardan. El usuario normal entra con{' '}
+                <strong className="text-white">tu clave SSH</strong> (paso 7: me
+                mandas la pública y ya está), y la contraseña de{' '}
+                <code className="rounded bg-black/30 px-1 py-0.5 font-mono text-xs">
+                  root
+                </code>{' '}
+                te llega por{' '}
+                <strong className="text-white">enlace de un solo uso</strong>, que
+                se destruye en cuanto lo abres. En el traspaso la cambias tú
+                delante de mí: a partir de ahí solo la tienes tú, y no queda copia
+                en ningún sitio.
+              </p>
+            )}
 
-            <p className="mt-4 text-sm text-[#8597c0]">
-              El paso a paso completo, con capturas de cada pantalla, está en{' '}
-              <Link
-                href={GUIA}
-                className="font-semibold text-[#7ca0ff] underline underline-offset-2 hover:text-white"
-              >
-                la guía de arranque
-              </Link>
-              .
-            </p>
+            {guia && (
+              <p className="mt-4 text-sm text-[#8597c0]">
+                El paso a paso, con más detalle, está en{' '}
+                <Link
+                  href={guia}
+                  className="font-semibold text-[#7ca0ff] underline underline-offset-2 hover:text-white"
+                >
+                  la guía de arranque
+                </Link>
+                .
+              </p>
+            )}
           </section>
 
           <div className="space-y-6">
@@ -602,61 +636,60 @@ export default async function OnboardingPage({
               <PairingCard pairing={pairing} />
             </section>
 
-            {/* Credentials */}
-            <section aria-labelledby="credenciales-heading">
-              <h2
-                id="credenciales-heading"
-                className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#7f90b8]"
-              >
-                Tus cuatro credenciales
-              </h2>
+            {/* Credentials: solo las que pide su modalidad (a Done for you, ninguna) */}
+            {total > 0 && (
+              <section aria-labelledby="credenciales-heading">
+                <h2
+                  id="credenciales-heading"
+                  className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#7f90b8]"
+                >
+                  {total === 1 ? 'Tu credencial' : 'Tus cuatro credenciales'}
+                </h2>
 
-              <div className="mb-4 rounded-2xl border border-[#2b6cee]/40 bg-[#101c38] p-5">
-                <p className="flex items-start gap-2 text-sm text-[#c2cdec]">
-                  <Lock
-                    className="mt-0.5 h-4 w-4 shrink-0 text-[#7ca0ff]"
-                    aria-hidden
-                  />
-                  <span>
-                    Cada token se cifra en el servidor antes de tocar la base de
-                    datos.{' '}
-                    <strong className="text-white">
-                      Una vez guardado no se puede volver a ver
-                    </strong>{' '}
-                    — ni tú, ni yo desde esta pantalla. Lo que sí ves es cuándo
-                    lo cambiaste por última vez.{' '}
-                    <strong className="text-white">
-                      Y puedes sustituir cualquiera cuando te dé la gana
-                    </strong>
-                    : pega el nuevo encima y listo. Son tuyos: revócalos en su
-                    panel el día que quieras y se acabó.
-                  </span>
-                </p>
-              </div>
+                <div className="mb-4 rounded-2xl border border-[#2b6cee]/40 bg-[#101c38] p-5">
+                  <p className="flex items-start gap-2 text-sm text-[#c2cdec]">
+                    <Lock
+                      className="mt-0.5 h-4 w-4 shrink-0 text-[#7ca0ff]"
+                      aria-hidden
+                    />
+                    <span>
+                      Cada token se cifra en el servidor antes de tocar la base de
+                      datos.{' '}
+                      <strong className="text-white">
+                        Una vez guardado no se puede volver a ver
+                      </strong>{' '}
+                      — ni tú, ni yo desde esta pantalla. Lo que sí ves es cuándo
+                      lo cambiaste por última vez.{' '}
+                      <strong className="text-white">
+                        Y puedes sustituir cualquiera cuando te dé la gana
+                      </strong>
+                      : pega el nuevo encima y listo. Son tuyos: revócalos en su
+                      panel el día que quieras y se acabó.
+                    </span>
+                  </p>
+                </div>
 
-              <div className="mb-4 rounded-2xl border border-[#5a4a1f] bg-[#3a2f12]/60 p-5">
-                <p className="flex items-start gap-2 text-sm text-[#f5c24a]">
-                  <AlertTriangle
-                    className="mt-0.5 h-4 w-4 shrink-0"
-                    aria-hidden
-                  />
-                  <span>
-                    Tu cuenta de Claude no está aquí y no va a estarlo. No me la
-                    mandes por aquí ni por ningún otro sitio: la conectas tú con{' '}
-                    <code className="rounded bg-black/30 px-1 py-0.5 font-mono text-xs">
-                      /login
-                    </code>{' '}
-                    dentro de tu propia sesión.
-                  </span>
-                </p>
-              </div>
+                <div className="mb-4 rounded-2xl border border-[#5a4a1f] bg-[#3a2f12]/60 p-5">
+                  <p className="flex items-start gap-2 text-sm text-[#f5c24a]">
+                    <AlertTriangle
+                      className="mt-0.5 h-4 w-4 shrink-0"
+                      aria-hidden
+                    />
+                    <span>
+                      Tu cuenta de Claude no está aquí y no va a estarlo. No me la
+                      mandes por aquí ni por ningún otro sitio: la conectas tú
+                      en el último paso.
+                    </span>
+                  </p>
+                </div>
 
-              <div className="grid gap-4">
-                {credentials.map((c) => (
-                  <CredentialCard key={c.field} cred={c} />
-                ))}
-              </div>
-            </section>
+                <div className="grid gap-4">
+                  {credentials.map((c) => (
+                    <CredentialCard key={c.field} cred={c} />
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
         </div>
       </main>

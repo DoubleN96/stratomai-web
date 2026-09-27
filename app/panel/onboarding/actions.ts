@@ -123,6 +123,8 @@ async function attemptSave(
   try {
     const row = await getOwnOnboarding(userId);
     if (!row) return { field, code: 'sinfila' };
+    // Solo las que su modalidad pide: a Done for you no se le guarda un token que nadie lee.
+    if (!row.credentials.some((c) => c.field === field)) return { field, code: 'formato' };
 
     let encrypted: string;
     try {

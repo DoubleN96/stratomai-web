@@ -44,14 +44,23 @@ export default async function PanelHomePage() {
                 <h2 className="text-base font-semibold text-white">
                   Puesta en marcha
                 </h2>
-                <p className="mt-1 max-w-xl text-sm text-[#8597c0]">
-                  Aquí es donde se prepara tu servidor: el checklist de los ocho
-                  pasos y las casillas donde pegas tus credenciales. Llevas{' '}
-                  <strong className="text-white">
-                    {onboarding.readyCount} de {onboarding.credentials.length}
-                  </strong>
-                  .
-                </p>
+                {/* credentials ya viene filtrado por modalidad: a Done for you no se le pide ninguna */}
+                {onboarding.credentials.length > 0 ? (
+                  <p className="mt-1 max-w-xl text-sm text-[#8597c0]">
+                    Aquí es donde se prepara tu servidor: lo que te toca a ti y
+                    las casillas donde pegas tus credenciales. Llevas{' '}
+                    <strong className="text-white">
+                      {onboarding.readyCount} de {onboarding.credentials.length}
+                    </strong>
+                    .
+                  </p>
+                ) : (
+                  <p className="mt-1 max-w-xl text-sm text-[#8597c0]">
+                    Aquí ves lo que te toca a ti y cómo va tu servidor. Tokens
+                    no tienes que pegar ninguno: el servidor lo ponemos
+                    nosotros.
+                  </p>
+                )}
               </div>
               <Link
                 href="/panel/onboarding"

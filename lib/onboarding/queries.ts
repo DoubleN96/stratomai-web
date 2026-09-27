@@ -20,6 +20,7 @@ import {
   createSupabaseServerClient,
 } from '@/lib/panel/supabase-server';
 import type { Modalidad } from './modalidad';
+import { camposDe } from './pasos';
 
 // ---------------------------------------------------------------------------
 // The four credentials. Single source of truth: the form, the validator and
@@ -126,6 +127,9 @@ export interface OnboardingSummary {
   status: OnboardingStatus;
   paidAt: string | null;
   createdAt: string;
+  /** NULL: fila anterior a la 017. Ver migración 018 (el permiso de lectura). */
+  modalidad: Modalidad | null;
+  /** Solo las que su modalidad le pide (camposDe): a Done for you, ninguna. */
   credentials: CredentialState[];
   readyCount: number;
 }
@@ -138,6 +142,7 @@ const CLIENT_COLUMNS = [
   'status',
   'paid_at',
   'created_at',
+  'modalidad',
   ...CREDENTIALS.map((c) => c.stampColumn),
 ].join(', ');
 
@@ -159,7 +164,11 @@ export async function getOwnOnboarding(
   if (!data) return null;
 
   const row = data as unknown as Record<string, string | null>;
-  const credentials: CredentialState[] = CREDENTIALS.map((spec) => {
+  const modalidad = (row.modalidad as Modalidad | null) ?? null;
+  const pedidas = camposDe(modalidad);
+  const credentials: CredentialState[] = CREDENTIALS.filter((spec) =>
+    pedidas.includes(spec.field)
+  ).map((spec) => {
     const updatedAt = row[spec.stampColumn] ?? null;
     return { ...spec, updatedAt, isSet: updatedAt != null };
   });
@@ -170,6 +179,7 @@ export async function getOwnOnboarding(
     status: (row.status as OnboardingStatus) ?? 'paid',
     paidAt: row.paid_at ?? null,
     createdAt: row.created_at as string,
+    modalidad,
     credentials,
     readyCount: credentials.filter((c) => c.isSet).length,
   };
@@ -307,7 +317,8 @@ export async function saveOwnPairingCode(
 
 /**
  * Recompute `status` from how many credentials are stored, and atomically claim
- * the one-shot owner notification when all four are in.
+ * the one-shot owner notification when every credential their modalidad asks
+ * for is in (all four for a pre-017 row, only Hetzner for Guiada).
  *
  * @returns `notifyOwner` true only for the single call that won the claim.
  */
@@ -320,7 +331,7 @@ export async function refreshCredentialStatus(onboardingId: string): Promise<{
   const { data, error } = await admin
     .from('panel_client_onboarding')
     .select(
-      `id, email, status, owner_notified_at, ${CREDENTIALS.map((c) => c.stampColumn).join(', ')}`
+      `id, email, status, owner_notified_at, modalidad, ${CREDENTIALS.map((c) => c.stampColumn).join(', ')}`
     )
     .eq('id', onboardingId)
     .maybeSingle();
@@ -329,10 +340,12 @@ export async function refreshCredentialStatus(onboardingId: string): Promise<{
   if (!data) return { readyCount: 0, notifyOwner: false, email: null };
 
   const row = data as unknown as Record<string, string | null>;
-  const readyCount = CREDENTIALS.filter(
-    (c) => row[c.stampColumn] != null
-  ).length;
-  const allReady = readyCount === CREDENTIALS.length;
+  // "Completas" = las que SU modalidad pide: a la Guiada solo se le pide Hetzner.
+  const pedidas = CREDENTIALS.filter((c) =>
+    camposDe((row.modalidad as Modalidad | null) ?? null).includes(c.field)
+  );
+  const readyCount = pedidas.filter((c) => row[c.stampColumn] != null).length;
+  const allReady = readyCount === pedidas.length;
   const status = (row.status as OnboardingStatus) ?? 'paid';
 
   if (!FROZEN_STATUSES.includes(status)) {
