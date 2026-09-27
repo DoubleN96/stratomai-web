@@ -13,7 +13,7 @@ export interface LoginState {
 
 /** Only ever a path on this site: `//evil.com` does not start with `/panel`. */
 function safeNext(value: FormDataEntryValue | null): string {
-  return typeof value === 'string' && value.startsWith('/panel')
+  return typeof value === 'string' && value.startsWith('/panel') && value.length <= 512
     ? value
     : '/panel';
 }
