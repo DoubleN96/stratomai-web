@@ -125,3 +125,20 @@ describe('guía pública /stack-ia/como-funciona (colega sin pago)', () => {
     }
   });
 });
+
+describe('páginas de la oferta: nada de promesas que ya no son verdad', () => {
+  it('ni «te prestamos nuestra cuenta de Claude» ni «despliego con la mía» ni BotFather', async () => {
+    const paginas = [
+      (await import('@/app/oferta/stack-ia-llave-en-mano/page')).default,
+      (await import('@/app/oferta/stack-ia-llave-en-mano/elegir/page')).default,
+    ];
+    for (const Pagina of paginas) {
+      const html = renderToStaticMarkup(
+        await (Pagina as (p: { searchParams: Promise<Record<string, string>> }) => Promise<React.ReactElement> | React.ReactElement)({ searchParams: Promise.resolve({}) })
+      );
+      for (const falso of ['prestamos nuestra cuenta de Claude', 'con la mía', 'BotFather', 'contigo delante']) {
+        assert.ok(!html.includes(falso), `sigue diciendo «${falso}»`);
+      }
+    }
+  });
+});

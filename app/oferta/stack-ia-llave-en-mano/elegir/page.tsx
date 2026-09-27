@@ -75,7 +75,6 @@ const MODALIDADES: Modalidad[] = [
     incluye: [
       "Compramos y gestionamos el servidor. No abres cuenta en ningún proveedor ni te peleas con un panel.",
       "Montamos el stack completo y lo dejamos verificado antes de dártelo.",
-      "Te prestamos nuestra cuenta de Claude durante el arranque, hasta que conectes la tuya.",
       "Soporte y mantenimiento mes a mes.",
     ],
     tuParte: [
@@ -95,7 +94,7 @@ const MODALIDADES: Modalidad[] = [
     precio: "690 € de implantación + 350 €/mes",
     precioNota: "el servidor lo pagas tú a Hetzner, unos 9 €/mes",
     resumen:
-      "Tú pones el servidor y la cuenta. Nuestro bot hace el despliegue contigo delante y te va diciendo qué toca.",
+      "Tú pones el servidor y la cuenta. Con tu token lo montamos nosotros solos y te avisamos cuando esté listo.",
     incluye: [
       "El bot despliega todo con tu token: crea el servidor, instala el stack y deja las herramientas configuradas.",
       "Te acompaña paso a paso. No te dejamos con un manual y suerte.",

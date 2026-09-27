@@ -351,9 +351,8 @@ const faqs: { q: string; a: ReactNode }[] = [
         </p>
         <p>
           El único momento «técnico» de todo el proceso son los 20 minutos del
-          paso 2: abrir dos cuentas —la del proveedor del servidor y tu
-          suscripción de Claude—, generar un token y crear un bot escribiéndole
-          a BotFather. Nada de eso es programar, y si te atascas
+          paso 2: tener tu suscripción de Claude y conectarla con un enlace y un
+          código. Nada de eso es programar, y si te atascas
           lo hacemos juntos por videollamada.
         </p>
         <p>
@@ -1360,9 +1359,8 @@ export default function StackIaLlaveEnManoPage() {
                       con plan de pago. Es la que autentica al agente en tu
                       servidor y contra la que corre su trabajo diario: tarifa
                       plana, sin clave de API ni pago por tokens en ninguna
-                      parte del sistema. Yo despliego
-                      con la mía para no bloquearte el arranque, y en el traspaso
-                      conectamos la tuya con <Code>/login</Code>.
+                      parte del sistema. Cuando tu servidor esté listo, la
+                      conectas con un enlace y un código: dos minutos.
                     </span>
                   </li>
                   <li className="flex gap-3">
@@ -1371,9 +1369,8 @@ export default function StackIaLlaveEnManoPage() {
                       aria-hidden="true"
                     />
                     <span className="leading-relaxed text-gray-600">
-                      <strong>Tu bot de Telegram</strong>, creado en dos
-                      mensajes con BotFather. Te guío mientras lo haces. (Y tu
-                      dominio, si quieres subdominios propios.)
+                      <strong>Tu bot de Telegram</strong>: lo creamos nosotros
+                      y te reconoce por tu usuario desde el primer mensaje.
                     </span>
                   </li>
                 </ul>
@@ -1832,15 +1829,14 @@ export default function StackIaLlaveEnManoPage() {
                   <strong className="text-white">
                     La cuenta de Claude es tuya.
                   </strong>{" "}
-                  Despliego con la mía para no bloquearte el arranque y en el
-                  traspaso la sustituimos por la tuya. A partir de ahí el agente
-                  corre contra tu suscripción de tarifa plana, no contra la mía.
+                  La conectas tú con un enlace y un código, y el agente corre
+                  contra tu suscripción de tarifa plana, no contra la mía.
                 </>,
                 <>
                   <strong className="text-white">
-                    El bot de Telegram lo has creado tú
+                    El bot de Telegram es para ti
                   </strong>{" "}
-                  con BotFather. El token es tuyo.
+                  : lo creamos nosotros y su token vive en tu servidor.
                 </>,
                 <>
                   <strong className="text-white">
