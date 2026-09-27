@@ -23,3 +23,12 @@ export function supabaseAnonKey(): string {
 export function supabaseServiceKey(): string {
   return required('SUPABASE_SERVICE_ROLE_KEY', process.env.SUPABASE_SERVICE_ROLE_KEY);
 }
+
+/**
+ * Origen público del sitio. Detrás de Coolify un route handler recibe la petición como
+ * https://0.0.0.0:3000 (el HOSTNAME del contenedor), así que redirigir con request.url o
+ * nextUrl.origin manda al usuario a una dirección que no existe. El middleware no lo sufre.
+ */
+export function siteOrigin(): string {
+  return (process.env.NEXT_PUBLIC_BASE_URL || 'https://stratomai.com').replace(/\/+$/, '');
+}

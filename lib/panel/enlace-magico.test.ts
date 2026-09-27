@@ -163,6 +163,21 @@ describe('enlace mágico: se pide en un sitio y se abre en otro', () => {
   });
 });
 
+describe('redirecciones detrás del proxy de Coolify', () => {
+  // En producción el route handler ve la petición como https://0.0.0.0:3000: la redirección
+  // tiene que salir hacia el dominio público, no hacia esa dirección interna.
+  it('confirm y callback redirigen al dominio público aunque la petición llegue como 0.0.0.0', async () => {
+    const callback = await import('@/app/panel/auth/callback/route');
+    for (const res of [
+      await confirm.GET(new NextRequest('https://0.0.0.0:3000/panel/auth/confirm')),
+      await callback.GET(new NextRequest('https://0.0.0.0:3000/panel/auth/callback')),
+    ]) {
+      const loc = res.headers.get('location') ?? '';
+      assert.ok(loc.startsWith('https://stratomai.com/'), `redirige a ${loc}`);
+    }
+  });
+});
+
 describe('/panel/auth/confirm', () => {
   const base = `https://stratomai.com/panel/auth/confirm?token_hash=${HASH_BUENO}&type=magiclink`;
 

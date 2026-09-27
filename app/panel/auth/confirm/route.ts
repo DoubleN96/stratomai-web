@@ -5,14 +5,14 @@
 import { createServerClient } from '@supabase/ssr';
 import type { EmailOtpType } from '@supabase/supabase-js';
 import { NextResponse, type NextRequest } from 'next/server';
-import { supabaseAnonKey, supabaseUrl } from '@/lib/panel/env';
+import { siteOrigin, supabaseAnonKey, supabaseUrl } from '@/lib/panel/env';
 
 // 'email' es el tipo de la plantilla de Supabase por si algún día se cambia la de GoTrue.
 const TIPOS = new Set<string>(['magiclink', 'email'] satisfies EmailOtpType[]);
 
 /** Solo rutas del panel en este mismo origen: `//evil.com`, `/\evil.com` o `https://…` → /panel. */
-function destino(request: NextRequest, next: string | null): URL {
-  const origen = request.nextUrl.origin;
+function destino(next: string | null): URL {
+  const origen = siteOrigin();
   const url = next && URL.canParse(next, origen) ? new URL(next, origen) : null;
   return url?.origin === origen && url.pathname.startsWith('/panel') ? url : new URL('/panel', origen);
 }
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
   const q = request.nextUrl.searchParams;
   const tokenHash = q.get('token_hash');
   const type = q.get('type');
-  const response = NextResponse.redirect(destino(request, q.get('next')));
+  const response = NextResponse.redirect(destino(q.get('next')));
 
   if (tokenHash && type && TIPOS.has(type)) {
     // Cookies de la petición y de la respuesta, como middleware.ts: la sesión viaja en la
@@ -42,5 +42,5 @@ export async function GET(request: NextRequest) {
     if (!error) return response;
   }
 
-  return NextResponse.redirect(new URL('/panel/login?error=auth', request.nextUrl.origin));
+  return NextResponse.redirect(new URL('/panel/login?error=auth', siteOrigin()));
 }
