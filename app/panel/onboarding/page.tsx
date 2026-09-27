@@ -32,6 +32,7 @@ import { requireSession } from '@/lib/panel/auth';
 import { pasosDe, type PasoTexto } from '@/lib/onboarding/pasos';
 import { PanelHeader } from '@/components/panel/PanelHeader';
 import { EmptyState, GlassCard, Kpi } from '@/components/panel/ui';
+import { etapasDe, TuAsistente } from '@/components/panel/TuAsistente';
 import {
   getOwnOnboarding,
   getOwnPairing,
@@ -477,7 +478,9 @@ export default async function OnboardingPage({
     );
   }
 
-  const { credentials, readyCount, status, modalidad } = onboarding;
+  const { credentials, readyCount, status, modalidad, botUsername } = onboarding;
+  const faltanCredenciales = credentials.some((c) => !c.isSet);
+  const { etapas, actual } = etapasDe(modalidad, status, faltanCredenciales);
   const pasos = pasosDe(modalidad);
   const previos = pasos.previos.map(conIcono);
   const traspaso = pasos.traspaso.map(conIcono);
@@ -532,6 +535,13 @@ export default async function OnboardingPage({
         )}
         {errorText && <Banner ok={false}>{errorText}</Banner>}
 
+        <TuAsistente
+          modalidad={modalidad}
+          status={status}
+          botUsername={botUsername}
+          faltanCredenciales={faltanCredenciales}
+        />
+
         <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
           {total > 0 && (
             <Kpi
@@ -542,7 +552,11 @@ export default async function OnboardingPage({
           )}
           <Kpi
             label="Estado"
-            value={STATUS_COPY[status] ?? status}
+            value={
+              modalidad && status !== 'cancelled'
+                ? etapas[actual]
+                : (STATUS_COPY[status] ?? status)
+            }
             accent="purple"
           />
           <Kpi label="Alta" value={alta || '—'} />
@@ -625,16 +639,20 @@ export default async function OnboardingPage({
           </section>
 
           <div className="space-y-6">
-            {/* Telegram pairing — not a credential, see PairingCard */}
-            <section aria-labelledby="telegram-heading">
-              <h2
-                id="telegram-heading"
-                className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#7f90b8]"
-              >
-                Hablar con mi bot de Telegram
-              </h2>
-              <PairingCard pairing={pairing} />
-            </section>
+            {/* Telegram pairing — not a credential, see PairingCard. Solo filas de antes de la
+                017: a las nuevas su bot ya las conoce por su @usuario de Telegram (se siembra al
+                montar) y la tarjeta «Abre tu bot» de arriba dice cuál es. */}
+            {!modalidad && (
+              <section aria-labelledby="telegram-heading">
+                <h2
+                  id="telegram-heading"
+                  className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#7f90b8]"
+                >
+                  Hablar con mi bot de Telegram
+                </h2>
+                <PairingCard pairing={pairing} />
+              </section>
+            )}
 
             {/* Credentials: solo las que pide su modalidad (a Done for you, ninguna) */}
             {total > 0 && (

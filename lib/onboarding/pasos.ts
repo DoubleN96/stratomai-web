@@ -23,6 +23,17 @@ import type { Modalidad } from './modalidad';
  */
 export const CLAUDE_URL = 'https://claude.ai/referral/n83DOCnDqg';
 
+/** Forma de un @usuario de Telegram: la misma que el CHECK de la migración 019. */
+const BOT_RE = /^[A-Za-z0-9_]{5,32}$/;
+
+/**
+ * Enlace a SU bot, o null si no hay bot (aún no está montado) o el nombre no tiene la forma de uno.
+ * La columna ya lo valida en la base; se repite aquí porque con esto se construye un href.
+ */
+export function enlaceDelBot(bot: string | null | undefined): string | null {
+  return bot && BOT_RE.test(bot) ? `https://t.me/${bot}` : null;
+}
+
 export type PasoTexto = {
   n: number;
   titulo: string;
@@ -105,7 +116,7 @@ const CLAUDE_SUSCRIPCION: PasoTexto = {
     'A tu nombre y de pago; el plan gratuito no sirve. Esta no me la pasas: la conectas tú en el último paso.',
 };
 
-const CLAUDE_CONECTAR: PasoTexto = {
+export const CLAUDE_CONECTAR: PasoTexto = {
   n: 8,
   titulo: 'Conecta tu cuenta de Claude',
   detalle:

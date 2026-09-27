@@ -129,6 +129,8 @@ export interface OnboardingSummary {
   createdAt: string;
   /** NULL: fila anterior a la 017. Ver migración 018 (el permiso de lectura). */
   modalidad: Modalidad | null;
+  /** @usuario de SU bot (sin @). Lo escribe la madre al montar; NULL hasta entonces (migración 019). */
+  botUsername: string | null;
   /** Solo las que su modalidad le pide (camposDe): a Done for you, ninguna. */
   credentials: CredentialState[];
   readyCount: number;
@@ -143,6 +145,7 @@ const CLIENT_COLUMNS = [
   'paid_at',
   'created_at',
   'modalidad',
+  'bot_username',
   ...CREDENTIALS.map((c) => c.stampColumn),
 ].join(', ');
 
@@ -180,6 +183,7 @@ export async function getOwnOnboarding(
     paidAt: row.paid_at ?? null,
     createdAt: row.created_at as string,
     modalidad,
+    botUsername: row.bot_username ?? null,
     credentials,
     readyCount: credentials.filter((c) => c.isSet).length,
   };

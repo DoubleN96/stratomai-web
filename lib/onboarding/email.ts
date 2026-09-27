@@ -16,7 +16,7 @@
 
 import { Resend } from 'resend';
 import type { Modalidad } from './modalidad';
-import { camposDe, pasosDe } from './pasos';
+import { CLAUDE_CONECTAR, camposDe, pasosDe } from './pasos';
 
 function baseUrl(): string {
   return (process.env.NEXT_PUBLIC_BASE_URL || 'https://stratomai.com').replace(/\/+$/, '');
@@ -172,8 +172,10 @@ export async function sendWelcomeEmail(
         `${i + 1}. ${p.titulo}\n   ${p.detalle}` + (p.url ? `\n   ${p.url}` : '')
     ),
     '',
+    // Ni /login ni «dentro de tu sesión»: desde el 31/08 el bot nace mudo y la cuenta se conecta
+    // con el enlace que le mandamos por Telegram. El texto sale de pasos.ts, igual que en el panel.
     'IMPORTANTE: tu cuenta de Claude no me la pasas nunca. No hay ningún campo para',
-    'ella. La conectas tú con /login dentro de tu propia sesión.',
+    `ella. ${CLAUDE_CONECTAR.detalle}`,
     '',
     `Qué pasa a partir de ahora, paso a paso: ${guia}`,
     '',
@@ -225,8 +227,7 @@ export async function sendWelcomeEmail(
 
     <p style="border:2px solid #16a34a;background:#f0fdf4;border-radius:10px;padding:16px;color:#166534;">
       <strong>Tu cuenta de Claude no me la pasas nunca.</strong> No hay ningún campo para
-      ella en el formulario, a propósito. La conectas tú con <code>/login</code> dentro de
-      tu propia sesión, y ahí se queda.
+      ella en el formulario, a propósito. ${esc(CLAUDE_CONECTAR.detalle)}
     </p>
 
     <p style="color:#4b5563;">
