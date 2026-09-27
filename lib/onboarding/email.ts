@@ -293,7 +293,8 @@ export async function sendCredentialsReadyEmail(
 export async function sendMagicLinkEmail(
   email: string,
   tokenHash: string,
-  next: string
+  next: string,
+  invitacion = false
 ): Promise<boolean> {
   const enlace = `${baseUrl()}/panel/auth/confirm?${new URLSearchParams({
     token_hash: tokenHash,
@@ -302,18 +303,22 @@ export async function sendMagicLinkEmail(
   })}`;
 
   const text = [
-    'Tu enlace para entrar en tu área privada de Stratoma:',
+    invitacion
+      ? 'Te han dado acceso al área privada de Stratoma. Tu enlace para entrar:'
+      : 'Tu enlace para entrar en tu área privada de Stratoma:',
     '',
     enlace,
     '',
     'Funciona en el móvil o en el ordenador, da igual desde dónde lo pidieras.',
     'Vale una sola vez: si no te deja entrar, pide otro.',
     '',
-    'Si no lo has pedido tú, ignora este correo: sin el enlace nadie entra.',
+    invitacion
+      ? 'Cuando caduque, entra en /panel/login con este mismo correo y pide otro.'
+      : 'Si no lo has pedido tú, ignora este correo: sin el enlace nadie entra.',
   ].join('\n');
 
   const html = WRAP(`
-    <h1 style="margin:0 0 8px;font-size:22px;">Tu enlace de acceso</h1>
+    <h1 style="margin:0 0 8px;font-size:22px;">${invitacion ? 'Ya tienes acceso' : 'Tu enlace de acceso'}</h1>
     <p style="color:#4b5563;">Funciona en el móvil o en el ordenador, da igual desde dónde lo
       pidieras. Vale una sola vez: si no te deja entrar, pide otro.</p>
     ${BTN(esc(enlace), 'Entrar en mi área privada')}
@@ -321,5 +326,10 @@ export async function sendMagicLinkEmail(
       enlace nadie entra.</p>
   `);
 
-  return send({ to: email, subject: 'Tu enlace para entrar en Stratoma', text, html });
+  return send({
+    to: email,
+    subject: invitacion ? 'Te han dado acceso a Stratoma' : 'Tu enlace para entrar en Stratoma',
+    text,
+    html,
+  });
 }

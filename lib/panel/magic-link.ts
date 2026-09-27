@@ -32,7 +32,11 @@ const MAX_POR_HORA = 5;
 const envios = new Map<string, number[]>();
 
 /** `email` ya validado y en minúsculas; `next` ya filtrado a una ruta del panel. */
-export async function sendPanelMagicLink(email: string, next: string): Promise<void> {
+export async function sendPanelMagicLink(
+  email: string,
+  next: string,
+  invitacion = false
+): Promise<void> {
   const ahora = Date.now();
   const recientes = (envios.get(email) ?? []).filter((t) => ahora - t < UNA_HORA);
   if (ahora - (recientes[recientes.length - 1] ?? 0) < UN_MINUTO) return;
@@ -49,7 +53,7 @@ export async function sendPanelMagicLink(email: string, next: string): Promise<v
   const tokenHash = data.properties?.hashed_token;
   if (error || !tokenHash) throw new Error(`generateLink: ${error?.message ?? 'sin hashed_token'}`);
 
-  if (!(await sendMagicLinkEmail(email, tokenHash, next))) {
+  if (!(await sendMagicLinkEmail(email, tokenHash, next, invitacion))) {
     throw new Error('el correo del enlace no salió');
   }
   envios.set(email, [...recientes, ahora]);
