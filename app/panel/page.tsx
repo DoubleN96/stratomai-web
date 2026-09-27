@@ -3,6 +3,8 @@ import { ArrowRight } from 'lucide-react';
 import { requireSession } from '@/lib/panel/auth';
 import { listProjects } from '@/lib/panel/queries';
 import { getOwnOnboarding } from '@/lib/onboarding/queries';
+import { enlaceDelBot } from '@/lib/onboarding/pasos';
+import { etapasDe } from '@/components/panel/TuAsistente';
 import { PanelHeader } from '@/components/panel/PanelHeader';
 import { EmptyState, GlassCard, StatusBadge } from '@/components/panel/ui';
 
@@ -21,6 +23,16 @@ export default async function PanelHomePage() {
     console.error('[panel] no se pudo leer la puesta en marcha:', e);
     return null;
   });
+  const bot = enlaceDelBot(onboarding?.botUsername);
+  // Solo filas con modalidad (017+): las de antes siguen sin barra de estado.
+  const alta =
+    onboarding?.modalidad && onboarding.status !== 'cancelled'
+      ? etapasDe(
+          onboarding.modalidad,
+          onboarding.status,
+          onboarding.credentials.some((c) => !c.isSet)
+        )
+      : null;
 
   return (
     <>
@@ -59,6 +71,26 @@ export default async function PanelHomePage() {
                     Aquí ves lo que te toca a ti y cómo va tu servidor. Tokens
                     no tienes que pegar ninguno: el servidor lo ponemos
                     nosotros.
+                  </p>
+                )}
+                {alta && (
+                  <p className="mt-2 text-sm text-[#c2cdec]">
+                    Estado:{' '}
+                    <strong className="text-white">{alta.etapas[alta.actual]}</strong>
+                  </p>
+                )}
+                {bot && (
+                  <p className="mt-2 text-sm text-[#c2cdec]">
+                    Tu bot:{' '}
+                    <a
+                      href={bot}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono font-semibold text-[#7ca0ff] underline underline-offset-2 hover:text-white"
+                    >
+                      @{onboarding?.botUsername}
+                    </a>
+                    . Falta conectar tu cuenta de Claude: te lo cuento en la puesta en marcha.
                   </p>
                 )}
               </div>
