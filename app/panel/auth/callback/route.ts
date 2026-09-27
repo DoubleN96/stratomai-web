@@ -2,10 +2,12 @@
 // that we exchange for a session, then bounce into the panel.
 
 import { NextResponse, type NextRequest } from 'next/server';
+import { siteOrigin } from '@/lib/panel/env';
 import { createSupabaseServerClient } from '@/lib/panel/supabase-server';
 
 export async function GET(request: NextRequest) {
-  const { searchParams, origin } = new URL(request.url);
+  const { searchParams } = new URL(request.url);
+  const origin = siteOrigin(); // nunca el de la petición: ver siteOrigin()
   const code = searchParams.get('code');
   const nextParam = searchParams.get('next');
   const next =
