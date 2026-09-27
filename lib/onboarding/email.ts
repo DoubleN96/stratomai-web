@@ -16,7 +16,7 @@
 
 import { Resend } from 'resend';
 import type { Modalidad } from './modalidad';
-import { PASOS_PREVIOS_TEXTO } from './pasos';
+import { camposDe, pasosDe } from './pasos';
 
 function baseUrl(): string {
   return (process.env.NEXT_PUBLIC_BASE_URL || 'https://stratomai.com').replace(/\/+$/, '');
@@ -46,8 +46,8 @@ function esc(s: string): string {
 // le decía al comprador que el servidor ronda los 19,49 €/mes cuando el script monta una CX33 por
 // 8,49 €. Es exactamente la deriva que el módulo compartido existe para evitar. El correo es el
 // sitio donde más duele, porque es lo primero que lee alguien que acaba de pagar.
-const PREPARATIVOS: readonly { titulo: string; detalle: string; url?: string }[] =
-  PASOS_PREVIOS_TEXTO.map((p) => ({ titulo: p.titulo, detalle: p.detalle, url: p.url }));
+// Y desde el 27/09 salen POR MODALIDAD (pasosDe): a Done for you no se le pide nada, a Colegas
+// solo su Claude y a la Guiada su Hetzner y su Claude. Antes los seis iban a todos.
 
 async function send(payload: {
   to: string;
@@ -134,6 +134,8 @@ export async function sendWelcomeEmail(
 ): Promise<boolean> {
   const colega = modalidad === 'colega_sin_pago';
   const { titulo: tituloTexto, entradilla } = CABECERA[modalidad ?? 'sin_modalidad'];
+  const preparativos = pasosDe(modalidad).previos;
+  const pegaCredenciales = camposDe(modalidad).length > 0;
 
   const login = `${baseUrl()}/panel/login?next=/panel/onboarding`;
   const onboarding = `${baseUrl()}/panel/onboarding`;
@@ -141,7 +143,7 @@ export async function sendWelcomeEmail(
   // ha pagado nada. Va a la guía pública, que cuenta lo mismo sin darle por hecho una compra.
   const guia = colega
     ? `${baseUrl()}/stack-ia/como-funciona`
-    : `${baseUrl()}/oferta/stack-ia-llave-en-mano/gracias`;
+    : `${baseUrl()}/oferta/stack-ia-llave-en-mano/gracias${modalidad ? `?m=${modalidad}` : ''}`;
 
   const text = [
     tituloTexto,
@@ -154,12 +156,18 @@ export async function sendWelcomeEmail(
     '3. Abre el enlace que te llega, en el móvil o en el ordenador, y ya estás dentro.',
     '   No hay contraseña que inventarse: cada vez que quieras entrar, pides otro enlace.',
     '',
-    `Tu página privada es ${onboarding}. Ahí tienes el checklist y el formulario`,
-    'donde pegas cada credencial. Se guardan cifradas, y puedes cambiarlas cuando',
-    'quieras: son tuyas y las revocas cuando te dé la gana.',
+    ...(pegaCredenciales
+      ? [
+          `Tu página privada es ${onboarding}. Ahí tienes el checklist y el formulario`,
+          'donde pegas cada credencial. Se guardan cifradas, y puedes cambiarlas cuando',
+          'quieras: son tuyas y las revocas cuando te dé la gana.',
+        ]
+      : [`Tu página privada es ${onboarding}. Ahí ves en qué punto está lo tuyo.`]),
     '',
-    'LO QUE TIENES QUE PREPARAR (seis cosas)',
-    ...PREPARATIVOS.map(
+    preparativos.length
+      ? `LO QUE TIENES QUE PREPARAR (${preparativos.length})`
+      : 'NO TIENES QUE PREPARAR NADA: el servidor lo montamos nosotros.',
+    ...preparativos.map(
       (p, i) =>
         `${i + 1}. ${p.titulo}\n   ${p.detalle}` + (p.url ? `\n   ${p.url}` : '')
     ),
@@ -167,7 +175,7 @@ export async function sendWelcomeEmail(
     'IMPORTANTE: tu cuenta de Claude no me la pasas nunca. No hay ningún campo para',
     'ella. La conectas tú con /login dentro de tu propia sesión.',
     '',
-    `La guía completa, con capturas y el paso a paso de cada token: ${guia}`,
+    `Qué pasa a partir de ahora, paso a paso: ${guia}`,
     '',
     'No es un examen. Si te trabas en cualquier punto, contesta a este correo y lo',
     'vemos.',
@@ -175,7 +183,7 @@ export async function sendWelcomeEmail(
     'Marcelino — Stratoma AI',
   ].join('\n');
 
-  const pasos = PREPARATIVOS.map((p) => {
+  const pasos = preparativos.map((p) => {
     const titulo = p.url
       ? `<a href="${esc(p.url)}" style="color:#1d4ed8;">${esc(p.titulo)}</a>`
       : esc(p.titulo);
@@ -198,13 +206,22 @@ export async function sendWelcomeEmail(
     ${BTN(login, 'Entrar en mi área privada')}
     <p style="color:#4b5563;">
       Tu página es <a href="${onboarding}" style="color:#1d4ed8;">${esc(onboarding)}</a>.
-      Ahí tienes el checklist y el formulario donde pegas cada credencial. Se guardan
+      ${
+        pegaCredenciales
+          ? `Ahí tienes el checklist y el formulario donde pegas cada credencial. Se guardan
       cifradas, y <strong>puedes cambiarlas cuando quieras</strong>: son tuyas y las
-      revocas cuando te dé la gana.
+      revocas cuando te dé la gana.`
+          : 'Ahí ves en qué punto está lo tuyo.'
+      }
     </p>
 
-    <h2 style="font-size:17px;margin:28px 0 8px;">Lo que tienes que preparar</h2>
-    <ol style="padding-left:20px;">${pasos}</ol>
+    ${
+      preparativos.length
+        ? `<h2 style="font-size:17px;margin:28px 0 8px;">Lo que tienes que preparar</h2>
+    <ol style="padding-left:20px;">${pasos}</ol>`
+        : `<h2 style="font-size:17px;margin:28px 0 8px;">No tienes que preparar nada</h2>
+    <p style="color:#4b5563;">El servidor lo compramos y lo montamos nosotros.</p>`
+    }
 
     <p style="border:2px solid #16a34a;background:#f0fdf4;border-radius:10px;padding:16px;color:#166534;">
       <strong>Tu cuenta de Claude no me la pasas nunca.</strong> No hay ningún campo para
@@ -213,7 +230,7 @@ export async function sendWelcomeEmail(
     </p>
 
     <p style="color:#4b5563;">
-      La guía completa, con capturas y el paso a paso de cada token, está en
+      Qué pasa a partir de ahora, paso a paso, en
       <a href="${guia}" style="color:#1d4ed8;">esta página</a>.
     </p>
     <p style="color:#4b5563;">
@@ -224,7 +241,9 @@ export async function sendWelcomeEmail(
 
   return send({
     to: email,
-    subject: 'Ya tienes acceso: entra y prepara tus seis cosas',
+    subject: preparativos.length
+      ? 'Ya tienes acceso: entra y prepara lo tuyo'
+      : 'Ya tienes acceso: lo montamos nosotros',
     text,
     html,
     replyTo: process.env.RESEND_TO || undefined,
@@ -242,8 +261,8 @@ export async function sendCredentialsReadyEmail(
   const panel = `${baseUrl()}/panel/admin`;
 
   const text = [
-    `${clientEmail} ya ha guardado las cuatro credenciales (Hetzner, Telegram,`,
-    'GitHub y Cloudflare). Se pueden descifrar con el service role desde el panel.',
+    `${clientEmail} ya ha guardado las credenciales que le pide su modalidad.`,
+    'Se pueden descifrar con el service role desde el panel.',
     '',
     'Listo para provisionar.',
     '',
@@ -253,8 +272,8 @@ export async function sendCredentialsReadyEmail(
   const html = WRAP(`
     <h1 style="margin:0 0 8px;font-size:22px;">Credenciales completas</h1>
     <p style="color:#4b5563;">
-      <strong>${esc(clientEmail)}</strong> ya ha guardado las cuatro credenciales
-      (Hetzner, Telegram, GitHub y Cloudflare). Listo para provisionar.
+      <strong>${esc(clientEmail)}</strong> ya ha guardado las credenciales que le pide su
+      modalidad. Listo para provisionar.
     </p>
     ${BTN(panel, 'Abrir el panel')}
   `);
