@@ -166,6 +166,17 @@ function telegramOf(session: Record<string, unknown>): string | null {
   return null;
 }
 
+// SEPA y demás métodos diferidos: checkout.session.completed llega con payment_status 'unpaid' y
+// el dinero entra días después con async_payment_succeeded (la misma sesión, ya 'paid').
+const ASYNC_OK = 'checkout.session.async_payment_succeeded';
+const ASYNC_FAILED = 'checkout.session.async_payment_failed';
+const HANDLED = new Set([
+  'checkout.session.completed',
+  ASYNC_OK,
+  ASYNC_FAILED,
+  'customer.subscription.deleted',
+]);
+
 // --- handlers ---------------------------------------------------------------
 
 async function handleCheckoutCompleted(
@@ -225,15 +236,15 @@ async function handleCheckoutCompleted(
   if (paymentStatus !== 'paid' && paymentStatus !== 'no_payment_required') {
     console.warn('[stripe] checkout.session.completed sin pago confirmado, ignorado');
     // Este SÍ es un comprador nuestro: el enlace ya está validado. Es SEPA o transferencia, que
-    // confirman horas o días después. Hoy no escuchamos el evento de ese segundo momento, así
-    // que sin este aviso el alta se pierde entera.
+    // confirman horas o días después: el alta la hace checkout.session.async_payment_succeeded,
+    // que trae la misma sesión ya con payment_status 'paid'.
     await alertOwner(
       '🟠 Compra del Stack IA con el pago aún sin confirmar\n\n' +
         `sesión: ${idOf(session.id) ?? '?'}\n` +
         `correo: ${emailOf(session) ?? 'sin correo'}\n` +
         `estado: ${typeof paymentStatus === 'string' ? paymentStatus : '?'}\n\n` +
-        'Suele ser SEPA o transferencia. Cuando el dinero entre, Stripe manda otro evento que ' +
-        'hoy NO escuchamos: hay que dar de alta a esta persona a mano.'
+        'Suele ser SEPA, que tarda unos días. Cuando el dinero entre se dará de alta sola ' +
+        '(checkout.session.async_payment_succeeded); si el cargo falla, te aviso.'
     );
     return;
   }
@@ -400,7 +411,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json({ error: 'missing event id' }, { status: 400 });
   }
 
-  if (eventType !== 'checkout.session.completed' && eventType !== 'customer.subscription.deleted') {
+  if (!HANDLED.has(eventType)) {
     return NextResponse.json({ received: true, ignored: eventType }, { status: 200 });
   }
 
@@ -426,8 +437,17 @@ export async function POST(request: Request): Promise<NextResponse> {
   >;
 
   try {
-    if (eventType === 'checkout.session.completed') {
+    if (eventType === 'checkout.session.completed' || eventType === ASYNC_OK) {
       await handleCheckoutCompleted(eventId, object);
+    } else if (eventType === ASYNC_FAILED) {
+      if (isStackIaPurchase(object)) {
+        await alertOwner(
+          '🔴 Falló el cobro SEPA de una compra del Stack IA\n\n' +
+            `sesión: ${idOf(object.id) ?? '?'}\n` +
+            `correo: ${emailOf(object) ?? 'sin correo'}\n\n` +
+            'No se ha dado de alta. Conviene escribirle para que pague con tarjeta.'
+        );
+      }
     } else {
       await handleSubscriptionDeleted(object);
     }

@@ -72,15 +72,20 @@ afterEach(() => {
   globalThis.fetch = fetchOriginal;
 });
 
-function eventoPagado(paymentLink: string, email: string): Request {
+function eventoPagado(
+  paymentLink: string,
+  email: string,
+  type = 'checkout.session.completed',
+  paymentStatus = 'paid'
+): Request {
   const cuerpo = JSON.stringify({
-    id: `evt_${paymentLink}_${email}`,
-    type: 'checkout.session.completed',
+    id: `evt_${type}_${paymentLink}_${email}`,
+    type,
     data: {
       object: {
         id: `cs_${paymentLink}`,
         payment_link: paymentLink,
-        payment_status: 'paid',
+        payment_status: paymentStatus,
         customer_details: { email },
         customer: 'cus_prueba',
         subscription: 'sub_prueba',
@@ -169,5 +174,39 @@ describe('/api/alta: el colega invitado sin pago', () => {
     for (const precio of ['990 €', '690 €', '9,26']) {
       assert.ok(!texto.includes(precio), `sobra «${precio}»`);
     }
+  });
+});
+
+describe('SEPA: el alta espera al dinero y llega sola', () => {
+  it('completed sin pagar no da de alta; async_payment_succeeded sí', async () => {
+    const email = 'sepa@example.com';
+    let res = await webhook.POST(
+      eventoPagado('plink_guiada', email, 'checkout.session.completed', 'unpaid')
+    );
+    assert.equal(res.status, 200);
+    assert.ok(
+      !llamadas.some((l) => l.method === 'POST' && l.url.includes('/rest/v1/panel_client_onboarding')),
+      'no puede darse de alta antes de que entre el dinero'
+    );
+    assert.ok(!llamadas.some((l) => l.url.startsWith('https://api.resend.com/')));
+
+    llamadas = [];
+    res = await webhook.POST(
+      eventoPagado('plink_guiada', email, 'checkout.session.async_payment_succeeded')
+    );
+    assert.equal(res.status, 200);
+    assert.equal(filaCreada().modalidad, 'guiada');
+    assert.ok(correo().includes('690 €'));
+  });
+
+  it('async_payment_failed no da de alta', async () => {
+    const res = await webhook.POST(
+      eventoPagado('plink_dfy', 'sepa-falla@example.com', 'checkout.session.async_payment_failed', 'unpaid')
+    );
+    assert.equal(res.status, 200);
+    assert.ok(!llamadas.some((l) => l.url.startsWith('https://api.resend.com/')));
+    assert.ok(
+      !llamadas.some((l) => l.method === 'POST' && l.url.includes('/rest/v1/panel_client_onboarding'))
+    );
   });
 });
