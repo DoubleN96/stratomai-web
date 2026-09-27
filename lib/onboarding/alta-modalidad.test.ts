@@ -135,6 +135,9 @@ describe('webhook de Stripe: cada modalidad, su fila y su correo', () => {
       for (const precio of c.si) assert.ok(texto.includes(precio), `falta «${precio}»`);
       for (const precio of c.no) assert.ok(!texto.includes(precio), `sobra «${precio}»`);
       assert.ok(texto.includes('Pago recibido'));
+      // Lo que le pide el correo tiene que casar con lo que compró.
+      assert.equal(texto.includes('Hetzner'), c.modalidad === 'guiada', 'Hetzner solo a la Guiada');
+      assert.ok(texto.includes(`gracias?m=${c.modalidad}`), 'el enlace lleva su modalidad');
     });
   }
 
