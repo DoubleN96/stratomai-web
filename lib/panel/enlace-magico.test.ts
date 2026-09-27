@@ -217,3 +217,12 @@ describe('/panel/login después de un enlace que ya no vale', () => {
     assert.doesNotMatch(await pinta({}), /caducado/);
   });
 });
+
+describe('invitación desde el panel de admin', () => {
+  it('ya no usa inviteUserByEmail (su enlace dejaba al invitado fuera)', async () => {
+    const { readFile } = await import('node:fs/promises');
+    const fuente = await readFile(new URL('../../app/panel/admin/actions.ts', import.meta.url), 'utf8');
+    assert.doesNotMatch(fuente, /\.inviteUserByEmail\(/);
+    assert.match(fuente, /sendPanelMagicLink\(email, '\/panel', true\)/);
+  });
+});

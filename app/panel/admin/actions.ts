@@ -5,6 +5,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { requireAdmin } from '@/lib/panel/auth';
+import { sendPanelMagicLink } from '@/lib/panel/magic-link';
 import {
   createSupabaseAdminClient,
   createSupabaseServerClient,
@@ -150,8 +151,10 @@ export async function removeMember(formData: FormData): Promise<ActionResult> {
   }
 }
 
-// Invite a user by email via the Supabase Auth admin API. The DB trigger
-// auto-creates their panel_profiles row; we then set the role explicitly.
+// Invite a user: create the account (confirmed, no GoTrue email) and send OUR access link.
+// inviteUserByEmail mailed a GoTrue link that came back in implicit flow to the home page with
+// the token in the URL fragment, which nobody read: the invitee never got in (27/09/2026).
+// The DB trigger auto-creates their panel_profiles row; we then set the role explicitly.
 export async function inviteUser(formData: FormData): Promise<ActionResult> {
   try {
     await requireAdmin();
@@ -161,8 +164,10 @@ export async function inviteUser(formData: FormData): Promise<ActionResult> {
 
     const admin = createSupabaseAdminClient();
 
-    const { data, error } = await admin.auth.admin.inviteUserByEmail(email, {
-      data: { full_name: fullName, panel_role: role },
+    const { data, error } = await admin.auth.admin.createUser({
+      email,
+      email_confirm: true,
+      user_metadata: { full_name: fullName, panel_role: role },
     });
 
     if (error || !data?.user) {
@@ -180,6 +185,11 @@ export async function inviteUser(formData: FormData): Promise<ActionResult> {
     if (profileErr) return fail(profileErr.message);
 
     revalidatePath('/panel/admin');
+    try {
+      await sendPanelMagicLink(email, '/panel', true);
+    } catch (e) {
+      return fail(`Usuario creado, pero el correo no salió: ${e instanceof Error ? e.message : e}`);
+    }
     return { ok: true, message: `Invitación enviada a ${email}` };
   } catch (e) {
     return fail(e instanceof Error ? e.message : 'Error desconocido');
