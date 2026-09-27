@@ -1,0 +1,22 @@
+-- 018 — El comprador puede LEER su propia modalidad (solo leer).
+--
+-- POR QUÉ
+--   /panel/onboarding y /panel leen la fila con la sesión del cliente (getOwnOnboarding,
+--   lib/onboarding/queries.ts), no con el service role. Desde ahí deciden qué pasos y qué
+--   credenciales enseñarle: a Done for you ninguna, a la Guiada solo Hetzner, a una fila
+--   anterior a la 017 las cuatro de siempre. La 017 dejó la columna cerrada a propósito, y la
+--   009 solo concede columnas sueltas, así que sin esto el SELECT falla con "permission denied".
+--
+-- QUÉ NO
+--   Nada de UPDATE: la modalidad la escribe solo el service role (webhook de Stripe y
+--   /api/alta). Si el cliente pudiera cambiársela, podría pasar de 'guiada' a 'done_for_you'
+--   y el aprovisionador le compraría el servidor con la cuenta de Stratoma.
+--   Nada a `anon`: la 012 se lo quitó todo y así sigue.
+--
+-- ORDEN DE DESPLIEGUE: esta migración va ANTES que el código. Sin ella, getOwnOnboarding()
+-- pide una columna sin permiso y /panel/onboarding da error a TODOS los clientes.
+--
+-- Re-ejecutable. Rollback:
+--   revoke select (modalidad) on public.panel_client_onboarding from authenticated;
+
+grant select (modalidad) on public.panel_client_onboarding to authenticated;
