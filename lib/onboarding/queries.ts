@@ -19,6 +19,7 @@ import {
   createSupabaseAdminClient,
   createSupabaseServerClient,
 } from '@/lib/panel/supabase-server';
+import type { Modalidad } from './modalidad';
 
 // ---------------------------------------------------------------------------
 // The four credentials. Single source of truth: the form, the validator and
@@ -507,6 +508,8 @@ export interface BuyerInput {
   referredBy: string | null;
   /** @usuario de Telegram, del custom_field del checkout. Ver migracion 014. */
   telegramUsername: string | null;
+  /** Qué ha comprado: del payment link, o 'colega_sin_pago' desde /api/alta. Ver migración 017. */
+  modalidad: Modalidad | null;
 }
 
 /**
@@ -566,6 +569,7 @@ export async function upsertBuyer(
     // campo no debe borrar la atribucion que ya guardo el primer intento.
     ...(input.referredBy ? { referred_by: input.referredBy } : {}),
     ...(input.telegramUsername ? { telegram_username: input.telegramUsername } : {}),
+    ...(input.modalidad ? { modalidad: input.modalidad } : {}),
   };
 
   if (existing) {

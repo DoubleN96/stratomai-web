@@ -13,6 +13,7 @@
 // and a send failure is logged and swallowed rather than failing the caller.
 
 import { Resend } from 'resend';
+import type { Modalidad } from './modalidad';
 import { PASOS_PREVIOS_TEXTO } from './pasos';
 
 function baseUrl(): string {
@@ -82,38 +83,55 @@ const BTN = (href: string, label: string) =>
 // 1. Buyer welcome — what they bought, how to get in, what to prepare
 // ---------------------------------------------------------------------------
 
+// Lo ÚNICO que cambia entre modalidades: la cabecera con lo que ha comprado y lo que paga.
+// Los precios salen de /oferta/stack-ia-llave-en-mano/elegir, que es lo que vio al pagar.
+const CABECERA: Record<Modalidad | 'sin_modalidad', { titulo: string; entradilla: string }> = {
+  done_for_you: {
+    titulo: 'Pago recibido. Ya tienes acceso.',
+    entradilla:
+      'Has contratado la modalidad Done for you: 990 € de puesta en marcha y 500 €/mes de ' +
+      'mantenimiento (más el 21 % de IVA, que Stripe añade solo).',
+  },
+  guiada: {
+    titulo: 'Pago recibido. Ya tienes acceso.',
+    entradilla:
+      'Has contratado la modalidad Guiada: 690 € de implantación y 350 €/mes de mantenimiento. ' +
+      'El servidor no va en esta factura: lo contratas tú en Hetzner y se lo pagas a ellos ' +
+      '(una CX33, 8,49 €/mes con IVA).',
+  },
+  colegas: {
+    titulo: 'Pago recibido. Ya tienes acceso.',
+    entradilla:
+      'Has entrado por la modalidad Colegas: sin implantación y sin cuota de mantenimiento. ' +
+      'Pagas 9,26 €/mes, que es lo que cuesta el servidor, y aparte tu suscripción de claude.ai.',
+  },
+  // Sin "Pago recibido": no ha pagado nada.
+  colega_sin_pago: {
+    titulo: 'Ya tienes acceso.',
+    entradilla:
+      'Te ha invitado Marcelino, así que no pagas nada por la implantación: el stack se te ' +
+      'monta igual. Lo único que sale de tu bolsillo son tus propias cuentas — el servidor ' +
+      '(una CX33, 8,49 €/mes con IVA, a tu tarjeta) y tu suscripción de claude.ai.',
+  },
+  // Un enlace de STACK_IA_PAYMENT_LINKS sin etiqueta: mejor ningún precio que uno equivocado.
+  sin_modalidad: {
+    titulo: 'Pago recibido. Ya tienes acceso.',
+    entradilla:
+      'Gracias por contratar el stack de IA. El detalle de lo que has pagado lo tienes en el ' +
+      'recibo de Stripe.',
+  },
+};
+
 /**
- * Correo de bienvenida.
- *
- * `colega: true` cambia solo la cabecera: un amigo dado de alta sin pagar no puede recibir un
- * "Pago recibido" con 990 € + 500 €/mes. El resto —cómo entrar y los seis preparativos— es
- * idéntico, y se queda en una sola copia a propósito.
+ * Correo de bienvenida. La modalidad solo cambia la cabecera (CABECERA): el resto —cómo entrar y
+ * los seis preparativos— es idéntico, y se queda en una sola copia a propósito.
  */
 export async function sendWelcomeEmail(
   email: string,
-  opciones: { colega?: boolean } = {}
+  modalidad: Modalidad | null
 ): Promise<boolean> {
-  const colega = opciones.colega === true;
-  const tituloTexto = colega
-    ? 'Ya tienes acceso.'
-    : 'Pago recibido. Ya tienes acceso.';
-  const entradillaTexto = colega
-    ? [
-        'Te ha invitado Marcelino, así que no pagas nada por la implantación: el stack se te',
-        'monta igual. Lo único que sale de tu bolsillo son tus propias cuentas — el servidor',
-        '(una CX33, 8,49 €/mes con IVA, a tu tarjeta) y tu suscripción de claude.ai.',
-      ]
-    : [
-        'Has contratado la implantación del stack de IA llave en mano: 990 € de puesta en',
-        'marcha y 500 €/mes de mantenimiento (más el 21 % de IVA, que Stripe añade solo).',
-      ];
-  const entradillaHtml = colega
-    ? `Te ha invitado Marcelino, así que <strong>no pagas nada</strong> por la implantación.
-       Lo único que sale de tu bolsillo son tus propias cuentas: el servidor (una CX33,
-       <strong>8,49 €/mes</strong> con IVA, a tu tarjeta) y tu suscripción de claude.ai.`
-    : `Has contratado la implantación del stack de IA llave en mano: <strong>990 €</strong>
-      de puesta en marcha y <strong>500 €/mes</strong> de mantenimiento (más el 21 % de
-      IVA, que Stripe añade solo).`;
+  const colega = modalidad === 'colega_sin_pago';
+  const { titulo: tituloTexto, entradilla } = CABECERA[modalidad ?? 'sin_modalidad'];
 
   const login = `${baseUrl()}/panel/login?next=/panel/onboarding`;
   const onboarding = `${baseUrl()}/panel/onboarding`;
@@ -126,7 +144,7 @@ export async function sendWelcomeEmail(
   const text = [
     tituloTexto,
     '',
-    ...entradillaTexto,
+    entradilla,
     '',
     'CÓMO ENTRAR',
     `1. Abre ${login}`,
@@ -165,7 +183,7 @@ export async function sendWelcomeEmail(
 
   const html = WRAP(`
     <h1 style="margin:0 0 8px;font-size:24px;">${esc(tituloTexto)}</h1>
-    <p style="color:#4b5563;margin-top:0;">${entradillaHtml}</p>
+    <p style="color:#4b5563;margin-top:0;">${esc(entradilla)}</p>
 
     <h2 style="font-size:17px;margin:28px 0 8px;">Cómo entrar</h2>
     <ol style="padding-left:20px;color:#4b5563;">
