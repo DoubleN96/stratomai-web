@@ -1,10 +1,12 @@
 // Transactional email for the onboarding flow, via Resend (already a dependency).
 //
-// Two messages, both server-only:
+// Three messages, all server-only:
 //   1. sendWelcomeEmail()        → to the buyer, right after Stripe confirms payment.
 //   2. sendCredentialsReadyEmail() → to Stratoma, when the four tokens are in.
+//   3. sendMagicLinkEmail()      → the panel's sign-in link (see lib/panel/magic-link.ts).
 //
-// NEITHER email ever contains a token value, and nothing here is logged beyond
+// Only #3 carries a token: the single-use sign-in hash, which is the whole point of
+// that email. #1 and #2 never contain one, and nothing here is logged beyond
 // the recipient address and a Resend error object. The client's Claude account
 // is not mentioned as something to send us — they connect it themselves.
 //
@@ -149,8 +151,8 @@ export async function sendWelcomeEmail(
     'CÓMO ENTRAR',
     `1. Abre ${login}`,
     `2. Escribe este mismo correo (${email}) y pulsa "Enviarme un enlace de acceso".`,
-    '3. Abre el enlace que te llega y ya estás dentro. No tienes que inventarte',
-    '   ninguna contraseña: si quieres una, la pones después.',
+    '3. Abre el enlace que te llega, en el móvil o en el ordenador, y ya estás dentro.',
+    '   No hay contraseña que inventarse: cada vez que quieras entrar, pides otro enlace.',
     '',
     `Tu página privada es ${onboarding}. Ahí tienes el checklist y el formulario`,
     'donde pegas cada credencial. Se guardan cifradas, y puedes cambiarlas cuando',
@@ -190,8 +192,8 @@ export async function sendWelcomeEmail(
       <li>Abre la página de acceso.</li>
       <li>Escribe este mismo correo (<strong>${esc(email)}</strong>) y pulsa
           <strong>"Enviarme un enlace de acceso"</strong>.</li>
-      <li>Abre el enlace que te llega y ya estás dentro. No tienes que inventarte
-          ninguna contraseña; si la quieres, la pones después.</li>
+      <li>Abre el enlace que te llega, en el móvil o en el ordenador, y ya estás dentro.
+          No hay contraseña que inventarse: cada vez que quieras entrar, pides otro enlace.</li>
     </ol>
     ${BTN(login, 'Entrar en mi área privada')}
     <p style="color:#4b5563;">
@@ -258,4 +260,47 @@ export async function sendCredentialsReadyEmail(
   `);
 
   return send({ to, subject: `Credenciales listas — ${clientEmail}`, text, html });
+}
+
+// ---------------------------------------------------------------------------
+// 3. Panel sign-in link — lo pide la propia persona en /panel/login
+// ---------------------------------------------------------------------------
+
+/**
+ * El enlace va a /panel/auth/confirm con el token_hash de GoTrue, así que se abre en cualquier
+ * dispositivo. El origen sale de NEXT_PUBLIC_BASE_URL y NUNCA de la petición: con un Host
+ * falsificado, el token acabaría en un dominio ajeno.
+ */
+export async function sendMagicLinkEmail(
+  email: string,
+  tokenHash: string,
+  next: string
+): Promise<boolean> {
+  const enlace = `${baseUrl()}/panel/auth/confirm?${new URLSearchParams({
+    token_hash: tokenHash,
+    type: 'magiclink',
+    next,
+  })}`;
+
+  const text = [
+    'Tu enlace para entrar en tu área privada de Stratoma:',
+    '',
+    enlace,
+    '',
+    'Funciona en el móvil o en el ordenador, da igual desde dónde lo pidieras.',
+    'Vale una sola vez: si no te deja entrar, pide otro.',
+    '',
+    'Si no lo has pedido tú, ignora este correo: sin el enlace nadie entra.',
+  ].join('\n');
+
+  const html = WRAP(`
+    <h1 style="margin:0 0 8px;font-size:22px;">Tu enlace de acceso</h1>
+    <p style="color:#4b5563;">Funciona en el móvil o en el ordenador, da igual desde dónde lo
+      pidieras. Vale una sola vez: si no te deja entrar, pide otro.</p>
+    ${BTN(esc(enlace), 'Entrar en mi área privada')}
+    <p style="color:#6b7280;font-size:13px;">Si no lo has pedido tú, ignora este correo: sin el
+      enlace nadie entra.</p>
+  `);
+
+  return send({ to: email, subject: 'Tu enlace para entrar en Stratoma', text, html });
 }

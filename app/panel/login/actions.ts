@@ -1,7 +1,8 @@
 'use server';
 
-import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { after } from 'next/server';
+import { sendPanelMagicLink } from '@/lib/panel/magic-link';
 import { createSupabaseServerClient } from '@/lib/panel/supabase-server';
 import { requireEmail, requireString } from '@/lib/panel/validate';
 
@@ -15,17 +16,6 @@ function safeNext(value: FormDataEntryValue | null): string {
   return typeof value === 'string' && value.startsWith('/panel')
     ? value
     : '/panel';
-}
-
-/** This deployment's origin, so a magic link in dev does not point at prod. */
-async function siteOrigin(): Promise<string> {
-  const h = await headers();
-  const host = h.get('x-forwarded-host') ?? h.get('host');
-  if (host) return `${h.get('x-forwarded-proto') ?? 'https'}://${host}`;
-  return (process.env.NEXT_PUBLIC_BASE_URL || 'https://stratomai.com').replace(
-    /\/+$/,
-    ''
-  );
 }
 
 // Email + password sign-in.
@@ -49,29 +39,24 @@ export async function signInWithPassword(
   redirect(nextPath);
 }
 
-// Optional: passwordless magic-link.
+// Passwordless magic-link. Por qué ya no es signInWithOtp: lib/panel/magic-link.ts.
 export async function sendMagicLink(
   _prev: LoginState,
   formData: FormData
 ): Promise<LoginState> {
   try {
     const email = requireEmail(formData.get('email'));
-    const supabase = await createSupabaseServerClient();
-    // emailRedirectTo — sin esto el enlace mágico ignora `next` y todo el mundo
-    // aterriza en /panel, incluido el comprador al que su correo de bienvenida
-    // manda a /panel/onboarding. La ruta de callback vuelve a validar el `next`.
-    const emailRedirectTo = `${await siteOrigin()}/panel/auth/callback?next=${encodeURIComponent(
-      safeNext(formData.get('next'))
-    )}`;
-    // shouldCreateUser:false — el panel es por invitación. Sin esto, pedir un
-    // enlace mágico da de alta al desconocido, y como la clave anónima es
-    // pública cualquiera podía crearse una cuenta contra la API de Supabase.
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: { shouldCreateUser: false, emailRedirectTo },
-    });
-    if (error) return { error: error.message };
-    return { info: `Te enviamos un enlace de acceso a ${email}` };
+    const next = safeNext(formData.get('next'));
+    // after(): se contesta ANTES de mirar si el correo tiene cuenta, así ni el mensaje ni el
+    // tiempo de respuesta dicen quién es cliente. Antes el error de GoTrue lo delataba.
+    after(() =>
+      sendPanelMagicLink(email, next).catch((e) =>
+        console.error('[panel] enlace mágico NO enviado a', email, e)
+      )
+    );
+    return {
+      info: `Si ${email} tiene acceso, te llega un enlace en un momento. Ábrelo donde quieras: en el móvil también vale.`,
+    };
   } catch (e) {
     return { error: e instanceof Error ? e.message : 'Error al enviar el enlace' };
   }
