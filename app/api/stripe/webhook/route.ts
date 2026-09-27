@@ -27,6 +27,7 @@ import crypto from 'node:crypto';
 import { NextResponse } from 'next/server';
 import { createSupabaseAdminClient } from '@/lib/panel/supabase-server';
 import { sendWelcomeEmail } from '@/lib/onboarding/email';
+import { parsePaymentLinks } from '@/lib/onboarding/modalidad';
 import {
   claimStripeEvent,
   completeStripeEvent,
@@ -45,14 +46,12 @@ const TOLERANCE_SECONDS = 300;
 const MAX_BODY_BYTES = 1_000_000;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Payment links (plink_...) que SÍ son una compra del Stack IA, separados por comas.
+// Payment links (plink_...) que SÍ son una compra del Stack IA, separados por comas, cada uno
+// con su modalidad delante: "done_for_you:plink_A,guiada:plink_B,colegas:plink_C".
 // La cuenta de Stripe está COMPARTIDA con Tripath, así que sin esta lista el webhook
 // daba de alta como compradores a los clientes de Tripath. El id sale del panel de
 // Stripe: Payment links -> la oferta -> empieza por plink_.
-const STACK_IA_PAYMENT_LINKS = (process.env.STACK_IA_PAYMENT_LINKS ?? '')
-  .split(',')
-  .map((s) => s.trim())
-  .filter(Boolean);
+const STACK_IA_PAYMENT_LINKS = parsePaymentLinks(process.env.STACK_IA_PAYMENT_LINKS ?? '');
 
 function timingSafeEqualHex(a: string, b: string): boolean {
   if (a.length !== b.length) return false;
@@ -129,7 +128,7 @@ function emailOf(session: Record<string, unknown>): string | null {
  */
 function isStackIaPurchase(session: Record<string, unknown>): boolean {
   const link = idOf(session.payment_link);
-  if (STACK_IA_PAYMENT_LINKS.length === 0) {
+  if (STACK_IA_PAYMENT_LINKS.size === 0) {
     console.error(
       '[stripe] STACK_IA_PAYMENT_LINKS sin configurar: ignoro el pago por seguridad ' +
         `(session=${idOf(session.id) ?? '?'}, payment_link=${link ?? 'ninguno'}). ` +
@@ -137,7 +136,7 @@ function isStackIaPurchase(session: Record<string, unknown>): boolean {
     );
     return false;
   }
-  return link !== null && STACK_IA_PAYMENT_LINKS.includes(link);
+  return link !== null && STACK_IA_PAYMENT_LINKS.has(link);
 }
 
 
@@ -200,7 +199,7 @@ async function handleCheckoutCompleted(
     // no avisar. El pago de Tripath del 31/08 llegó SIN payment_link y los nuestros siempre
     // llevan uno. Así que: sin enlace = ajeno, se calla; con un enlace que no conocemos = o es
     // uno nuestro nuevo o uno regenerado, y eso hay que saberlo el mismo día.
-    if (STACK_IA_PAYMENT_LINKS.length === 0) {
+    if (STACK_IA_PAYMENT_LINKS.size === 0) {
       await alertOwner(
         '🔴 STACK_IA_PAYMENT_LINKS está vacía en producción\n\n' +
           `He descartado un pago por seguridad: ${idOf(session.id) ?? '?'}\n` +
@@ -251,6 +250,9 @@ async function handleCheckoutCompleted(
     return;
   }
 
+  // isStackIaPurchase() ya garantiza que el enlace está en la lista.
+  const modalidad = STACK_IA_PAYMENT_LINKS.get(idOf(session.payment_link) ?? '') ?? null;
+
   const admin = createSupabaseAdminClient();
 
   // Find or create the Supabase auth user. panel_profiles mirrors auth.users,
@@ -295,12 +297,13 @@ async function handleCheckoutCompleted(
         ? session.client_reference_id.slice(0, 200)
         : null,
     telegramUsername: telegramOf(session),
+    modalidad,
   });
   await linkStripeEvent(eventId, id);
 
   // Best-effort: the durable state (user + row) is already committed, and a
   // Stripe retry would only repeat the same failing send.
-  const sent = await sendWelcomeEmail(email);
+  const sent = await sendWelcomeEmail(email, modalidad);
   if (!sent) {
     console.error('[stripe] alta OK pero el email de bienvenida NO salió para', email);
   }
@@ -312,6 +315,7 @@ async function handleCheckoutCompleted(
   // el hueco entre "ha pagado" y "ha terminado".
   await alertOwner(
     `💰 Nueva compra del Stack IA\n\n${email}\n` +
+      `modalidad: ${modalidad ?? 'SIN ETIQUETA — ponle la modalidad a su plink en STACK_IA_PAYMENT_LINKS'}\n` +
       `sesión: ${idOf(session.id) ?? '?'}\n\n` +
       'Todavía no ha entregado credenciales. Si en unas horas sigue igual, conviene escribirle.'
   );

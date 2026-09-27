@@ -153,6 +153,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         // La marca que hace que NUNCA se le compre un servidor con nuestra cuenta de Hetzner.
         referredBy: `colega:${ref}`,
         telegramUsername: telegram || null,
+        modalidad: 'colega_sin_pago',
       });
     }
 
@@ -162,7 +163,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     // buzón ajeno con nuestro correo tantas veces como aguante el tope: un desconocido escribe
     // la dirección de otro y le llegan correos nuestros. Para quien ya tiene cuenta el camino es
     // /panel/login, que manda el enlace mágico con los topes de GoTrue.
-    const enviado = yaEstaba ? false : await sendWelcomeEmail(email, { colega: true });
+    const enviado = yaEstaba ? false : await sendWelcomeEmail(email, 'colega_sin_pago');
     if (!yaEstaba && !enviado) {
       console.error('[alta] cuenta creada pero el correo NO salió para', email);
     }
