@@ -13,12 +13,17 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import FormularioAlta from './FormularioAlta';
-import { PASOS_PREVIOS_TEXTO, PASOS_TRASPASO_TEXTO, type PasoTexto } from '@/lib/onboarding/pasos';
+import { pasosDe, type PasoTexto } from '@/lib/onboarding/pasos';
+
+// Esta guía es la del colega que entra gratis por el formulario de abajo (/api/alta): pone su
+// Hetzner y su Claude. Antes enseñaba los ocho pasos viejos (GitHub, Cloudflare, dominio,
+// Termius…) que el aprovisionador ya no usa.
+const { previos: PREVIOS, traspaso: TRASPASO } = pasosDe('colega_sin_pago');
 
 export const metadata: Metadata = {
   title: 'Cómo se monta tu stack de IA | Stratoma AI',
   description:
-    'Los 8 pasos del alta del stack de IA llave en mano: qué cuentas necesitas, qué cuesta el servidor y qué hacemos nosotros.',
+    'Cómo se monta tu stack de IA: lo que preparas tú, qué cuesta el servidor y qué hacemos nosotros.',
 };
 
 function Paso({ paso }: { paso: PasoTexto }) {
@@ -114,10 +119,10 @@ export default async function ComoFunciona({
         <section className="mt-10">
           <h2 className="text-xl font-semibold text-gray-900">Lo que preparas tú</h2>
           <p className="mt-1 text-sm text-gray-500">
-            Seis cuentas y sus permisos. Es la parte que lleva más rato, y solo se hace una vez.
+            Dos cosas, y solo se hacen una vez.
           </p>
           <ul className="mt-4">
-            {PASOS_PREVIOS_TEXTO.map((p) => (
+            {PREVIOS.map((p) => (
               <Paso key={p.n} paso={p} />
             ))}
           </ul>
@@ -151,12 +156,11 @@ export default async function ComoFunciona({
               </span>
               <p className="text-sm leading-relaxed text-gray-600">
                 <strong className="text-gray-900">
-                  Los cuatro tokens los pegas tú en tu panel
+                  El token de Hetzner lo pegas tú en tu panel
                 </strong>
-                , cuando los tengas y en el orden que quieras. No hace falta hacerlo de una
-                sentada: lo que dejas guardado se queda guardado y ves en cada momento qué falta.
-                Se guardan cifrados. La de Claude es la única que no me pasas nunca — esa la
-                conectas tú desde dentro de tu propia sesión.
+                , cuando lo tengas. Se guarda cifrado y lo puedes cambiar cuando quieras. Tu cuenta
+                de Claude no me la pasas nunca: esa la conectas tú desde dentro de tu propia
+                sesión.
               </p>
             </li>
             <li className="flex gap-4 border-b border-gray-200 pb-4 last:border-0">
@@ -167,10 +171,10 @@ export default async function ComoFunciona({
                 C
               </span>
               <p className="text-sm leading-relaxed text-gray-600">
-                <strong className="text-gray-900">Emparejas tu Telegram con tu bot.</strong> Un
-                bot no puede escribirte primero, así que la primera vez le escribes tú. Te
-                contesta con un código de seis caracteres, lo pegas en el panel y te doy paso. Ese
-                código caduca en una hora.
+                <strong className="text-gray-900">Tu bot ya te conoce.</strong> Con el usuario de
+                Telegram que nos das, tu bot te reconoce desde el primer mensaje: sin códigos de
+                emparejamiento. Un bot no puede escribirte primero, así que cuando esté listo te
+                paso su enlace y le das a Iniciar.
               </p>
             </li>
           </ol>
@@ -187,10 +191,10 @@ export default async function ComoFunciona({
         <section className="mt-10">
           <h2 className="text-xl font-semibold text-gray-900">Y para terminar, lo tuyo</h2>
           <p className="mt-1 text-sm text-gray-500">
-            Dos pasos para que el agente pase a ser tuyo de verdad.
+            Un paso para que el agente pase a ser tuyo de verdad.
           </p>
           <ul className="mt-4">
-            {PASOS_TRASPASO_TEXTO.map((p) => (
+            {TRASPASO.map((p) => (
               <Paso key={p.n} paso={p} />
             ))}
           </ul>

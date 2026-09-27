@@ -112,3 +112,16 @@ describe('/gracias?m=…', () => {
     });
   }
 });
+
+describe('guía pública /stack-ia/como-funciona (colega sin pago)', () => {
+  it('pide solo Hetzner y Claude; nada de GitHub, Cloudflare, Termius ni «cuatro tokens»', async () => {
+    const { default: ComoFunciona } = await import('@/app/stack-ia/como-funciona/page');
+    const html = renderToStaticMarkup(
+      await ComoFunciona({ searchParams: Promise.resolve({}) })
+    );
+    assert.match(html, /Hetzner/);
+    for (const viejo of ['GitHub', 'Cloudflare', 'Termius', 'cuatro tokens', 'Seis cuentas']) {
+      assert.ok(!html.includes(viejo), `la guía sigue hablando de «${viejo}»`);
+    }
+  });
+});
