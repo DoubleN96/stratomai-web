@@ -9,7 +9,7 @@ import {
 
 const initial: LoginState = {};
 
-export function LoginForm({ next }: { next: string }) {
+export function LoginForm({ next, linkError }: { next: string; linkError?: string }) {
   const [pwState, pwAction, pwPending] = useActionState(
     signInWithPassword,
     initial
@@ -19,7 +19,8 @@ export function LoginForm({ next }: { next: string }) {
     initial
   );
 
-  const error = pwState.error ?? linkState.error;
+  // linkError viene de la URL (?error=auth); se calla en cuanto pide un enlace nuevo.
+  const error = pwState.error ?? linkState.error ?? (linkState.info ? undefined : linkError);
   const info = linkState.info;
 
   return (

@@ -204,3 +204,16 @@ describe('/panel/auth/confirm', () => {
     assert.equal(a('/auth/v1/verify').length, 0);
   });
 });
+
+describe('/panel/login después de un enlace que ya no vale', () => {
+  it('con ?error=auth explica qué ha pasado; sin él, nada', async () => {
+    // tsx compila el JSX con React.createElement (jsx: preserve), como en pasos-modalidad.test.ts.
+    (globalThis as { React?: unknown }).React = await import('react');
+    const { renderToStaticMarkup } = await import('react-dom/server');
+    const { default: LoginPage } = await import('@/app/panel/login/page');
+    const pinta = async (sp: Record<string, string>) =>
+      renderToStaticMarkup(await LoginPage({ searchParams: Promise.resolve(sp) }));
+    assert.match(await pinta({ error: 'auth' }), /caducado o ya se us/);
+    assert.doesNotMatch(await pinta({}), /caducado/);
+  });
+});
