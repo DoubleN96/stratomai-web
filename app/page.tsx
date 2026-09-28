@@ -18,6 +18,7 @@ export default function StratomaAIHomePage() {
             Stratoma AI
           </div>
           <div className="hidden md:flex gap-8 items-center" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+            <a className="text-slate-400 hover:text-white transition-colors font-bold tracking-tight" href="/qiu">QIU</a>
             <a className="text-slate-400 hover:text-white transition-colors font-bold tracking-tight" href="#como-funciona">Cómo Funciona</a>
             <a className="text-slate-400 hover:text-white transition-colors font-bold tracking-tight" href="#stack">Stack</a>
             <a className="text-slate-400 hover:text-white transition-colors font-bold tracking-tight" href="#casos">Casos Reales</a>
@@ -521,6 +522,8 @@ export default function StratomaAIHomePage() {
             <h4 className="text-white font-bold text-xs uppercase tracking-widest mb-6">Explorar</h4>
             <ul className="space-y-4">
               {[
+                { label: 'QIU', href: '/qiu' },
+                { label: 'Casos de uso', href: '/casos-uso' },
                 { label: 'Servicios', href: '#servicios' },
                 { label: 'Casos Reales', href: '#casos' },
                 { label: 'Blog', href: '/blog' },

@@ -52,6 +52,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
+    // QIU: el escaparate se rellena solo desde web_media (migración 021), de ahí el `weekly`.
+    {
+      url: `${baseUrl}/qiu`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/qiu/novedades`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/casos-uso`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
     // Ofertas. Son páginas comerciales, así que van con prioridad alta.
     // La de /gracias queda fuera a propósito: es post-pago y lleva noindex.
     {

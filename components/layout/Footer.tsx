@@ -6,6 +6,7 @@ import { Mail, Phone, Linkedin, Twitter } from 'lucide-react';
 // none of which exist in this codebase.
 const footerLinks = {
   services: [
+    { name: 'QIU, asistente de IA', href: '/qiu' },
     { name: 'Chatbot de WhatsApp', href: '/casos-uso/chatbot-whatsapp' },
     { name: 'Asistente virtual', href: '/casos-uso/asistente-virtual' },
     { name: 'Automatización de procesos', href: '/casos-uso/automatizacion-procesos' },
