@@ -15,6 +15,19 @@ const config: Config = {
         mono: ['var(--font-jetbrains)', 'monospace'],
       },
       colors: {
+        // Marca «Q» del escaparate de QIU. Solo tienen valor dentro de .marca-q, donde las define
+        // components/qiu/marca/marca-q.css (y .q-noche las cambia a las de sobre negro).
+        q: {
+          azul: 'var(--q-azul)',
+          acento: 'var(--q-acento)',
+          fondo: 'var(--q-fondo)',
+          gris: 'var(--q-gris)',
+          ink: 'var(--q-ink)',
+          'ink-soft': 'var(--q-ink-soft)',
+          muted: 'var(--q-muted)',
+          line: 'var(--q-line)',
+          'line-strong': 'var(--q-line-strong)',
+        },
         // Stratoma AI brand colors - Azul corporativo + Verde confianza
         brand: {
           primary: {

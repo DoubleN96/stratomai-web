@@ -1,10 +1,12 @@
 // /casos-uso — índice. Hasta ahora solo existían las ocho páginas hijas (/casos-uso/*), sin portada.
 // Arriba, QIU en acción (web_media, categoria 'caso-de-uso', se actualiza sola cada 5 min); debajo,
-// los casos de proyectos a medida, que siguen siendo las páginas de siempre.
+// los casos de proyectos a medida, que siguen siendo las páginas de siempre. La página es de
+// Stratoma; solo el bloque de QIU lleva la marca «Q» de Quantum (el bloque negro de Qiu, CLASE_Q).
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { BOTON_SECUNDARIO, FOCO, Marco, titular } from '@/components/qiu/Marco';
+import { FOCO, Marco, titular } from '@/components/qiu/Marco';
+import { CLASE_Q } from '@/components/qiu/MarcoQ';
 import { Ficha } from '@/components/qiu/Medio';
 import { piezas } from '@/lib/qiu/datos';
 import { portada } from '@/lib/qiu/media';
@@ -57,15 +59,19 @@ export default async function CasosUsoPage() {
         </p>
 
         {casosQiu.length > 0 && (
-          <section aria-labelledby="qiu-titulo" className="mt-16">
-            <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <section
+            aria-labelledby="qiu-titulo"
+            className={`${CLASE_Q} q-noche mt-16 rounded-[22px] px-5 py-8 sm:p-10 md:p-12`}
+          >
+            <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-widest text-[#d2bbff]">Asistente de IA</p>
-                <h2 id="qiu-titulo" className={`${titular} mt-2 text-3xl font-bold md:text-5xl`}>
-                  QIU en acción
+                <p className="rotulo">Asistente de IA</p>
+                <h2 id="qiu-titulo">
+                  <span className="cuadrada">QIU</span> en acción.{' '}
+                  <span className="suave">Grabado en la app, tal cual.</span>
                 </h2>
               </div>
-              <Link href="/qiu" className={`${BOTON_SECUNDARIO} self-start md:self-auto`}>
+              <Link href="/qiu" className="pildora azul grande self-start md:self-auto">
                 Conoce QIU
               </Link>
             </div>

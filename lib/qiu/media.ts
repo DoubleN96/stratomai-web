@@ -4,6 +4,8 @@
 // (quita los tipos al vuelo), así el script y las páginas validan con las mismas reglas.
 
 export const URL_APP_QIU = 'https://agente.stratomai.com';
+/** Los planes de QIU en la app: sin importes, como Quantum (el precio solo se ve al pagar). */
+export const URL_PLANES_QIU = `${URL_APP_QIU}/planes`;
 
 export const TIPOS = ['video', 'imagen'] as const;
 export const FORMATOS = ['movil', 'escritorio'] as const;
