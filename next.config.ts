@@ -37,6 +37,16 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 31536000, // 1 year
   },
 
+  // Vídeos y capturas del escaparate de QIU (tabla web_media, bucket público web-media).
+  // Se sirven como stratomai.com/media/… para que el HTML público no lleve el host de Supabase.
+  // La URL entra al compilar (NEXT_PUBLIC_*, variable de build en Coolify).
+  async rewrites() {
+    const supabase = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/+$/, '');
+    return supabase
+      ? [{ source: '/media/:ruta*', destination: `${supabase}/storage/v1/object/public/web-media/:ruta*` }]
+      : [];
+  },
+
   // Security headers
   async headers() {
     return [
