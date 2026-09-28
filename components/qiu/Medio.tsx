@@ -1,4 +1,5 @@
-// Una pieza del escaparate: su versión móvil (vertical) y/o la de escritorio (apaisada).
+// Una pieza del escaparate: su versión móvil (vertical) y/o la de escritorio (apaisada). Va siempre
+// dentro de la marca «Q» (CLASE_Q de MarcoQ.tsx), de donde saca los colores q-*.
 //
 // Van las dos en el HTML y el CSS decide cuál se ve (clasesVersion). Los vídeos llevan
 // preload="none" (no se baja nada hasta darle al play) y las imágenes loading="lazy" (la oculta no
@@ -19,7 +20,7 @@ export function Medio({ pieza, vista = 'auto', prioridad = false }: { pieza: Pie
       {FORMATOS.map((formato) => {
         const m = pieza[formato];
         if (!m) return null;
-        const clases = `${clasesVersion(pieza, formato, vista)} ${CAJA[formato]} overflow-hidden rounded-xl border border-white/10 bg-[#060e20] shadow-[0_20px_40px_rgba(0,0,0,0.4)]`;
+        const clases = `${clasesVersion(pieza, formato, vista)} ${CAJA[formato]} overflow-hidden rounded-[20px] border border-q-line bg-q-gris shadow-[0_26px_70px_rgba(10,10,12,.10)]`;
         return (
           <div key={formato} className={clases}>
             {m.tipo === 'video' ? (
@@ -58,8 +59,8 @@ export function Ficha({ pieza, vista, tituloComo: Titulo = 'h3' }: { pieza: Piez
     <figure className="flex flex-col gap-4">
       <Medio pieza={pieza} vista={vista} />
       <figcaption>
-        <Titulo className="text-lg font-bold text-white">{pieza.titulo}</Titulo>
-        {pieza.descripcion && <p className="mt-1 text-sm leading-relaxed text-slate-400">{pieza.descripcion}</p>}
+        <Titulo className="text-[17px] font-semibold leading-snug">{pieza.titulo}</Titulo>
+        {pieza.descripcion && <p className="mt-1 text-sm leading-relaxed text-q-muted">{pieza.descripcion}</p>}
       </figcaption>
     </figure>
   );

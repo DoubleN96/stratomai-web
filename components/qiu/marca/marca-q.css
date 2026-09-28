@@ -1,0 +1,240 @@
+/* Marca «Q» de Quantum, solo en el escaparate de QIU: /qiu, /qiu/novedades y el bloque de QIU
+   de /casos-uso. El resto de stratomai.com sigue con la marca de Stratoma: todo cuelga de .marca-q.
+   Copiada de la web en vivo, https://quantumventures.io/quantum-hoy/marca.css (v=118, 28/09/2026),
+   no de los manuales antiguos. Sus reglas: estructura en blanco, negro y gris; el azul (#0041f5)
+   es solo la acción; el negro de fondo, solo el bloque de Qiu (.q-noche). */
+
+.marca-q {
+  --q-azul: #0041f5;
+  --q-azul-hover: #0034c8;
+  --q-acento: var(--q-azul); /* azul de texto (.suave, enlaces, foco); sobre negro, el claro */
+  --q-fondo: #fff;
+  --q-gris: #f5f5f7;
+  --q-ink: #0a0a0c;
+  --q-ink-soft: #25262b;
+  --q-muted: #86868b;
+  --q-line: #e3e4e8;
+  --q-line-strong: #c9cbd1;
+  background: var(--q-fondo);
+  color: var(--q-ink);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* El bloque de Qiu: los grises y el azul claro que usa la web sobre negro (contraste 6,08). */
+.marca-q.q-noche,
+.marca-q .q-noche {
+  --q-acento: #5984f8;
+  --q-fondo: #000;
+  --q-gris: #0e0e11;
+  --q-ink: #f5f5f7;
+  --q-ink-soft: #d6d6da;
+  --q-muted: #a1a1a6;
+  --q-line: #26262b;
+  --q-line-strong: rgba(255, 255, 255, 0.35);
+  background: var(--q-fondo);
+  color: var(--q-ink);
+}
+
+.marca-q :is(h1, h2, h3) {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.marca-q h1 {
+  font-size: clamp(32px, 4.4vw, 58px);
+  line-height: 1.06;
+}
+/* El titular grande de la portada de /qiu. */
+.marca-q h1.hero {
+  font-size: clamp(38px, 6vw, 74px);
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+  max-width: 15ch;
+}
+.marca-q h2 {
+  font-size: clamp(24px, 2.8vw, 38px);
+  line-height: 1.1;
+}
+.marca-q h3 {
+  font-size: clamp(17px, 1.5vw, 21px);
+  line-height: 1.25;
+}
+/* La segunda mitad del titular, en azul y en su propia línea. */
+.marca-q .suave {
+  display: block;
+  color: var(--q-acento);
+  font-weight: 600;
+}
+.marca-q .entradilla {
+  font-size: clamp(15px, 1.05vw, 17px);
+  color: var(--q-muted);
+  line-height: 1.55;
+  max-width: 56ch;
+}
+/* La entradilla grande y la línea de oferta de la portada de /qiu (Q PRO grande, Q BUSINESS pequeño). */
+.marca-q .bajada {
+  font-size: clamp(17px, 1.5vw, 20.5px);
+  line-height: 1.55;
+  color: var(--q-muted);
+  max-width: 50ch;
+}
+.marca-q .q-oferta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 14px;
+}
+.marca-q .q-oferta em {
+  font-style: normal;
+  font-size: clamp(28px, 3vw, 38px);
+  font-weight: 700;
+  line-height: 1;
+}
+.marca-q .q-oferta .mini {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--q-ink-soft);
+}
+.marca-q .q-oferta span:not(.mini) {
+  font-size: 15px;
+  color: var(--q-muted);
+}
+/* Orbitron, solo para los nombres: QIU, Q PRO y Q BUSINESS. */
+.marca-q .cuadrada {
+  font-family: var(--font-orbitron), sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-right: -0.1em; /* el espaciado de la última letra no separa la coma o el punto */
+}
+.marca-q .rotulo {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--q-muted);
+  margin: 0 0 18px;
+}
+
+.marca-q .pildora {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  padding: 11px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--q-line-strong);
+  background: transparent;
+  color: inherit;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.marca-q .pildora:hover {
+  border-color: var(--q-ink);
+}
+.marca-q .pildora.azul {
+  background: var(--q-azul);
+  border-color: var(--q-azul);
+  color: #fff;
+}
+.marca-q .pildora.azul:hover {
+  background: var(--q-azul-hover);
+  border-color: var(--q-azul-hover);
+}
+.marca-q .pildora.grande {
+  font-size: 16px;
+  padding: 14px 26px;
+}
+.marca-q .enlace {
+  color: var(--q-acento);
+  font-weight: 600;
+  text-underline-offset: 4px;
+}
+.marca-q .enlace:hover {
+  text-decoration: underline;
+}
+.marca-q :focus-visible {
+  outline: 2px solid var(--q-acento);
+  outline-offset: 3px;
+}
+
+/* Tarjetas de plan, como en https://quantumventures.io/qiu/#precios */
+.marca-q .plan {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--q-line);
+  border-radius: 20px;
+  padding: clamp(24px, 3vw, 34px);
+  background: #fff;
+}
+.marca-q .plan.destaca {
+  border-color: var(--q-azul);
+  box-shadow: 0 20px 50px rgba(0, 65, 245, 0.1);
+}
+.marca-q .plan .chapa {
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--q-azul);
+  background: #e9ebff;
+  border-radius: 999px;
+  padding: 6px 13px;
+  margin-bottom: 16px;
+}
+.marca-q .plan h3 {
+  font-size: 21px;
+  line-height: 1.28;
+  font-weight: 700;
+  max-width: 22ch;
+}
+.marca-q .plan .quien {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--q-muted);
+  margin: 8px 0 20px;
+}
+.marca-q .plan li {
+  display: flex;
+  gap: 10px;
+  padding: 7px 0;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--q-ink-soft);
+}
+.marca-q .plan li::before {
+  content: '';
+  flex: 0 0 7px;
+  height: 7px;
+  margin-top: 8px;
+  border-radius: 50%;
+  background: var(--q-azul);
+}
+
+/* Ancho y márgenes de la web: --ancho 1760px y --margen, que baja a 20px y a 16px en móvil. */
+.marca-q .env {
+  width: 100%;
+  max-width: 1760px;
+  margin: 0 auto;
+  padding-inline: clamp(22px, 3.4vw, 60px);
+}
+@media (max-width: 900px) {
+  .marca-q .env {
+    padding-inline: 20px;
+  }
+}
+@media (max-width: 520px) {
+  .marca-q .env {
+    padding-inline: 16px;
+  }
+}
+/* Cabecera: blanca y sólida, 62px, con la píldora en su tamaño pequeño. */
+.marca-q .cabecera .pildora {
+  font-size: 14px;
+  padding: 9px 18px;
+}

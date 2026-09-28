@@ -1,6 +1,6 @@
-// Marco común de las páginas públicas de QIU (/qiu, /qiu/novedades, /casos-uso): cabecera,
-// pie y la tipografía de titulares. Mismo lenguaje visual que la portada (fondo #0b1326,
-// tarjetas de cristal, sombra dura azul al pasar por encima).
+// Marco de /casos-uso con la marca de Stratoma: cabecera, pie y la tipografía de titulares. Mismo
+// lenguaje visual que la portada (fondo #0b1326, tarjetas de cristal, sombra dura azul al pasar por
+// encima). /qiu y /qiu/novedades llevan la marca «Q» de Quantum: MarcoQ.tsx.
 
 import type { ReactNode } from 'react';
 import Link from 'next/link';
