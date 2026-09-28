@@ -29,7 +29,7 @@ const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 export type PedirResultado =
   | { id: string }
   | { error: 'sinfila' | 'nomontado' | 'limite' | 'db' | 'sesion' };
-export type CodigoResultado = 'ok' | 'codigo' | 'caducado' | 'db' | 'sesion';
+export type CodigoResultado = 'ok' | 'codigo' | 'caducado' | 'db' | 'sesion' | 'limite';
 export interface EstadoConexion {
   status: EstadoClaude;
   /** Solo en url_lista y solo si es https: con esto se construye un href. */

@@ -79,7 +79,7 @@ const WINDOW_MS = 10 * 60_000;
 const MAX_SAVES_PER_WINDOW = 20;
 const hits = new Map<string, number[]>();
 
-function rateLimited(userId: string): boolean {
+function rateLimited(userId: string, max = MAX_SAVES_PER_WINDOW): boolean {
   const now = Date.now();
   if (hits.size > 1000) {
     for (const [k, v] of hits) {
@@ -87,7 +87,7 @@ function rateLimited(userId: string): boolean {
     }
   }
   const recent = (hits.get(userId) ?? []).filter((t) => now - t < WINDOW_MS);
-  if (recent.length >= MAX_SAVES_PER_WINDOW) {
+  if (recent.length >= max) {
     hits.set(userId, recent);
     return true;
   }
@@ -251,20 +251,26 @@ export async function savePairingCode(formData: FormData): Promise<void> {
 // role. La fila de alta sale de la sesión; del navegador solo llegan el id de la petición y el
 // código, y los dos se validan antes de tocar la base (lib/onboarding/claude-login.ts).
 
+// Mismo freno en memoria que el resto del fichero: pedir y mandar código comparten el cupo de las
+// credenciales (20 en 10 min); el polling lleva el suyo, holgado para un 2 s legítimo (~300).
+const MAX_ESTADOS_POR_VENTANA = 400;
+
 export async function pedirConexionClaude(): Promise<PedirResultado> {
   const ctx = await getSessionContext();
   if (!ctx) return { error: 'sesion' };
+  if (rateLimited(ctx.userId)) return { error: 'limite' };
   return pedirConexion(await createSupabaseServerClient(), ctx.userId);
 }
 
 export async function estadoConexionClaude(id: string): Promise<EstadoConexion | null> {
   const ctx = await getSessionContext();
-  if (!ctx) return null;
+  if (!ctx || rateLimited(`estado:${ctx.userId}`, MAX_ESTADOS_POR_VENTANA)) return null;
   return leerConexion(await createSupabaseServerClient(), ctx.userId, id);
 }
 
 export async function enviarCodigoClaude(id: string, codigo: string): Promise<CodigoResultado> {
   const ctx = await getSessionContext();
   if (!ctx) return 'sesion';
+  if (rateLimited(ctx.userId)) return 'limite';
   return enviarCodigo(await createSupabaseServerClient(), ctx.userId, id, codigo);
 }
