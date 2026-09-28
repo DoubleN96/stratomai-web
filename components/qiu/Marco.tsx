@@ -17,6 +17,8 @@ export const FOCO =
 
 export const BOTON_PRINCIPAL = `inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-br from-[#b2c5ff] to-[#2b6cee] px-6 py-3 font-bold text-[#002b73] transition-all duration-300 motion-safe:hover:-translate-x-0.5 motion-safe:hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#7c3aed] ${FOCO}`;
 
+export const BOTON_SECUNDARIO = `inline-flex items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/5 px-6 py-3 font-bold text-white backdrop-blur-md transition-all duration-300 motion-safe:hover:-translate-x-0.5 motion-safe:hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#2b6cee] ${FOCO}`;
+
 // /qiu y /qiu/novedades ya usan MarcoQ: aquí solo queda /casos-uso como página actual.
 type Actual = 'casos';
 

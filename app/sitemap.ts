@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getAllBlogPosts } from '@/lib/blog';
+import { CASOS, urlCaso } from '@/lib/casos-uso/casos';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://stratomai.com';
@@ -71,6 +72,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
+    ...CASOS.map((c) => ({
+      url: urlCaso(c.slug),
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
     // Ofertas. Son páginas comerciales, así que van con prioridad alta.
     // La de /gracias queda fuera a propósito: es post-pago y lleva noindex.
     {

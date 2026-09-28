@@ -1,13 +1,14 @@
 // /casos-uso — índice. Hasta ahora solo existían las ocho páginas hijas (/casos-uso/*), sin portada.
 // Arriba, QIU en acción (web_media, categoria 'caso-de-uso', se actualiza sola cada 5 min); debajo,
-// los casos de proyectos a medida, que siguen siendo las páginas de siempre. La página es de
-// Stratoma; solo el bloque de QIU lleva la marca «Q» de Quantum (el bloque negro de Qiu, CLASE_Q).
+// los ocho proyectos a medida (contenido en lib/casos-uso), rotulados como ejemplos ilustrativos. La
+// página es de Stratoma; solo el bloque de QIU lleva la marca «Q» de Quantum (el bloque negro de Qiu, CLASE_Q).
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { FOCO, Marco, titular } from '@/components/qiu/Marco';
 import { CLASE_Q } from '@/components/qiu/MarcoQ';
 import { Ficha } from '@/components/qiu/Medio';
+import { CASOS } from '@/lib/casos-uso/casos';
 import { piezas } from '@/lib/qiu/datos';
 import { portada } from '@/lib/qiu/media';
 
@@ -34,17 +35,6 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   };
 }
-
-const A_MEDIDA: { href: string; titulo: string; texto: string }[] = [
-  { href: '/casos-uso/chatbot-whatsapp', titulo: 'Chatbot de WhatsApp', texto: 'Atiende, responde y cualifica clientes en WhatsApp a cualquier hora.' },
-  { href: '/casos-uso/asistente-virtual', titulo: 'Asistente virtual', texto: 'Entrenado con la información de tu negocio, para la web, WhatsApp e Instagram.' },
-  { href: '/casos-uso/atencion-cliente', titulo: 'Atención al cliente', texto: 'Resuelve lo repetitivo y pasa a una persona lo delicado.' },
-  { href: '/casos-uso/automatizacion-procesos', titulo: 'Automatización de procesos', texto: 'Conecta tus herramientas y acaba con el copiar y pegar entre ellas.' },
-  { href: '/casos-uso/ia-ventas', titulo: 'IA para ventas', texto: 'Prioriza oportunidades y hace el seguimiento para que no se enfríe ningún contacto.' },
-  { href: '/casos-uso/ia-marketing', titulo: 'IA para marketing', texto: 'Campañas, contenidos y medición con menos horas de trabajo manual.' },
-  { href: '/casos-uso/ia-rrhh', titulo: 'IA para RRHH', texto: 'Criba de candidaturas, entrevistas y altas de empleados sin papeleo.' },
-  { href: '/casos-uso/desarrollo-custom', titulo: 'Desarrollo a medida', texto: 'Cuando no hay una herramienta que lo haga, la construimos.' },
-];
 
 export default async function CasosUsoPage() {
   const casosQiu = await piezas('caso-de-uso');
@@ -87,16 +77,20 @@ export default async function CasosUsoPage() {
           <h2 id="medida-titulo" className={`${titular} text-3xl font-bold md:text-5xl`}>
             Proyectos a medida
           </h2>
+          <p className="mt-4 max-w-2xl text-slate-400">
+            Cómo funciona cada solución, paso a paso y con una demo animada. Son ejemplos ilustrativos: explican el
+            funcionamiento, no cuentan casos de clientes.
+          </p>
           <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {A_MEDIDA.map((c) => (
-              <li key={c.href}>
+            {CASOS.map((c) => (
+              <li key={c.slug}>
                 <Link
-                  href={c.href}
+                  href={`/casos-uso/${c.slug}`}
                   className={`block h-full rounded-lg border border-white/5 bg-[#171f33]/70 p-6 backdrop-blur-xl transition-all duration-300 motion-safe:hover:-translate-x-0.5 motion-safe:hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#2b6cee] ${FOCO}`}
                 >
-                  <h3 className={`${titular} text-lg font-bold`}>{c.titulo}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-400">{c.texto}</p>
-                  <span className="mt-4 inline-block text-sm font-semibold text-[#b2c5ff]">Ver caso →</span>
+                  <h3 className={`${titular} text-lg font-bold`}>{c.nombre}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-400">{c.resumen}</p>
+                  <span className="mt-4 inline-block text-sm font-semibold text-[#b2c5ff]">Ver cómo funciona →</span>
                 </Link>
               </li>
             ))}
