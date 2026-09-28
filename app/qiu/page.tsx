@@ -2,7 +2,8 @@
 // texto es fijo; vídeos y capturas salen de web_media (migración 021) y se publican con
 // scripts/publicar-media.mjs, sin redesplegar: la página se regenera cada 5 min.
 // Planes con los nombres y el texto literal de https://quantumventures.io/qiu/#precios. Quantum no
-// publica precios, así que aquí tampoco: el botón lleva a los planes de la app.
+// publica precios ni habla de IVA, así que aquí tampoco, y los planes de la app (a los que lleva el
+// botón) tampoco: las mismas viñetas por plan en los dos sitios. El importe solo se ve al pagar.
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -257,7 +258,7 @@ export default async function QiuPage() {
           </div>
           <div className="mt-7">
             <a href={URL_PLANES_QIU} className="pildora azul grande">
-              Ver planes y precios
+              Ver planes
             </a>
           </div>
         </div>

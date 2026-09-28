@@ -78,7 +78,7 @@ export function MarcoQ({ actual, children }: { actual: Actual; children: ReactNo
               { href: '/', texto: 'Inicio' },
               { href: '/qiu', texto: 'QIU' },
               ...ENLACES.slice(0, 2),
-              { href: URL_PLANES_QIU, texto: 'Planes y precios' },
+              { href: URL_PLANES_QIU, texto: 'Planes' },
               { href: '/privacy', texto: 'Privacidad' },
               { href: '/aviso-legal', texto: 'Aviso legal' },
             ].map((e) => (

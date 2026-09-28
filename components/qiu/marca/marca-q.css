@@ -12,7 +12,7 @@
   --q-gris: #f5f5f7;
   --q-ink: #0a0a0c;
   --q-ink-soft: #25262b;
-  --q-muted: #86868b;
+  --q-muted: #6e6e73; /* la web usa #86868b (3,62:1 sobre blanco, suspende WCAG AA); este es el de QIU claro (5,07:1) */
   --q-line: #e3e4e8;
   --q-line-strong: #c9cbd1;
   background: var(--q-fondo);
