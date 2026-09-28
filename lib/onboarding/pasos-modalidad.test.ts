@@ -131,13 +131,15 @@ describe('páginas de la oferta: nada de promesas que ya no son verdad', () => {
     const paginas = [
       (await import('@/app/oferta/stack-ia-llave-en-mano/page')).default,
       (await import('@/app/oferta/stack-ia-llave-en-mano/elegir/page')).default,
+      // «Conectar Claude» vive en el panel desde el 28/09: nadie manda ese enlace por Telegram.
+      GraciasPage,
     ];
     for (const Pagina of paginas) {
       const html = renderToStaticMarkup(
         await (Pagina as (p: { searchParams: Promise<Record<string, string>> }) => Promise<React.ReactElement> | React.ReactElement)({ searchParams: Promise.resolve({}) })
       );
       for (const falso of ['prestamos nuestra cuenta de Claude', 'con la mía', 'BotFather', 'contigo delante',
-        'mi cuenta de Claude por la tuya', 'uso mi cuenta', 'Un solo enlace']) {
+        'mi cuenta de Claude por la tuya', 'uso mi cuenta', 'Un solo enlace', 'te escribo por Telegram']) {
         assert.ok(!html.includes(falso), `sigue diciendo «${falso}»`);
       }
     }
