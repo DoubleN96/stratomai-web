@@ -11,6 +11,7 @@ import { Ficha } from '@/components/qiu/Medio';
 import { JsonLd } from '@/components/schema/JsonLd';
 import { caso, enlaceWhatsApp, URL_ELEGIR, urlCaso, type Slug } from '@/lib/casos-uso/casos';
 import { piezas } from '@/lib/qiu/datos';
+import { URL_APP_QIU } from '@/lib/qiu/media';
 import { createBreadcrumbSchema } from '@/lib/schema/breadcrumb';
 import { createFAQSchema } from '@/lib/schema/faq';
 import { Demo } from './Demo';
@@ -226,10 +227,13 @@ export async function CasoUso({ slug }: { slug: Slug }) {
               {c.qiu.titulo}
             </h2>
             <p className="mt-4 max-w-2xl text-lg text-slate-400">{c.qiu.texto}</p>
-            <div className="mt-8">
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Link href="/qiu" className={BOTON_PRINCIPAL}>
                 Conoce QIU
               </Link>
+              <a href={URL_APP_QIU} className={BOTON_SECUNDARIO}>
+                Probar QIU
+              </a>
             </div>
             {medios.length > 0 && (
               <div className={`mt-12 grid gap-12 ${medios.length > 2 ? 'sm:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-2'}`}>
