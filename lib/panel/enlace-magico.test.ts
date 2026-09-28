@@ -216,6 +216,14 @@ describe('/panel/login después de un enlace que ya no vale', () => {
     assert.match(await pinta({ error: 'auth' }), /caducado o ya se us/);
     assert.doesNotMatch(await pinta({}), /caducado/);
   });
+
+  it('el enlace mágico va primero y la contraseña después', async () => {
+    const { renderToStaticMarkup } = await import('react-dom/server');
+    const { default: LoginPage } = await import('@/app/panel/login/page');
+    const html = renderToStaticMarkup(await LoginPage({ searchParams: Promise.resolve({}) }));
+    const enlace = html.indexOf('Enviarme un enlace de acceso');
+    assert.ok(enlace > -1 && enlace < html.indexOf('type="password"'), 'la contraseña sale antes que el enlace');
+  });
 });
 
 describe('invitación desde el panel de admin', () => {
