@@ -7,7 +7,10 @@
 // TODO LO QUE SE PUBLICA AQUÍ ES PÚBLICO. Antes de meterlo en el manifiesto: nada de correos,
 // teléfonos, direcciones, DNI/NIF, IBAN, nombres reales (solo los de demo), eventos o chats reales,
 // enlaces de invitación, tokens, QR, claves, hosts internos, otros clientes ni costes. Ante la
-// duda, se difumina o no se sube.
+// duda, no se sube. Mejor sustituir el dato por uno ficticio que difuminarlo: un difuminado que
+// se mueve deja fotogramas legibles y un pixelado se puede revertir. Correos de ejemplo solo con
+// dominios reservados (example.com, .test, .invalid): «ejemplo.com» existe y tiene dueño. Los vídeos
+// se revisan fotograma a fotograma, no a saltos.
 //
 // Manifiesto: array JSON; `archivo` y `poster` son rutas relativas al propio manifest.json.
 //   [{ "id": "correo-movil", "tipo": "video", "titulo": "Te resume el correo",
@@ -22,7 +25,9 @@
 //     tamaño, no se vuelve a subir. Al cambiar el contenido cambia la ruta, así que la caché de un
 //     año (cacheControl) nunca sirve una versión vieja.
 //   - Las filas se insertan o actualizan por id. Quitar una entrada del manifiesto NO la borra:
-//     para retirarla, `update public.web_media set publicado = false where id = '…'`.
+//     para retirarla, `update public.web_media set publicado = false where id = '…'` y borra sus
+//     ficheros del bucket (es público: la URL vieja seguiría sirviéndose).
+//   - Al sustituir un fichero, el anterior de ese id se borra del bucket por la misma razón.
 //
 // Requisitos: Node ≥22.18 (importa lib/qiu/media.ts quitando los tipos). Variables: SUPABASE_URL
 // (o NEXT_PUBLIC_SUPABASE_URL, la que usa la web) y SUPABASE_SERVICE_ROLE_KEY. En --dry-run son
@@ -126,4 +131,16 @@ if (dryRun) {
     process.exit(1);
   }
   console.log(`\n${filas.length} fila(s) publicadas. La web las enseña en ≤5 min.`);
+
+  // Lo sustituido deja de ser público (la página cacheada puede enseñarlo roto ≤5 min, mejor eso).
+  for (const f of filas) {
+    const vivos = new Set([f.url, f.poster_url].filter(Boolean).map((u) => u.replace('/media/', '')));
+    const { data, error } = await supabase.storage.from(BUCKET).list(f.id);
+    if (error) throw new Error(`${f.id}: no se pudo listar el bucket: ${error.message}`);
+    const viejos = data.map((o) => `${f.id}/${o.name}`).filter((ruta) => !vivos.has(ruta));
+    if (!viejos.length) continue;
+    const { error: e2 } = await supabase.storage.from(BUCKET).remove(viejos);
+    if (e2) throw new Error(`${f.id}: no se pudo borrar ${viejos.join(', ')}: ${e2.message}`);
+    console.log(`${f.id.padEnd(32)} borrado lo anterior: ${viejos.join(', ')}`);
+  }
 }
