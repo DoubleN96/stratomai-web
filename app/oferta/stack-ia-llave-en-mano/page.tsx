@@ -25,11 +25,13 @@ import { Section } from "@/components/layout/Section";
 import { Badge } from "@/components/ui/Badge";
 import { StatCard } from "@/components/ui/StatCard";
 
-const STRIPE_URL = "https://buy.stripe.com/8x2fZh966aQoapIcY43wQ0i";
+// Los botones de compra van a /elegir, no a Stripe: cada modalidad tiene su propio enlace de
+// pago y esta página ya no puede saber cuál quiere el visitante (28/09/2026).
+const ELEGIR_URL = "/oferta/stack-ia-llave-en-mano/elegir";
 const HETZNER_URL = "https://hetzner.cloud/?ref=lbEMCsnlJ2EP";
 const REPO_URL = "https://github.com/DoubleN96/stratoma-ai-stack";
 const WHATSAPP_URL =
-  "https://wa.me/34611031947?text=Hola%2C%20quiero%20preguntarte%20por%20la%20implantaci%C3%B3n%20del%20stack%20de%20IA%20(990%20%E2%82%AC%20%2B%20500%20%E2%82%AC%2Fmes)";
+  "https://wa.me/34611031947?text=Hola%2C%20quiero%20preguntarte%20por%20la%20implantaci%C3%B3n%20del%20stack%20de%20IA";
 
 function Code({ children }: { children: ReactNode }) {
   return (
@@ -159,33 +161,32 @@ const huecos: ReactNode[] = [
 const costes: { concepto: ReactNode; quien: string; coste: ReactNode }[] = [
   {
     concepto:
-      "Servidor recomendado — Hetzner CPX42 (8 vCPU, 16 GB RAM, 320 GB SSD)",
-    quien: "Hetzner, tu tarjeta",
+      "Servidor, en Done for you — lo compramos y lo gestionamos nosotros",
+    quien: "Nosotros, en la misma factura",
     coste: (
       <>
-        <strong>≈ 19,49 €/mes</strong> (precio de catálogo cuando escribí esto;
-        míralo en su web)
+        <strong>9,26 €/mes</strong>, lo que cuesta la máquina
       </>
     ),
   },
   {
-    concepto: "Mínimo razonable — CPX31 (4 vCPU, 8 GB)",
+    concepto: "Servidor, en la guiada — en tu propia cuenta de Hetzner",
     quien: "Hetzner, tu tarjeta",
-    coste: "≈ 11 €/mes",
+    coste: "Unos 9 €/mes, directamente a ellos",
   },
   {
     concepto: (
       <>
-        Suscripción de <Code>claude.ai</Code> — es la que mueve al agente:
-        autentica su sesión en tu servidor con <Code>/login</Code> y contra ella
-        corre todo el trabajo del día a día
+        Suscripción de <Code>claude.ai</Code> — es la que mueve al agente: la
+        conectas desde tu apartado privado con un enlace y un código, y contra
+        ella corre todo el trabajo del día a día
       </>
     ),
     quien: "Anthropic, tu cuenta",
     coste: (
       <>
         <strong>Tarifa plana</strong> según el plan que elijas —{" "}
-        <strong>no la cubren los 500 €/mes</strong>. No hay contador de tokens:
+        <strong>no la cubre la cuota mensual</strong>. No hay contador de tokens:
         le escribas diez veces al día o mil, la factura es la misma
       </>
     ),
@@ -239,7 +240,7 @@ const siEncaja: string[] = [
 
 const noEncaja: string[] = [
   "Buscas un botón mágico que traiga clientes sin que nadie revise nada. Esto es una herramienta potente, y una herramienta potente pide un operador.",
-  "No estás dispuesto a pagar aparte el servidor, tu suscripción de claude.ai y los SaaS que decidas conectar. Son costes reales, van a tus cuentas y no los cubro yo.",
+  "No estás dispuesto a pagar aparte tu suscripción de claude.ai, el servidor y los SaaS que decidas conectar. Son costes reales y la cuota no los cubre.",
   "Necesitas SLA firmado, penalizaciones, certificaciones o cumplimiento formal auditado: no es lo que vendo.",
   "Manejas datos regulados (salud, financiero regulado) y no vas a hacer una auditoría propia por delante. Aquí el aislamiento entre proyectos es por permisos del sistema, no por infraestructura separada.",
   "Tu caso es un único proceso muy concreto. Para eso te sale más barato un flujo suelto que un stack entero; dímelo y te lo digo yo mismo.",
@@ -247,7 +248,7 @@ const noEncaja: string[] = [
 
 const faqs: { q: string; a: ReactNode }[] = [
   {
-    q: "Si el repositorio es público y gratis, ¿por qué te voy a pagar 990 € + 500 €/mes?",
+    q: "Si el repositorio es público y gratis, ¿por qué te voy a pagar la implantación y la cuota?",
     a: (
       <>
         <p>
@@ -294,13 +295,21 @@ const faqs: { q: string; a: ReactNode }[] = [
     a: (
       <>
         <p>
-          Tuyo, desde el minuto uno y sin ambigüedad. La cuenta de Hetzner la
-          abres tú, con tu correo y tu tarjeta, antes de que yo toque nada, y la
-          factura del servidor te llega a ti. Yo no revendo infraestructura ni
-          le meto margen: me pasas un token de API de tu proyecto para poder
-          automatizar el despliegue y ya está. Ese token lo puedes revocar
-          cuando quieras desde tu propio panel, incluso el mismo día de la
-          entrega.
+          Depende de la modalidad, y la eliges tú antes de pagar.
+        </p>
+        <p>
+          <strong>En la guiada, tuyo</strong>, desde el minuto uno y sin
+          ambigüedad. La cuenta de Hetzner la abres tú, con tu correo y tu
+          tarjeta, y la factura del servidor te llega a ti. Pegas un token de
+          API de tu proyecto en tu apartado privado, se guarda cifrado y con él
+          se monta la máquina. Ese token lo puedes revocar cuando quieras desde
+          tu propio panel de Hetzner, incluso el mismo día de la entrega.
+        </p>
+        <p>
+          <strong>En Done for you lo compramos y lo gestionamos nosotros</strong>
+          , para que no tengas que abrir cuenta en ningún proveedor, y te lo
+          cobramos a lo que cuesta (9,26 €/mes) en la misma factura. Si quieres
+          que la máquina esté a tu nombre desde el primer día, esa es la guiada.
         </p>
         <p>
           Uso enlace de referido de Hetzner —te lo digo porque es lo justo— y lo
@@ -323,20 +332,25 @@ const faqs: { q: string; a: ReactNode }[] = [
     a: (
       <>
         <p>
-          Te vas y no se apaga nada. Eso es literal: el servidor está en tu
-          cuenta, la suscripción de Claude está a tu nombre, el bot de Telegram
-          lo creaste tú, los tokens de terceros son tuyos y el código es
-          abierto. La cuota de 500 € es mensual: me dices que la pare y la
-          cancelo en Stripe.
+          La cuota es mensual: me dices que la pare y la cancelo en Stripe. La
+          suscripción de Claude está a tu nombre, los tokens de terceros son
+          tuyos y el código es abierto. No hay penalización de salida porque no
+          hay nada que penalizar.
         </p>
         <p>
-          Al día siguiente sigues teniendo el sistema entero funcionando y la
-          documentación completa para operarlo. Lo único que pierdes es que yo
-          lo vigile, lo actualice y te lo vaya adaptando. No hay penalización de
-          salida porque no hay nada que penalizar: el sistema no es mío. Y si
-          quieres irte del todo, borras el servidor tú, sin pedirme permiso ni
-          esperar a que te exporte nada. Si te sirve, te dejo por escrito qué
-          toca revisar cada mes para que lo lleve tu gente.
+          <strong>En la guiada, te vas y no se apaga nada</strong>: el servidor
+          está en tu cuenta de Hetzner, así que al día siguiente sigues
+          teniendo el sistema entero funcionando y la documentación completa
+          para operarlo. Lo único que pierdes es que yo lo vigile, lo actualice
+          y te lo vaya adaptando. Y si quieres irte del todo, borras el servidor
+          tú, sin pedirme permiso ni esperar a que te exporte nada.
+        </p>
+        <p>
+          <strong>En Done for you el servidor está en nuestra cuenta</strong>,
+          así que irte tiene un paso más: dímelo antes de cancelar y te ayudo a
+          llevarte tus datos y tus flujos a un servidor a tu nombre. Si te sirve,
+          en las dos te dejo por escrito qué toca revisar cada mes para que lo
+          lleve tu gente.
         </p>
       </>
     ),
@@ -350,10 +364,10 @@ const faqs: { q: string; a: ReactNode }[] = [
           que te devuelve. El agente tiene el terminal, no tú.
         </p>
         <p>
-          El único momento «técnico» de todo el proceso son los 20 minutos del
-          paso 2: tener tu suscripción de Claude y conectarla con un enlace y un
-          código. Nada de eso es programar, y si te atascas
-          lo hacemos juntos por videollamada.
+          El único momento «técnico» de todo el proceso es el paso 2: conectar
+          tu suscripción de Claude con un enlace y un código y, si eliges la
+          guiada, abrir tu cuenta de Hetzner y pegar un token. Nada de eso es
+          programar, y si te atascas lo hacemos juntos por videollamada.
         </p>
         <p>
           Dicho esto, no te voy a vender que es magia: cuanto mejor sepas
@@ -407,14 +421,15 @@ const faqs: { q: string; a: ReactNode }[] = [
           aviso antes que a ti, y lo arreglo. Lo que <strong>no</strong> te
           vendo es un SLA con penalizaciones, guardia de madrugada ni
           redundancia entre servidores. Y lo importante para ti: si un día
-          desaparezco, el sistema sigue corriendo en tu máquina con tus claves y
-          con la documentación completa.
+          desaparezco, el código es abierto, las claves son tuyas y la
+          documentación está completa: cualquiera con criterio puede seguir
+          llevándolo.
         </p>
       </>
     ),
   },
   {
-    q: "¿Por qué la cuenta de Claude tiene que ser mía si ya te pago 500 € al mes?",
+    q: "¿Por qué la cuenta de Claude tiene que ser mía si ya te pago una cuota?",
     a: (
       <>
         <p>
@@ -424,12 +439,13 @@ const faqs: { q: string; a: ReactNode }[] = [
           oferta evita.
         </p>
         <p>
-          Es un coste tuyo, <strong>aparte de los 500 €/mes</strong>, y es{" "}
+          Es un coste tuyo, <strong>aparte de la cuota</strong>, y es{" "}
           <strong>una sola cuenta</strong>: tu suscripción de{" "}
           <Code>claude.ai</Code>, de tarifa plana. El agente que corre en tu
           servidor es la propia herramienta de línea de comandos de Claude, y se
-          autentica escribiendo <Code>/login</Code> dentro de la sesión, igual
-          que cuando entras en Claude desde el navegador. No hay clave de API por
+          autentica con tu cuenta igual que cuando entras en Claude desde el
+          navegador: en tu apartado privado pulsas «Conectar Claude», entras con
+          tu cuenta y pegas el código que te enseña. No hay clave de API por
           medio ni facturación por tokens: el uso va contra tu plan.
         </p>
         <p>
@@ -442,8 +458,8 @@ const faqs: { q: string; a: ReactNode }[] = [
           prepago que recargar ni contador de tokens que vigilar.
         </p>
         <p>
-          Durante el despliegue uso mi cuenta para no tenerte esperando. En el
-          traspaso escribimos <Code>/login</Code> y conectamos la tuya.
+          Tu asistente no arranca con ninguna cuenta prestada: hasta que
+          conectas la tuya no contesta, y es a propósito.
         </p>
       </>
     ),
@@ -453,10 +469,11 @@ const faqs: { q: string; a: ReactNode }[] = [
     a: (
       <>
         <p>
-          Unos 20 € de servidor + tu plan de <Code>claude.ai</Code> + mis 500 €.
-          Tres facturas, dos de ellas no me las llevo yo, y{" "}
-          <strong>no hay una cuarta</strong>. Todos los precios que te doy son
-          sin IVA; en España se le suma el 21 %.
+          En Done for you, mis 500 € más 9,26 € de servidor en la misma
+          factura, y tu plan de <Code>claude.ai</Code>. En la guiada, mis 350 €,
+          unos 9 € de servidor que le pagas a Hetzner y tu plan de{" "}
+          <Code>claude.ai</Code>. <strong>No hay una factura más</strong>. Todos
+          los precios que te doy son sin IVA; en España se le suma el 21 %.
         </p>
         <p>
           La parte que casi nadie cuenta y que aquí te digo la primera:{" "}
@@ -482,14 +499,15 @@ const faqs: { q: string; a: ReactNode }[] = [
     a: (
       <>
         <p>
-          El objetivo es 24-48 h <strong>desde que tengo tus accesos</strong>{" "}
-          —el token de API de tu proyecto de Hetzner y tu bot de Telegram—, no
-          desde que pagas. La parte que marca el ritmo eres tú: si abres las
-          cuentas el mismo día, sales antes.
+          El objetivo es 24-48 h{" "}
+          <strong>desde que tenemos lo que te toca poner</strong>, no desde que
+          pagas. En Done for you no te toca poner nada, así que el reloj arranca
+          con el pago. En la guiada arranca cuando pegas el token de Hetzner en
+          tu apartado privado: si abres la cuenta el mismo día, sales antes.
         </p>
         <p>
-          Y como cada implantación la hago yo, lo primero que te digo al recibir
-          el pago es la fecha real de arranque, no una fecha bonita. Si tu caso
+          El montaje del servidor es automático; si algo se tuerce, te doy una
+          fecha real, no una fecha bonita. Si tu caso
           trae adaptación de flujos con tu CRM, tus cuentas de correo y tus
           datos reales, esa parte va después del despliegue y lleva su
           conversación: prefiero decirte «esto son dos semanas de ajuste fino» a
@@ -566,8 +584,8 @@ const faqs: { q: string; a: ReactNode }[] = [
     a: (
       <>
         <p>
-          La oferta es implantación + mantenimiento, y el enlace cobra ambas
-          cosas. Se vende así porque el mes siguiente al despliegue es cuando
+          La oferta es implantación + mantenimiento, y el enlace de pago de cada
+          modalidad cobra las dos cosas. Se vende así porque el mes siguiente al despliegue es cuando
           todo el mundo tiene preguntas, quiere ajustar flujos y descubre qué
           necesitaba de verdad. Entregar y desaparecer sería venderte un
           problema, no una solución.
@@ -609,7 +627,7 @@ const faqs: { q: string; a: ReactNode }[] = [
         </p>
         <p>
           Si tu máquina actual da la talla, perfecto y te ahorras el alta. Si
-          no, te lo digo y montamos una nueva: son unos 20 €/mes y evitan que un
+          no, te lo digo y montamos una nueva: son unos 9 €/mes y evitan que un
           despliegue tumbe algo que ya te funciona.
         </p>
       </>
@@ -640,8 +658,8 @@ const faqs: { q: string; a: ReactNode }[] = [
           medir el mes que viene.
         </p>
         <p>
-          Lo que sí es comprobable es la entrega: en 24-48 h desde tus accesos,
-          le escribes a tu bot y te contesta, con las habilidades instaladas,
+          Lo que sí es comprobable es la entrega: en 24-48 h desde que tenemos
+          lo que te toca poner, le escribes a tu bot y te contesta, con las habilidades instaladas,
           los MCP conectados, los flujos importados y la medición puesta.
           Eso o lo ves o no lo ves. El retorno depende de para qué lo uses, y en
           el traspaso trabajamos justo en eso.
@@ -654,7 +672,7 @@ const faqs: { q: string; a: ReactNode }[] = [
 const FOCUS =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-600";
 
-function StripeCTA({
+function ElegirCTA({
   children,
   tone = "blue",
   className = "",
@@ -668,15 +686,13 @@ function StripeCTA({
     white: "bg-white text-blue-700 hover:shadow-2xl",
   };
   return (
-    <a
-      href={STRIPE_URL}
-      target="_blank"
-      rel="noopener noreferrer"
+    <Link
+      href={ELEGIR_URL}
       className={`inline-flex items-center justify-center gap-3 rounded-xl px-8 py-5 text-lg font-bold transition-all sm:text-xl ${tones[tone]} ${FOCUS} ${className}`}
     >
       {children}
       <ArrowRight className="h-5 w-5 shrink-0" aria-hidden="true" />
-    </a>
+    </Link>
   );
 }
 
@@ -726,21 +742,20 @@ export default function StackIaLlaveEnManoPage() {
                 </span>
               </h1>
               <p className="mx-auto mb-8 max-w-3xl text-lg leading-relaxed text-gray-600 lg:text-xl">
-                En 24-48 h desde que me pasas tus accesos: el stack corriendo en
-                TU servidor, tu agente con sus habilidades y sus herramientas
-                conectadas, y tu bot contestándote desde el móvil. Convertir tus procesos —tu web,
+                En 24-48 h: el stack corriendo en un servidor solo para ti, tu
+                agente con sus habilidades y sus herramientas conectadas, y tu
+                bot contestándote desde el móvil. Convertir tus procesos —tu web,
                 tus correos, tu WhatsApp, tu CRM— en flujos que funcionen de
                 verdad es el trabajo del mes a mes, no del día uno; te lo digo
-                aquí y no después. Todo a TU nombre, y el código está publicado
-                en GitHub: puedes leerlo entero antes de darme un euro.
-                Implantación 990 € + 500 €/mes, IVA aparte. El servidor y tu
-                plan de Claude los pagas tú directamente al proveedor —son tus
-                dos únicos costes de terceros—: yo no revendo infraestructura.
+                aquí y no después. El agente corre con TU cuenta de Claude, y el
+                código está publicado en GitHub: puedes leerlo entero antes de
+                darme un euro. Dos formas de contratarlo: Done for you, 990 € +
+                500 €/mes, en la que ponemos hasta el servidor; o guiada, 690 € +
+                350 €/mes, con el servidor en tu propia cuenta de Hetzner. IVA
+                aparte.
               </p>
               <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <StripeCTA>
-                  Quiero mi operador — 990 € + 500 €/mes + IVA
-                </StripeCTA>
+                <ElegirCTA>Quiero mi operador: elegir modalidad</ElegirCTA>
                 <a
                   href={REPO_URL}
                   target="_blank"
@@ -756,23 +771,23 @@ export default function StackIaLlaveEnManoPage() {
             <div className="mx-auto mt-14 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               <StatCard
                 value="24-48 h"
-                label="Desde que tengo tus accesos"
+                label="Desde que tenemos lo que te toca poner"
                 icon={Clock}
               />
               <StatCard
-                value="990 €"
-                label="Implantación, pago único (IVA aparte)"
+                value="990 € · 690 €"
+                label="Implantación, pago único: Done for you · guiada (IVA aparte)"
                 icon={Euro}
                 color="orange"
               />
               <StatCard
-                value="500 €/mes"
-                label="Mantenimiento (IVA aparte), cancelable cuando quieras"
+                value="500 € · 350 €"
+                label="Al mes: Done for you · guiada (IVA aparte), cancelable cuando quieras"
                 icon={Wrench}
               />
               <StatCard
-                value="A tu nombre"
-                label="Servidor, cuenta de IA, bot y tokens"
+                value="Tu Claude"
+                label="El agente corre con tu cuenta, a tarifa plana"
                 icon={KeyRound}
                 color="orange"
               />
@@ -961,7 +976,7 @@ export default function StackIaLlaveEnManoPage() {
             </h2>
             <div className="space-y-6 text-lg leading-relaxed text-gray-600">
               <p>
-                Es un servidor tuyo, pequeño, con seis contenedores corriendo en
+                Es un servidor solo para ti, pequeño, con seis contenedores corriendo en
                 Docker y tu agente de IA viviendo dentro, al que escribes desde
                 Telegram como le escribirías a un empleado.
               </p>
@@ -1302,14 +1317,15 @@ export default function StackIaLlaveEnManoPage() {
                   <span className="mr-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-r from-blue-700 to-blue-600 align-middle text-lg font-bold text-white">
                     1
                   </span>
-                  Pagas la implantación y el primer mes
+                  Eliges modalidad y pagas
                 </h3>
                 <p className="leading-relaxed text-gray-600">
-                  Un solo enlace de Stripe cobra los 990 € de implantación y la
-                  primera mensualidad de 500 €, más el IVA que corresponda; el
-                  checkout te enseña el total desglosado antes de que confirmes.
-                  A partir de ahí, 500 €/mes + IVA. Nada más pagar te escribo
-                  con la fecha real de arranque.
+                  Cada modalidad tiene su propio enlace de Stripe, que cobra la
+                  implantación y el primer mes; el checkout te enseña el total
+                  desglosado antes de que confirmes. A partir de ahí, la cuota
+                  cada mes. Nada más pagar te llega un correo con el acceso a tu
+                  apartado privado: entras con tu correo, sin inventarte ninguna
+                  contraseña.
                 </p>
               </li>
 
@@ -1318,12 +1334,11 @@ export default function StackIaLlaveEnManoPage() {
                   <span className="mr-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-r from-blue-700 to-blue-600 align-middle text-lg font-bold text-white">
                     2
                   </span>
-                  Abres tus cuentas y me pasas las llaves
+                  Lo que te toca a ti (en Done for you, casi nada)
                 </h3>
                 <p className="mb-5 leading-relaxed text-gray-600">
-                  Esto es lo único que tienes que hacer tú, y es media hora
-                  escasa. Cuando pagues te llega la lista detallada, paso a paso
-                  y con capturas:
+                  Según la modalidad, esto es nada o media hora escasa. En tu
+                  apartado privado ves exactamente qué te toca, paso a paso:
                 </p>
                 <ul className="mb-5 space-y-4">
                   <li className="flex gap-3">
@@ -1332,8 +1347,11 @@ export default function StackIaLlaveEnManoPage() {
                       aria-hidden="true"
                     />
                     <span className="leading-relaxed text-gray-600">
-                      <strong>Tu cuenta de Hetzner</strong>, a tu nombre y con
-                      tu tarjeta. Es tuya desde el primer día. Con{" "}
+                      <strong>El servidor.</strong> En Done for you lo compramos
+                      y lo montamos nosotros: no abres cuenta en ningún
+                      proveedor. En la guiada va en{" "}
+                      <strong>tu cuenta de Hetzner</strong>, a tu nombre y con tu
+                      tarjeta; con{" "}
                       <a
                         href={HETZNER_URL}
                         target="_blank"
@@ -1342,9 +1360,10 @@ export default function StackIaLlaveEnManoPage() {
                       >
                         este enlace entras con 20 € de crédito inicial
                       </a>{" "}
-                      — es un enlace de referido, te lo digo en vez de
-                      esconderlo. Dentro creas un proyecto y generas un token de
-                      API, que me pasas.
+                      —es un enlace de referido, te lo digo en vez de
+                      esconderlo—. Dentro creas un proyecto, generas un token de
+                      API y lo pegas en tu apartado privado, donde se guarda
+                      cifrado.
                     </span>
                   </li>
                   <li className="flex gap-3">
@@ -1360,7 +1379,8 @@ export default function StackIaLlaveEnManoPage() {
                       servidor y contra la que corre su trabajo diario: tarifa
                       plana, sin clave de API ni pago por tokens en ninguna
                       parte del sistema. Cuando tu servidor esté listo, la
-                      conectas con un enlace y un código: dos minutos.
+                      conectas desde tu apartado privado con un enlace y un
+                      código: dos minutos.
                     </span>
                   </li>
                   <li className="flex gap-3">
@@ -1385,14 +1405,15 @@ export default function StackIaLlaveEnManoPage() {
                   <span className="mr-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-r from-blue-700 to-blue-600 align-middle text-lg font-bold text-white">
                     3
                   </span>
-                  Yo despliego todo. Objetivo: 24-48 h
+                  Se monta solo. Objetivo: 24-48 h
                 </h3>
                 <p className="mb-4 leading-relaxed text-gray-600">
-                  Compro con tu token la máquina que hayas elegido, levanto el
-                  stack, genero las claves que faltan, escribo lo que el repo no
-                  trae, le instalo al agente sus habilidades y le conecto sus
-                  herramientas MCP, conecto tu bot, dejo la medición puesta si
-                  tienes web y verifico que todo responde. El hito de este paso es
+                  Se compra la máquina —con nuestra cuenta en Done for you, con
+                  tu token en la guiada—, se levanta el stack, se generan las
+                  claves que faltan, se escribe lo que el repo no trae, se le
+                  instalan al agente sus habilidades y sus herramientas MCP y se
+                  conecta tu bot. Yo dejo la medición puesta si tienes web y
+                  compruebo que todo responde. El hito de este paso es
                   concreto:{" "}
                   <strong>
                     le escribes a tu bot desde el móvil y te contesta tu
@@ -1400,9 +1421,9 @@ export default function StackIaLlaveEnManoPage() {
                   </strong>
                 </p>
                 <p className="leading-relaxed text-gray-600">
-                  Las 24-48 h cuentan desde que tengo tus accesos, no desde que
-                  pagas. Si tardas tres días en crear el token, el reloj espera
-                  por ti.
+                  En la guiada, las 24-48 h cuentan desde que pegas el token, no
+                  desde que pagas. Si tardas tres días en crearlo, el reloj
+                  espera por ti.
                 </p>
               </li>
 
@@ -1419,13 +1440,15 @@ export default function StackIaLlaveEnManoPage() {
                   no, damos de alta a tus compañeros con aprobación, llenamos la
                   memoria del agente con tu información real —procedimientos,
                   tono de voz y dónde vive cada cosa—,{" "}
-                  <strong>sustituimos mi cuenta de Claude por la tuya</strong> y
-                  te paso accesos, tokens, contraseñas y documentación.
+                  <strong>
+                    comprobamos que el agente ya corre con tu cuenta de Claude
+                  </strong>{" "}
+                  y te paso accesos, tokens, contraseñas y documentación.
                 </p>
                 <p className="leading-relaxed text-gray-600">
-                  A partir de ahí el sistema es tuyo aunque no vuelvas a hablar
-                  conmigo. Y los 500 €/mes son vigilancia, actualizaciones,
-                  ajustes y soporte directo.
+                  A partir de ahí el sistema trabaja para ti aunque no vuelvas a
+                  hablar conmigo. Y la cuota mensual es vigilancia,
+                  actualizaciones, ajustes y soporte directo.
                 </p>
               </li>
             </ol>
@@ -1447,38 +1470,52 @@ export default function StackIaLlaveEnManoPage() {
             </h2>
 
             <div className="mb-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <div className="rounded-2xl border-2 border-blue-600 bg-blue-50 p-8 text-center">
-                <p className="mb-2 font-semibold text-gray-700">
-                  Implantación (pago único)
-                </p>
-                <p className="text-5xl font-bold text-blue-700">990 €</p>
-                <p className="mt-2 font-semibold text-gray-600">+ IVA</p>
-              </div>
-              <div className="rounded-2xl border-2 border-green-500 bg-green-50 p-8 text-center">
-                <p className="mb-2 font-semibold text-gray-700">
-                  Mantenimiento
-                </p>
-                <p className="text-5xl font-bold text-green-700">
-                  500 €<span className="text-2xl"> / mes</span>
-                </p>
-                <p className="mt-2 font-semibold text-gray-600">+ IVA</p>
-              </div>
+              {[
+                {
+                  nombre: "Done for you",
+                  implantacion: "990 €",
+                  cuota: "500 €",
+                  nota: "+ 9,26 €/mes de servidor, en la misma factura. Lo ponemos todo nosotros.",
+                  tono: "border-blue-600 bg-blue-50 text-blue-700",
+                },
+                {
+                  nombre: "Guiada",
+                  implantacion: "690 €",
+                  cuota: "350 €",
+                  nota: "El servidor, en tu cuenta de Hetzner: unos 9 €/mes, directamente a ellos.",
+                  tono: "border-green-500 bg-green-50 text-green-700",
+                },
+              ].map((m) => (
+                <div
+                  key={m.nombre}
+                  className={`rounded-2xl border-2 p-8 text-center ${m.tono}`}
+                >
+                  <p className="mb-2 font-semibold text-gray-700">{m.nombre}</p>
+                  <p className="text-4xl font-bold">
+                    {m.implantacion}
+                    <span className="text-xl"> + {m.cuota}/mes</span>
+                  </p>
+                  <p className="mt-2 font-semibold text-gray-600">+ IVA</p>
+                  <p className="mt-3 text-sm text-gray-600">{m.nota}</p>
+                </div>
+              ))}
             </div>
 
             <div className="space-y-6 text-lg leading-relaxed text-gray-600">
               <p>
-                <strong className="text-gray-900">Los 990 € cubren:</strong> la
-                compra y configuración de tu servidor con tu token, el
-                despliegue completo del stack, tapar todo lo que el repo no trae
+                <strong className="text-gray-900">La implantación cubre:</strong>{" "}
+                la compra y configuración del servidor (con nuestra cuenta o con
+                tu token, según la modalidad), el despliegue completo del stack, tapar todo lo que el repo no trae
                 montado, las habilidades del agente instaladas y sus
                 herramientas MCP conectadas, la conexión de tu bot de Telegram,
                 la medición
                 instalada si tienes web, la verificación de que todo responde,
-                la documentación y la sesión de traspaso con todo transferido a
-                tu nombre.
+                la documentación y la sesión de traspaso.
               </p>
               <p>
-                <strong className="text-gray-900">Los 500 €/mes cubren:</strong>{" "}
+                <strong className="text-gray-900">
+                  La cuota mensual cubre:
+                </strong>{" "}
                 que yo vigile que sigue vivo (revisión horaria, prueba real de
                 ida y vuelta cada ocho horas y reinicio semanal que además
                 actualiza), actualizaciones del stack, arreglos cuando algo se
@@ -1487,21 +1524,24 @@ export default function StackIaLlaveEnManoPage() {
               </p>
               <p className="rounded-xl border-2 border-yellow-400 bg-yellow-100 p-6 text-gray-800">
                 <strong>
-                  Los 500 €/mes NO cubren tu servidor, ni tu suscripción de
-                  claude.ai, ni ningún SaaS de terceros.
+                  La cuota NO cubre tu suscripción de claude.ai, ni ningún SaaS
+                  de terceros, ni el servidor.
                 </strong>{" "}
-                Eso lo pagas tú, a tu nombre, en tus cuentas. La sección
+                En Done for you el servidor va aparte en la misma factura, a lo
+                que cuesta; en la guiada lo pagas tú a Hetzner. La sección
                 siguiente lo desglosa entero.
               </p>
               <p>
                 <strong className="text-gray-900">
                   Todos los precios de esta página son sin IVA.
                 </strong>{" "}
-                El primer pago junta la implantación y el primer mes: 990 € +
-                500 € = <strong>1.490 € de base imponible</strong>. Con el 21 %
-                español son 312,90 € de IVA, es decir{" "}
-                <strong>1.802,90 € de cargo total</strong>. A partir de ahí,
-                500 € + IVA al mes (605 € en España), y cancelas cuando quieras.
+                El primer pago junta la implantación y el primer mes. En Done for
+                you: 990 € + 500 € = <strong>1.490 € de base imponible</strong>.
+                Con el 21 % español son 312,90 € de IVA, es decir{" "}
+                <strong>1.802,90 € de cargo total</strong>, y a partir de ahí
+                500 € + IVA al mes (605 € en España). En la guiada: 690 € + 350 € ={" "}
+                <strong>1.040 € de base imponible</strong>, y luego 350 € + IVA
+                al mes. Cancelas cuando quieras.
                 Si eres empresa de otro país de la UE y tienes NIF-IVA
                 intracomunitario, lo introduces en el checkout y se aplica la
                 inversión del sujeto pasivo.
@@ -1528,7 +1568,11 @@ export default function StackIaLlaveEnManoPage() {
             </div>
 
             <div className="mt-10 text-center">
-              <StripeCTA>Reservar mi implantación</StripeCTA>
+              <ElegirCTA>Elegir modalidad</ElegirCTA>
+              <p className="mt-4 text-sm text-gray-500">
+                ¿Te ha pasado alguien un código? Hay una tercera modalidad para
+                colegas: se abre con él en la página de elegir.
+              </p>
             </div>
           </Container>
         </Section>
@@ -1544,8 +1588,9 @@ export default function StackIaLlaveEnManoPage() {
             </h2>
             <p className="mb-10 text-center text-xl text-gray-600">
               Prefiero que esto te eche para atrás ahora y no dentro de tres
-              meses. Todo lo de esta tabla lo contratas tú, a tu nombre, y
-              puedes cancelarlo cuando quieras sin pedirme permiso.
+              meses. Salvo el servidor de Done for you, que va en nuestra
+              factura a lo que cuesta, todo lo de esta tabla lo contratas tú, a
+              tu nombre, y puedes cancelarlo cuando quieras sin pedirme permiso.
             </p>
 
             <div
@@ -1614,9 +1659,10 @@ export default function StackIaLlaveEnManoPage() {
                 esto arranque.
               </p>
               <p className="font-semibold text-gray-900">
-                El suelo realista: servidor (≈ 20 €) + tu plan de claude.ai + mis
-                500 € + IVA. Tres facturas distintas, dos de ellas no me las
-                llevo yo, y no hay una cuarta.
+                El suelo realista: en Done for you, mis 500 € + 9,26 € de
+                servidor en la misma factura, más tu plan de claude.ai. En la
+                guiada, mis 350 € + unos 9 € a Hetzner, más tu plan de
+                claude.ai. IVA aparte, y no hay una factura más.
               </p>
             </div>
           </Container>
@@ -1809,7 +1855,7 @@ export default function StackIaLlaveEnManoPage() {
               id="propiedad-heading"
               className="mb-8 text-center text-3xl font-bold lg:text-5xl"
             >
-              Todo acaba a tu nombre. Eso no es un detalle: es el producto.
+              Lo tuyo es tuyo. Eso no es un detalle: es el producto.
             </h2>
             <p className="mb-10 text-lg leading-relaxed text-gray-300">
               Hay un modelo de negocio muy común que consiste en montarte algo
@@ -1820,10 +1866,13 @@ export default function StackIaLlaveEnManoPage() {
             <ul className="mb-10 space-y-4">
               {[
                 <>
-                  <strong className="text-white">El servidor es tuyo.</strong>{" "}
-                  Cuenta de Hetzner tuya, tarjeta tuya, desde el día cero. Yo no
-                  revendo infraestructura ni le meto margen: ni siquiera
-                  aparezco en tu factura.
+                  <strong className="text-white">
+                    El servidor, como tú elijas.
+                  </strong>{" "}
+                  En la guiada, cuenta de Hetzner tuya y tarjeta tuya desde el
+                  día cero: ni siquiera aparezco en tu factura. En Done for you
+                  lo compramos y lo gestionamos nosotros, a lo que cuesta, para
+                  que no tengas que abrir nada.
                 </>,
                 <>
                   <strong className="text-white">
@@ -1863,18 +1912,20 @@ export default function StackIaLlaveEnManoPage() {
             </ul>
             <p className="mb-6 rounded-xl border-2 border-green-500 bg-green-950/40 p-6 text-lg leading-relaxed text-gray-100">
               <strong>
-                Traducción práctica: si un día dejas de pagarme, no se apaga
-                nada.
+                Traducción práctica: si un día dejas de pagarme, no te quedas
+                sin nada.
               </strong>{" "}
-              Tu sistema sigue funcionando en tu servidor, tus flujos siguen
-              corriendo, tu bot sigue contestando y tienes el manual completo
-              para operarlo. Lo único que dejas de tener es que yo esté detrás
+              En la guiada tu sistema sigue funcionando en tu servidor, tus
+              flujos siguen corriendo, tu bot sigue contestando y tienes el
+              manual completo para operarlo. En Done for you el servidor está en
+              nuestra cuenta: dímelo antes de cancelar y te ayudo a llevártelo a
+              uno a tu nombre. Lo único que dejas de tener es que yo esté detrás
               cuando algo se rompa o cuando quieras algo nuevo.
             </p>
             <p className="text-lg leading-relaxed text-gray-300">
-              No hay rehén. Ni tus datos, ni tu dominio, ni tu acceso. Si
-              alguien te vende esto mismo alojado en su cuenta, pregúntale qué
-              pasa el día que discutáis.
+              No hay rehén: ni tus datos, ni tu dominio, ni tu acceso. Y si
+              prefieres no depender de nadie ni para el servidor, esa es la
+              guiada.
             </p>
           </Container>
         </Section>
@@ -1940,14 +1991,13 @@ export default function StackIaLlaveEnManoPage() {
                 plazas». Sería mentira y las cuento yo.
               </p>
               <p>
-                Lo verdadero es más simple:{" "}
+                Lo verdadero es más simple: el servidor se monta solo, pero{" "}
                 <strong className="text-gray-900">
-                  cada implantación la hago yo, a mano, contigo.
-                </strong>{" "}
-                No hay un equipo de instaladores ni un panel de autoservicio que
-                te la despliegue mientras duermo: soy yo comprando tu máquina,
-                levantando el stack, tapando los huecos y sentándome contigo en
-                el traspaso.
+                  lo que viene después lo hago yo, a mano, contigo
+                </strong>
+                : el traspaso, llenar la memoria del agente con lo tuyo e ir
+                convirtiendo tus procesos en flujos. No hay un equipo de
+                instaladores detrás.
               </p>
               <p>
                 Eso significa que acepto pocas a la vez. Si escribes y estoy en
@@ -2006,19 +2056,19 @@ export default function StackIaLlaveEnManoPage() {
               <p className="mx-auto mb-6 max-w-3xl text-lg text-blue-100 lg:text-xl">
                 El hito es sencillo y sabrás si se ha cumplido:{" "}
                 <strong className="text-white">
-                  en 24-48 h desde que tengo tus accesos, le escribes a tu bot
-                  desde el móvil y te contesta tu servidor.
+                  en 24-48 h desde que tenemos lo que te toca poner, le escribes
+                  a tu bot desde el móvil y te contesta tu servidor.
                 </strong>{" "}
                 Y a partir de ahí, empiezas a pedirle cosas.
               </p>
               <p className="mb-6 text-lg text-blue-100">
                 <strong className="text-white">
-                  990 € de implantación + 500 €/mes, IVA aparte.
+                  Done for you, 990 € + 500 €/mes; guiada, 690 € + 350 €/mes. IVA
+                  aparte en las dos.
                 </strong>{" "}
-                Un solo enlace cobra las dos cosas: 1.490 € de base y, con el
-                21 % español, 1.802,90 € de cargo total, desglosado en el
-                checkout antes de que confirmes. Servidor y suscripción de IA,
-                tuyos y aparte.
+                Cada modalidad tiene su propio enlace de pago, que cobra la
+                implantación y el primer mes, desglosado en el checkout antes de
+                que confirmes. Tu suscripción de Claude, siempre tuya y aparte.
               </p>
               <p className="mb-10 text-sm text-blue-100">
                 Al contratar aceptas las{" "}
@@ -2033,9 +2083,7 @@ export default function StackIaLlaveEnManoPage() {
               </p>
 
               <div className="mb-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <StripeCTA tone="white">
-                  Reservar mi implantación — 990 € + 500 €/mes + IVA
-                </StripeCTA>
+                <ElegirCTA tone="white">Elegir modalidad y reservar</ElegirCTA>
                 <a
                   href={WHATSAPP_URL}
                   target="_blank"
@@ -2085,8 +2133,9 @@ export default function StackIaLlaveEnManoPage() {
             IA llave en mano — Madrid, España
           </p>
           <p className="mt-2 text-xs">
-            Servidor, cuenta de IA y bot a nombre del cliente. Sin lock-in, sin
-            plazas inventadas, sin garantía de resultados.
+            Cuenta de IA a nombre del cliente; el servidor, en su cuenta o
+            gestionado por nosotros según la modalidad. Sin plazas inventadas,
+            sin garantía de resultados.
           </p>
           <p className="mt-3 text-xs">
             <Link

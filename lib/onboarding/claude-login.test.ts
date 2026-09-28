@@ -121,9 +121,9 @@ describe('Conectar Claude: pedir el enlace', () => {
 describe('Conectar Claude: leer el estado', () => {
   it('filtra por id Y por el user_id de la sesión', async () => {
     guion['GET panel_claude_login'] = () =>
-      json([{ status: 'url_lista', login_url: 'https://claude.ai/oauth/authorize?x=1', error: null }]);
+      json([{ status: 'url_lista', login_url: 'https://claude.com/cai/oauth/authorize?x=1', error: null }]);
     const e = await leerConexion(db(), UID, LOGIN);
-    assert.equal(e?.loginUrl, 'https://claude.ai/oauth/authorize?x=1');
+    assert.equal(e?.loginUrl, 'https://claude.com/cai/oauth/authorize?x=1');
     assert.ok(llamadas[0].url.includes(`id=eq.${LOGIN}`) && llamadas[0].url.includes(`user_id=eq.${UID}`));
   });
 
@@ -146,7 +146,10 @@ describe('Conectar Claude: leer el estado', () => {
 
 describe('Conectar Claude: mandar el código', () => {
   it('un código con forma mala no sale a la red', async () => {
-    for (const malo of ['', 'corto', "abc'; rm -rf / #aaaa", 'a b c d e f g h', 'x'.repeat(600)]) {
+    // Sin «#» o con una mitad vacía, el propio `claude setup-token` lo rechaza («Invalid code»).
+    const sinState = CODIGO.split('#')[0];
+    for (const malo of ['', 'corto', "abc'; rm -rf / #aaaa", 'a b c d e f g h', 'x'.repeat(600),
+      sinState, `${sinState}#`, `#${sinState}`]) {
       assert.equal(await enviarCodigo(db(), UID, LOGIN, malo), 'codigo', malo);
     }
     assert.equal(llamadas.length, 0);
@@ -180,9 +183,9 @@ describe('Conectar Claude: la tarjeta', () => {
   });
 
   it('url_lista: el enlace (nueva pestaña) y el campo del código', () => {
-    const h = vista({ fase: 'url_lista', loginUrl: 'https://claude.ai/oauth/authorize?x=1' });
+    const h = vista({ fase: 'url_lista', loginUrl: 'https://claude.com/cai/oauth/authorize?x=1' });
     assert.ok(h.includes('Abre este enlace, entra con tu cuenta de Claude y pega aquí el código'));
-    assert.ok(h.includes('href="https://claude.ai/oauth/authorize?x=1"'));
+    assert.ok(h.includes('href="https://claude.com/cai/oauth/authorize?x=1"'));
     assert.ok(h.includes('target="_blank"') && h.includes('rel="noopener noreferrer"'));
     assert.ok(h.includes('name="codigo"'));
   });

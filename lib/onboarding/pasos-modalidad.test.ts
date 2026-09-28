@@ -131,14 +131,32 @@ describe('páginas de la oferta: nada de promesas que ya no son verdad', () => {
     const paginas = [
       (await import('@/app/oferta/stack-ia-llave-en-mano/page')).default,
       (await import('@/app/oferta/stack-ia-llave-en-mano/elegir/page')).default,
+      // «Conectar Claude» vive en el panel desde el 28/09: nadie manda ese enlace por Telegram.
+      GraciasPage,
     ];
     for (const Pagina of paginas) {
       const html = renderToStaticMarkup(
         await (Pagina as (p: { searchParams: Promise<Record<string, string>> }) => Promise<React.ReactElement> | React.ReactElement)({ searchParams: Promise.resolve({}) })
       );
-      for (const falso of ['prestamos nuestra cuenta de Claude', 'con la mía', 'BotFather', 'contigo delante']) {
+      for (const falso of ['prestamos nuestra cuenta de Claude', 'con la mía', 'BotFather', 'contigo delante',
+        'mi cuenta de Claude por la tuya', 'uso mi cuenta', 'Un solo enlace', 'te escribo por Telegram']) {
         assert.ok(!html.includes(falso), `sigue diciendo «${falso}»`);
       }
     }
+  });
+
+  it('la página principal manda a /elegir y cuenta las dos modalidades con sus precios de siempre', async () => {
+    const { default: Oferta } = await import('@/app/oferta/stack-ia-llave-en-mano/page');
+    const html = renderToStaticMarkup(React.createElement(Oferta));
+    // Antes sus tres botones iban directos al cobro de Done for you: la guiada no existía aquí.
+    assert.ok(!html.includes('buy.stripe.com'), 'enlaza directo a un cobro de Stripe');
+    const aElegir = html.match(/href="\/oferta\/stack-ia-llave-en-mano\/elegir"/g) ?? [];
+    assert.ok(aElegir.length >= 3, `solo ${aElegir.length} botones a /elegir`);
+    for (const precio of ['990 €', '500 €', '690 €', '350 €', '9,26 €/mes']) {
+      assert.ok(html.includes(precio), `falta ${precio}`);
+    }
+    // A Done for you se le promete que no abre cuenta en ningún proveedor: la tarjeta en Hetzner
+    // solo puede aparecer ligada a la guiada.
+    assert.ok(!html.includes('El servidor es tuyo.'), 'sigue diciendo que el servidor es suyo en todas');
   });
 });

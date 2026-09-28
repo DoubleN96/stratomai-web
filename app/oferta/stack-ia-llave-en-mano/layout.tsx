@@ -3,10 +3,10 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: {
     absolute:
-      "Tu propio operador de IA en tu servidor | 990 € + 500 €/mes | Stratoma AI",
+      "Tu propio operador de IA | desde 690 € + 350 €/mes | Stratoma AI",
   },
   description:
-    "Stack de IA completo en TU servidor, con TU cuenta y TU bot de Telegram. Montado y verificado en 24-48 h. 990 € + 500 €/mes, IVA aparte. Sin lock-in.",
+    "Stack de IA completo en un servidor solo para ti, con TU cuenta de Claude y tu bot de Telegram. Montado y verificado en 24-48 h. Done for you 990 € + 500 €/mes o guiada 690 € + 350 €/mes, IVA aparte.",
   keywords: [
     "operador de IA para empresas",
     "agentes de IA en tu propio servidor",
@@ -26,18 +26,18 @@ export const metadata: Metadata = {
     locale: "es_ES",
     url: "https://stratomai.com/oferta/stack-ia-llave-en-mano",
     siteName: "Stratoma AI",
-    title: "Tu propio operador de IA, en tu servidor y a tu nombre",
+    title: "Tu propio operador de IA, montado en 24-48 h",
     description:
-      "En 24-48 h desde tus accesos: el stack corriendo, nueve agentes, 35 habilidades y tu bot contestándote desde el móvil. 990 € + 500 €/mes, IVA aparte.",
+      "En 24-48 h: el stack corriendo, nueve agentes, 35 habilidades y tu bot contestándote desde el móvil. Done for you 990 € + 500 €/mes o guiada 690 € + 350 €/mes, IVA aparte.",
     // Sin `images`: los ficheros /og-*.jpg no existen en public/ y una URL rota
     // deja la tarjeta en blanco. Volver a declararla cuando exista el archivo.
   },
   twitter: {
     // `summary` (y no `summary_large_image`) mientras no haya imagen real.
     card: "summary",
-    title: "Tu propio operador de IA — 990 € + 500 €/mes, IVA aparte",
+    title: "Tu propio operador de IA — desde 690 € + 350 €/mes, IVA aparte",
     description:
-      "Stack de IA en TU servidor, operado desde Telegram. Código público, todo a tu nombre.",
+      "Stack de IA en un servidor solo para ti, operado desde Telegram. Código público y tu cuenta de Claude.",
     creator: "@stratomai",
   },
   alternates: {

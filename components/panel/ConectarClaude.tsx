@@ -27,7 +27,7 @@ const AVISOS: Record<string, string> = {
   limite: 'Has pedido varios enlaces seguidos. Espera unos minutos y vuelve a intentarlo.',
   db: 'No he podido hacerlo ahora. Vuelve a intentarlo en un momento.',
   sesion: 'Tu sesión ha caducado. Vuelve a entrar en el panel.',
-  codigo: 'Ese código no tiene la forma esperada: cópialo entero, sin espacios.',
+  codigo: 'Ese código no tiene la forma esperada: cópialo entero, sin espacios (lleva un # en medio).',
   caducado: 'El enlace ha caducado: hay unos 2 minutos para pegar el código.',
   lento: 'Esto está tardando más de lo normal. Vuelve a intentarlo en unos minutos; si sigue igual, escríbenos.',
 };
@@ -99,7 +99,8 @@ export function VistaClaude({
       {fase === 'url_lista' && (
         <>
           <p className="mt-2 text-sm text-[#c2cdec]">
-            Abre este enlace, entra con tu cuenta de Claude y pega aquí el código
+            Abre este enlace, entra con tu cuenta de Claude y pega aquí el código que te enseña al
+            final.
           </p>
           {enlace && (
             <a href={enlace} target="_blank" rel="noopener noreferrer" className={`mt-3 ${boton}`}>

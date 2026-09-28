@@ -18,8 +18,14 @@ export type EstadoClaude =
   | 'error'
   | 'caducado';
 
-/** Misma forma que el CHECK de la 020 y que CODIGO_RE de claude_login_worker.py. */
-export const CODIGO_CLAUDE_RE = /^[A-Za-z0-9._~#-]{10,512}$/;
+/**
+ * «código#state», como lo enseña Claude al autorizar. Verificado en el propio CLI (Claude Code
+ * 2.1.283, 28/09): `claude setup-token` parte lo pegado por «#» y, si falta una de las dos
+ * mitades, contesta «Invalid code» y se queda esperando. Sin el «#» aquí, ese código llegaba al
+ * servidor, el script esperaba un minuto al token y acababa en un falso aviso a Marcelino.
+ * Cabe dentro del CHECK de la 020; mismo patrón que CODIGO_RE de claude_login_worker.py.
+ */
+export const CODIGO_CLAUDE_RE = /^(?=.{10,512}$)[A-Za-z0-9._~-]+#[A-Za-z0-9._~-]+$/;
 /** Tope de peticiones por usuario. El índice único de la 020 ya impide dos a la vez. */
 export const PEDIDOS_MAX = 3;
 const PEDIDOS_VENTANA_MS = 10 * 60_000;

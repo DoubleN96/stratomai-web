@@ -164,8 +164,8 @@ const PASOS: Record<number, Paso> = {
       <>
         <ol className="ml-5 list-decimal space-y-2">
           <li>
-            Cuando tu servidor esté listo,{" "}
-            <strong>te escribo por Telegram con un enlace</strong>. Ábrelo en el
+            Cuando tu servidor esté listo, entra en tu apartado privado y pulsa{" "}
+            <strong>«Conectar Claude»</strong>: te sale un enlace. Ábrelo en el
             navegador de tu móvil o de tu ordenador, da igual.
           </li>
           <li>
@@ -183,7 +183,8 @@ const PASOS: Record<number, Paso> = {
             .
           </li>
           <li>
-            Claude te da un código: me lo mandas por el mismo chat. Eso es todo.
+            Al terminar, Claude te enseña un código: lo pegas en tu apartado
+            privado, entero. Eso es todo.
           </li>
         </ol>
         <p className="rounded-xl border-2 border-green-500 bg-green-50 p-5 text-gray-800">
@@ -238,8 +239,8 @@ const SIGUIENTE = {
     icon: MessageCircle,
     texto: (
       <>
-        <strong>Cuando tu servidor esté en marcha, te escribo por Telegram</strong>{" "}
-        para conectar tu cuenta de Claude con un enlace y un código.
+        <strong>Cuando tu servidor esté en marcha, conectas tu cuenta de Claude</strong>{" "}
+        desde tu apartado privado, con un enlace y un código.
       </>
     ),
   },

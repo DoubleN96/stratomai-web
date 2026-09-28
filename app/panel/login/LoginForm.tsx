@@ -31,7 +31,7 @@ export function LoginForm({ next, linkError }: { next: string; linkError?: strin
             Acceso al <span className="gradient-text">Panel</span>
           </h1>
           <p className="mt-1 text-sm text-[#8597c0]">
-            Introduce tus credenciales de Stratoma
+            Te mandamos un enlace a tu correo y entras sin contraseña
           </p>
         </div>
 
@@ -45,6 +45,42 @@ export function LoginForm({ next, linkError }: { next: string; linkError?: strin
             {info}
           </div>
         )}
+
+        {/* El enlace va primero: los clientes del Stack IA entran así y casi ninguno tiene
+            contraseña. La contraseña queda debajo para el equipo. */}
+        <form action={linkAction} className="space-y-4">
+          {/* Same hidden field as the password form: without it the magic link
+              drops `next` and a buyer sent to /panel/onboarding lands on /panel. */}
+          <input type="hidden" name="next" value={next} />
+          <div>
+            <label
+              htmlFor="magic-email"
+              className="mb-1 block text-xs font-medium text-[#9fb0d8]"
+            >
+              Email
+            </label>
+            <input
+              id="magic-email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              className="w-full rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-sm text-white placeholder:text-[#5a6b94] focus:border-[#2b6cee] focus:outline-none"
+              placeholder="tu@correo.com"
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={linkPending}
+            className="w-full rounded-lg bg-[#2b6cee] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#1f5cd6] disabled:opacity-60"
+          >
+            {linkPending ? 'Enviando…' : 'Enviarme un enlace de acceso'}
+          </button>
+        </form>
+
+        <div className="my-5 flex items-center gap-3 text-xs text-[#5a6b94]">
+          <span className="h-px flex-1 bg-white/10" />o con contraseña<span className="h-px flex-1 bg-white/10" />
+        </div>
 
         <form action={pwAction} className="space-y-4">
           <input type="hidden" name="next" value={next} />
@@ -62,7 +98,7 @@ export function LoginForm({ next, linkError }: { next: string; linkError?: strin
               autoComplete="email"
               required
               className="w-full rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-sm text-white placeholder:text-[#5a6b94] focus:border-[#2b6cee] focus:outline-none"
-              placeholder="tu@stratomai.com"
+              placeholder="tu@correo.com"
             />
           </div>
           <div>
@@ -85,38 +121,9 @@ export function LoginForm({ next, linkError }: { next: string; linkError?: strin
           <button
             type="submit"
             disabled={pwPending}
-            className="w-full rounded-lg bg-[#2b6cee] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#1f5cd6] disabled:opacity-60"
-          >
-            {pwPending ? 'Entrando…' : 'Entrar'}
-          </button>
-        </form>
-
-        <div className="my-5 flex items-center gap-3 text-xs text-[#5a6b94]">
-          <span className="h-px flex-1 bg-white/10" />o<span className="h-px flex-1 bg-white/10" />
-        </div>
-
-        <form action={linkAction} className="space-y-3">
-          {/* Same hidden field as the password form: without it the magic link
-              drops `next` and a buyer sent to /panel/onboarding lands on /panel. */}
-          <input type="hidden" name="next" value={next} />
-          <label htmlFor="magic-email" className="sr-only">
-            Email para enlace mágico
-          </label>
-          <input
-            id="magic-email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            className="w-full rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-sm text-white placeholder:text-[#5a6b94] focus:border-[#2b6cee] focus:outline-none"
-            placeholder="Email para enlace mágico"
-          />
-          <button
-            type="submit"
-            disabled={linkPending}
             className="w-full rounded-lg border border-white/10 px-4 py-2.5 text-sm font-medium text-[#9fb0d8] transition-colors hover:border-white/20 hover:text-white disabled:opacity-60"
           >
-            {linkPending ? 'Enviando…' : 'Enviarme un enlace de acceso'}
+            {pwPending ? 'Entrando…' : 'Entrar con contraseña'}
           </button>
         </form>
       </div>
