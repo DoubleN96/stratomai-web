@@ -152,11 +152,23 @@ describe('páginas de la oferta: nada de promesas que ya no son verdad', () => {
     assert.ok(!html.includes('buy.stripe.com'), 'enlaza directo a un cobro de Stripe');
     const aElegir = html.match(/href="\/oferta\/stack-ia-llave-en-mano\/elegir"/g) ?? [];
     assert.ok(aElegir.length >= 3, `solo ${aElegir.length} botones a /elegir`);
-    for (const precio of ['990 €', '500 €', '690 €', '350 €', '9,26 €/mes']) {
+    for (const precio of ['990 €', '500 €', '690 €', '350 €']) {
       assert.ok(html.includes(precio), `falta ${precio}`);
     }
+    // Desde el 28/09 el servidor de Done for you va dentro de los 500 €/mes: ni una línea de 9,26 €.
+    assert.ok(!html.includes('9,26'), 'sigue cobrando el servidor de Done for you aparte');
+    assert.ok(html.includes('lo ampliamos según lo uses'), 'no dice que el servidor va incluido');
     // A Done for you se le promete que no abre cuenta en ningún proveedor: la tarjeta en Hetzner
     // solo puede aparecer ligada a la guiada.
     assert.ok(!html.includes('El servidor es tuyo.'), 'sigue diciendo que el servidor es suyo en todas');
+  });
+
+  it('/elegir: Done for you con el servidor incluido, sin 9,26 €/mes aparte', async () => {
+    const { default: Elegir } = await import('@/app/oferta/stack-ia-llave-en-mano/elegir/page');
+    const html = renderToStaticMarkup(
+      await (Elegir as (p: { searchParams: Promise<Record<string, string>> }) => Promise<React.ReactElement> | React.ReactElement)({ searchParams: Promise.resolve({}) })
+    );
+    assert.ok(html.includes('servidor incluido; lo ampliamos según lo uses'), 'Done for you no dice que el servidor va incluido');
+    assert.ok(!html.includes('9,26 €/mes de servidor'), 'Done for you sigue sumando el servidor aparte');
   });
 });

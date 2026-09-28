@@ -69,7 +69,7 @@ const MODALIDADES: Modalidad[] = [
     id: "done-for-you",
     nombre: "Done for you",
     precio: "990 € de implantación + 500 €/mes",
-    precioNota: "+ 9,26 €/mes de servidor, en la misma factura",
+    precioNota: "servidor incluido; lo ampliamos según lo uses",
     resumen:
       "Lo montamos entero y te lo entregamos funcionando. Es la modalidad en la que menos tienes que hacer tú.",
     incluye: [
