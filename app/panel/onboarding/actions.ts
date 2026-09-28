@@ -32,6 +32,15 @@ import { getSessionContext } from '@/lib/panel/auth';
 import { encryptValue } from '@/lib/panel/crypto';
 import { requireEnum, requireString } from '@/lib/panel/validate';
 import { sendCredentialsReadyEmail } from '@/lib/onboarding/email';
+import { createSupabaseServerClient } from '@/lib/panel/supabase-server';
+import {
+  enviarCodigo,
+  leerConexion,
+  pedirConexion,
+  type CodigoResultado,
+  type EstadoConexion,
+  type PedirResultado,
+} from '@/lib/onboarding/claude-login';
 import {
   CREDENTIALS,
   credentialSpec,
@@ -233,4 +242,29 @@ export async function savePairingCode(formData: FormData): Promise<void> {
   revalidatePath(PAGE);
   if (code === 'ok') redirect(`${PAGE}?saved=pairing`);
   redirect(`${PAGE}?error=pairing.${code}`);
+}
+
+// --- «Conectar Claude» (migración 020) --------------------------------------
+//
+// Las llama la tarjeta (components/panel/ConectarClaude.tsx), que pregunta cada 2 s. Todo con el
+// cliente de SESIÓN: RLS y los grants por columna de la 020 son la guardia, aquí no hay service
+// role. La fila de alta sale de la sesión; del navegador solo llegan el id de la petición y el
+// código, y los dos se validan antes de tocar la base (lib/onboarding/claude-login.ts).
+
+export async function pedirConexionClaude(): Promise<PedirResultado> {
+  const ctx = await getSessionContext();
+  if (!ctx) return { error: 'sesion' };
+  return pedirConexion(await createSupabaseServerClient(), ctx.userId);
+}
+
+export async function estadoConexionClaude(id: string): Promise<EstadoConexion | null> {
+  const ctx = await getSessionContext();
+  if (!ctx) return null;
+  return leerConexion(await createSupabaseServerClient(), ctx.userId, id);
+}
+
+export async function enviarCodigoClaude(id: string, codigo: string): Promise<CodigoResultado> {
+  const ctx = await getSessionContext();
+  if (!ctx) return 'sesion';
+  return enviarCodigo(await createSupabaseServerClient(), ctx.userId, id, codigo);
 }
