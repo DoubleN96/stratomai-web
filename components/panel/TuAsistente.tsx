@@ -9,6 +9,7 @@ import type { Modalidad } from '@/lib/onboarding/modalidad';
 import { CLAUDE_CONECTAR, enlaceDelBot } from '@/lib/onboarding/pasos';
 import type { OnboardingStatus } from '@/lib/onboarding/queries';
 import { GlassCard } from '@/components/panel/ui';
+import { ConectarClaude } from '@/components/panel/ConectarClaude';
 
 /** Las tres etapas que ve el cliente y en cuál está. */
 export function etapasDe(
@@ -115,6 +116,9 @@ export function TuAsistente({
           </p>
         </GlassCard>
       )}
+
+      {/* Montado y con modalidad: el cliente conecta su Claude él solo (migración 020). */}
+      {status === 'provisioned' && modalidad != null && <ConectarClaude bot={bot} />}
     </div>
   );
 }

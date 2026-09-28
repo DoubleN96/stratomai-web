@@ -120,7 +120,7 @@ export const CLAUDE_CONECTAR: PasoTexto = {
   n: 8,
   titulo: 'Conecta tu cuenta de Claude',
   detalle:
-    'Cuando tu servidor esté listo te escribo por Telegram con un enlace. Lo abres, entras con tu cuenta de claude.ai (de pago) y me mandas el código que te da. Ahí el agente pasa a ser tuyo.',
+    'Cuando tu servidor esté listo, pulsa «Conectar Claude» en tu panel: te doy un enlace, entras con tu cuenta de claude.ai (de pago) y pegas el código que te da. Ahí el agente pasa a ser tuyo.',
 };
 
 /**
