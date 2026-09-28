@@ -162,10 +162,10 @@ const costes: { concepto: ReactNode; quien: string; coste: ReactNode }[] = [
   {
     concepto:
       "Servidor, en Done for you — lo compramos y lo gestionamos nosotros",
-    quien: "Nosotros, en la misma factura",
+    quien: "Nadie aparte: va dentro de tus 500 €/mes",
     coste: (
       <>
-        <strong>9,26 €/mes</strong>, lo que cuesta la máquina
+        <strong>Servidor incluido</strong>; lo ampliamos según lo uses
       </>
     ),
   },
@@ -240,7 +240,7 @@ const siEncaja: string[] = [
 
 const noEncaja: string[] = [
   "Buscas un botón mágico que traiga clientes sin que nadie revise nada. Esto es una herramienta potente, y una herramienta potente pide un operador.",
-  "No estás dispuesto a pagar aparte tu suscripción de claude.ai, el servidor y los SaaS que decidas conectar. Son costes reales y la cuota no los cubre.",
+  "No estás dispuesto a pagar aparte tu suscripción de claude.ai y los SaaS que decidas conectar (y, en la guiada, el servidor). Son costes reales y la cuota no los cubre.",
   "Necesitas SLA firmado, penalizaciones, certificaciones o cumplimiento formal auditado: no es lo que vendo.",
   "Manejas datos regulados (salud, financiero regulado) y no vas a hacer una auditoría propia por delante. Aquí el aislamiento entre proyectos es por permisos del sistema, no por infraestructura separada.",
   "Tu caso es un único proceso muy concreto. Para eso te sale más barato un flujo suelto que un stack entero; dímelo y te lo digo yo mismo.",
@@ -307,9 +307,9 @@ const faqs: { q: string; a: ReactNode }[] = [
         </p>
         <p>
           <strong>En Done for you lo compramos y lo gestionamos nosotros</strong>
-          , para que no tengas que abrir cuenta en ningún proveedor, y te lo
-          cobramos a lo que cuesta (9,26 €/mes) en la misma factura. Si quieres
-          que la máquina esté a tu nombre desde el primer día, esa es la guiada.
+          , para que no tengas que abrir cuenta en ningún proveedor: servidor
+          incluido; lo ampliamos según lo uses. Si quieres que la máquina esté
+          a tu nombre desde el primer día, esa es la guiada.
         </p>
         <p>
           Uso enlace de referido de Hetzner —te lo digo porque es lo justo— y lo
@@ -469,8 +469,8 @@ const faqs: { q: string; a: ReactNode }[] = [
     a: (
       <>
         <p>
-          En Done for you, mis 500 € más 9,26 € de servidor en la misma
-          factura, y tu plan de <Code>claude.ai</Code>. En la guiada, mis 350 €,
+          En Done for you, mis 500 € con el servidor incluido (lo ampliamos
+          según lo uses), y tu plan de <Code>claude.ai</Code>. En la guiada, mis 350 €,
           unos 9 € de servidor que le pagas a Hetzner y tu plan de{" "}
           <Code>claude.ai</Code>. <strong>No hay una factura más</strong>. Todos
           los precios que te doy son sin IVA; en España se le suma el 21 %.
@@ -1475,7 +1475,7 @@ export default function StackIaLlaveEnManoPage() {
                   nombre: "Done for you",
                   implantacion: "990 €",
                   cuota: "500 €",
-                  nota: "+ 9,26 €/mes de servidor, en la misma factura. Lo ponemos todo nosotros.",
+                  nota: "Servidor incluido; lo ampliamos según lo uses. Lo ponemos todo nosotros.",
                   tono: "border-blue-600 bg-blue-50 text-blue-700",
                 },
                 {
@@ -1524,11 +1524,11 @@ export default function StackIaLlaveEnManoPage() {
               </p>
               <p className="rounded-xl border-2 border-yellow-400 bg-yellow-100 p-6 text-gray-800">
                 <strong>
-                  La cuota NO cubre tu suscripción de claude.ai, ni ningún SaaS
-                  de terceros, ni el servidor.
+                  La cuota NO cubre tu suscripción de claude.ai ni ningún SaaS
+                  de terceros.
                 </strong>{" "}
-                En Done for you el servidor va aparte en la misma factura, a lo
-                que cuesta; en la guiada lo pagas tú a Hetzner. La sección
+                En Done for you el servidor va incluido y lo ampliamos según lo
+                uses; en la guiada lo pagas tú a Hetzner. La sección
                 siguiente lo desglosa entero.
               </p>
               <p>
@@ -1588,8 +1588,8 @@ export default function StackIaLlaveEnManoPage() {
             </h2>
             <p className="mb-10 text-center text-xl text-gray-600">
               Prefiero que esto te eche para atrás ahora y no dentro de tres
-              meses. Salvo el servidor de Done for you, que va en nuestra
-              factura a lo que cuesta, todo lo de esta tabla lo contratas tú, a
+              meses. Salvo el servidor de Done for you, que va incluido en la
+              cuota, todo lo de esta tabla lo contratas tú, a
               tu nombre, y puedes cancelarlo cuando quieras sin pedirme permiso.
             </p>
 
@@ -1659,8 +1659,8 @@ export default function StackIaLlaveEnManoPage() {
                 esto arranque.
               </p>
               <p className="font-semibold text-gray-900">
-                El suelo realista: en Done for you, mis 500 € + 9,26 € de
-                servidor en la misma factura, más tu plan de claude.ai. En la
+                El suelo realista: en Done for you, mis 500 € con el servidor
+                incluido, más tu plan de claude.ai. En la
                 guiada, mis 350 € + unos 9 € a Hetzner, más tu plan de
                 claude.ai. IVA aparte, y no hay una factura más.
               </p>
@@ -1871,8 +1871,8 @@ export default function StackIaLlaveEnManoPage() {
                   </strong>{" "}
                   En la guiada, cuenta de Hetzner tuya y tarjeta tuya desde el
                   día cero: ni siquiera aparezco en tu factura. En Done for you
-                  lo compramos y lo gestionamos nosotros, a lo que cuesta, para
-                  que no tengas que abrir nada.
+                  lo compramos y lo gestionamos nosotros, incluido en la cuota,
+                  para que no tengas que abrir nada.
                 </>,
                 <>
                   <strong className="text-white">
